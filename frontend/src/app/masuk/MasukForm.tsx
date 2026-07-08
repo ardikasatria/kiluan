@@ -37,7 +37,7 @@ export default function MasukForm() {
   return (
     <div className="container pb-16">
       <div className="my-12 flex justify-center sm:my-16">
-        <Logo />
+        <Logo size="h-12 w-auto sm:h-14" />
       </div>
 
       <div className="mx-auto max-w-md space-y-6">

@@ -33,7 +33,7 @@ export default function VerifikasiEmailClient() {
   return (
     <div className="container pb-16">
       <div className="my-12 flex justify-center">
-        <Logo />
+        <Logo size="h-12 w-auto sm:h-14" />
       </div>
       <div className="mx-auto max-w-md space-y-4 text-center">
         <h1 className="text-xl font-semibold text-primary-800 dark:text-primary-100">Verifikasi Email</h1>
