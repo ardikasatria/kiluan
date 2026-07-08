@@ -102,8 +102,7 @@ services:
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_SANDI_AWAL: ${ADMIN_SANDI_AWAL}
     command: >
-      sh -c "python wait_for_db.py &&
-             alembic upgrade head &&
+      sh -c "alembic upgrade head &&
              uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips='*'"
     healthcheck:
       test:
