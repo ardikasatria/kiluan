@@ -33,7 +33,7 @@ function useIntersectionObserver(
     const node = elementRef?.current
 
     // Check if IntersectionObserver is supported
-    if (!window.IntersectionObserver) {
+    if (typeof window === 'undefined' || !window.IntersectionObserver) {
       setError(new Error('IntersectionObserver is not supported in this browser'))
       return
     }
