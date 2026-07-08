@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 from functools import lru_cache
+import json
 
-from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -26,19 +26,33 @@ class Konfig(BaseSettings):
     AKSES_UMUR_DETIK: int = 900
 
     # CORS & cookie (dev: COOKIE_SECURE=false agar refresh cookie jalan di http://localhost)
-    CORS_ORIGINS: list[str] = [
-        "http://localhost:3000",
-        "https://kiluan.sainsdataciv.com",
-        "http://kiluan.sainsdataciv.com",
-    ]
+    #
+    # NOTE: Env untuk list sering error (Pydantic mencoba JSON decode). Karena itu kita simpan
+    # sebagai string CSV / JSON array, lalu diparse manual.
+    CORS_ORIGINS: str = (
+        "http://localhost:3000,"
+        "https://kiluan.sainsdataciv.com,"
+        "http://kiluan.sainsdataciv.com"
+    )
     COOKIE_SECURE: bool = False
 
-    @field_validator("CORS_ORIGINS", mode="before")
-    @classmethod
-    def _parse_cors(cls, nilai: str | list[str]) -> list[str]:
-        if isinstance(nilai, str):
-            return [item.strip() for item in nilai.split(",") if item.strip()]
-        return nilai
+    def cors_origins(self) -> list[str]:
+        raw = (self.CORS_ORIGINS or "").strip()
+        if not raw:
+            return []
+
+        # Terima format JSON array juga: ["http://a","https://b"]
+        if raw.startswith("["):
+            try:
+                parsed = json.loads(raw)
+                if isinstance(parsed, list):
+                    return [str(x).strip() for x in parsed if str(x).strip()]
+            except Exception:
+                # Fall back ke CSV
+                pass
+
+        # CSV: a,b,c
+        return [item.strip() for item in raw.split(",") if item.strip()]
 
     # Email — provider: dev | resend_api | resend_smtp
     EMAIL_PROVIDER: str = "dev"
