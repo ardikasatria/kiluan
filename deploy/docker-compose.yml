@@ -42,14 +42,16 @@ services:
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      # mc ready local — healthcheck resmi (wget/curl tidak ada di image terbaru)
+      MC_HOST_local: http://127.0.0.1:9000
     volumes:
       - minio_data:/data
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:9000/minio/health/live || exit 1"]
+      test: ["CMD", "mc", "ready", "local"]
       interval: 5s
       timeout: 5s
       retries: 12
-      start_period: 10s
+      start_period: 15s
     networks: [kiluan]
 
   minio-init:

@@ -90,6 +90,7 @@ deploy/
 
 | Gejala | Solusi |
 |--------|--------|
+| `minio` unhealthy | `docker compose logs minio` — pastikan `MINIO_ROOT_PASSWORD` ≥ 8 karakter; pull ulang compose terbaru (healthcheck pakai `mc ready`, bukan `wget`) |
 | `backend` restart loop | `docker compose logs backend` — cek koneksi DB & migrasi |
 | Frontend 502 | Tunggu healthcheck hijau: `docker compose ps` |
 | Login gagal / cookie | Pastikan `CORS_ORIGINS` mencakup URL browser; `COOKIE_SECURE=false` untuk HTTP |
