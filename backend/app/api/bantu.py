@@ -92,6 +92,32 @@ def tag_dict(t) -> dict:
     return {"id": t.id, "kode": t.kode, "nama": t.nama}
 
 
+def media_dict(m) -> dict:
+    tipe = m.tipe.value if hasattr(m.tipe, "value") else m.tipe
+    return {
+        "id": str(m.id),
+        "url": m.url,
+        "tipe": tipe,
+        "mime": m.mime,
+        "ukuran": m.ukuran,
+        "lebar": m.lebar,
+        "tinggi": m.tinggi,
+        "alt": m.alt,
+        "dibuat_pada": _ts(getattr(m, "dibuat_pada", None)),
+    }
+
+
+def lampiran_dict(l, media) -> dict:
+    return {
+        "id": str(l.id),
+        "media": media_dict(media),
+        "entitas_tipe": l.entitas_tipe.value if hasattr(l.entitas_tipe, "value") else l.entitas_tipe,
+        "entitas_id": str(l.entitas_id),
+        "urutan": l.urutan,
+        "utama": l.utama,
+    }
+
+
 def parse_id_atau_slug(v: str) -> UUID | str:
     try:
         return UUID(v)

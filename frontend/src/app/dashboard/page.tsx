@@ -1,7 +1,5 @@
 import { redirect } from 'next/navigation'
 
-const Page = () => {
-  redirect('/dashboard/posts')
+export default function DemoRedirect() {
+  redirect('/teluk-kiluan/kelola')
 }
-
-export default Page

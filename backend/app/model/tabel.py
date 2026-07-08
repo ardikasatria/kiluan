@@ -57,7 +57,7 @@ class Desa(Base):
     slug: Mapped[str] = mapped_column(String, unique=True)
     nama: Mapped[str] = mapped_column(String)
     deskripsi: Mapped[str | None] = mapped_column(Text)
-    lokasi = mapped_column(Geography(geometry_type="POINT", srid=4326))
+    lokasi_geom = mapped_column("lokasi", Geography(geometry_type="POINT", srid=4326))
     provinsi: Mapped[str | None] = mapped_column(String)
     kabupaten: Mapped[str | None] = mapped_column(String)
     kecamatan: Mapped[str | None] = mapped_column(String)
@@ -70,6 +70,21 @@ class Desa(Base):
     dibuat_pada: Mapped[datetime] = _ts_buat()
     diperbarui_pada: Mapped[datetime] = _ts_buat()
     __table_args__ = (CheckConstraint("status IN ('draft','aktif','nonaktif')"),)
+
+    @property
+    def lokasi(self) -> tuple[float, float] | None:
+        """Cache (lat,lng) diisi repo; kolom geografi asli = `lokasi_geom`."""
+        return getattr(self, "_lokasi_cache", None)
+
+    @lokasi.setter
+    def lokasi(self, v: tuple[float, float] | None) -> None:
+        self._lokasi_cache = v
+
+    @property
+    def urut(self) -> int:
+        if self.dibuat_pada is None:
+            return 0
+        return int(self.dibuat_pada.timestamp() * 1_000_000)
 
 
 class Pengguna(Base):
@@ -238,6 +253,10 @@ class Media(Base):
     alt: Mapped[str | None] = mapped_column(String)
     diunggah_oleh: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("pengguna.id"))
     dibuat_pada: Mapped[datetime] = _ts_buat()
+
+    @property
+    def dikonfirmasi(self) -> bool:
+        return self.url is not None
 
 
 class MediaLampiran(Base):

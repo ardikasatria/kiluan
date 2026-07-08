@@ -1,11 +1,14 @@
 import type {
   CuacaResponse,
+  DesaRingkas,
   DestinasiLengkap,
   DestinasiRingkas,
   KalenderItem,
   LayananItem,
+  MetaPaginasi,
   ProfilDesa,
 } from './types'
+import type { DiscoveryParams } from './types'
 
 const KILUAN_LOK = { lat: -5.7912, lng: 105.1033 }
 
@@ -94,6 +97,7 @@ export function mockDestinasiList(slug: string, publikOnly = true): DestinasiRin
     lokasi: s.lokasi,
     status: s.status,
     alamat: s.alamat,
+    desa_slug: slug,
   }))
 }
 
@@ -134,4 +138,49 @@ export function mockLayanan(slug: string): LayananItem[] {
 export function mockKalender(slug: string): KalenderItem[] {
   if (slug !== 'teluk-kiluan') return []
   return SPOTS.flatMap((s) => s.kalender)
+}
+
+export function mockDaftarDesa(params?: Omit<DiscoveryParams, 'desa' | 'kategori' | 'tag'>): {
+  item: DesaRingkas[]
+  meta: MetaPaginasi
+} {
+  let item: DesaRingkas[] = [
+    {
+      slug: MOCK_PROFIL.slug,
+      nama: MOCK_PROFIL.nama,
+      deskripsi: MOCK_PROFIL.deskripsi,
+      lokasi: MOCK_PROFIL.lokasi,
+    },
+  ]
+  if (params?.q) {
+    const ql = params.q.toLowerCase()
+    item = item.filter((d) => d.nama.toLowerCase().includes(ql) || d.slug.includes(ql))
+  }
+  const batas = params?.batas ?? 20
+  return {
+    item: item.slice(0, batas),
+    meta: { kursor_berikutnya: null, ada_lagi: item.length > batas, batas },
+  }
+}
+
+export function mockDestinasiDiscovery(params?: DiscoveryParams): {
+  item: DestinasiRingkas[]
+  meta: MetaPaginasi
+} {
+  let item = mockDestinasiList('teluk-kiluan', true)
+  if (params?.desa && params.desa !== 'teluk-kiluan') {
+    item = []
+  }
+  if (params?.kategori != null) {
+    item = item.filter((d) => d.kategori_id === params.kategori)
+  }
+  if (params?.q) {
+    const ql = params.q.toLowerCase()
+    item = item.filter((d) => d.nama.toLowerCase().includes(ql))
+  }
+  const batas = params?.batas ?? 20
+  return {
+    item: item.slice(0, batas),
+    meta: { kursor_berikutnya: null, ada_lagi: item.length > batas, batas },
+  }
 }

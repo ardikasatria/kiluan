@@ -1,4 +1,4 @@
-"""Router discovery publik lintas-desa."""
+"""Router discovery publik lintas-desa (Kontrak API F0 §4.1–4.2)."""
 from __future__ import annotations
 
 from typing import Optional
@@ -6,9 +6,8 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Query
 
 from app.api import bantu
-from app.api.deps import get_penyimpanan, konteks_saat_ini
+from app.api.deps import get_penyimpanan
 from app.layanan.discovery import DiscoveryLayanan
-from app.layanan.destinasi import DestinasiLayanan
 
 router = APIRouter(prefix="/api/v1/discovery", tags=["discovery"])
 
@@ -16,52 +15,54 @@ router = APIRouter(prefix="/api/v1/discovery", tags=["discovery"])
 @router.get("/desa")
 async def daftar_desa(
     q: Optional[str] = None,
+    dekat: Optional[str] = None,
+    radius_m: Optional[float] = None,
+    batas: int = 20,
+    kursor: Optional[str] = None,
     store=Depends(get_penyimpanan),
 ):
-    baris = await DiscoveryLayanan(store).daftar_desa()
-    if q:
-        ql = q.lower()
-        baris = [d for d in baris if ql in d.nama.lower() or ql in d.slug.lower()]
+    hasil = await DiscoveryLayanan(store).daftar_desa(
+        q=q, dekat=bantu.parse_dekat(dekat), radius_m=radius_m, batas=batas, kursor=kursor,
+    )
     return {
         "item": [
             {
-                "slug": d.slug,
-                "nama": d.nama,
-                "deskripsi": d.deskripsi,
-                "lokasi": bantu.lokasi_dict(d.lokasi) if d.lokasi else None,
+                "slug": i["desa"].slug,
+                "nama": i["desa"].nama,
+                "deskripsi": i["desa"].deskripsi,
+                "lokasi": bantu.lokasi_dict(i["desa"].lokasi),
+                "jarak_m": i["jarak_m"],
             }
-            for d in baris
-        ]
+            for i in hasil["item"]
+        ],
+        "meta": hasil["meta"],
     }
 
 
 @router.get("/destinasi")
 async def cari_destinasi(
     desa: Optional[str] = Query(None),
+    kategori: Optional[int] = Query(None),
+    tag: Optional[str] = None,
     q: Optional[str] = None,
     dekat: Optional[str] = None,
     radius_m: Optional[float] = None,
     batas: int = 20,
-    konteks=Depends(konteks_saat_ini),
+    kursor: Optional[str] = None,
     store=Depends(get_penyimpanan),
 ):
-    if desa:
-        d = await store.desa.ambil_slug(desa)
-        if d is None:
-            return {"item": [], "meta": {"kursor_berikutnya": None, "ada_lagi": False, "batas": batas}}
-        hasil = await DestinasiLayanan(store).cari(
-            konteks, d.id, q=q,
-            dekat=bantu.parse_dekat(dekat), radius_m=radius_m, batas=batas,
-        )
-    else:
-        rows = await DiscoveryLayanan(store).cari_destinasi(q=q)
-        hasil = {
-            "item": [{"destinasi": r, "jarak_m": None} for r in rows[:batas]],
-            "meta": {"kursor_berikutnya": None, "ada_lagi": len(rows) > batas, "batas": batas},
-        }
+    desa_map = {d.id: d.slug for d in await store.desa.daftar_aktif()}
+    hasil = await DiscoveryLayanan(store).cari_destinasi(
+        desa_slug=desa, kategori_id=kategori, tag=tag, q=q,
+        dekat=bantu.parse_dekat(dekat), radius_m=radius_m, batas=batas, kursor=kursor,
+    )
     return {
         "item": [
-            {**bantu.destinasi_ringkas(i["destinasi"]), "jarak_m": i["jarak_m"]}
+            {
+                **bantu.destinasi_ringkas(i["destinasi"]),
+                "desa_slug": desa_map.get(i["destinasi"].desa_id),
+                "jarak_m": i["jarak_m"],
+            }
             for i in hasil["item"]
         ],
         "meta": hasil["meta"],

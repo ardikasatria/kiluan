@@ -40,7 +40,7 @@ export async function cariDestinasi(
   if (params?.batas) qs.set('batas', String(params.batas))
   const query = qs.toString() ? `?${qs}` : ''
   try {
-    return await apiFetch<CariResponse>(`/api/v1/desa/${slug}/destinasi${query}`)
+    return await apiFetch<CariResponse>(`/api/v1/desa/${slug}/destinasi${query}`, { auth: false })
   } catch {
     const item = mockDestinasiList(slug, true)
     return { item, meta: { kursor_berikutnya: null, ada_lagi: false, batas: params?.batas ?? 20 } }
@@ -49,7 +49,7 @@ export async function cariDestinasi(
 
 export async function getDestinasiDetail(slug: string, idOrSlug: string): Promise<DestinasiLengkap | null> {
   try {
-    return await apiFetch<DestinasiLengkap>(`/api/v1/desa/${slug}/destinasi/${idOrSlug}`)
+    return await apiFetch<DestinasiLengkap>(`/api/v1/desa/${slug}/destinasi/${idOrSlug}`, { auth: false })
   } catch {
     return mockDestinasiDetail(slug, idOrSlug)
   }

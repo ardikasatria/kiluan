@@ -4,7 +4,7 @@ import Aside from '@/components/aside'
 export default function DesaLayout({ children }: { children: React.ReactNode }) {
   return (
     <Aside.Provider>
-      <ApplicationLayout>{children}</ApplicationLayout>
+      <ApplicationLayout headerHasBorder>{children}</ApplicationLayout>
     </Aside.Provider>
   )
 }

@@ -1,19 +1,26 @@
+import SpotGallery from '@/components/kiluan/SpotGallery'
 import SpotMap from '@/components/kiluan/SpotMap'
 import WeatherWidget from '@/components/kiluan/WeatherWidget'
 import { getCuacaDesa } from '@/lib/api/desa'
 import { getDestinasiDetail } from '@/lib/api/destinasi'
-import { ArrowLeftIcon, ClockIcon } from '@heroicons/react/24/outline'
+import {
+  ArrowLeftIcon,
+  BanknotesIcon,
+  CalendarDaysIcon,
+  ClockIcon,
+  MapPinIcon,
+  TagIcon,
+} from '@heroicons/react/24/outline'
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-
-const PLACEHOLDER =
-  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop'
+import type { ComponentType, ReactNode } from 'react'
 
 interface Props {
   params: Promise<{ desa: string; id: string }>
 }
+
+export const revalidate = 60
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa, id } = await params
@@ -21,7 +28,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: detail?.nama ?? 'Destinasi',
     description: detail?.deskripsi ?? undefined,
+    openGraph: {
+      title: detail?.nama,
+      description: detail?.deskripsi ?? undefined,
+      type: 'article',
+    },
   }
+}
+
+function SectionHeading({ icon: Icon, children }: { icon: ComponentType<{ className?: string }>; children: ReactNode }) {
+  return (
+    <h2 className="flex items-center gap-2 text-lg font-semibold text-primary-800 dark:text-primary-100">
+      <Icon className="size-5 text-primary-600 dark:text-primary-400" aria-hidden />
+      {children}
+    </h2>
+  )
 }
 
 export default async function SpotDetailPage({ params }: Props) {
@@ -37,36 +58,42 @@ export default async function SpotDetailPage({ params }: Props) {
           href={`/${desa}`}
           className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 hover:text-primary-600 dark:text-primary-300"
         >
-          <ArrowLeftIcon className="size-4" />
-          Kembali ke {desa}
+          <ArrowLeftIcon className="size-4" aria-hidden />
+          Kembali ke etalase
         </Link>
       </div>
 
-      <div className="relative mt-4 aspect-[21/9] min-h-[200px] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-800 sm:min-h-[280px]">
-        <Image src={PLACEHOLDER} alt={detail.nama} fill className="object-cover" priority sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-        <div className="absolute right-0 bottom-0 left-0 container pb-6">
-          <h1 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl">{detail.nama}</h1>
-          {detail.kategori && (
-            <p className="mt-1 text-sm text-white/80">{detail.kategori.nama}</p>
-          )}
-        </div>
+      <div className="relative mt-4">
+        <SpotGallery nama={detail.nama} media={detail.media} kategori={detail.kategori?.nama} />
       </div>
 
       <div className="container mt-10 grid gap-10 lg:grid-cols-3 lg:gap-12">
         <div className="space-y-8 lg:col-span-2">
           {detail.deskripsi && (
             <section>
-              <h2 className="text-lg font-semibold text-primary-800 dark:text-primary-100">Tentang spot</h2>
+              <SectionHeading icon={MapPinIcon}>Tentang spot</SectionHeading>
               <p className="mt-3 leading-relaxed text-neutral-700 dark:text-neutral-300">{detail.deskripsi}</p>
+              {detail.alamat && (
+                <p className="mt-3 flex items-start gap-2 text-sm text-neutral-500 dark:text-neutral-400">
+                  <MapPinIcon className="mt-0.5 size-4 shrink-0" aria-hidden />
+                  {detail.alamat}
+                </p>
+              )}
             </section>
           )}
 
-          {detail.lokasi && <SpotMap lokasi={detail.lokasi} nama={detail.nama} />}
+          {detail.lokasi && (
+            <section>
+              <SectionHeading icon={MapPinIcon}>Lokasi</SectionHeading>
+              <div className="mt-4">
+                <SpotMap lokasi={detail.lokasi} nama={detail.nama} />
+              </div>
+            </section>
+          )}
 
           {detail.layanan.length > 0 && (
             <section>
-              <h2 className="text-lg font-semibold text-primary-800 dark:text-primary-100">Layanan</h2>
+              <SectionHeading icon={BanknotesIcon}>Layanan</SectionHeading>
               <ul className="mt-4 space-y-3">
                 {detail.layanan.map((l) => (
                   <li
@@ -75,7 +102,9 @@ export default async function SpotDetailPage({ params }: Props) {
                   >
                     <div>
                       <p className="font-medium text-neutral-900 dark:text-neutral-100">{l.nama}</p>
-                      <p className="text-sm text-neutral-500 capitalize dark:text-neutral-400">{l.jenis.replace('_', ' ')}</p>
+                      <p className="text-sm text-neutral-500 capitalize dark:text-neutral-400">
+                        {l.jenis.replace('_', ' ')}
+                      </p>
                     </div>
                     <p className="text-lg font-semibold text-primary-700 dark:text-primary-300">
                       Rp {l.harga.toLocaleString('id-ID')}
@@ -89,14 +118,14 @@ export default async function SpotDetailPage({ params }: Props) {
 
           {detail.kalender.length > 0 && (
             <section>
-              <h2 className="text-lg font-semibold text-primary-800 dark:text-primary-100">Jadwal aktivitas</h2>
+              <SectionHeading icon={CalendarDaysIcon}>Jadwal aktivitas</SectionHeading>
               <ul className="mt-4 space-y-3">
                 {detail.kalender.map((k) => (
                   <li
                     key={k.id}
                     className="flex items-start gap-3 rounded-xl border border-neutral-200 p-4 dark:border-neutral-700 dark:bg-neutral-800/40"
                   >
-                    <ClockIcon className="mt-0.5 size-5 text-primary-600 dark:text-primary-400" />
+                    <ClockIcon className="mt-0.5 size-5 text-primary-600 dark:text-primary-400" aria-hidden />
                     <div>
                       <p className="font-medium text-neutral-900 dark:text-neutral-100">{k.judul}</p>
                       <p className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -114,7 +143,10 @@ export default async function SpotDetailPage({ params }: Props) {
           <WeatherWidget cuaca={cuaca} />
           {detail.tag.length > 0 && (
             <div className="rounded-2xl border border-neutral-200 p-4 dark:border-neutral-700 dark:bg-neutral-800/40">
-              <h3 className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">Tag</h3>
+              <h3 className="flex items-center gap-2 text-sm font-semibold text-neutral-800 dark:text-neutral-200">
+                <TagIcon className="size-4 text-primary-600 dark:text-primary-400" aria-hidden />
+                Tag
+              </h3>
               <div className="mt-2 flex flex-wrap gap-2">
                 {detail.tag.map((t) => (
                   <span

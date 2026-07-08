@@ -5,7 +5,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.api import auth, desa, destinasi, discovery, kalender, keanggotaan, layanan, referensi, saya
+from app.api import auth, desa, destinasi, discovery, kalender, keanggotaan, layanan, media, referensi, saya
 from app.domain.errors import KesalahanDomain
 from app.inti.db import cek_db
 from app.inti.konfig import konfig
@@ -45,3 +45,5 @@ app.include_router(desa.router)
 app.include_router(destinasi.router)
 app.include_router(layanan.router)
 app.include_router(kalender.router)
+app.include_router(media.router_media)
+app.include_router(media.router_lampiran)

@@ -20,6 +20,9 @@ class Konfig(BaseSettings):
     MINIO_ROOT_USER: str = "kiluan"
     MINIO_ROOT_PASSWORD: str = "kiluan"
     MINIO_BUCKET: str = "kiluan"
+    MINIO_SECURE: bool = False
+    # Kosong = turunan dari endpoint + bucket (lihat inti/minio.url_publik_objek)
+    MINIO_PUBLIC_BASE_URL: str = ""
 
     # Auth
     JWT_SECRET: str = "ganti-di-produksi"

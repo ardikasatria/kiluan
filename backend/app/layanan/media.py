@@ -8,11 +8,25 @@ from ..domain import rbac
 from ..domain.entitas import Lampiran, Media
 from ..domain.enums import EntitasLampiran, TipeMedia
 from ..domain.errors import KesalahanValidasi, TidakDitemukan
+from ..inti.minio import url_publik_objek
 
 
 class MediaLayanan:
     def __init__(self, store):
         self.store = store
+
+    async def _media_milik(self, desa_id: UUID, media_id: UUID):
+        m = await self.store.media.ambil(media_id)
+        if m is None or m.desa_id != desa_id:
+            raise TidakDitemukan("media tidak ditemukan")
+        return m
+
+    async def _lampiran_milik(self, desa_id: UUID, lampiran_id: UUID):
+        l = await self.store.lampiran.ambil(lampiran_id)
+        if l is None:
+            raise TidakDitemukan("lampiran tidak ditemukan")
+        await self._media_milik(desa_id, l.media_id)
+        return l
 
     async def presign(self, konteks: ctx.Konteks, desa_id: UUID, nama_berkas: str, mime: str, ukuran: int) -> dict:
         ctx.wajib(konteks, rbac.UNGGAH_MEDIA, desa_id)
@@ -27,26 +41,36 @@ class MediaLayanan:
 
     async def konfirmasi(self, konteks: ctx.Konteks, desa_id: UUID, media_id: UUID, tipe: TipeMedia, **meta) -> Media:
         ctx.wajib(konteks, rbac.UNGGAH_MEDIA, desa_id)
-        m = await self.store.media.ambil(media_id)
-        if m is None or m.desa_id != desa_id:
-            raise TidakDitemukan("media tidak ditemukan")
+        m = await self._media_milik(desa_id, media_id)
         if not await self.store.objek.ada(m.objek_minio):
             raise KesalahanValidasi("objek belum diunggah ke MinIO")
         m.tipe = tipe
-        m.dikonfirmasi = True
-        m.url = f"https://minio.local/{m.objek_minio}"
+        m.url = url_publik_objek(m.objek_minio)
+        if isinstance(m, Media):
+            m.dikonfirmasi = True
         for k in ("lebar", "tinggi", "alt"):
             if k in meta:
                 setattr(m, k, meta[k])
         return m
 
+    async def ambil(self, konteks: ctx.Konteks, desa_id: UUID, media_id: UUID) -> Media:
+        ctx.wajib(konteks, rbac.UNGGAH_MEDIA, desa_id)
+        return await self._media_milik(desa_id, media_id)
+
+    async def hapus_media(self, konteks: ctx.Konteks, desa_id: UUID, media_id: UUID) -> None:
+        ctx.wajib(konteks, rbac.UNGGAH_MEDIA, desa_id)
+        m = await self._media_milik(desa_id, media_id)
+        if hasattr(self.store.objek, "hapus"):
+            await self.store.objek.hapus(m.objek_minio)
+        await self.store.media.hapus(media_id)
+
     async def tempel(self, konteks: ctx.Konteks, desa_id: UUID, media_id: UUID,
                      entitas_tipe: EntitasLampiran, entitas_id: UUID, urutan: int = 0,
                      utama: bool = False) -> Lampiran:
         ctx.wajib(konteks, rbac.KELOLA_LAMPIRAN, desa_id)
-        m = await self.store.media.ambil(media_id)
-        if m is None or m.desa_id != desa_id:
-            raise TidakDitemukan("media tidak ditemukan")
+        m = await self._media_milik(desa_id, media_id)
+        if not m.dikonfirmasi:
+            raise KesalahanValidasi("media belum dikonfirmasi")
         if utama:
             for lain in await self.store.lampiran.daftar_entitas(entitas_tipe, entitas_id):
                 lain.utama = False
@@ -56,9 +80,58 @@ class MediaLayanan:
 
     async def set_utama(self, konteks: ctx.Konteks, desa_id: UUID, lampiran_id: UUID) -> Lampiran:
         ctx.wajib(konteks, rbac.KELOLA_LAMPIRAN, desa_id)
-        l = await self.store.lampiran.ambil(lampiran_id)
-        if l is None:
-            raise TidakDitemukan("lampiran tidak ditemukan")
+        l = await self._lampiran_milik(desa_id, lampiran_id)
         for lain in await self.store.lampiran.daftar_entitas(l.entitas_tipe, l.entitas_id):
             lain.utama = lain.id == lampiran_id
         return l
+
+    async def ubah_lampiran(self, konteks: ctx.Konteks, desa_id: UUID, lampiran_id: UUID, *,
+                            urutan: int | None = None, utama: bool | None = None) -> Lampiran:
+        ctx.wajib(konteks, rbac.KELOLA_LAMPIRAN, desa_id)
+        l = await self._lampiran_milik(desa_id, lampiran_id)
+        if urutan is not None:
+            l.urutan = urutan
+        if utama is True:
+            for lain in await self.store.lampiran.daftar_entitas(l.entitas_tipe, l.entitas_id):
+                lain.utama = lain.id == lampiran_id
+        elif utama is False:
+            l.utama = False
+        return l
+
+    async def hapus_lampiran(self, konteks: ctx.Konteks, desa_id: UUID, lampiran_id: UUID) -> None:
+        ctx.wajib(konteks, rbac.KELOLA_LAMPIRAN, desa_id)
+        await self._lampiran_milik(desa_id, lampiran_id)
+        await self.store.lampiran.hapus(lampiran_id)
+
+    async def daftar_entitas_publik(self, entitas_tipe: EntitasLampiran, entitas_id: UUID) -> list[dict]:
+        """Media dikonfirmasi terlampir pada entitas, urut + flag utama (tanpa auth)."""
+        lampiran = await self.store.lampiran.daftar_entitas(entitas_tipe, entitas_id)
+        lampiran.sort(key=lambda x: (not x.utama, x.urutan))
+        hasil: list[dict] = []
+        for lam in lampiran:
+            m = await self.store.media.ambil(lam.media_id)
+            if m is None or not m.dikonfirmasi or not m.url:
+                continue
+            hasil.append({
+                "id": str(m.id),
+                "lampiran_id": str(lam.id),
+                "url": m.url,
+                "tipe": _v(m.tipe),
+                "mime": m.mime,
+                "ukuran": m.ukuran,
+                "lebar": m.lebar,
+                "tinggi": m.tinggi,
+                "alt": m.alt,
+                "utama": lam.utama,
+                "urutan": lam.urutan,
+                "dibuat_pada": (
+                    m.dibuat_pada.isoformat()
+                    if getattr(m, "dibuat_pada", None) is not None
+                    else None
+                ),
+            })
+        return hasil
+
+
+def _v(x):
+    return x.value if hasattr(x, "value") else x

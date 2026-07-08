@@ -1,11 +1,9 @@
 'use client'
 
 import type { CuacaResponse } from '@/lib/api/types'
-import {
-  CloudIcon,
-  ExclamationTriangleIcon,
-} from '@heroicons/react/24/outline'
+import { CloudIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { WaveIcon, WindIcon } from './icons/WeatherIcons'
 
 interface Props {
   cuaca: CuacaResponse | null
@@ -35,7 +33,11 @@ function KartuKeselamatan({ cuaca }: { cuaca: CuacaResponse }) {
               : 'bg-primary-600 text-white dark:bg-primary-500',
           )}
         >
-          {takTersedia ? <ExclamationTriangleIcon className="size-5" /> : <span className="text-lg">🌊</span>}
+          {takTersedia ? (
+            <ExclamationTriangleIcon className="size-5" aria-hidden />
+          ) : (
+            <WaveIcon className="size-5 text-white" />
+          )}
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-xs font-semibold tracking-wide text-primary-700 uppercase dark:text-primary-300">
@@ -49,7 +51,7 @@ function KartuKeselamatan({ cuaca }: { cuaca: CuacaResponse }) {
             <div className="mt-2 space-y-1.5 text-sm text-primary-900 dark:text-primary-100">
               {data?.tinggi_gelombang && (
                 <p className="flex items-center gap-2">
-                  <span aria-hidden>🌊</span>
+                  <WaveIcon className="text-primary-600 dark:text-primary-400" />
                   <span>
                     Gelombang: <strong>{data.tinggi_gelombang}</strong>
                   </span>
@@ -57,7 +59,7 @@ function KartuKeselamatan({ cuaca }: { cuaca: CuacaResponse }) {
               )}
               {data?.angin && (
                 <p className="flex items-center gap-2">
-                  <span aria-hidden>💨</span>
+                  <WindIcon className="text-primary-600 dark:text-primary-400" />
                   <span>
                     Angin: <strong>{data.angin}</strong>
                   </span>
@@ -86,7 +88,7 @@ function KartuDarat({ cuaca }: { cuaca: CuacaResponse }) {
   return (
     <div className="rounded-2xl border border-neutral-200 bg-white p-4 sm:p-5 dark:border-neutral-700 dark:bg-neutral-800/60">
       <div className="flex items-center gap-2">
-        <CloudIcon className="size-5 text-neutral-500 dark:text-neutral-400" />
+        <CloudIcon className="size-5 text-neutral-500 dark:text-neutral-400" aria-hidden />
         <p className="text-sm font-medium text-neutral-800 dark:text-neutral-200">Cuaca Darat</p>
       </div>
       {takTersedia || !item ? (

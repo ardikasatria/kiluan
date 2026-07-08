@@ -9,6 +9,8 @@ from ..domain import rbac
 from ..domain.entitas import Layanan
 from ..domain.enums import JenisLayanan, SatuanHarga, StatusKonten
 from ..domain.errors import TidakBerwenang, TidakDitemukan
+from ..domain.geo import jarak_m
+from ..domain.paginasi import keyset
 
 
 class LayananWisataLayanan:
@@ -75,17 +77,76 @@ class LayananWisataLayanan:
 
 
 class DiscoveryLayanan:
+    """Gerbang publik lintas-desa (Kontrak §4.1–4.2). Hanya `desa aktif`,
+    destinasi `publikasi` & bukan soft-deleted. Keyset stabil; `dekat` → jarak."""
+
     def __init__(self, store):
         self.store = store
 
-    async def daftar_desa(self) -> list:
-        return await self.store.desa.daftar_aktif()
-
-    async def cari_destinasi(self, *, q: Optional[str] = None) -> list:
-        aktif = {d.id for d in await self.store.desa.daftar_aktif()}
-        rows = [d for d in await self.store.destinasi.semua_desa_aktif(aktif)
-                if d.dihapus_pada is None and d.status == StatusKonten.publikasi]
+    async def daftar_desa(
+        self,
+        *,
+        q: Optional[str] = None,
+        dekat: Optional[tuple[float, float]] = None,
+        radius_m: Optional[float] = None,
+        batas: int = 20,
+        kursor: Optional[str] = None,
+    ) -> dict:
+        rows = await self.store.desa.daftar_aktif()
         if q:
             ql = q.lower()
-            rows = [d for d in rows if ql in d.nama.lower()]
-        return rows
+            rows = [d for d in rows if ql in d.nama.lower() or ql in d.slug.lower()]
+        if dekat is not None:
+            return _paginasi_jarak(rows, dekat, radius_m, batas, kunci="desa",
+                                   lokasi=lambda d: getattr(d, "lokasi", None))
+        hal = keyset(rows, batas=batas, kursor=kursor)
+        return {"item": [{"desa": d, "jarak_m": None} for d in hal.item], "meta": hal.meta()}
+
+    async def cari_destinasi(
+        self,
+        *,
+        desa_slug: Optional[str] = None,
+        kategori_id: Optional[int] = None,
+        tag: Optional[str] = None,
+        q: Optional[str] = None,
+        dekat: Optional[tuple[float, float]] = None,
+        radius_m: Optional[float] = None,
+        batas: int = 20,
+        kursor: Optional[str] = None,
+    ) -> dict:
+        kosong = {"item": [], "meta": {"kursor_berikutnya": None, "ada_lagi": False, "batas": batas}}
+        aktif_id = {d.id for d in await self.store.desa.daftar_aktif()}
+        if desa_slug is not None:
+            d = await self.store.desa.ambil_slug(desa_slug)
+            if d is None or d.id not in aktif_id:
+                return kosong
+            aktif_id = {d.id}
+        rows = [r for r in await self.store.destinasi.semua_desa_aktif(aktif_id)
+                if r.dihapus_pada is None and r.status == StatusKonten.publikasi]
+        if kategori_id is not None:
+            rows = [r for r in rows if r.kategori_id == kategori_id]
+        if tag is not None:
+            rows = [r for r in rows if tag in r.tag_kode]
+        if q:
+            ql = q.lower()
+            rows = [r for r in rows if ql in r.nama.lower() or (r.deskripsi and ql in r.deskripsi.lower())]
+        if dekat is not None:
+            return _paginasi_jarak(rows, dekat, radius_m, batas, kunci="destinasi",
+                                   lokasi=lambda r: r.lokasi)
+        hal = keyset(rows, batas=batas, kursor=kursor)
+        return {"item": [{"destinasi": r, "jarak_m": None} for r in hal.item], "meta": hal.meta()}
+
+
+def _paginasi_jarak(rows, dekat, radius_m, batas, *, kunci, lokasi) -> dict:
+    lat, lng = dekat
+    hasil = []
+    for r in rows:
+        lok = lokasi(r)
+        if lok is None:
+            continue
+        jm = jarak_m(lat, lng, lok[0], lok[1])
+        if radius_m is None or jm <= radius_m:
+            hasil.append((r, jm))
+    hasil.sort(key=lambda x: x[1])
+    item = [{kunci: r, "jarak_m": round(jm, 1)} for r, jm in hasil[:batas]]
+    return {"item": item, "meta": {"kursor_berikutnya": None, "ada_lagi": len(hasil) > batas, "batas": batas}}

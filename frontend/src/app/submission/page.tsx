@@ -1,13 +1,5 @@
-import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor'
-import '@/styles/_tiptap-keyframe-animations.scss'
-import '@/styles/_tiptap-variables.scss'
+import { redirect } from 'next/navigation'
 
-const Page = () => {
-  return (
-    <>
-      <SimpleEditor />
-    </>
-  )
+export default function DemoRedirect() {
+  redirect('/teluk-kiluan/kelola')
 }
-
-export default Page

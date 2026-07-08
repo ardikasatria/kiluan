@@ -9,6 +9,17 @@ export interface MetaPaginasi {
   batas: number
 }
 
+export interface DiscoveryParams {
+  q?: string
+  desa?: string
+  kategori?: number
+  tag?: string
+  dekat?: string
+  radius_m?: number
+  batas?: number
+  kursor?: string
+}
+
 export interface ProfilDesa {
   slug: string
   nama: string
@@ -34,6 +45,14 @@ export interface Tag {
   nama: string
 }
 
+export interface DesaRingkas {
+  slug: string
+  nama: string
+  deskripsi?: string | null
+  lokasi?: Lokasi | null
+  jarak_m?: number | null
+}
+
 export interface DestinasiRingkas {
   id: string
   slug: string
@@ -42,13 +61,45 @@ export interface DestinasiRingkas {
   lokasi: Lokasi | null
   status: string
   alamat?: string | null
+  desa_slug?: string | null
   jarak_m?: number | null
 }
 
 export interface MediaItem {
   id: string
+  lampiran_id?: string | null
   url?: string | null
+  tipe?: string | null
+  mime?: string | null
+  ukuran?: number | null
+  lebar?: number | null
+  tinggi?: number | null
   alt?: string | null
+  utama?: boolean
+  urutan?: number
+  dibuat_pada?: string | null
+}
+
+export interface PresignResponse {
+  media_id: string
+  objek_minio: string
+  url_unggah: string
+  kedaluwarsa_dalam: number
+}
+
+export interface KonfirmasiMediaPayload {
+  media_id: string
+  tipe: 'foto' | 'video'
+  lebar?: number
+  tinggi?: number
+  alt?: string
+}
+
+export interface LampiranPayload {
+  media_id: string
+  entitas_tipe: 'destinasi' | 'layanan' | 'desa' | 'pengguna'
+  entitas_id: string
+  urutan?: number
   utama?: boolean
 }
 

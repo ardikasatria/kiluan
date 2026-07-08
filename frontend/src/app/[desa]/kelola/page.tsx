@@ -46,12 +46,20 @@ export default async function KelolaRingkasanPage({ params }: Props) {
           </Link>
         ))}
       </div>
-      <Link
-        href={`/${desa}/kelola/destinasi/baru`}
+      <div className="flex flex-wrap items-center gap-3">
+        <Link
+          href={`/${desa}/dasbor/pokdarwis`}
+          className="inline-flex rounded-full border border-primary-300 px-5 py-2.5 text-sm font-semibold text-primary-800 hover:bg-primary-50 dark:border-primary-600 dark:text-primary-200 dark:hover:bg-primary-900/30"
+        >
+          Dasbor Pokdarwis
+        </Link>
+        <Link
+          href={`/${desa}/kelola/destinasi/baru`}
         className="inline-flex rounded-full bg-primary-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-600 dark:bg-primary-600 dark:hover:bg-primary-500"
       >
         + Tambah destinasi baru
-      </Link>
+        </Link>
+      </div>
     </div>
   )
 }

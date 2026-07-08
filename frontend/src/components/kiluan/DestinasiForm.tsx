@@ -1,14 +1,17 @@
 'use client'
 
 import MapPicker from '@/components/kiluan/MapPicker'
+import MediaGaleriKelola from '@/components/kiluan/MediaGaleriKelola'
+import MediaUploader from '@/components/kiluan/MediaUploader'
 import { buatDestinasi, ubahDestinasi, ubahStatusDestinasi } from '@/lib/api/destinasi'
-import type { DestinasiBuatPayload, DestinasiLengkap, Lokasi } from '@/lib/api/types'
+import type { DestinasiBuatPayload, DestinasiLengkap, Lokasi, MediaItem } from '@/lib/api/types'
 import { tambahAntrean, simpanDrafDestinasi } from '@/lib/offline/db'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Field, Fieldset, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
 import Select from '@/shared/Select'
 import Textarea from '@/shared/Textarea'
+import { PhotoIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/navigation'
 import { FormEvent, useState } from 'react'
 
@@ -34,6 +37,7 @@ export default function DestinasiForm({ desaSlug, awal }: Props) {
   const [alamat, setAlamat] = useState(awal?.alamat ?? '')
   const [status, setStatus] = useState(awal?.status ?? 'draft')
   const [lokasi, setLokasi] = useState<Lokasi>(awal?.lokasi ?? { lat: -5.7912, lng: 105.1033 })
+  const [media, setMedia] = useState<MediaItem[]>(awal?.media ?? [])
   const [menyimpan, setMenyimpan] = useState(false)
   const [pesan, setPesan] = useState<string | null>(null)
 
@@ -152,6 +156,28 @@ export default function DestinasiForm({ desaSlug, awal }: Props) {
           </Select>
         </Field>
       </Fieldset>
+
+      {awal && (
+        <section className="rounded-2xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-800/40 sm:p-6">
+          <div className="mb-4 flex items-center gap-2">
+            <PhotoIcon className="size-5 text-primary-600 dark:text-primary-400" aria-hidden />
+            <h3 className="text-lg font-semibold text-primary-800 dark:text-primary-100">Galeri foto</h3>
+          </div>
+          <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
+            Unggah langsung ke MinIO (presigned). Foto sampul tampil di halaman spot publik.
+          </p>
+          <MediaUploader
+            desaSlug={desaSlug}
+            entitasTipe="destinasi"
+            entitasId={awal.id}
+            urutanAwal={media.length}
+            onBerhasil={(m) => setMedia((prev) => [...prev, m])}
+          />
+          <div className="mt-6">
+            <MediaGaleriKelola desaSlug={desaSlug} items={media} onChange={setMedia} />
+          </div>
+        </section>
+      )}
 
       {pesan && (
         <p className="rounded-lg bg-primary-50 px-4 py-3 text-sm text-primary-800 dark:bg-primary-900/30 dark:text-primary-200">

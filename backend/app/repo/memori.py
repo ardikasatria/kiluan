@@ -220,6 +220,9 @@ class RepoMedia:
     async def ambil(self, id: UUID) -> Optional[E.Media]:
         return self._data.get(id)
 
+    async def hapus(self, id: UUID) -> None:
+        self._data.pop(id, None)
+
 
 class RepoLampiran:
     def __init__(self):
@@ -251,6 +254,9 @@ class ObjectStorePalsu:
 
     async def ada(self, objek: str) -> bool:
         return objek in self._objek
+
+    async def hapus(self, objek: str) -> None:
+        self._objek.discard(objek)
 
     async def presign_put(self, objek: str) -> str:
         return f"https://minio.local/put/{objek}?X-Amz=sig"

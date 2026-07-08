@@ -6,6 +6,7 @@ import pytest
 from app.domain.enums import EntitasLampiran, KodePeran, StatusKonten, TipeMedia
 from app.domain.errors import KesalahanValidasi
 from app.domain.konteks import Konteks
+from app.layanan.media import MediaLayanan
 from app.skema.destinasi import DestinasiBuat
 from conftest import beri_peran, buat_pengguna, konteks_untuk
 
@@ -73,6 +74,19 @@ async def test_utama_tunggal_per_entitas(store, desa, svc_media):
     lampiran = await store.lampiran.daftar_entitas(EntitasLampiran.destinasi, entitas_id)
     utama = [l for l in lampiran if l.utama]
     assert len(utama) == 1 and utama[0].media_id == mids[1]
+
+
+async def test_media_publik_destinasi(store, desa, svc_destinasi, svc_media):
+    k = await _pengelola(store, desa)
+    d = await svc_destinasi.buat(k, desa.id, _d("Galeri", "galeri", -5.79, 105.10))
+    pr = await svc_media.presign(k, desa.id, "pantai.jpg", "image/jpeg", 2048)
+    await store.objek.taruh(pr["objek_minio"])
+    await svc_media.konfirmasi(k, desa.id, pr["media_id"], TipeMedia.foto, alt="Pantai")
+    await svc_media.tempel(k, desa.id, pr["media_id"], EntitasLampiran.destinasi, d.id, utama=True)
+    media = await MediaLayanan(store).daftar_entitas_publik(EntitasLampiran.destinasi, d.id)
+    assert len(media) == 1
+    assert media[0]["utama"] is True and media[0]["alt"] == "Pantai" and media[0]["url"]
+    assert "lampiran_id" in media[0]
 
 
 # --- PAGINASI ---

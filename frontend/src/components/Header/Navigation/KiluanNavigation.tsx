@@ -59,7 +59,7 @@ const MegaMenu = ({
             isOpen ? 'block' : 'hidden'
           )}
         >
-          <div className="border-t border-primary-100 bg-white shadow-lg dark:border-primary-900/50 dark:bg-neutral-900">
+          <div className="border-t border-neutral-200/70 bg-white/85 backdrop-blur-xl backdrop-saturate-150 dark:border-primary-900/50 dark:bg-neutral-900/90">
             <div className="container">
               <div className="flex gap-8 py-10 text-sm">
                 <div className="hidden w-48 shrink-0 border-e border-primary-100 pe-8 xl:block dark:border-primary-900/50">

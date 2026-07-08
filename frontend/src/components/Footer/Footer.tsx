@@ -1,100 +1,129 @@
-import { CustomLink } from '@/data/types'
 import Logo from '@/shared/Logo'
-import SocialsList1 from '@/shared/SocialsList1'
+import { Mail01Icon } from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from '@hugeicons/react'
+import Link from 'next/link'
 import React from 'react'
 
-export interface WidgetFooterMenu {
-  id: string
-  title: string
-  menus: CustomLink[]
+export interface FooterLink {
+  href: string
+  label: string
+  external?: boolean
 }
 
-const widgetMenus: WidgetFooterMenu[] = [
+export interface FooterColumn {
+  id: string
+  title: string
+  links: FooterLink[]
+}
+
+const footerColumns: FooterColumn[] = [
   {
-    id: '5',
-    title: 'Getting started',
-    menus: [
-      { href: '/', label: 'Installation' },
-      { href: '/', label: 'Release Notes' },
-      { href: '/', label: 'Upgrade Guide' },
-      { href: '/', label: 'Browser Support' },
-      { href: '/', label: 'Editor Support' },
+    id: 'gerbang',
+    title: 'Gerbang',
+    links: [
+      { href: '/', label: 'Beranda Kiluan' },
+      { href: '/teluk-kiluan', label: 'Teluk Kiluan' },
+      { href: '/#discovery', label: 'Cari destinasi' },
+      { href: '/teluk-kiluan#destinasi', label: 'Katalog spot' },
     ],
   },
   {
-    id: '1',
-    title: 'Explore',
-    menus: [
-      { href: '/', label: 'Design features' },
-      { href: '/', label: 'Prototyping' },
-      { href: '/', label: 'Design systems' },
-      { href: '/', label: 'Pricing' },
-      { href: '/', label: 'Customers' },
+    id: 'komunitas',
+    title: 'Komunitas',
+    links: [
+      { href: '/masuk', label: 'Masuk' },
+      { href: '/daftar', label: 'Daftar akun' },
+      { href: '/teluk-kiluan/dasbor', label: 'Dasbor peran' },
+      { href: '/teluk-kiluan/kelola', label: 'Dashboard pengelola' },
+      { href: '/teluk-kiluan/pasar', label: 'Pasar Desa' },
     ],
   },
   {
-    id: '2',
-    title: 'Resources',
-    menus: [
-      { href: '/', label: 'Best practices' },
-      { href: '/', label: 'Support' },
-      { href: '/', label: 'Developers' },
-      { href: '/', label: 'Learn design' },
-      { href: '/', label: "What's new" },
+    id: 'lestari',
+    title: 'Lestari',
+    links: [
+      { href: '/teluk-kiluan/misi', label: 'Misi Kiluan' },
+      { href: '/paspor', label: 'Paspor Lestari' },
+      { href: '/teluk-kiluan/neraca-regeneratif', label: 'Neraca Regeneratif' },
+      { href: '/teluk-kiluan/dana-konservasi', label: 'Dana konservasi' },
     ],
   },
   {
-    id: '4',
-    title: 'Community',
-    menus: [
-      { href: '/', label: 'Discussion Forums' },
-      { href: '/', label: 'Code of Conduct' },
-      { href: '/', label: 'Community Resources' },
-      { href: '/', label: 'Contributing' },
-      { href: '/', label: 'Concurrent Mode' },
+    id: 'platform',
+    title: 'Platform',
+    links: [
+      {
+        href: 'https://sainsdataciv.com',
+        label: 'Sains Data CIV · ITERA',
+        external: true,
+      },
+      { href: '/teluk-kiluan/tentang', label: 'Tentang desa' },
+      { href: '/teluk-kiluan/panduan', label: 'Panduan berkunjung' },
+      { href: 'mailto:kiluan@sainsdataciv.com', label: 'Hubungi tim', external: true },
     ],
   },
 ]
 
 const Footer: React.FC = () => {
-  const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
-    return (
-      <div key={index} className="text-sm">
-        <h2 className="font-semibold text-neutral-700 dark:text-neutral-200">{menu.title}</h2>
-        <ul className="mt-5 space-y-4">
-          {menu.menus.map((item, index) => (
-            <li key={index}>
-              <a
-                key={index}
-                className="text-neutral-600 hover:text-black dark:text-neutral-300 dark:hover:text-white"
-                href={item.href}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
+  const year = new Date().getFullYear()
 
   return (
-    <>
-      {/* footer */}
-      <div className="nc-Footer relative border-t border-neutral-200 py-16 lg:py-28 dark:border-neutral-700">
-        <div className="container grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-5 lg:gap-x-10">
-          <div className="col-span-2 grid grid-cols-4 gap-5 md:col-span-4 lg:flex lg:flex-col lg:md:col-span-1">
-            <div className="col-span-2 md:col-span-1">
-              <Logo size="h-12 w-auto sm:h-14" />
-            </div>
-            <div className="col-span-2 flex items-center md:col-span-3">
-              <SocialsList1 />
-            </div>
+    <footer className="nc-Footer relative border-t border-neutral-200 bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-950">
+      <div className="container py-14 lg:py-20">
+        <div className="grid gap-10 lg:grid-cols-6 lg:gap-12">
+          <div className="lg:col-span-2">
+            <Logo size="h-12 w-auto sm:h-14" />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+              Kiluan — platform desa wisata regeneratif berbasis komunitas. Mesin dapat direplikasi ke desa
+              mitra; instans perdana Teluk Kiluan, Lampung.
+            </p>
+            <Link
+              href="mailto:kiluan@sainsdataciv.com"
+              className="mt-5 inline-flex items-center gap-2 text-sm text-neutral-700 hover:text-primary-700 dark:text-neutral-300 dark:hover:text-primary-300"
+            >
+              <HugeiconsIcon icon={Mail01Icon} size={18} />
+              kiluan@sainsdataciv.com
+            </Link>
           </div>
-          {widgetMenus.map(renderWidgetMenuItem)}
+
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-4">
+            {footerColumns.map((col) => (
+              <div key={col.id}>
+                <h2 className="text-sm font-semibold text-primary-800 dark:text-primary-100">{col.title}</h2>
+                <ul className="mt-4 space-y-3">
+                  {col.links.map((item) => (
+                    <li key={item.href + item.label}>
+                      {item.external ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-neutral-600 hover:text-primary-700 dark:text-neutral-400 dark:hover:text-primary-300"
+                        >
+                          {item.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className="text-sm text-neutral-600 hover:text-primary-700 dark:text-neutral-400 dark:hover:text-primary-300"
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-3 border-t border-neutral-200 pt-8 text-sm text-neutral-500 sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800 dark:text-neutral-500">
+          <p>© {year} Kiluan · Kelompok Keilmuan CIV, Program Studi Sains Data ITERA.</p>
+          <p className="text-xs">kiluan.sainsdataciv.com · PWA offline-first</p>
         </div>
       </div>
-    </>
+    </footer>
   )
 }
 

@@ -56,11 +56,11 @@ export default function AvatarDropdown({ className }: Props) {
             <Divider />
 
             <Link
-              href="/dashboard"
+              href="/teluk-kiluan/dasbor"
               className="-m-3 flex items-center gap-x-4 rounded-lg p-2 transition duration-150 ease-in-out hover:bg-neutral-100 dark:hover:bg-neutral-700"
             >
               <HugeiconsIcon icon={UserIcon} size={24} strokeWidth={1.5} />
-              <p className="text-sm font-medium">Profil Saya</p>
+              <p className="text-sm font-medium">Dasbor Kiluan</p>
             </Link>
 
             <Link
@@ -72,11 +72,11 @@ export default function AvatarDropdown({ className }: Props) {
             </Link>
 
             <Link
-              href="/dashboard/posts"
+              href="/teluk-kiluan/kelola"
               className="-m-3 flex items-center gap-x-4 rounded-lg p-2 transition duration-150 ease-in-out hover:bg-neutral-100 dark:hover:bg-neutral-700"
             >
               <HugeiconsIcon icon={Task01Icon} size={24} strokeWidth={1.5} />
-              <p className="text-sm font-medium">Aktivitas Saya</p>
+              <p className="text-sm font-medium">Kelola desa</p>
             </Link>
 
             <Divider />

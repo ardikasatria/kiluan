@@ -1,161 +1,75 @@
-import BackgroundSection from '@/components/BackgroundSection'
-import SectionAds from '@/components/SectionAds'
-import SectionBecomeAnAuthor from '@/components/SectionBecomeAnAuthor'
-import SectionGridAuthorBox from '@/components/SectionGridAuthorBox'
-import SectionGridPosts from '@/components/SectionGridPosts'
-import SectionLargeSlider from '@/components/SectionLargeSlider'
-import SectionMagazine1 from '@/components/SectionMagazine1'
-import SectionMagazine2 from '@/components/SectionMagazine2'
-import SectionMagazine7 from '@/components/SectionMagazine7'
-import SectionMagazine8 from '@/components/SectionMagazine8'
-import SectionMagazine9 from '@/components/SectionMagazine9'
-import SectionPostsWithWidgets from '@/components/SectionPostsWithWidgets'
-import SectionSliderNewAuthors from '@/components/SectionSliderNewAuthors'
-import SectionSliderNewCategories from '@/components/SectionSliderNewCategories'
-import SectionSliderPosts from '@/components/SectionSliderPosts'
-import SectionSubscribe2 from '@/components/SectionSubscribe2'
-import SectionVideos from '@/components/SectionVideos'
-import { getAuthors } from '@/data/authors'
-import { getCategories } from '@/data/categories'
-import { getAllPosts, getPostsAudio, getPostsGallery, getPostsVideo } from '@/data/posts'
-import { Metadata } from 'next'
+import DiscoveryExplorer from '@/components/kiluan/DiscoveryExplorer'
+import HomeCta from '@/components/kiluan/home/HomeCta'
+import HomeFeaturedDesa from '@/components/kiluan/home/HomeFeaturedDesa'
+import HomeHero from '@/components/kiluan/home/HomeHero'
+import HomeModules from '@/components/kiluan/home/HomeModules'
+import HomeValuePillars from '@/components/kiluan/home/HomeValuePillars'
+import { cariDestinasiDiscovery, daftarDesaDiscovery } from '@/lib/api/discovery'
+import { getKategori } from '@/lib/api/referensi'
+import { MapIcon } from '@heroicons/react/24/outline'
+import type { Metadata } from 'next'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'Home',
-  description: 'Home page of the application showcasing various sections and posts.',
+  title: 'Kiluan — Platform Desa Wisata Regeneratif',
+  description:
+    'Platform desa wisata regeneratif berbasis komunitas. Temukan destinasi lintas desa, data milik Pokdarwis, dan etalase Teluk Kiluan.',
+  openGraph: {
+    title: 'Kiluan — Platform Desa Wisata Regeneratif',
+    description: 'Wisata milik komunitas — bukan marketplace ekstraktif.',
+    type: 'website',
+  },
 }
 
-const Page = async () => {
-  const posts = await getAllPosts()
-  const audioPosts = await getPostsAudio()
-  const videoPosts = await getPostsVideo()
-  const galleryPosts = await getPostsGallery()
-  const authors = await getAuthors()
-  const categories = await getCategories()
+interface Props {
+  searchParams: Promise<{ q?: string; tab?: string }>
+}
+
+export default async function HomePage({ searchParams }: Props) {
+  const sp = await searchParams
+  const [destinasiRes, desaRes, kategori] = await Promise.all([
+    cariDestinasiDiscovery({ batas: 12, q: sp.q }),
+    daftarDesaDiscovery({ batas: 12 }),
+    getKategori(),
+  ])
 
   return (
-    <div className="relative pb-28 lg:pb-32">
-      <div className="relative container space-y-28 lg:space-y-32">
-        <SectionLargeSlider
-          heading="Editor's pick"
-          subHeading="The most outstanding articles"
-          className="pt-10 lg:pt-20"
-          posts={audioPosts.slice(3, 8)}
-        />
+    <div className="pb-20">
+      <HomeHero />
+      <HomeValuePillars />
+      <HomeFeaturedDesa desa={desaRes.item} />
+      <HomeModules />
 
-        <div className="relative py-16 lg:py-20">
-          <BackgroundSection />
-          <SectionSliderNewAuthors
-            heading="Newest authors"
-            subHeading="The latest articles from our authors"
-            authors={authors.slice(0, 10)}
+      <section id="discovery" className="scroll-mt-24 border-t border-neutral-200 py-16 dark:border-neutral-800 sm:py-20">
+        <div className="container">
+          <div className="mb-8 max-w-2xl">
+            <p className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-primary-400">
+              <MapIcon className="size-4" aria-hidden />
+              Modul Gerbang
+            </p>
+            <h2 className="mt-1 text-2xl font-bold text-primary-800 sm:text-3xl dark:text-primary-100">
+              Discovery multi-desa
+            </h2>
+            <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+              Peta interaktif, filter kategori, pencarian keyset, dan jarak dari lokasi Anda — etalase publik
+              destinasi &amp; profil desa aktif.
+            </p>
+          </div>
+
+          <DiscoveryExplorer
+            initialDestinasi={destinasiRes.item}
+            initialDesa={desaRes.item}
+            metaDestinasi={destinasiRes.meta}
+            metaDesa={desaRes.meta}
+            kategori={kategori}
+            initialQ={sp.q ?? ''}
+            initialTab={sp.tab === 'desa' ? 'desa' : 'destinasi'}
           />
         </div>
+      </section>
 
-        <SectionSliderNewCategories
-          heading="Explore categories"
-          subHeading="Explore the categories"
-          categories={categories.slice(0, 10)}
-          categoryCardType="card4"
-        />
-
-        <div className="relative py-16 lg:py-20">
-          <BackgroundSection />
-          <SectionSliderPosts
-            postCardName="card10V2"
-            heading="Explore latest articles"
-            subHeading="Click on the icon to enjoy the music"
-            posts={posts.slice(0, 6)}
-          />
-        </div>
-
-        <SectionMagazine1
-          heading="Most viewed articles"
-          subHeading="Explore the most viewed articles"
-          posts={posts.slice(0, 6)}
-        />
-
-        <SectionAds />
-
-        <SectionMagazine7
-          posts={galleryPosts}
-          heading="The gallery posts"
-          dimHeading="The best way to showcase your work"
-        />
-      </div>
-
-      <div className="my-28 bg-neutral-100 py-28 lg:py-32 dark:bg-neutral-900">
-        <div className="relative container">
-          <SectionGridPosts
-            headingIsCenter
-            postCardName="card11"
-            heading="Explore latest video articles"
-            subHeading="Hover over the card for a video preview"
-            posts={videoPosts.slice(0, 8)}
-            gridClass="md:grid-cols-2 lg:grid-cols-4"
-          />
-        </div>
-      </div>
-
-      <div className="container space-y-28 lg:space-y-32">
-        <SectionMagazine8
-          posts={audioPosts.slice(0, 6)}
-          heading="Stream live audio"
-          dimHeading="Click on the icon to enjoy the music"
-        />
-
-        <div className="relative py-16 lg:py-20">
-          <BackgroundSection />
-          <SectionMagazine9
-            posts={audioPosts.slice(0, 9)}
-            heading="Stream live audio"
-            dimHeading="Click on the icon to enjoy the music"
-          />
-        </div>
-
-        <SectionGridAuthorBox
-          authors={authors.slice(0, 10)}
-          heading="Top 10 authors of the month"
-          subHeading="Discover the most popular authors of the month"
-        />
-
-        <div className="relative py-16 lg:py-20">
-          <BackgroundSection />
-          <SectionBecomeAnAuthor />
-        </div>
-
-        <SectionMagazine2 heading="Most viewed articles" posts={posts.slice(0, 5)} />
-
-        <div className="relative py-16">
-          <BackgroundSection />
-          <SectionSliderPosts
-            postCardName="card11"
-            heading="Best articles of the month"
-            subHeading="Over 1118+ articles "
-            posts={posts.slice(0, 14)}
-          />
-        </div>
-
-        <SectionSubscribe2 className="pt-8" />
-
-        <SectionVideos
-          className="py-16 lg:py-20"
-          heading="🎬 The Videos"
-          subHeading="Check out our hottest videos. View more videos and discover new perspectives on just about any topic."
-        />
-
-        <SectionPostsWithWidgets
-          posts={posts.slice(0, 6)}
-          heading="Latest articles 🎈"
-          subHeading="Check out our latest articles"
-          widgetCategories={categories.slice(0, 5)}
-          widgetAuthors={authors.slice(0, 3)}
-          widgetTags={categories.slice(0, 6)}
-          widgetPosts={posts.slice(0, 4)}
-        />
-      </div>
+      <HomeCta />
     </div>
   )
 }
-
-export default Page

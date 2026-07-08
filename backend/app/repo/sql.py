@@ -26,6 +26,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from ..domain import entitas as E
 from ..domain.enums import StatusKonten
 from ..domain.errors import Konflik
+from ..inti.minio import penyimpanan_objek
 from ..model import tabel as M
 
 
@@ -85,11 +86,17 @@ class RepoDesaSQL:
 
     async def ambil_slug(self, slug: str) -> Optional[M.Desa]:
         res = await self.s.execute(select(M.Desa).where(M.Desa.slug == slug))
-        return res.scalar_one_or_none()
+        row = res.scalar_one_or_none()
+        if row is not None:
+            row.lokasi = await _baca_lokasi_desa(self.s, row.id)
+        return row
 
     async def daftar_aktif(self) -> list[M.Desa]:
         res = await self.s.execute(select(M.Desa).where(M.Desa.status == "aktif"))
-        return list(res.scalars().all())
+        rows = list(res.scalars().all())
+        for row in rows:
+            row.lokasi = await _baca_lokasi_desa(self.s, row.id)
+        return rows
 
 
 class RepoKeanggotaanSQL:
@@ -465,6 +472,78 @@ class RepoKalenderSQL:
             await self.s.delete(row)
 
 
+class RepoMediaSQL:
+    def __init__(self, s: AsyncSession):
+        self.s = s
+
+    async def tambah(self, m: E.Media) -> M.Media:
+        row = M.Media(
+            id=m.id,
+            desa_id=m.desa_id,
+            objek_minio=m.objek_minio,
+            url=m.url,
+            tipe=_v(m.tipe),
+            mime=m.mime,
+            ukuran=m.ukuran,
+            lebar=m.lebar,
+            tinggi=m.tinggi,
+            alt=m.alt,
+            diunggah_oleh=m.diunggah_oleh,
+        )
+        self.s.add(row)
+        try:
+            await self.s.flush()
+        except IntegrityError:
+            raise Konflik(
+                "objek_minio sudah dipakai",
+                [{"field": "objek_minio", "pesan": "duplikat"}],
+            )
+        return row
+
+    async def ambil(self, id: UUID) -> Optional[M.Media]:
+        return await self.s.get(M.Media, id)
+
+    async def hapus(self, id: UUID) -> None:
+        row = await self.ambil(id)
+        if row:
+            await self.s.delete(row)
+
+
+class RepoLampiranSQL:
+    def __init__(self, s: AsyncSession):
+        self.s = s
+
+    async def tambah(self, l: E.Lampiran) -> M.MediaLampiran:
+        row = M.MediaLampiran(
+            id=l.id,
+            media_id=l.media_id,
+            entitas_tipe=_v(l.entitas_tipe),
+            entitas_id=l.entitas_id,
+            urutan=l.urutan,
+            utama=l.utama,
+        )
+        self.s.add(row)
+        await self.s.flush()
+        return row
+
+    async def ambil(self, id: UUID) -> Optional[M.MediaLampiran]:
+        return await self.s.get(M.MediaLampiran, id)
+
+    async def daftar_entitas(self, entitas_tipe, entitas_id: UUID) -> list[M.MediaLampiran]:
+        res = await self.s.execute(
+            select(M.MediaLampiran).where(
+                M.MediaLampiran.entitas_tipe == _v(entitas_tipe),
+                M.MediaLampiran.entitas_id == entitas_id,
+            )
+        )
+        return list(res.scalars().all())
+
+    async def hapus(self, id: UUID) -> None:
+        row = await self.ambil(id)
+        if row:
+            await self.s.delete(row)
+
+
 class Penyimpanan:
     """Agregat repo SQL untuk satu request (bound ke satu AsyncSession).
 
@@ -483,3 +562,6 @@ class Penyimpanan:
         self.destinasi = RepoDestinasiSQL(sesi)
         self.layanan = RepoLayananSQL(sesi)
         self.kalender = RepoKalenderSQL(sesi)
+        self.media = RepoMediaSQL(sesi)
+        self.lampiran = RepoLampiranSQL(sesi)
+        self.objek = penyimpanan_objek()
