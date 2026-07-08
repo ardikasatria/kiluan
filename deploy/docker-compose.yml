@@ -131,12 +131,16 @@ services:
       backend:
         condition: service_healthy
     healthcheck:
-      # Use Node (Node 20 has `fetch`) because `wget` is not available in alpine base images.
-      test: ["CMD-SHELL", "node -e \"fetch('http://127.0.0.1:3000/').then(r=>{if(!r.ok) process.exit(1)}).catch(()=>process.exit(1))\""]
+      # Pakai endpoint ringan — SSR halaman `/` bisa lambat di VM dan gagal timeout 5s.
+      test:
+        [
+          "CMD-SHELL",
+          "node -e \"fetch('http://127.0.0.1:3000/api/hello').then(r=>{if(!r.ok)process.exit(1);process.exit(0)}).catch(()=>process.exit(1))\"",
+        ]
       interval: 15s
-      timeout: 5s
+      timeout: 10s
       retries: 8
-      start_period: 30s
+      start_period: 45s
     networks: [kiluan]
 
   nginx:
