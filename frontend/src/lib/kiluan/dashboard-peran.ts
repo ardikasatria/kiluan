@@ -294,7 +294,7 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       ],
       modulTerkait: [
         { label: 'Nusantara (F4)', href: '/admin/dasbor/nusantara' },
-        { label: 'Health API', href: '/api/v1/health' },
+        { label: 'Health API', href: 'https://kiluanapi.sainsdataciv.com/api/v1/sehat' },
       ],
       aktivitasContoh: [
         'Tenant baru dalam antrian onboarding',

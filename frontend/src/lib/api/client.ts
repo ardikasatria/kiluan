@@ -11,7 +11,7 @@ export class ApiError extends Error {
   }
 }
 
-/** Browser: same-origin proxy Next.js. Server: langsung ke backend. */
+/** Browser: API publik (subdomain) bila NEXT_PUBLIC_API_URL diset; else proxy same-origin. */
 export function getApiBase(): string {
   if (typeof window !== 'undefined') {
     return process.env.NEXT_PUBLIC_API_URL ?? ''
@@ -25,6 +25,12 @@ type FetchOpts = RequestInit & {
   _retry?: boolean
 }
 
+function fetchCredentials(path: string, init?: FetchOpts): RequestCredentials {
+  if (init?.credentials) return init.credentials
+  if (path.startsWith('/api/v1/auth')) return 'include'
+  return 'same-origin'
+}
+
 export async function apiFetch<T>(path: string, init?: FetchOpts): Promise<T> {
   const useAuth = init?.auth !== false
   const headers = new Headers(init?.headers)
@@ -36,7 +42,7 @@ export async function apiFetch<T>(path: string, init?: FetchOpts): Promise<T> {
     headers.set('Authorization', `Bearer ${token}`)
   }
 
-  const credentials = init?.credentials ?? (path.startsWith('/api/v1/auth') ? 'include' : 'same-origin')
+  const credentials = fetchCredentials(path, init)
 
   const res = await fetch(`${getApiBase()}${path}`, {
     ...init,
