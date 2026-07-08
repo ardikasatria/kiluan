@@ -16,7 +16,7 @@ export default function AuthActions({ className }: Props) {
 
   return (
     <div className={clsx('flex items-center gap-x-1 sm:gap-x-2', className)}>
-      <SwitchDarkMode className="size-10 md:size-11" iconSize="size-5" />
+      <SwitchDarkMode className="hidden size-10 lg:inline-flex md:size-11" iconSize="size-5" />
 
       {isLoading ? (
         <div className="size-10 animate-pulse rounded-full bg-neutral-200 dark:bg-neutral-700 md:size-11" />

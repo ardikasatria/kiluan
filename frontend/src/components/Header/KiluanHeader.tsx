@@ -25,11 +25,13 @@ const KiluanHeader: FC<Props> = async ({ bottomBorder, className }) => {
       )}
     >
       <div className="container flex h-[72px] items-center justify-between gap-x-4 lg:h-20">
-        {/* Kiri: Logo + Search */}
+        {/* Kiri: Logo + Search (pencarian hanya desktop) */}
         <div className="flex min-w-0 flex-1 items-center gap-x-3 sm:gap-x-4 lg:max-w-[280px]">
           <Logo />
-          <div className="hidden h-7 border-l border-neutral-200 sm:block dark:border-neutral-700" />
-          <SearchModal type="type1" />
+          <div className="hidden h-7 border-l border-neutral-200 lg:block dark:border-neutral-700" />
+          <div className="hidden lg:block">
+            <SearchModal type="type1" />
+          </div>
         </div>
 
         {/* Tengah: 3 mega menu */}
