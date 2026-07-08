@@ -18,7 +18,7 @@ const KiluanHeader: FC<Props> = async ({ bottomBorder, className }) => {
   return (
     <header
       className={clsx(
-        'kiluan-header relative z-20 border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900',
+        'kiluan-header sticky top-0 z-30 border-neutral-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-900',
         bottomBorder && 'border-b',
         !bottomBorder && 'has-[.header-popover-full-panel]:border-b',
         className
