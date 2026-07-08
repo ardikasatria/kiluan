@@ -1,0 +1,109 @@
+# ── OS & editor ──────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# ── Environment & rahasia (JANGAN commit) ───────────────────
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development.local
+.env.test.local
+!.env.contoh
+!.env.*.example
+!.env.local.example
+*.pem
+*.key
+*.p12
+secrets/
+
+# ── Node.js / Frontend (Next.js) ───────────────────────────
+node_modules/
+.npm
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/install-state.gz
+
+# Next.js build & cache
+.next/
+out/
+build/
+dist/
+.turbo/
+.vercel/
+
+# Logs & debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# TypeScript (cache saja; next-env.d.ts boleh di-commit)
+*.tsbuildinfo
+
+# ── Python / Backend ────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+*.egg
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+dist/
+build/
+*.manifest
+*.spec
+
+# ── Database & infra lokal ──────────────────────────────────
+*.sqlite
+*.sqlite3
+*.db
+pgdata/
+postgres-data/
+redis-data/
+minio-data/
+
+# ── Docker (override lokal, bukan contoh) ───────────────────
+docker-compose.override.yml
+
+# ── Misc build & cache ──────────────────────────────────────
+.cache/
+.parcel-cache/
+.sass-cache/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# ── Optional: lockfile alternatif (pakai npm = package-lock.json)
+# bun.lockb

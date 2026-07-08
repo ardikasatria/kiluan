@@ -1,0 +1,4 @@
+color1=AAFFC7
+color2=67C090
+color3=215B63
+color4=124170

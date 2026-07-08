@@ -1,0 +1,20 @@
+# Ekspos port infra untuk debugging lokal (opsional)
+# Pakai: docker compose -f docker-compose.yml -f docker-compose.debug.yml up -d
+
+services:
+  db:
+    ports:
+      - "5432:5432"
+  redis:
+    ports:
+      - "6379:6379"
+  minio:
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+  backend:
+    ports:
+      - "8000:8000"
+  frontend:
+    ports:
+      - "3000:3000"
