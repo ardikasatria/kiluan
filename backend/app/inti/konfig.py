@@ -34,8 +34,8 @@ class Konfig(BaseSettings):
     # sebagai string CSV / JSON array, lalu diparse manual.
     CORS_ORIGINS: str = (
         "http://localhost:3000,"
-        "https://kiluan.sainsdataciv.com,"
-        "http://kiluan.sainsdataciv.com"
+        "https://sigerciv.com,"
+        "http://sigerciv.com"
     )
     COOKIE_SECURE: bool = False
 
@@ -59,7 +59,7 @@ class Konfig(BaseSettings):
 
     # Email — provider: dev | resend_api | resend_smtp
     EMAIL_PROVIDER: str = "dev"
-    EMAIL_FROM: str = "Kiluan <no-reply@kiluan.sainsdataciv.com>"
+    EMAIL_FROM: str = "sigerciv <no-reply@sigerciv.com>"
     APP_BASE_URL: str = "http://localhost"
     RESEND_API_KEY: str = ""
     # Dipakai hanya bila EMAIL_PROVIDER=resend_smtp

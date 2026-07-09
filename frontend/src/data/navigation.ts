@@ -7,7 +7,7 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
       href: `/${DESA}`,
       name: 'Jelajahi',
       type: 'mega-menu',
-      description: 'Gerbang & Destinasi Kiluan',
+      description: 'Gerbang & Destinasi sigerciv',
       children: [
         {
           id: 'jelajahi-destinasi',
@@ -86,7 +86,7 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
       name: 'Lestari',
       type: 'mega-menu',
       isNew: true,
-      description: 'Misi Kiluan & Jejak Lestari',
+      description: 'Misi sigerciv & Jejak Lestari',
       children: [
         {
           id: 'lestari-wisatawan',

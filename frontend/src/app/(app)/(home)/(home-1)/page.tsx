@@ -12,11 +12,11 @@ import type { Metadata } from 'next'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'Kiluan — Platform Desa Wisata Regeneratif',
+  title: 'sigerciv — Platform Desa Wisata Regeneratif',
   description:
     'Platform desa wisata regeneratif berbasis komunitas. Temukan destinasi lintas desa, data milik Pokdarwis, dan etalase Teluk Kiluan.',
   openGraph: {
-    title: 'Kiluan — Platform Desa Wisata Regeneratif',
+    title: 'sigerciv — Platform Desa Wisata Regeneratif',
     description: 'Wisata milik komunitas — bukan marketplace ekstraktif.',
     type: 'website',
   },

@@ -19,7 +19,7 @@ const pillars = [
   {
     icon: ArrowPathIcon,
     title: 'Loop regeneratif',
-    body: 'Misi Kiluan, kartu aksi owner, dan monitoring ekologi membentuk flywheel: belajar → beraksi → terukur.',
+    body: 'Misi sigerciv, kartu aksi owner, dan monitoring ekologi membentuk flywheel: belajar → beraksi → terukur.',
   },
   {
     icon: ChartBarIcon,
@@ -37,7 +37,7 @@ export default function HomeValuePillars() {
             Bukan Traveloka — platform regeneratif berbasis komunitas
           </h2>
           <p className="mt-3 text-neutral-600 dark:text-neutral-400">
-            Tiga pembeda struktural dari blueprint Kiluan: kepemilikan data, aliran nilai lokal, dan metrik
+            Tiga pembeda struktural dari blueprint sigerciv: kepemilikan data, aliran nilai lokal, dan metrik
             lestari sebagai bagian inti domain model.
           </p>
         </div>

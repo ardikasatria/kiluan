@@ -47,7 +47,7 @@ export default function DesaEtalaseHero({ profil, desaSlug, cuaca, jumlahDestina
           className="inline-flex items-center gap-2 text-sm font-medium text-primary-100/90 hover:text-white"
         >
           <ArrowLeftIcon className="size-4" aria-hidden />
-          Kembali ke Kiluan
+          Kembali ke sigerciv
         </Link>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-start">

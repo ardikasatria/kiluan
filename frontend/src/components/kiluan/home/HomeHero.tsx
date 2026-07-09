@@ -35,10 +35,10 @@ export default function HomeHero() {
               Platform Desa Wisata Regeneratif
             </p>
             <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl lg:leading-tight">
-              Kiluan — wisata milik komunitas, bukan marketplace ekstraktif
+              sigerciv — wisata milik komunitas, bukan marketplace ekstraktif
             </h1>
             <p className="mt-5 text-base leading-relaxed text-primary-50/90 sm:text-lg">
-              Data destinasi, layanan, dan cerita lokal dimiliki desa &amp; Pokdarwis. Kiluan menatalayan
+              Data destinasi, layanan, dan cerita lokal dimiliki desa &amp; Pokdarwis. sigerciv menatalayan
               teknologi agar nilai ekonomi mengalir ke penyedia lokal dan loop regeneratif tetap terukur.
             </p>
 

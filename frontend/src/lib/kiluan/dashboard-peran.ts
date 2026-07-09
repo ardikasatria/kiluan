@@ -74,7 +74,7 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       ],
       modulTerkait: [
         { label: 'Discovery', href: '/#discovery' },
-        { label: 'Misi Kiluan', href: href(d, 'misi') },
+        { label: 'Misi sigerciv', href: href(d, 'misi') },
         { label: 'Paspor Lestari', href: '/paspor' },
       ],
       aktivitasContoh: [
@@ -296,7 +296,7 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       ],
       modulTerkait: [
         { label: 'Nusantara (F4)', href: '/admin/dasbor/nusantara' },
-        { label: 'Health API', href: 'https://kiluanapi.sainsdataciv.com/api/v1/sehat' },
+        { label: 'Health API', href: 'https://api.sigerciv.com/api/v1/sehat' },
       ],
       aktivitasContoh: [
         'Tenant baru dalam antrian onboarding',

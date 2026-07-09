@@ -158,7 +158,7 @@ export default function MisiClient({ desaSlug, desaNama }: Props) {
             <div>
               <p className="text-sm text-primary-600">{desaNama}</p>
               <h1 className="mt-1 text-3xl font-bold text-primary-800 dark:text-primary-100">
-                Misi Kiluan
+                Misi sigerciv
               </h1>
               <p className="mt-2 max-w-xl text-sm text-neutral-600 dark:text-neutral-400">
                 Belajar kode etik → aksi di lapangan. Hanya stempel terverifikasi masuk Paspor

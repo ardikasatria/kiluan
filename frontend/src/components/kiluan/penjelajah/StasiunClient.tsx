@@ -75,7 +75,7 @@ export default function StasiunClient({ desaSlug, desaNama }: Props) {
           href={`/${desaSlug}/misi`}
           className="mt-8 inline-block text-sm text-primary-600 hover:underline"
         >
-          ← Kembali ke Misi Kiluan
+          ← Kembali ke Misi sigerciv
         </Link>
       </div>
     </div>

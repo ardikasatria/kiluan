@@ -25,7 +25,7 @@ export default async function DasborLayout({ children, params }: Props) {
             >
               {profil.nama}
             </Link>
-            <h1 className="text-2xl font-bold text-primary-800 dark:text-primary-100">Dasbor Kiluan</h1>
+            <h1 className="text-2xl font-bold text-primary-800 dark:text-primary-100">Dasbor sigerciv</h1>
             <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
               Kelola aktivitas sesuai peran keanggotaan Anda
             </p>

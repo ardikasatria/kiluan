@@ -1,9 +1,9 @@
-# deploy/docker-compose.yml — stack produksi Kiluan Fase 0 (VM Docker)
+# deploy/docker-compose.yml — stack produksi sigerciv (VM Docker)
 # Jalankan dari folder deploy/:
 #   cp .env.contoh .env && nano .env
 #   docker compose --env-file .env up -d --build
 #
-# Akses: https://kiluan.sainsdataciv.com  ·  https://kiluanapi.sainsdataciv.com/api/v1/sehat
+# Akses: https://sigerciv.com  ·  https://api.sigerciv.com/api/v1/sehat
 
 services:
   db:
@@ -155,8 +155,8 @@ services:
         condition: service_healthy
     environment:
       ACME_EMAIL: ${ACME_EMAIL}
-      FRONTEND_DOMAIN: ${FRONTEND_DOMAIN:-kiluan.sainsdataciv.com}
-      API_DOMAIN: ${API_DOMAIN:-kiluanapi.sainsdataciv.com}
+      FRONTEND_DOMAIN: ${FRONTEND_DOMAIN:-sigerciv.com}
+      API_DOMAIN: ${API_DOMAIN:-api.sigerciv.com}
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data

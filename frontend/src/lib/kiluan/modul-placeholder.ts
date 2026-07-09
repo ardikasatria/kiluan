@@ -74,7 +74,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     modulLabel: 'Gamifikasi Kontribusi',
     fase: 'F1',
     aktif: true,
-    deskripsi: 'Badge tiga tingkat dan progres partisipasi komunitas di platform Kiluan.',
+    deskripsi: 'Badge tiga tingkat dan progres partisipasi komunitas di platform sigerciv.',
     fiturRencana: [
       'Koleksi lencana per pengguna',
       'Aturan poin otomatis & idempoten',
@@ -106,7 +106,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
   kalender: {
     slug: 'kalender',
     judul: 'Kalender Aktivitas',
-    modulLabel: 'Destinasi Kiluan',
+    modulLabel: 'Destinasi sigerciv',
     fase: 'F0',
     deskripsi:
       'Jadwal event musiman — misalnya lumba-lumba pagi, festival, atau musim angin tertentu. Pengelola dapat mengatur kalender di dashboard.',
@@ -119,7 +119,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
   misi: {
     slug: 'misi',
     judul: 'Penjelajah Lestari',
-    modulLabel: 'Misi Kiluan',
+    modulLabel: 'Misi sigerciv',
     fase: 'F2',
     deskripsi:
       'Quest wisatawan: micro-lesson kode etik bahari, lalu aksi terverifikasi (tanam mangrove, bersih pantai, monitoring lumba-lumba).',
@@ -133,7 +133,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
   'stasiun-lestari': {
     slug: 'stasiun-lestari',
     judul: 'Stasiun Lestari',
-    modulLabel: 'Misi Kiluan',
+    modulLabel: 'Misi sigerciv',
     fase: 'F2',
     deskripsi:
       'Titik check-in QR di dermaga lumba-lumba, mangrove, dan spot konservasi — bukti kehadiran aksi regeneratif.',
@@ -146,7 +146,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
   'naik-kelas': {
     slug: 'naik-kelas',
     judul: 'Naik Kelas Lestari',
-    modulLabel: 'Misi Kiluan',
+    modulLabel: 'Misi sigerciv',
     fase: 'F1',
     aktif: true,
     deskripsi:
@@ -160,7 +160,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
   'kartu-aksi': {
     slug: 'kartu-aksi',
     judul: 'Kartu Aksi',
-    modulLabel: 'Misi Kiluan',
+    modulLabel: 'Misi sigerciv',
     fase: 'F1',
     deskripsi:
       'Praktik konkret dengan bukti: tanpa plastik sekali pakai, bahan lokal, kelola limbah, sisihkan % ke dana konservasi.',
@@ -173,7 +173,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
   sertifikasi: {
     slug: 'sertifikasi',
     judul: 'Tingkat Sertifikasi',
-    modulLabel: 'Misi Kiluan',
+    modulLabel: 'Misi sigerciv',
     fase: 'F1',
     aktif: true,
     deskripsi: 'Ringkasan tingkat sertifikasi regeneratif yang dimiliki penyedia di desa.',
@@ -238,7 +238,7 @@ export const MODUL_ROOT: Record<string, ModulPlaceholderConfig> = {
   paspor: {
     slug: 'paspor',
     judul: 'Paspor Lestari',
-    modulLabel: 'Misi Kiluan',
+    modulLabel: 'Misi sigerciv',
     fase: 'F2',
     deskripsi:
       'Impact passport pribadi wisatawan — stempel misi, ringkasan dampak ("kamu bantu tanam 5 mangrove"), badge & sertifikat digital.',

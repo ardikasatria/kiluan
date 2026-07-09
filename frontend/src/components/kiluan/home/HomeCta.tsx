@@ -17,7 +17,7 @@ export default function HomeCta() {
                 Gabung sebagai warga digital Teluk Kiluan
               </h2>
               <p className="mt-3 text-primary-50/90">
-                Pasang Kiluan di layar utama HP Anda — konten etalase tetap bisa dibaca saat sinyal terbatas.
+                Pasang sigerciv di layar utama HP Anda — konten etalase tetap bisa dibaca saat sinyal terbatas.
                 Daftar untuk kontribusi data, kelola destinasi, atau mulai sebagai wisatawan.
               </p>
             </div>

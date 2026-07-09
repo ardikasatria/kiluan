@@ -10,7 +10,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa } = await params
   const profil = await getProfilDesa(desa)
-  return { title: profil ? `Misi Kiluan — ${profil.nama}` : 'Misi Kiluan' }
+  return { title: profil ? `Misi sigerciv — ${profil.nama}` : 'Misi sigerciv' }
 }
 
 export default async function MisiPage({ params }: Props) {

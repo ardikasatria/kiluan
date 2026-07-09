@@ -39,7 +39,7 @@ export default function DasborGuard({ desaSlug, peran, children, loginOnly }: Pr
   if (!isLoggedIn) {
     return (
       <div className="py-16 text-center">
-        <h1 className="text-xl font-semibold text-primary-800 dark:text-primary-100">Dasbor Kiluan</h1>
+        <h1 className="text-xl font-semibold text-primary-800 dark:text-primary-100">Dasbor sigerciv</h1>
         <p className="mx-auto mt-2 max-w-md text-sm text-neutral-600 dark:text-neutral-400">
           Masuk untuk mengakses dasbor sesuai peran keanggotaan Anda.
         </p>

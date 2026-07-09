@@ -59,7 +59,7 @@ export default async function TentangDesaPage({ params }: Props) {
                 Wisata milik komunitas
               </h2>
               <p className="mt-3 leading-relaxed text-neutral-700 dark:text-neutral-300">
-                {profil.nama} adalah bagian dari jaringan Kiluan — platform desa wisata regeneratif di mana data
+                {profil.nama} adalah bagian dari jaringan sigerciv — platform desa wisata regeneratif di mana data
                 destinasi dan layanan dimiliki komunitas lokal (Pokdarwis &amp; perangkat desa), bukan agregator
                 komersial. Setiap kunjungan idealnya meninggalkan destinasi lebih baik melalui pemantauan daya
                 dukung, reinvestment ke dana konservasi, dan partisipasi warga.
@@ -82,7 +82,7 @@ export default async function TentangDesaPage({ params }: Props) {
                   },
                   {
                     icon: GlobeAltIcon,
-                    title: 'Platform Kiluan',
+                    title: 'Platform sigerciv',
                     body: 'Penatalayan teknologi multi-tenant — siap direplikasi ke desa mitra lain.',
                   },
                 ].map(({ icon: Icon, title, body }) => (

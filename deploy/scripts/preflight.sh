@@ -25,7 +25,7 @@ cek_port() {
   return 0
 }
 
-echo "==> Cek prasyarat deploy Kiluan"
+echo "==> Cek prasyarat deploy sigerciv"
 fail=0
 cek_port 80 || fail=1
 cek_port 443 || fail=1

@@ -18,7 +18,7 @@ interface Props {
 
 export default function ModulPlaceholderPage({ config, desaSlug, profilNama }: Props) {
   const kembali = desaSlug ? `/${desaSlug}` : '/'
-  const konteks = profilNama ?? (desaSlug ? desaSlug : 'Kiluan')
+  const konteks = profilNama ?? (desaSlug ? desaSlug : 'sigerciv')
 
   return (
     <div className="pb-20">
@@ -107,7 +107,7 @@ export default function ModulPlaceholderPage({ config, desaSlug, profilNama }: P
             </div>
 
             <p className="rounded-2xl border border-dashed border-primary-300/60 bg-primary-50/50 px-4 py-3 text-xs leading-relaxed text-primary-800 dark:border-primary-600/40 dark:bg-primary-900/20 dark:text-primary-200">
-              Modul ini masuk roadmap blueprint Kiluan. Fase 0 fokus etalase, auth, destinasi &amp; media —
+              Modul ini masuk roadmap blueprint sigerciv. Fase 0 fokus etalase, auth, destinasi &amp; media —
               modul {config.modulLabel} direncanakan Fase {config.fase}.
             </p>
           </aside>

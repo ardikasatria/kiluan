@@ -21,7 +21,7 @@ const footerColumns: FooterColumn[] = [
     id: 'gerbang',
     title: 'Gerbang',
     links: [
-      { href: '/', label: 'Beranda Kiluan' },
+      { href: '/', label: 'Beranda sigerciv' },
       { href: '/teluk-kiluan', label: 'Teluk Kiluan' },
       { href: '/#discovery', label: 'Cari destinasi' },
       { href: '/teluk-kiluan#destinasi', label: 'Katalog spot' },
@@ -42,7 +42,7 @@ const footerColumns: FooterColumn[] = [
     id: 'lestari',
     title: 'Lestari',
     links: [
-      { href: '/teluk-kiluan/misi', label: 'Misi Kiluan' },
+      { href: '/teluk-kiluan/misi', label: 'Misi sigerciv' },
       { href: '/paspor', label: 'Paspor Lestari' },
       { href: '/teluk-kiluan/neraca-regeneratif', label: 'Neraca Regeneratif' },
       { href: '/teluk-kiluan/dana-konservasi', label: 'Dana konservasi' },
@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-2">
             <Logo size="h-12 w-auto sm:h-14" />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-              Kiluan — platform desa wisata regeneratif berbasis komunitas. Mesin dapat direplikasi ke desa
+              sigerciv — platform desa wisata regeneratif berbasis komunitas. Mesin dapat direplikasi ke desa
               mitra; instans perdana Teluk Kiluan, Lampung.
             </p>
             <Link
@@ -119,8 +119,8 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-neutral-200 pt-8 text-sm text-neutral-500 sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800 dark:text-neutral-500">
-          <p>© {year} Kiluan · Kelompok Keilmuan CIV, Program Studi Sains Data ITERA.</p>
-          <p className="text-xs">kiluan.sainsdataciv.com · PWA offline-first</p>
+          <p>© {year} sigerciv · Kelompok Keilmuan CIV, Program Studi Sains Data ITERA.</p>
+          <p className="text-xs">sigerciv.com · PWA offline-first</p>
         </div>
       </div>
     </footer>

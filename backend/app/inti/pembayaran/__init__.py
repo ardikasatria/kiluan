@@ -20,7 +20,7 @@ class PembayaranManual:
 
     async def instruksi_manual(self, kode_pesanan: str) -> InstruksiManual:
         return InstruksiManual(
-            url="https://kiluan.sainsdataciv.com/static/qris-pokdarwis.png",
+            url="https://sigerciv.com/static/qris-pokdarwis.png",
             catatan=f"Sertakan kode {kode_pesanan} pada berita transfer.",
         )
 

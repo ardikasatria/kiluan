@@ -1,4 +1,4 @@
-"""Entry FastAPI Kiluan — F0 (B1: Balai Warga aktif)."""
+"""Entry FastAPI sigerciv — F0 (B1: Balai Warga aktif)."""
 from __future__ import annotations
 
 from fastapi import FastAPI, Request
@@ -10,7 +10,7 @@ from app.domain.errors import KesalahanDomain
 from app.inti.db import cek_db
 from app.inti.konfig import konfig
 
-app = FastAPI(title="Kiluan API", version="0.2.0")
+app = FastAPI(title="sigerciv API", version="0.2.0")
 
 cfg = konfig()
 app.add_middleware(

@@ -24,7 +24,7 @@ const modules = [
   },
   {
     icon: MapIcon,
-    name: 'Destinasi Kiluan',
+    name: 'Destinasi sigerciv',
     tag: 'Basis Data Wisata',
     fase: 'F0',
     desc: 'Spot terstruktur dengan geo PostGIS, layanan, kalender aktivitas, dan galeri media MinIO.',

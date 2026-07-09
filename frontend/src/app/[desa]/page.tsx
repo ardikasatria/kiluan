@@ -54,7 +54,7 @@ export default async function DesaEtalasePage({ params }: Props) {
           <div className="mb-8 max-w-2xl">
             <p className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-primary-400">
               <MapPinIcon className="size-4" aria-hidden />
-              Modul Destinasi Kiluan
+              Modul Destinasi sigerciv
             </p>
             <h2 className="mt-1 text-2xl font-bold text-primary-800 sm:text-3xl dark:text-primary-100">
               Katalog spot wisata

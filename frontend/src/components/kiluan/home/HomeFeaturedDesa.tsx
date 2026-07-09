@@ -20,7 +20,7 @@ export default function HomeFeaturedDesa({ desa }: Props) {
               Tenant multi-desa
             </p>
             <h2 className="mt-1 text-2xl font-bold text-primary-800 sm:text-3xl dark:text-primary-100">
-              Desa wisata di jaringan Kiluan
+              Desa wisata di jaringan sigerciv
             </h2>
             <p className="mt-2 max-w-xl text-neutral-600 dark:text-neutral-400">
               Mulai dari Teluk Kiluan sebagai instans flagship — siap direplikasi ke desa mitra lain lewat modul

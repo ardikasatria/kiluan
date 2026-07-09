@@ -6,11 +6,11 @@ import { AuthProvider } from '@/contexts/AuthProvider'
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - Kiluan',
-    default: 'Kiluan — Platform Desa Wisata Regeneratif',
+    template: '%s - sigerciv',
+    default: 'sigerciv — Platform Desa Wisata Regeneratif',
   },
-  description: 'Kiluan — platform desa wisata regeneratif berbasis komunitas. Teluk Kiluan, Lampung.',
-  keywords: ['Kiluan', 'Desa Wisata', 'Regeneratif', 'Teluk Kiluan', 'Ekowisata'],
+  description: 'sigerciv — platform desa wisata regeneratif berbasis komunitas. Teluk Kiluan, Lampung.',
+  keywords: ['sigerciv', 'Desa Wisata', 'Regeneratif', 'Teluk Kiluan', 'Ekowisata'],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

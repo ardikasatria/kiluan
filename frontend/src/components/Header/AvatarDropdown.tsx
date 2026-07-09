@@ -54,7 +54,7 @@ export default function AvatarDropdown({ className }: Props) {
               className="-m-3 flex items-center gap-x-4 rounded-lg p-2 transition duration-150 ease-in-out hover:bg-neutral-100 dark:hover:bg-neutral-700"
             >
               <HugeiconsIcon icon={UserIcon} size={24} strokeWidth={1.5} />
-              <p className="text-sm font-medium">Dasbor Kiluan</p>
+              <p className="text-sm font-medium">Dasbor sigerciv</p>
             </Link>
 
             <Link

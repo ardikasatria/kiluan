@@ -30,7 +30,7 @@ const tips = [
   {
     icon: SignalSlashIcon,
     title: 'Siapkan mode offline',
-    body: 'Sinyal di Teluk Kiluan terbatas. Pasang Kiluan sebagai PWA dan buka halaman destinasi saat masih online agar konten tersimpan untuk dibaca tanpa jaringan.',
+    body: 'Sinyal di Teluk Kiluan terbatas. Pasang sigerciv sebagai PWA dan buka halaman destinasi saat masih online agar konten tersimpan untuk dibaca tanpa jaringan.',
   },
   {
     icon: DevicePhoneMobileIcon,
@@ -57,7 +57,7 @@ export default async function PanduanDesaPage({ params }: Props) {
           </Link>
           <h1 className="mt-4 text-3xl font-bold sm:text-4xl">Panduan berkunjung {profil.nama}</h1>
           <p className="mt-3 max-w-2xl text-primary-50/90">
-            Etika bahari, kesiapan offline, dan cara memasang Kiluan di perangkat Anda.
+            Etika bahari, kesiapan offline, dan cara memasang sigerciv di perangkat Anda.
           </p>
         </div>
       </div>

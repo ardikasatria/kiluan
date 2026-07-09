@@ -5,7 +5,7 @@ Provider dipilih lewat `EMAIL_PROVIDER`:
 - `resend_api`  : Resend HTTP API via httpx (REKOMENDASI untuk stack async).
 - `resend_smtp` : Resend SMTP via aiosmtplib (bila memang butuh transport SMTP).
 
-Prasyarat go-live (bukan blocker kode): domain pengirim `kiluan.sainsdataciv.com`
+Prasyarat go-live (bukan blocker kode): domain pengirim `sigerciv.com`
 diverifikasi di Resend (DNS SPF/DKIM) + `RESEND_API_KEY` di env produksi.
 """
 from __future__ import annotations
@@ -89,18 +89,18 @@ def _tautan(path: str, token: str) -> str:
 async def kirim_verifikasi(email: str, token: str) -> None:
     tautan = _tautan("/verifikasi-email", token)
     html = (
-        f"<p>Halo,</p><p>Verifikasi email Kiluan Anda:</p>"
+        f"<p>Halo,</p><p>Verifikasi email sigerciv Anda:</p>"
         f'<p><a href="{tautan}">Verifikasi sekarang</a></p>'
         f"<p>Atau salin token: <code>{token}</code></p>"
     )
-    await pengirim.kirim(email, "Verifikasi email Kiluan", html)
+    await pengirim.kirim(email, "Verifikasi email sigerciv", html)
 
 
 async def kirim_reset(email: str, token: str) -> None:
     tautan = _tautan("/reset-sandi", token)
     html = (
-        f"<p>Halo,</p><p>Permintaan reset kata sandi Kiluan:</p>"
+        f"<p>Halo,</p><p>Permintaan reset kata sandi sigerciv:</p>"
         f'<p><a href="{tautan}">Reset kata sandi</a></p>'
         f"<p>Abaikan email ini bila Anda tidak memintanya.</p>"
     )
-    await pengirim.kirim(email, "Reset kata sandi Kiluan", html)
+    await pengirim.kirim(email, "Reset kata sandi sigerciv", html)

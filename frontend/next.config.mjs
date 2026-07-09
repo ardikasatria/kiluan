@@ -43,7 +43,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'kiluan.sainsdataciv.com',
+        hostname: 'sigerciv.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.sigerciv.com',
         pathname: '/**',
       },
     ],

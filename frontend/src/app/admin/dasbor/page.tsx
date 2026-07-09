@@ -6,7 +6,7 @@ import Aside from '@/components/aside'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Dasbor Admin — Kiluan',
+  title: 'Dasbor Admin — sigerciv',
   description: 'Steward platform: tenant, moderasi, dan konfigurasi Nusantara.',
 }
 

@@ -1,4 +1,4 @@
-# Deploy Kiluan — Docker VM (produksi / staging)
+# Deploy sigerciv — Docker VM (produksi / staging)
 
 Stack: **PostGIS · Redis · MinIO · Backend · Frontend · Caddy** (TLS otomatis).
 
@@ -6,9 +6,9 @@ Stack: **PostGIS · Redis · MinIO · Backend · Frontend · Caddy** (TLS otomat
 
 | Host | Peran |
 |------|--------|
-| `https://kiluan.sainsdataciv.com` | Frontend Next.js |
-| `https://kiluanapi.sainsdataciv.com` | API FastAPI (`/api/v1/*`) |
-| `https://kiluanapi.sainsdataciv.com/media/` | MinIO (unggah & baca media) |
+| `https://sigerciv.com` | Frontend Next.js |
+| `https://api.sigerciv.com` | API FastAPI (`/api/v1/*`) |
+| `https://api.sigerciv.com/media/` | MinIO (unggah & baca media) |
 
 Frontend memanggil API lewat `NEXT_PUBLIC_API_URL` (bukan `/api` same-origin).
 
@@ -18,8 +18,8 @@ Frontend memanggil API lewat `NEXT_PUBLIC_API_URL` (bukan `/api` same-origin).
 - RAM minimal **2 GB** (disarankan 4 GB untuk build frontend)
 - Port **80** dan **443** (TCP) terbuka di firewall; **443/udp** opsional (HTTP/3)
 - DNS sudah mengarah ke IP VM **sebelum** `docker compose up` pertama:
-  - `kiluan.sainsdataciv.com` → IP VM
-  - `kiluanapi.sainsdataciv.com` → IP VM
+  - `sigerciv.com` → IP VM
+  - `api.sigerciv.com` → IP VM
 
 ## Mulai cepat
 
@@ -33,8 +33,8 @@ Edit `.env` (minimal):
 
 1. `ACME_EMAIL` — email valid untuk Let's Encrypt
 2. `FRONTEND_DOMAIN` / `API_DOMAIN` — sesuaikan jika perlu
-3. `APP_BASE_URL` = URL frontend (`https://kiluan.sainsdataciv.com`)
-4. `NEXT_PUBLIC_API_URL` = URL API (`https://kiluanapi.sainsdataciv.com`)
+3. `APP_BASE_URL` = URL frontend (`https://sigerciv.com`)
+4. `NEXT_PUBLIC_API_URL` = URL API (`https://api.sigerciv.com`)
 5. `CORS_ORIGINS` harus mencakup origin **frontend**
 6. Ganti semua password & `JWT_SECRET`
 7. `COOKIE_SECURE=true` (default; Caddy selalu HTTPS)
@@ -50,13 +50,13 @@ Build pertama bisa **5–15 menit** (terutama frontend). Caddy meminta sertifika
 
 ```bash
 # API (subdomain)
-curl -fsS https://kiluanapi.sainsdataciv.com/api/v1/sehat
+curl -fsS https://api.sigerciv.com/api/v1/sehat
 
 # Frontend
-curl -I https://kiluan.sainsdataciv.com/
+curl -I https://sigerciv.com/
 
 chmod +x scripts/smoke.sh
-./scripts/smoke.sh https://kiluan.sainsdataciv.com https://kiluanapi.sainsdataciv.com
+./scripts/smoke.sh https://sigerciv.com https://api.sigerciv.com
 ```
 
 ## Login admin
@@ -119,7 +119,7 @@ docker compose logs -f caddy   # pantau penerbitan sertifikat
 | `minio` unhealthy | `docker compose logs minio` — pastikan `MINIO_ROOT_PASSWORD` ≥ 8 karakter |
 | `backend` restart loop | `docker compose logs backend` — cek koneksi DB & migrasi |
 | Frontend 502 | Tunggu healthcheck hijau: `docker compose ps` |
-| Login gagal / cookie | `CORS_ORIGINS` harus origin **frontend**; `COOKIE_SECURE=true`; API di `kiluanapi.*` |
+| Login gagal / cookie | `CORS_ORIGINS` harus origin **frontend**; `COOKIE_SECURE=true`; API di `api.sigerciv.com` |
 | Build frontend OOM | Tambah swap di VM atau build di mesin lain lalu push image |
 
 ## Port internal
