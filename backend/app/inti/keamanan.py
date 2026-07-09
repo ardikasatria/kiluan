@@ -13,10 +13,10 @@ from argon2.exceptions import InvalidHashError, VerifyMismatchError
 from jose import JWTError, jwt
 
 from app.domain.errors import TidakTerautentikasi
-from app.domain.keamanan import hash_token, token_mentah  # reuse identik
+from app.domain.keamanan import hash_token, kode_verifikasi_email, token_mentah  # reuse identik
 from app.inti.konfig import konfig
 
-__all__ = ["hash_sandi", "verifikasi_sandi", "token_mentah", "hash_token",
+__all__ = ["hash_sandi", "verifikasi_sandi", "token_mentah", "kode_verifikasi_email", "hash_token",
            "buat_access", "baca_access"]
 
 _ph = PasswordHasher()

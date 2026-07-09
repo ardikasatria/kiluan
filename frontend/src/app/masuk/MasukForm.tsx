@@ -1,6 +1,8 @@
 'use client'
 
+import VerifikasiKodeForm from '@/components/auth/VerifikasiKodeForm'
 import { pesanGalat, useAuth } from '@/contexts/AuthProvider'
+import { kodeGalat } from '@/lib/api/galat'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Field, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
@@ -19,19 +21,36 @@ export default function MasukForm() {
   const [sandi, setSandi] = useState('')
   const [galat, setGalat] = useState<string | null>(null)
   const [memuat, setMemuat] = useState(false)
+  const [perluVerifikasi, setPerluVerifikasi] = useState(false)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setGalat(null)
+    setPerluVerifikasi(false)
     setMemuat(true)
     try {
       await masuk({ email: email.trim().toLowerCase(), kata_sandi: sandi })
       router.push(redirect)
       router.refresh()
     } catch (err) {
-      setGalat(pesanGalat(err))
+      if (kodeGalat(err) === 'belum_diverifikasi') {
+        setPerluVerifikasi(true)
+        setGalat(pesanGalat(err))
+      } else {
+        setGalat(pesanGalat(err))
+      }
     } finally {
       setMemuat(false)
+    }
+  }
+
+  const handleVerifikasiBerhasil = async () => {
+    try {
+      await masuk({ email: email.trim().toLowerCase(), kata_sandi: sandi })
+      router.push(redirect)
+      router.refresh()
+    } catch (err) {
+      setGalat(pesanGalat(err))
     }
   }
 
@@ -49,42 +68,50 @@ export default function MasukForm() {
           </p>
         </div>
 
-        <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>
-          <Field className="block">
-            <Label className="text-neutral-800 dark:text-neutral-200">Email</Label>
-            <Input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1"
-              autoComplete="email"
-              required
-            />
-          </Field>
-          <Field className="block">
-            <div className="flex items-center justify-between text-neutral-800 dark:text-neutral-200">
-              <Label>Kata sandi</Label>
-              <Link href="/lupa-sandi" className="text-sm font-medium text-primary-700 underline">
-                Lupa sandi?
-              </Link>
-            </div>
-            <PasswordInput
-              value={sandi}
-              onChange={(e) => setSandi(e.target.value)}
-              className="mt-1"
-              autoComplete="current-password"
-              required
-            />
-          </Field>
-          {galat && (
-            <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800 dark:bg-red-950/40 dark:text-red-200">
-              {galat}
-            </p>
-          )}
-          <ButtonPrimary type="submit" disabled={memuat}>
-            {memuat ? 'Memproses…' : 'Masuk'}
-          </ButtonPrimary>
-        </form>
+        {perluVerifikasi ? (
+          <VerifikasiKodeForm
+            email={email.trim().toLowerCase()}
+            onBerhasil={handleVerifikasiBerhasil}
+            deskripsi="Akun belum diverifikasi. Kode baru telah dikirim ke email Anda."
+          />
+        ) : (
+          <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>
+            <Field className="block">
+              <Label className="text-neutral-800 dark:text-neutral-200">Email</Label>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="mt-1"
+                autoComplete="email"
+                required
+              />
+            </Field>
+            <Field className="block">
+              <div className="flex items-center justify-between text-neutral-800 dark:text-neutral-200">
+                <Label>Kata sandi</Label>
+                <Link href="/lupa-sandi" className="text-sm font-medium text-primary-700 underline">
+                  Lupa sandi?
+                </Link>
+              </div>
+              <PasswordInput
+                value={sandi}
+                onChange={(e) => setSandi(e.target.value)}
+                className="mt-1"
+                autoComplete="current-password"
+                required
+              />
+            </Field>
+            {galat && (
+              <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800 dark:bg-red-950/40 dark:text-red-200">
+                {galat}
+              </p>
+            )}
+            <ButtonPrimary type="submit" disabled={memuat}>
+              {memuat ? 'Memproses…' : 'Masuk'}
+            </ButtonPrimary>
+          </form>
+        )}
 
         <div className="block text-center text-sm text-neutral-700 dark:text-neutral-300">
           Belum punya akun?{' '}

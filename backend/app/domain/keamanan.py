@@ -42,6 +42,11 @@ def token_mentah() -> str:
     return secrets.token_urlsafe(32)
 
 
+def kode_verifikasi_email() -> str:
+    """Kode 6 digit untuk verifikasi email (disimpan sebagai hash di DB)."""
+    return f"{secrets.randbelow(1_000_000):06d}"
+
+
 def hash_token(t: str) -> str:
     return hashlib.sha256(t.encode()).hexdigest()
 

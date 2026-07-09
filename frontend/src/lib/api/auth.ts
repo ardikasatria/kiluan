@@ -62,10 +62,18 @@ export async function daftar(payload: DaftarPayload) {
   )
 }
 
-export async function verifikasiEmail(token: string) {
+export async function verifikasiEmail(email: string, kode: string) {
   return apiFetch<{ status: string }>('/api/v1/auth/verifikasi-email', {
     method: 'POST',
-    body: JSON.stringify({ token }),
+    body: JSON.stringify({ email, kode }),
+    auth: false,
+  })
+}
+
+export async function kirimUlangVerifikasi(email: string) {
+  return apiFetch<{ pesan: string }>('/api/v1/auth/kirim-ulang-verifikasi', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
     auth: false,
   })
 }

@@ -86,14 +86,15 @@ def _tautan(path: str, token: str) -> str:
     return f"{konfig().APP_BASE_URL}{path}?token={token}"
 
 
-async def kirim_verifikasi(email: str, token: str) -> None:
-    tautan = _tautan("/verifikasi-email", token)
+async def kirim_verifikasi(email: str, kode: str) -> None:
     html = (
-        f"<p>Halo,</p><p>Verifikasi email sigerciv Anda:</p>"
-        f'<p><a href="{tautan}">Verifikasi sekarang</a></p>'
-        f"<p>Atau salin token: <code>{token}</code></p>"
+        f"<p>Halo,</p>"
+        f"<p>Kode verifikasi email sigerciv Anda:</p>"
+        f'<p style="font-size:28px;font-weight:bold;letter-spacing:4px">{kode}</p>'
+        f"<p>Kode berlaku 15 menit. Masukkan kode ini di halaman daftar atau masuk.</p>"
+        f"<p>Abaikan email ini bila Anda tidak mendaftar di sigerciv.</p>"
     )
-    await pengirim.kirim(email, "Verifikasi email sigerciv", html)
+    await pengirim.kirim(email, "Kode verifikasi email sigerciv", html)
 
 
 async def kirim_reset(email: str, token: str) -> None:

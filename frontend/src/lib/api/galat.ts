@@ -1,4 +1,4 @@
-import type { ApiError } from './client'
+import { ApiError } from './client'
 
 interface GalatAmplop {
   galat?: { kode?: string; pesan?: string; rincian?: { field: string; pesan: string }[] }
@@ -12,4 +12,12 @@ export function pesanGalat(err: unknown): string {
   }
   if (err instanceof Error) return err.message
   return 'Terjadi kesalahan'
+}
+
+export function kodeGalat(err: unknown): string | null {
+  if (err instanceof Error && 'body' in err) {
+    const body = (err as ApiError).body as GalatAmplop | undefined
+    return body?.galat?.kode ?? null
+  }
+  return null
 }

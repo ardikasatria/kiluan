@@ -1,5 +1,6 @@
 'use client'
 
+import VerifikasiKodeForm from '@/components/auth/VerifikasiKodeForm'
 import { pesanGalat, useAuth } from '@/contexts/AuthProvider'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Field, Label } from '@/shared/fieldset'
@@ -7,22 +8,25 @@ import Input from '@/shared/Input'
 import Logo from '@/shared/Logo'
 import PasswordInput from '@/shared/PasswordInput'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { FormEvent, useState } from 'react'
 
 export default function DaftarPage() {
-  const { daftar } = useAuth()
+  const router = useRouter()
+  const { daftar, masuk } = useAuth()
   const [nama, setNama] = useState('')
   const [email, setEmail] = useState('')
   const [sandi, setSandi] = useState('')
   const [konfirmasiSandi, setKonfirmasiSandi] = useState('')
   const [galat, setGalat] = useState<string | null>(null)
-  const [sukses, setSukses] = useState<string | null>(null)
+  const [pesanDaftar, setPesanDaftar] = useState<string | null>(null)
+  const [tahapVerifikasi, setTahapVerifikasi] = useState(false)
   const [memuat, setMemuat] = useState(false)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setGalat(null)
-    setSukses(null)
+    setPesanDaftar(null)
     if (sandi !== konfirmasiSandi) {
       setGalat('Konfirmasi kata sandi tidak sama.')
       return
@@ -34,11 +38,22 @@ export default function DaftarPage() {
         email: email.trim().toLowerCase(),
         kata_sandi: sandi,
       })
-      setSukses(pesan)
+      setPesanDaftar(pesan)
+      setTahapVerifikasi(true)
     } catch (err) {
       setGalat(pesanGalat(err))
     } finally {
       setMemuat(false)
+    }
+  }
+
+  const handleVerifikasiBerhasil = async () => {
+    try {
+      await masuk({ email: email.trim().toLowerCase(), kata_sandi: sandi })
+      router.push('/teluk-kiluan')
+      router.refresh()
+    } catch (err) {
+      setGalat(pesanGalat(err))
     }
   }
 
@@ -56,12 +71,22 @@ export default function DaftarPage() {
           </p>
         </div>
 
-        {sukses ? (
-          <div className="space-y-4 rounded-2xl border border-primary-200 bg-primary-50 p-6 text-center dark:border-primary-700 dark:bg-primary-900/30">
-            <p className="text-sm text-primary-900 dark:text-primary-100">{sukses}</p>
-            <Link href="/masuk" className="inline-block font-medium text-primary-700 underline dark:text-primary-300">
-              Lanjut ke halaman masuk
-            </Link>
+        {tahapVerifikasi ? (
+          <div className="space-y-4">
+            {pesanDaftar && (
+              <p className="text-center text-sm text-primary-800 dark:text-primary-200">{pesanDaftar}</p>
+            )}
+            <VerifikasiKodeForm
+              email={email.trim().toLowerCase()}
+              onBerhasil={handleVerifikasiBerhasil}
+              deskripsi="Masukkan kode 6 digit yang baru dikirim ke email Anda."
+            />
+            <p className="text-center text-sm text-neutral-600 dark:text-neutral-400">
+              Verifikasi nanti?{' '}
+              <Link href="/masuk" className="font-medium text-primary-700 underline dark:text-primary-300">
+                Masuk — kode akan dikirim ulang
+              </Link>
+            </p>
           </div>
         ) : (
           <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>

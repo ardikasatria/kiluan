@@ -13,7 +13,7 @@ from uuid import UUID
 from ..domain import keamanan as keamanan_murni
 from ..domain.entitas import Keanggotaan, Pengguna, TokenAuth
 from ..domain.enums import KodePeran, StatusKeanggotaan, StatusPengguna, TipeToken
-from ..domain.errors import Konflik, KesalahanValidasi, TidakBerwenang, TidakTerautentikasi
+from ..domain.errors import BelumDiverifikasi, Konflik, KesalahanValidasi, TidakBerwenang, TidakTerautentikasi
 from ..skema.destinasi import DaftarReq, MasukReq
 
 
@@ -21,10 +21,26 @@ def _now() -> datetime:
     return datetime.now(timezone.utc)
 
 
+_KODE_VERIFIKASI_UMUR = timedelta(minutes=15)
+
+
 class AuthLayanan:
     def __init__(self, store, keamanan=keamanan_murni):
         self.store = store
         self.K = keamanan
+
+    async def _buat_kode_verifikasi(self, pengguna_id: UUID) -> str:
+        await self.store.token.cabut_semua(pengguna_id, TipeToken.verifikasi_email)
+        kode = self.K.kode_verifikasi_email()
+        await self.store.token.tambah(
+            TokenAuth(
+                pengguna_id=pengguna_id,
+                tipe=TipeToken.verifikasi_email,
+                token_hash=self.K.hash_token(kode),
+                kedaluwarsa_pada=_now() + _KODE_VERIFIKASI_UMUR,
+            )
+        )
+        return kode
 
     async def daftar(self, req: DaftarReq) -> tuple[Pengguna, str]:
         if await self.store.pengguna.ambil_email(req.email):
@@ -41,19 +57,26 @@ class AuthLayanan:
             Keanggotaan(pengguna_id=p.id, peran=KodePeran.wisatawan, desa_id=None,
                         status=StatusKeanggotaan.aktif)
         )
-        mentah = self.K.token_mentah()
-        await self.store.token.tambah(
-            TokenAuth(pengguna_id=p.id, tipe=TipeToken.verifikasi_email,
-                      token_hash=self.K.hash_token(mentah),
-                      kedaluwarsa_pada=_now() + timedelta(days=2))
-        )
-        return p, mentah
+        kode = await self._buat_kode_verifikasi(p.id)
+        return p, kode
 
-    async def verifikasi_email(self, token_mentah: str) -> Pengguna:
-        t = await self.store.token.ambil_hash(self.K.hash_token(token_mentah), TipeToken.verifikasi_email)
-        if t is None or t.dipakai_pada is not None or t.kedaluwarsa_pada < _now():
-            raise KesalahanValidasi("token verifikasi invalid atau kedaluwarsa")
-        p = await self.store.pengguna.ambil(t.pengguna_id)
+    async def kirim_ulang_verifikasi(self, email: str) -> str | None:
+        p = await self.store.pengguna.ambil_email(email.strip().lower())
+        if p is None or p.status != StatusPengguna.pending:
+            return None
+        return await self._buat_kode_verifikasi(p.id)
+
+    async def verifikasi_email(self, email: str, kode: str) -> Pengguna:
+        email = email.strip().lower()
+        kode = kode.strip()
+        if not kode.isdigit() or len(kode) != 6:
+            raise KesalahanValidasi("kode verifikasi tidak valid")
+        p = await self.store.pengguna.ambil_email(email)
+        if p is None:
+            raise KesalahanValidasi("kode verifikasi tidak valid atau kedaluwarsa")
+        t = await self.store.token.ambil_hash(self.K.hash_token(kode), TipeToken.verifikasi_email)
+        if t is None or t.pengguna_id != p.id or t.dipakai_pada is not None or t.kedaluwarsa_pada < _now():
+            raise KesalahanValidasi("kode verifikasi tidak valid atau kedaluwarsa")
         p.status = StatusPengguna.aktif
         p.email_terverifikasi_pada = _now()
         await self.store.token.tandai_pakai(t)
@@ -64,7 +87,11 @@ class AuthLayanan:
         if p is None or not self.K.verifikasi_sandi(req.kata_sandi, p.kata_sandi_hash):
             raise TidakTerautentikasi("email atau kata sandi salah")
         if p.status == StatusPengguna.pending:
-            raise TidakBerwenang("akun belum diverifikasi")
+            kode = await self._buat_kode_verifikasi(p.id)
+            raise BelumDiverifikasi(
+                "Akun belum diverifikasi. Kode verifikasi baru dikirim ke email Anda.",
+                kode_verifikasi=kode,
+            )
         if p.status in (StatusPengguna.nonaktif, StatusPengguna.tersuspensi):
             raise TidakBerwenang("akun tidak aktif")
         p.login_terakhir = _now()

@@ -38,6 +38,14 @@ class TidakBerwenang(KesalahanDomain):
     http = 403
 
 
+class BelumDiverifikasi(TidakBerwenang):
+    kode = "belum_diverifikasi"
+
+    def __init__(self, pesan: str, *, kode_verifikasi: str | None = None, rincian: list | None = None):
+        super().__init__(pesan, rincian)
+        self.kode_verifikasi = kode_verifikasi
+
+
 class TidakDitemukan(KesalahanDomain):
     kode = "tidak_ditemukan"
     http = 404

@@ -44,9 +44,9 @@ async def test_siklus_auth_sql(sesi):
     store = Penyimpanan(sesi)
     auth = AuthLayanan(store)  # keamanan default (pbkdf2) cukup untuk uji repo
 
-    p, token = await auth.daftar(DaftarReq(email="i@contoh.id", nama="I", kata_sandi="rahasia123"))
+    p, kode = await auth.daftar(DaftarReq(email="i@contoh.id", nama="I", kata_sandi="rahasia123"))
     await sesi.commit()
-    await auth.verifikasi_email(token)     # mutasi status via ORM
+    await auth.verifikasi_email("i@contoh.id", kode)     # mutasi status via ORM
     await sesi.commit()
 
     from app.domain.enums import StatusPengguna
