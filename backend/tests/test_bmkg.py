@@ -42,7 +42,9 @@ async def test_cuaca_cache_hit_kedua_kali():
     ):
         mock_resp = AsyncMock()
         mock_resp.raise_for_status = lambda: None
-        mock_resp.json = lambda: {"data": [{"t": 28}]}
+        mock_resp.json = lambda: {
+            "data": [{"cuaca": [[{"t": 28, "hu": 82, "weather_desc": "Cerah"}]]}]
+        }
         mock_client.return_value.__aenter__.return_value.get = AsyncMock(return_value=mock_resp)
 
         out1 = await bmkg.ambil_cuaca_desa(kode_bmkg_adm4="18.06.17.2012", kode_perairan_bmkg=None)
@@ -52,6 +54,27 @@ async def test_cuaca_cache_hit_kedua_kali():
         out2 = await bmkg.ambil_cuaca_desa(kode_bmkg_adm4="18.06.17.2012", kode_perairan_bmkg=None)
         assert out2["darat"]["status"] == "ok"
         assert mock_client.return_value.__aenter__.return_value.get.await_count == 1
+
+
+@pytest.mark.asyncio
+async def test_normalisasi_prakiraan_darat_nested():
+    body = {
+        "data": [
+            {
+                "lokasi": {"desa": "Kiluan Negeri"},
+                "cuaca": [
+                    [
+                        {"t": 28, "hu": 71, "weather_desc": "Cerah", "local_datetime": "2026-07-09 18:00:00"},
+                        {"t": 27, "hu": 74, "weather_desc": "Cerah", "local_datetime": "2026-07-09 21:00:00"},
+                    ]
+                ],
+            }
+        ]
+    }
+    slots = bmkg._normalisasi_prakiraan_darat(body)
+    assert len(slots) == 2
+    assert slots[0]["t"] == 28
+    assert slots[0]["weather_desc"] == "Cerah"
 
 
 @pytest.mark.asyncio

@@ -30,6 +30,28 @@ def _tak_tersedia() -> dict[str, Any]:
     return {"status": "tak_tersedia"}
 
 
+def _normalisasi_prakiraan_darat(body: Any) -> list[dict[str, Any]]:
+    """Ratakan respons BMKG `data[].cuaca[][]` → daftar slot per 3 jam."""
+    raw = body.get("data") if isinstance(body, dict) else body
+    if not isinstance(raw, list):
+        return []
+
+    slots: list[dict[str, Any]] = []
+    for entri in raw:
+        if not isinstance(entri, dict):
+            continue
+        cuaca = entri.get("cuaca")
+        if not isinstance(cuaca, list):
+            continue
+        for hari in cuaca:
+            if not isinstance(hari, list):
+                continue
+            for slot in hari:
+                if isinstance(slot, dict):
+                    slots.append(slot)
+    return slots
+
+
 async def _cache_get(kunci: str) -> Optional[dict]:
     try:
         raw = await _r().get(kunci)
@@ -62,9 +84,10 @@ async def _ambil_darat(adm4: str) -> dict:
             )
             r.raise_for_status()
             body = r.json()
+        prakiraan = _normalisasi_prakiraan_darat(body)
         data = {
-            "status": "ok",
-            "prakiraan": body.get("data", body),
+            "status": "ok" if prakiraan else "tak_tersedia",
+            "prakiraan": prakiraan,
             "diperbarui": _sekarang(),
         }
         await _cache_set(kunci, data)

@@ -79,11 +79,27 @@ function KartuKeselamatan({ cuaca }: { cuaca: CuacaResponse }) {
   )
 }
 
+function slotDaratPertama(prakiraan: unknown): Record<string, unknown> | null {
+  if (!Array.isArray(prakiraan) || prakiraan.length === 0) return null
+  const pertama = prakiraan[0] as Record<string, unknown>
+  if (pertama.t != null || pertama.weather_desc != null) return pertama
+  const cuaca = pertama.cuaca
+  if (!Array.isArray(cuaca)) return null
+  for (const hari of cuaca) {
+    if (!Array.isArray(hari)) continue
+    for (const slot of hari) {
+      if (slot && typeof slot === 'object' && (slot.t != null || slot.weather_desc != null)) {
+        return slot as Record<string, unknown>
+      }
+    }
+  }
+  return null
+}
+
 function KartuDarat({ cuaca }: { cuaca: CuacaResponse }) {
   const darat = cuaca.darat
   const takTersedia = darat.status === 'tak_tersedia'
-  const prakiraan = Array.isArray(darat.prakiraan) ? darat.prakiraan[0] : null
-  const item = prakiraan as Record<string, unknown> | null
+  const item = slotDaratPertama(darat.prakiraan)
 
   return (
     <div className="rounded-2xl border border-neutral-200 bg-white p-4 sm:p-5 dark:border-neutral-700 dark:bg-neutral-800/60">
