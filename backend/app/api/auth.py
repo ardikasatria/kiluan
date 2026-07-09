@@ -1,6 +1,8 @@
 """Router Balai Warga — /auth/* (Kontrak API F0 §3)."""
 from __future__ import annotations
 
+import logging
+
 from fastapi import APIRouter, Depends, Request, Response
 from pydantic import BaseModel
 
@@ -12,6 +14,8 @@ from app.layanan.auth import AuthLayanan
 from app.skema.destinasi import DaftarReq, MasukReq
 
 router = APIRouter(prefix="/api/v1/auth", tags=["auth"])
+
+log = logging.getLogger("kiluan.auth")
 
 _COOKIE = "kiluan_refresh"
 
@@ -45,9 +49,17 @@ class EmailReq(BaseModel):
 @router.post("/daftar", status_code=201)
 async def daftar(req: DaftarReq, store=Depends(get_penyimpanan)):
     p, token = await _layanan(store).daftar(req)
-    await email.kirim_verifikasi(p.email, token)
+    # Fail-soft: akun tetap dibuat walau pengiriman email gagal, supaya tidak
+    # bocor sebagai 500 tanpa header CORS di browser.
+    try:
+        await email.kirim_verifikasi(p.email, token)
+        pesan = "Tautan verifikasi dikirim ke email."
+    except Exception:
+        log.error("gagal kirim email verifikasi ke %s", p.email, exc_info=True)
+        pesan = ("Akun dibuat, tetapi email verifikasi gagal dikirim. "
+                 "Gunakan menu lupa sandi atau hubungi admin untuk verifikasi.")
     return {"pengguna": {"id": p.id, "email": p.email, "nama": p.nama, "status": p.status},
-            "pesan": "Tautan verifikasi dikirim ke email."}
+            "pesan": pesan}
 
 
 @router.post("/verifikasi-email")
@@ -91,7 +103,10 @@ async def keluar(request: Request, response: Response, store=Depends(get_penyimp
 async def lupa_sandi(req: EmailReq, store=Depends(get_penyimpanan)):
     token = await _layanan(store).lupa_sandi(req.email)
     if token:
-        await email.kirim_reset(req.email, token)
+        try:
+            await email.kirim_reset(req.email, token)
+        except Exception:
+            log.error("gagal kirim email reset ke %s", req.email, exc_info=True)
     return {"pesan": "Jika email terdaftar, tautan reset telah dikirim."}
 
 

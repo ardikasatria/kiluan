@@ -5,6 +5,7 @@ import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Field, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
 import Logo from '@/shared/Logo'
+import PasswordInput from '@/shared/PasswordInput'
 import Link from 'next/link'
 import { FormEvent, useState } from 'react'
 
@@ -13,6 +14,7 @@ export default function DaftarPage() {
   const [nama, setNama] = useState('')
   const [email, setEmail] = useState('')
   const [sandi, setSandi] = useState('')
+  const [konfirmasiSandi, setKonfirmasiSandi] = useState('')
   const [galat, setGalat] = useState<string | null>(null)
   const [sukses, setSukses] = useState<string | null>(null)
   const [memuat, setMemuat] = useState(false)
@@ -21,6 +23,10 @@ export default function DaftarPage() {
     e.preventDefault()
     setGalat(null)
     setSukses(null)
+    if (sandi !== konfirmasiSandi) {
+      setGalat('Konfirmasi kata sandi tidak sama.')
+      return
+    }
     setMemuat(true)
     try {
       const pesan = await daftar({
@@ -83,15 +89,29 @@ export default function DaftarPage() {
             </Field>
             <Field className="block">
               <Label className="text-neutral-800 dark:text-neutral-200">Kata sandi</Label>
-              <Input
-                type="password"
+              <PasswordInput
                 value={sandi}
                 onChange={(e) => setSandi(e.target.value)}
                 className="mt-1"
                 minLength={8}
+                autoComplete="new-password"
                 required
               />
               <p className="mt-1 text-xs text-neutral-500">Minimal 8 karakter</p>
+            </Field>
+            <Field className="block">
+              <Label className="text-neutral-800 dark:text-neutral-200">Konfirmasi kata sandi</Label>
+              <PasswordInput
+                value={konfirmasiSandi}
+                onChange={(e) => setKonfirmasiSandi(e.target.value)}
+                className="mt-1"
+                minLength={8}
+                autoComplete="new-password"
+                required
+              />
+              {konfirmasiSandi.length > 0 && sandi !== konfirmasiSandi && (
+                <p className="mt-1 text-xs text-red-600 dark:text-red-400">Konfirmasi kata sandi tidak sama.</p>
+              )}
             </Field>
             {galat && (
               <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800 dark:bg-red-950/40 dark:text-red-200">

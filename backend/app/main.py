@@ -13,6 +13,26 @@ from app.inti.konfig import konfig
 app = FastAPI(title="sigerciv API", version="0.2.0")
 
 cfg = konfig()
+
+
+# Didaftarkan SEBELUM CORSMiddleware agar berada di lapisan dalam: exception tak
+# terduga diubah jadi JSON 500 di sini, lalu CORSMiddleware tetap menambahkan
+# header Access-Control-Allow-Origin (tanpa ini browser melapor "CORS error",
+# menutupi galat aslinya).
+@app.middleware("http")
+async def tangkap_galat_server(request: Request, call_next):
+    import logging
+
+    try:
+        return await call_next(request)
+    except Exception:
+        logging.getLogger("kiluan.main").exception("galat tak tertangani: %s %s", request.method, request.url.path)
+        return JSONResponse(
+            status_code=500,
+            content={"galat": {"kode": "galat_server", "pesan": "terjadi kesalahan pada server", "rincian": []}},
+        )
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=cfg.cors_origins(),

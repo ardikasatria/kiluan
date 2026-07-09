@@ -5,6 +5,7 @@ import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Field, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
 import Logo from '@/shared/Logo'
+import PasswordInput from '@/shared/PasswordInput'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { FormEvent, useState } from 'react'
@@ -67,8 +68,7 @@ export default function MasukForm() {
                 Lupa sandi?
               </Link>
             </div>
-            <Input
-              type="password"
+            <PasswordInput
               value={sandi}
               onChange={(e) => setSandi(e.target.value)}
               className="mt-1"
