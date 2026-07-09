@@ -1222,6 +1222,41 @@ class RepoTransaksiPoinSQL:
         res = await self.s.execute(stmt)
         return res.rowcount > 0
 
+    async def saldo_dengan_kunci(self, desa_id: UUID, pengguna_id: UUID) -> int:
+        res = await self.s.execute(
+            select(M.TransaksiPoin)
+            .where(
+                M.TransaksiPoin.desa_id == desa_id,
+                M.TransaksiPoin.pengguna_id == pengguna_id,
+            )
+            .with_for_update()
+        )
+        return sum(r.poin for r in res.scalars().all())
+
+    async def debit_tukar_hadiah(
+        self,
+        desa_id: UUID,
+        pengguna_id: UUID,
+        poin: int,
+        penukaran_id: UUID,
+    ) -> bool:
+        stmt = (
+            insert(M.TransaksiPoin)
+            .values(
+                id=uuid4(),
+                desa_id=desa_id,
+                pengguna_id=pengguna_id,
+                aturan_id=None,
+                kode_aksi="tukar_hadiah",
+                poin=poin,
+                referensi_tipe="penukaran_poin",
+                referensi_id=penukaran_id,
+            )
+            .on_conflict_do_nothing(constraint="uq_transaksi_poin_award")
+        )
+        res = await self.s.execute(stmt)
+        return res.rowcount > 0
+
 
 class RepoBadgeSQL:
     def __init__(self, s: AsyncSession):

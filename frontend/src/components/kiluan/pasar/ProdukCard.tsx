@@ -1,4 +1,5 @@
 import { formatHarga, labelSertifikasi } from '@/lib/kiluan/pasar'
+import { tambahKeKeranjang } from '@/lib/kiluan/cart'
 import type { ProdukJasaItem } from '@/lib/api/types'
 import Link from 'next/link'
 
@@ -30,12 +31,35 @@ export default function ProdukCard({ produk, desaSlug }: Props) {
           <p className="text-xs text-neutral-500">Stok {produk.stok}</p>
         )}
       </div>
-      <Link
-        href={`/${desaSlug}/pasar?umkm=${produk.umkm.id}`}
-        className="mt-3 text-sm font-medium text-primary-600 hover:underline dark:text-primary-400"
-      >
-        Lihat UMKM
-      </Link>
+      <div className="mt-3 flex flex-wrap gap-3">
+        <button
+          type="button"
+          onClick={() =>
+            tambahKeKeranjang(desaSlug, {
+              item_tipe: 'produk_jasa',
+              item_id: produk.id,
+              nama: produk.nama,
+              harga: produk.harga,
+              jumlah: 1,
+            })
+          }
+          className="text-sm font-medium text-white rounded-full bg-primary-700 px-4 py-1.5 hover:bg-primary-800"
+        >
+          + Keranjang
+        </button>
+        <Link
+          href={`/${desaSlug}/pasar?umkm=${produk.umkm.id}`}
+          className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-400"
+        >
+          Lihat UMKM
+        </Link>
+        <Link
+          href={`/${desaSlug}/checkout`}
+          className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-400"
+        >
+          Checkout
+        </Link>
+      </div>
     </article>
   )
 }

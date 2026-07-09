@@ -31,6 +31,7 @@ export interface ProfilSaya {
   nama: string
   email: string
   status: string
+  avatar_url?: string | null
   keanggotaan: KeanggotaanSaya[]
 }
 

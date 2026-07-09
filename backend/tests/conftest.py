@@ -1,6 +1,7 @@
 """Fixtures & factory untuk uji F0 (async, in-memory, tanpa DB)."""
 from __future__ import annotations
 
+import pytest
 import pytest_asyncio
 
 from app.domain import entitas as E
@@ -74,3 +75,31 @@ async def svc_keanggotaan(store) -> KeanggotaanLayanan:
 @pytest_asyncio.fixture
 async def svc_media(store) -> MediaLayanan:
     return MediaLayanan(store)
+
+
+# --- F2 (scaffold domain, repo in-memory) ---
+
+@pytest.fixture
+def f2_app():
+    from app.f2.fabrik import App
+    return App()
+
+
+@pytest_asyncio.fixture
+async def f2_dunia(f2_app):
+    from app.f2.fabrik import seed
+    ctx = await seed(f2_app)
+    ctx["app"] = f2_app
+    return ctx
+
+
+@pytest.fixture
+def app(f2_app):
+    """Alias untuk uji F2 (hindari konflik conftest subfolder)."""
+    return f2_app
+
+
+@pytest_asyncio.fixture
+async def dunia(f2_dunia):
+    return f2_dunia
+

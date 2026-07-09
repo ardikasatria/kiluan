@@ -1,6 +1,6 @@
 'use client'
 
-import Avatar from '@/shared/Avatar'
+import KiluanAvatar from '@/components/kiluan/KiluanAvatar'
 import ButtonCircle from '@/shared/ButtonCircle'
 import { Divider } from '@/shared/divider'
 import { Link } from '@/shared/link'
@@ -27,7 +27,7 @@ export default function AvatarDropdown({ className }: Props) {
     <div className={className}>
       <Popover>
         <PopoverButton as={ButtonCircle} className="relative" plain>
-          <Avatar alt="avatar" src={user.avatar} width={32} height={32} className="size-8 rounded-full object-cover" />
+          <KiluanAvatar nama={user.name} src={user.avatar} width={32} height={32} className="size-8" />
         </PopoverButton>
 
         <PopoverPanel
@@ -40,13 +40,7 @@ export default function AvatarDropdown({ className }: Props) {
         >
           <div className="relative flex flex-col gap-y-4 bg-white px-6 py-7 dark:bg-neutral-800">
             <div className="relative flex items-center gap-x-3">
-              <Avatar
-                alt="avatar"
-                src={user.avatar}
-                width={48}
-                height={48}
-                className="size-12 rounded-full object-cover"
-              />
+              <KiluanAvatar nama={user.name} src={user.avatar} width={48} height={48} className="size-12" />
               <div className="grow">
                 <h4 className="font-semibold">{user.name}</h4>
                 <p className="text-xs/6 text-neutral-500">{user.role}</p>

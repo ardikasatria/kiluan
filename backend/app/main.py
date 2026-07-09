@@ -5,12 +5,12 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.api import auth, desa, destinasi, discovery, kalender, keanggotaan, kontribusi, layanan, lencana, media, naik_kelas, pasar, referensi, saya
+from app.api import auth, desa, dermaga, destinasi, discovery, kalender, keanggotaan, kontribusi, layanan, lencana, media, naik_kelas, pasar, pemandu, penjelajah, poin_f2, referensi, saya, uang, webhook
 from app.domain.errors import KesalahanDomain
 from app.inti.db import cek_db
 from app.inti.konfig import konfig
 
-app = FastAPI(title="Kiluan API", version="0.1.0")
+app = FastAPI(title="Kiluan API", version="0.2.0")
 
 cfg = konfig()
 app.add_middleware(
@@ -51,3 +51,9 @@ app.include_router(lencana.router)
 app.include_router(pasar.router)
 app.include_router(kontribusi.router)
 app.include_router(naik_kelas.router)
+app.include_router(dermaga.router)
+app.include_router(uang.router)
+app.include_router(poin_f2.router)
+app.include_router(penjelajah.router)
+app.include_router(pemandu.router)
+app.include_router(webhook.router)

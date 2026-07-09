@@ -1,11 +1,11 @@
 'use client'
 
 import BadgeChip from '@/components/kiluan/lencana/BadgeChip'
+import KiluanAvatar from '@/components/kiluan/KiluanAvatar'
 import { getLeaderboard, type PeriodeLeaderboard } from '@/lib/api/lencana'
 import type { LeaderboardEntry } from '@/lib/api/types'
 import { ArrowLeftIcon, TrophyIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -18,36 +18,6 @@ const PERIODE: { id: PeriodeLeaderboard; label: string }[] = [
 interface Props {
   desaSlug: string
   desaNama: string
-}
-
-function Avatar({ nama, src }: { nama: string; src?: string | null }) {
-  const inisial = nama
-    .split(' ')
-    .map((w) => w[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase()
-
-  if (src) {
-    return (
-      <Image
-        src={src}
-        alt=""
-        width={40}
-        height={40}
-        className="size-10 rounded-full object-cover ring-2 ring-white dark:ring-neutral-800"
-      />
-    )
-  }
-
-  return (
-    <span
-      className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-100 text-sm font-semibold text-primary-800 ring-2 ring-white dark:bg-primary-900 dark:text-primary-100 dark:ring-neutral-800"
-      aria-hidden
-    >
-      {inisial}
-    </span>
-  )
 }
 
 export default function LeaderboardClient({ desaSlug, desaNama }: Props) {
@@ -140,7 +110,13 @@ export default function LeaderboardClient({ desaSlug, desaNama }: Props) {
                 >
                   {row.peringkat}
                 </span>
-                <Avatar nama={row.pengguna.nama} src={row.pengguna.avatar} />
+                <KiluanAvatar
+                  nama={row.pengguna.nama}
+                  src={row.pengguna.avatar}
+                  width={40}
+                  height={40}
+                  className="size-10 ring-2 ring-white dark:ring-neutral-800"
+                />
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-semibold text-primary-800 dark:text-primary-100">
                     {row.pengguna.nama}

@@ -93,7 +93,7 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
           name: 'Misi Wisatawan',
           children: [
             { id: 'l-w-1', href: `/${DESA}/misi`, name: 'Penjelajah Lestari' },
-            { id: 'l-w-2', href: '/paspor', name: 'Paspor Lestari' },
+            { id: 'l-w-2', href: `/${DESA}/paspor`, name: 'Paspor Lestari' },
             { id: 'l-w-3', href: `/${DESA}/stasiun-lestari`, name: 'Stasiun Lestari' },
             { id: 'l-w-4', href: `/${DESA}/misi?status=aktif`, name: 'Quest Aktif' },
           ],

@@ -62,6 +62,18 @@ const MOCK_PAKET: PaketRingkas[] = [
     status: 'publikasi',
     media_utama: null,
   },
+  {
+    id: 'pkt-snorkel',
+    slug: 'snorkel-pagi',
+    nama: 'Snorkel Pagi',
+    agen: { id: 'agen-1', nama: 'Kiluan Explorer' },
+    durasi_jam: 6,
+    harga: 350000,
+    satuan_harga: 'per_paket',
+    kuota_default: 10,
+    status: 'publikasi',
+    media_utama: null,
+  },
 ]
 
 export function mockDaftarUmkm(bidang?: number): { item: UmkmRingkas[]; meta: MetaPaginasi } {

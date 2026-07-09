@@ -13,14 +13,12 @@ import {
 import { pesanGalat } from '@/lib/api/galat'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-const AVATAR_DEFAULT =
-  'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=256&auto=format&fit=crop'
-
 export interface AuthUser {
   id: string
   name: string
   email: string
-  avatar: string
+  /** URL foto unggahan; null = tampilkan inisial dari nama */
+  avatar: string | null
   role: string
   profil: ProfilSaya
 }
@@ -54,7 +52,7 @@ function profilKeUser(profil: ProfilSaya): AuthUser {
     id: profil.id,
     name: profil.nama,
     email: profil.email,
-    avatar: AVATAR_DEFAULT,
+    avatar: profil.avatar_url ?? null,
     role: labelPeran(profil),
     profil,
   }

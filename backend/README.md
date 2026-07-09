@@ -48,27 +48,35 @@ curl -X POST http://localhost/api/v1/auth/daftar \
 # token verifikasi tampil di: docker compose logs backend
 ```
 
-Unit test (tanpa DB): `cd backend && pytest -q`.
+Unit test (tanpa DB): `cd backend && pytest -q` → **109 passed, 4 skipped** (F0–F2).
 
-## Gerbang B1
+### Integrasi Postgres/PostGIS (F2)
 
-- **Unit (in-memory, hijau di mana saja):** siklus auth + rotasi + reuse-cabut; RBAC
-  (wisatawan 403, admin global lolos); lintas-tenant 404; validasi. → `27 passed`.
-- **Integrasi (perlu Postgres uji):** `tests/integrasi/test_sql_auth.py`, jalan bila
-  `TEST_DATABASE_URL` diset — membuktikan mutasi-via-ORM ter-persist, unik→Konflik,
-  filter tenant nyata.
-- **E2E (perlu stack):** smoke daftar→(log token)→verifikasi→masuk→/saya; `/auth/masuk`
-  ke-6 dalam semenit → 429.
+Butuh **PostGIS** (image `postgis/postgis:16-3.4` seperti `deploy/docker-compose.yml`):
+
+```bash
+# Buat DB uji sekali (contoh lokal):
+createdb kiluan_test
+psql kiluan_test -c "CREATE EXTENSION postgis;"
+
+export TEST_DATABASE_URL="postgresql+asyncpg://USER:PASS@localhost:5432/kiluan_test"
+cd backend && pytest tests/integrasi -q
+```
+
+| Berkas | Gerbang |
+|--------|---------|
+| `test_sql_auth.py` | Auth ORM persist |
+| `test_sql_checkout.py` | Race slot `FOR UPDATE` → satu sukses, satu `409` |
+| `test_sql_f2_e2e.py` | Checkout → bayar manual → check-in → rilis → payout |
+| `test_sql_f2_escrow.py` | CHECK `ck_transaksi_split` menolak baris tidak seimbang |
+| `test_sql_f2_penjelajah.py` | `ST_DWithin` geofence, belajar→aksi, isolasi tenant |
+
+Tanpa `TEST_DATABASE_URL`, integrasi **di-skip** — unit memori tetap hijau.
+
+### Penutup F2 — ADR
+
+Keputusan arsitektur F2: `docs/adr/ADR-0009` … `ADR-0012` (migrasi front-loaded, kontrak escrow/webhook, diskon escrow, model Pemandu lokal hardcode).
 
 ## Batas verifikasi (jujur)
 
-Repo SQL + endpoint sudah lolos `py_compile`, impor, dan materialisasi OpenAPI, tetapi
-**belum dijalankan terhadap Postgres nyata di sini** (tak ada DB di lingkungan ini).
-Gerbang sebenarnya = test integrasi + smoke E2E di mesinmu. Titik yang paling perlu
-dikonfirmasi: semantik **mutasi-via-baris-ORM** (verifikasi email, rotasi/cabut refresh)
-benar ter-commit. Bila ada yang meleset, kirim errornya.
-
-## Berikutnya (B2)
-
-`repo/sql.py` +Repo destinasi/layanan/kalender (PostGIS `ST_DWithin`), router destinasi
-(CRUD + `/status` + soft-delete + cari geo), mengikuti pola mapping yang sama.
+Unit + scaffold F2 (`tests/f2/`) hijau tanpa DB. Integrasi & E2E SQL membutuhkan Postgres/PostGIS di mesin Anda — jalankan perintah di atas sebelum go-live thin-slice PkM.

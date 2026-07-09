@@ -34,14 +34,15 @@ export default function Avatar({
       className={clsx(
         className,
         // Basic layout
-        'inline-grid shrink-0 bg-neutral-200 align-middle [--avatar-radius:20%] *:col-start-1 *:row-start-1 dark:bg-neutral-800',
+        'inline-grid shrink-0 align-middle [--avatar-radius:20%] *:col-start-1 *:row-start-1',
+        !initials && 'bg-neutral-200 dark:bg-neutral-800',
         // Border radius
         square ? 'rounded-(--avatar-radius) *:rounded-(--avatar-radius)' : 'rounded-full *:rounded-full'
       )}
     >
       {initials && (
         <svg
-          className="size-full fill-current p-[5%] text-[48px] font-medium uppercase select-none"
+          className="size-full fill-current p-[5%] text-[48px] font-medium uppercase text-white select-none"
           viewBox="0 0 100 100"
           aria-hidden={alt ? undefined : 'true'}
         >

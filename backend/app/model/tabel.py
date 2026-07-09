@@ -8,16 +8,21 @@ mengikuti ERD_Kiluan_Fase0.md.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime
+from datetime import date, datetime, time
+from decimal import Decimal
 
 import sqlalchemy as sa
 from sqlalchemy import (
+    Boolean,
     CheckConstraint,
+    Date,
     ForeignKey,
     Integer,
+    Numeric,
     SmallInteger,
     String,
     Text,
+    Time,
     UniqueConstraint,
     func,
 )
@@ -547,3 +552,356 @@ class SertifikasiOwner(Base):
             name="ck_sertifikasi_tingkat",
         ),
     )
+
+
+# --- Fase 2: Dermaga inti ---
+
+
+class PengaturanDesa(Base):
+    __tablename__ = "pengaturan_desa"
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"), primary_key=True)
+    persen_reinvestasi: Mapped[Decimal] = mapped_column(Numeric, default=Decimal("0.10"))
+    persen_fee_platform: Mapped[Decimal] = mapped_column(Numeric, default=Decimal("0.02"))
+    kebijakan_pembatalan = mapped_column(JSONB, default=dict)
+    batas_hold_menit: Mapped[int] = mapped_column(SmallInteger, default=30)
+    gateway: Mapped[str] = mapped_column(String, default="manual")
+    konfig_gateway = mapped_column(JSONB, default=dict)
+    diperbarui_pada: Mapped[datetime] = _ts_buat()
+
+
+class SlotJadwal(Base):
+    __tablename__ = "slot_jadwal"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    subjek_tipe: Mapped[str] = mapped_column(String)
+    subjek_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    tanggal: Mapped[date] = mapped_column(Date)
+    waktu_mulai: Mapped[time | None] = mapped_column(Time)
+    waktu_selesai: Mapped[time | None] = mapped_column(Time)
+    kuota: Mapped[int] = mapped_column(Integer)
+    kuota_terpakai: Mapped[int] = mapped_column(Integer, default=0)
+    harga_override: Mapped[Decimal | None] = mapped_column(Numeric)
+    status: Mapped[str] = mapped_column(String, default="buka")
+
+    @property
+    def sisa(self) -> int:
+        return self.kuota - self.kuota_terpakai
+
+
+class Pesanan(Base):
+    __tablename__ = "pesanan"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pembeli_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    kode_pesanan: Mapped[str] = mapped_column(String, unique=True)
+    status: Mapped[str] = mapped_column(String, default="menunggu_pembayaran")
+    metode_ambil: Mapped[str] = mapped_column(String, default="ambil_ditempat")
+    alamat_kirim = mapped_column(JSONB, nullable=True)
+    kontak = mapped_column(JSONB, default=dict)
+    kupon_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("kupon.id"))
+    subtotal: Mapped[Decimal] = mapped_column(Numeric, default=0)
+    diskon: Mapped[Decimal] = mapped_column(Numeric, default=0)
+    ongkir: Mapped[Decimal] = mapped_column(Numeric, default=0)
+    total: Mapped[Decimal] = mapped_column(Numeric, default=0)
+    kedaluwarsa_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    diperbarui_pada: Mapped[datetime] = _ts_buat()
+
+
+class PesananItem(Base):
+    __tablename__ = "pesanan_item"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pesanan_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pesanan.id", ondelete="CASCADE"))
+    item_tipe: Mapped[str] = mapped_column(String)
+    item_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    penyedia_tipe: Mapped[str] = mapped_column(String)
+    penyedia_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    nama_snapshot: Mapped[str] = mapped_column(String)
+    harga_snapshot: Mapped[Decimal] = mapped_column(Numeric)
+    jumlah: Mapped[int] = mapped_column(Integer)
+    satuan: Mapped[str] = mapped_column(String, default="pcs")
+    subtotal: Mapped[Decimal] = mapped_column(Numeric)
+    slot_jadwal_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("slot_jadwal.id"))
+    status_fulfillment: Mapped[str] = mapped_column(String, default="menunggu")
+    metadata_item = mapped_column("metadata", JSONB, default=dict)
+
+
+class Booking(Base):
+    __tablename__ = "booking"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pesanan_item_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pesanan_item.id"), unique=True)
+    slot_jadwal_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("slot_jadwal.id"))
+    destinasi_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("destinasi.id"))
+    jumlah_orang: Mapped[int] = mapped_column(Integer)
+    tanggal_kunjungan: Mapped[date] = mapped_column(Date)
+    kode_checkin: Mapped[str] = mapped_column(String, unique=True)
+    status: Mapped[str] = mapped_column(String, default="dipesan")
+    checkin_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+
+
+class Pembayaran(Base):
+    __tablename__ = "pembayaran"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pesanan_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pesanan.id"))
+    metode: Mapped[str] = mapped_column(String)
+    penyedia_gateway: Mapped[str] = mapped_column(String)
+    jumlah: Mapped[Decimal] = mapped_column(Numeric)
+    status: Mapped[str] = mapped_column(String, default="menunggu")
+    ref_eksternal: Mapped[str | None] = mapped_column(String)
+    redirect_url: Mapped[str | None] = mapped_column(String)
+    bukti_media_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("media.id"))
+    kedaluwarsa_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    dibayar_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    mentah = mapped_column(JSONB, default=dict)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+
+
+class Transaksi(Base):
+    __tablename__ = "transaksi"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pesanan_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pesanan.id"))
+    pembayaran_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("pembayaran.id"))
+    penyedia_tipe: Mapped[str] = mapped_column(String)
+    penyedia_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    jenis: Mapped[str] = mapped_column(String)
+    bruto: Mapped[Decimal] = mapped_column(Numeric)
+    fee_platform: Mapped[Decimal] = mapped_column(Numeric)
+    porsi_reinvestasi: Mapped[Decimal] = mapped_column(Numeric)
+    neto_penyedia: Mapped[Decimal] = mapped_column(Numeric)
+    status: Mapped[str] = mapped_column(String)
+    payout_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("payout.id"))
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        CheckConstraint(
+            "bruto = fee_platform + porsi_reinvestasi + neto_penyedia",
+            name="ck_transaksi_split",
+        ),
+    )
+
+
+class RekeningPenyedia(Base):
+    __tablename__ = "rekening_penyedia"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    penyedia_tipe: Mapped[str] = mapped_column(String)
+    penyedia_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    jenis: Mapped[str] = mapped_column(String)
+    bank_kode: Mapped[str | None] = mapped_column(String)
+    nomor: Mapped[str] = mapped_column(String)
+    nama_pemilik: Mapped[str] = mapped_column(String)
+    terverifikasi: Mapped[bool] = mapped_column(Boolean, default=False)
+    utama: Mapped[bool] = mapped_column(Boolean, default=True)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+
+
+class Payout(Base):
+    __tablename__ = "payout"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    penyedia_tipe: Mapped[str] = mapped_column(String)
+    penyedia_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    rekening_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("rekening_penyedia.id"))
+    jumlah: Mapped[Decimal] = mapped_column(Numeric)
+    metode: Mapped[str] = mapped_column(String)
+    status: Mapped[str] = mapped_column(String, default="antri")
+    ref_eksternal: Mapped[str | None] = mapped_column(String)
+    catatan: Mapped[str | None] = mapped_column(Text)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    diproses_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+
+
+class Refund(Base):
+    __tablename__ = "refund"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pesanan_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pesanan.id"))
+    pesanan_item_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("pesanan_item.id"))
+    pemohon_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    alasan: Mapped[str] = mapped_column(Text)
+    jumlah: Mapped[Decimal] = mapped_column(Numeric)
+    status: Mapped[str] = mapped_column(String, default="diajukan")
+    ref_eksternal: Mapped[str | None] = mapped_column(String)
+    disetujui_oleh: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("pengguna.id"))
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    selesai_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+
+
+class WebhookPembayaran(Base):
+    __tablename__ = "webhook_pembayaran"
+    id: Mapped[uuid.UUID] = _pk()
+    penyedia_gateway: Mapped[str] = mapped_column(String)
+    event_id: Mapped[str] = mapped_column(String, unique=True)
+    ref_eksternal: Mapped[str] = mapped_column(String)
+    jenis_event: Mapped[str] = mapped_column(String)
+    muatan = mapped_column(JSONB, default=dict)
+    status_proses: Mapped[str] = mapped_column(String, default="diterima")
+    diterima_pada: Mapped[datetime] = _ts_buat()
+    diproses_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+
+
+class KatalogHadiah(Base):
+    __tablename__ = "katalog_hadiah"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("desa.id"))
+    kode: Mapped[str] = mapped_column(String, unique=True)
+    nama: Mapped[str] = mapped_column(String)
+    deskripsi: Mapped[str | None] = mapped_column(Text)
+    jenis: Mapped[str] = mapped_column(String)
+    biaya_poin: Mapped[int] = mapped_column(Integer)
+    stok: Mapped[int | None] = mapped_column(Integer)
+    syarat = mapped_column(JSONB, default=dict)
+    media_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("media.id"))
+    aktif: Mapped[bool] = mapped_column(Boolean, default=True)
+    berlaku_mulai: Mapped[date | None] = mapped_column(Date)
+    berlaku_sampai: Mapped[date | None] = mapped_column(Date)
+
+
+class Kupon(Base):
+    __tablename__ = "kupon"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    kode: Mapped[str] = mapped_column(String, unique=True)
+    pemilik_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("pengguna.id"))
+    sumber: Mapped[str] = mapped_column(String)
+    tipe_diskon: Mapped[str] = mapped_column(String)
+    nilai: Mapped[Decimal] = mapped_column(Numeric)
+    min_belanja: Mapped[Decimal | None] = mapped_column(Numeric)
+    batas_pakai: Mapped[int] = mapped_column(Integer)
+    terpakai: Mapped[int] = mapped_column(Integer, default=0)
+    penyedia_terbatas = mapped_column(JSONB, nullable=True)
+    berlaku_mulai: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    berlaku_sampai: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    status: Mapped[str] = mapped_column(String, default="aktif")
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+
+
+class PenukaranPoin(Base):
+    __tablename__ = "penukaran_poin"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pengguna_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    hadiah_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("katalog_hadiah.id"))
+    poin_dipakai: Mapped[int] = mapped_column(Integer)
+    kupon_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("kupon.id"))
+    status: Mapped[str] = mapped_column(String, default="berhasil")
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+
+
+class PemakaianKupon(Base):
+    __tablename__ = "pemakaian_kupon"
+    id: Mapped[uuid.UUID] = _pk()
+    kupon_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("kupon.id"))
+    pesanan_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pesanan.id"))
+    pengguna_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    jumlah_diskon: Mapped[Decimal] = mapped_column(Numeric)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        UniqueConstraint("kupon_id", "pesanan_id", name="uq_pemakaian_kupon_pesanan"),
+    )
+
+
+class StasiunLestari(Base):
+    __tablename__ = "stasiun_lestari"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    nama: Mapped[str] = mapped_column(String)
+    tipe: Mapped[str] = mapped_column(String)
+    destinasi_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("destinasi.id"))
+    lokasi_geom = mapped_column("lokasi", Geography(geometry_type="POINT", srid=4326), nullable=True)
+    qr_token: Mapped[str] = mapped_column(String, unique=True)
+    radius_m: Mapped[int] = mapped_column(Integer, default=50)
+    aktif: Mapped[bool] = mapped_column(Boolean, default=True)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+
+
+class Misi(Base):
+    __tablename__ = "misi"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("desa.id"))
+    kode: Mapped[str] = mapped_column(String, unique=True)
+    judul: Mapped[str] = mapped_column(String)
+    deskripsi: Mapped[str | None] = mapped_column(Text)
+    jenis: Mapped[str] = mapped_column(String)
+    kategori: Mapped[str] = mapped_column(String)
+    micro_lesson = mapped_column(JSONB, nullable=True)
+    syarat_verifikasi = mapped_column(JSONB, default=dict)
+    stasiun_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("stasiun_lestari.id"))
+    poin: Mapped[int] = mapped_column(Integer, default=0)
+    badge_id: Mapped[int | None] = mapped_column(SmallInteger, ForeignKey("badge.id"))
+    dampak_template = mapped_column(JSONB, default=dict)
+    aktif: Mapped[bool] = mapped_column(Boolean, default=True)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+
+
+class PasporLestari(Base):
+    __tablename__ = "paspor_lestari"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pengguna_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    ringkasan_dampak = mapped_column(JSONB, default=dict)
+    total_stempel: Mapped[int] = mapped_column(Integer, default=0)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    diperbarui_pada: Mapped[datetime] = mapped_column(
+        TIMESTAMP(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+    __table_args__ = (UniqueConstraint("desa_id", "pengguna_id", name="uq_paspor_desa_pengguna"),)
+
+
+class Stempel(Base):
+    __tablename__ = "stempel"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    paspor_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("paspor_lestari.id"))
+    misi_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("misi.id"))
+    booking_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("booking.id"))
+    stasiun_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("stasiun_lestari.id"))
+    dampak = mapped_column(JSONB, default=dict)
+    status: Mapped[str] = mapped_column(String, default="menunggu_verifikasi")
+    lokasi_geom = mapped_column("lokasi", Geography(geometry_type="POINT", srid=4326), nullable=True)
+    media_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("media.id"))
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+
+
+class Verifikasi(Base):
+    __tablename__ = "verifikasi"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    entitas_tipe: Mapped[str] = mapped_column(String)
+    entitas_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    metode: Mapped[str] = mapped_column(String)
+    verifikator_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("pengguna.id"))
+    syarat = mapped_column(JSONB, default=dict)
+    hasil: Mapped[str] = mapped_column(String, default="menunggu")
+    bukti = mapped_column(JSONB, nullable=True)
+    lokasi_geom = mapped_column("lokasi", Geography(geometry_type="POINT", srid=4326), nullable=True)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    diputuskan_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+
+
+class SesiPemandu(Base):
+    __tablename__ = "sesi_pemandu"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pengguna_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("pengguna.id"))
+    tipe: Mapped[str] = mapped_column(String)
+    masukan = mapped_column(JSONB, default=dict)
+    keluaran = mapped_column(JSONB, nullable=True)
+    model_dipakai: Mapped[str] = mapped_column(String, default="rule")
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+
+
+class PercakapanPemandu(Base):
+    __tablename__ = "percakapan_pemandu"
+    id: Mapped[uuid.UUID] = _pk()
+    sesi_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("sesi_pemandu.id", ondelete="CASCADE"),
+    )
+    peran: Mapped[str] = mapped_column(String)
+    isi: Mapped[str] = mapped_column(Text)
+    sumber = mapped_column(JSONB, nullable=True)
+    dibuat_pada: Mapped[datetime] = _ts_buat()

@@ -362,3 +362,274 @@ export interface SertifikasiItem {
   skor: number
   diperbarui_pada?: string | null
 }
+
+// --- F2 Dermaga ---
+
+export interface SlotJadwal {
+  id: string
+  subjek_tipe: string
+  subjek_id: string
+  tanggal: string
+  waktu_mulai?: string | null
+  kuota: number
+  sisa: number
+  harga_override?: number | null
+  status: string
+}
+
+export interface PesananItemDto {
+  id: string
+  item_tipe: string
+  item_id: string
+  nama_snapshot: string
+  harga_snapshot: number
+  jumlah: number
+  subtotal: number
+  status_fulfillment: string
+  metadata?: Record<string, unknown>
+  booking?: { id: string; kode_checkin: string; status: string } | null
+}
+
+export interface PesananRingkas {
+  id: string
+  kode_pesanan: string
+  status: string
+  subtotal: number
+  diskon: number
+  ongkir: number
+  total: number
+  kedaluwarsa_pada?: string | null
+  dibuat_pada: string
+  metode_ambil?: string
+  kontak?: Record<string, unknown>
+  item?: PesananItemDto[]
+}
+
+export interface PembayaranDto {
+  id: string
+  metode: string
+  penyedia_gateway: string
+  jumlah: number
+  status: string
+  redirect_url?: string | null
+  bukti_media_id?: string | null
+  kedaluwarsa_pada?: string | null
+  dibayar_pada?: string | null
+  instruksi_qris_statis?: { url: string; catatan: string }
+}
+
+export interface TransaksiDto {
+  id: string
+  pesanan_id: string
+  penyedia: { tipe: string; id: string }
+  jenis: string
+  bruto: number
+  fee_platform: number
+  porsi_reinvestasi: number
+  neto_penyedia: number
+  status: string
+  payout_id?: string | null
+  dibuat_pada: string
+}
+
+export interface RekeningDto {
+  id: string
+  penyedia: { tipe: string; id: string }
+  jenis: string
+  bank_kode?: string | null
+  nomor_mask: string
+  nama_pemilik: string
+  terverifikasi: boolean
+  utama: boolean
+}
+
+export interface PayoutDto {
+  id: string
+  penyedia: { tipe: string; id: string }
+  jumlah: number
+  metode: string
+  status: string
+  rekening?: { jenis: string; nomor_mask: string } | null
+  dibuat_pada: string
+  diproses_pada?: string | null
+}
+
+export interface RefundDto {
+  id: string
+  pesanan_id: string
+  alasan: string
+  jumlah: number
+  status: string
+  dibuat_pada: string
+  selesai_pada?: string | null
+}
+
+export interface HadiahDto {
+  id: string
+  kode: string
+  nama: string
+  deskripsi?: string | null
+  jenis: string
+  biaya_poin: number
+  stok: number | null
+  syarat: Record<string, unknown>
+  aktif: boolean
+}
+
+export interface KuponRingkas {
+  id: string
+  kode: string
+  sumber: string
+  tipe_diskon: string
+  nilai: number
+  min_belanja?: number | null
+  batas_pakai: number
+  terpakai: number
+  status: string
+  penyedia_terbatas?: string[] | null
+  pemilik_id?: string | null
+}
+
+export interface PenukaranDto {
+  id: string
+  hadiah_id: string
+  poin_dipakai: number
+  kupon_id?: string | null
+  status: string
+  dibuat_pada: string
+}
+
+export interface CheckoutPayload {
+  kontak: { nama: string; telepon?: string; email?: string }
+  metode_ambil: 'ambil_ditempat' | 'kirim'
+  alamat_kirim?: Record<string, unknown> | null
+  kupon_id?: string | null
+  kupon_kode?: string | null
+  ongkir?: number
+  item: Array<{
+    item_tipe: string
+    item_id: string
+    jumlah: number
+    slot_jadwal_id?: string
+    metadata?: Record<string, unknown>
+  }>
+}
+
+export interface MisiRingkas {
+  id: string
+  kode: string
+  judul: string
+  jenis: 'belajar' | 'aksi'
+  kategori: string
+  poin: number
+  aktif: boolean
+  stasiun?: { id: string; nama: string } | null
+}
+
+export interface MisiDetail extends MisiRingkas {
+  deskripsi?: string | null
+  micro_lesson?: Record<string, unknown> | null
+  syarat_verifikasi: Record<string, unknown>
+  dampak_template: Record<string, unknown>
+}
+
+export interface StasiunLestariDto {
+  id: string
+  nama: string
+  tipe: string
+  radius_m: number
+  aktif: boolean
+  lokasi?: Lokasi | null
+  qr_token?: string
+}
+
+export interface StempelDto {
+  id: string
+  misi_id: string
+  status: 'menunggu_verifikasi' | 'terverifikasi' | 'ditolak'
+  dampak: Record<string, number>
+  dibuat_pada: string
+  misi?: { id: string; judul: string }
+  stasiun?: { id: string; nama: string } | null
+  booking_id?: string | null
+  media_id?: string | null
+}
+
+export interface PasporDto {
+  id: string
+  ringkasan_dampak: Record<string, number>
+  total_stempel: number
+  diperbarui_pada: string
+  stempel: StempelDto[]
+}
+
+export interface VerifikasiDto {
+  id: string
+  entitas_tipe: string
+  entitas_id: string
+  metode: string
+  hasil: 'menunggu' | 'valid' | 'invalid'
+  verifikator_id?: string | null
+  dibuat_pada: string
+  diputuskan_pada?: string | null
+}
+
+export interface MisiSelesaiPayload {
+  booking_id?: string
+  bukti?: {
+    qr_token?: string
+    lokasi?: Lokasi
+    foto_media_id?: string
+  }
+  dampak?: Record<string, number>
+}
+
+export interface ItineraryItem {
+  slot_id: string
+  tanggal: string
+  harga: number
+  subjek_tipe: string
+  subjek_id: string
+  nama?: string | null
+}
+
+export interface PemanduItineraryRes {
+  sesi_id: string
+  itinerary: ItineraryItem[]
+  perkiraan_biaya: number
+  model_dipakai: string
+  mesin_konfig: string
+  label: string
+}
+
+export interface PemanduEstimasiRes {
+  sesi_id: string
+  total: number
+  model_dipakai: string
+  mesin_konfig: string
+}
+
+export interface PemanduChatRes {
+  sesi_id: string
+  jawaban: string
+  sumber: Array<{ tipe: string; id: string; nama: string; cuplikan?: string }>
+  model_dipakai: string
+  mesin_konfig: string
+  label: string
+}
+
+export interface SesiPemanduDto {
+  id: string
+  tipe: string
+  masukan: Record<string, unknown>
+  keluaran: Record<string, unknown> | null
+  model_dipakai: string
+  dibuat_pada: string
+  percakapan?: Array<{
+    id: string
+    peran: string
+    isi: string
+    sumber?: unknown
+    dibuat_pada: string
+  }>
+}

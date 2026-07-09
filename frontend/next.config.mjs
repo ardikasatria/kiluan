@@ -36,6 +36,16 @@ const nextConfig = {
         hostname: 'images.pexels.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'api.qrserver.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'kiluan.sainsdataciv.com',
+        pathname: '/**',
+      },
     ],
   },
 }

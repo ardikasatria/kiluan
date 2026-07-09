@@ -51,3 +51,46 @@ class Konflik(KesalahanDomain):
 class TerlaluBanyakPermintaan(KesalahanDomain):
     kode = "terlalu_banyak_permintaan"
     http = 429
+
+
+# --- F2 (KONTRAK_API_Kiluan_Fase2 §1) ---
+
+class IdempotencyKeyWajib(KesalahanValidasi):
+    kode = "idempotency_key_wajib"
+
+
+class TransisiIlegalF2(KesalahanValidasi):
+    kode = "transisi_ilegal"
+
+
+class SlotPenuh(Konflik):
+    kode = "slot_penuh"
+
+
+class StokHabis(Konflik):
+    kode = "stok_habis"
+
+
+class SaldoPoinKurang(KesalahanValidasi):
+    kode = "saldo_poin_kurang"
+
+
+class KuponTidakBerlaku(KesalahanValidasi):
+    kode = "kupon_tidak_berlaku"
+
+
+class DiLuarGeofence(KesalahanValidasi):
+    kode = "di_luar_geofence"
+
+
+class BuktiKurang(KesalahanValidasi):
+    kode = "bukti_kurang"
+
+
+class WebhookSignatureInvalid(KesalahanDomain):
+    kode = "webhook_signature_invalid"
+    http = 401
+
+
+class KebijakanRefund(KesalahanValidasi):
+    kode = "kebijakan_refund"
