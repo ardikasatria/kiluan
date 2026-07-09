@@ -347,7 +347,7 @@ def upgrade() -> None:
             name="ck_transaksi_status",
         ),
     )
-    op.create_index("ix_transaksi_desa_dibuat", "transaksi", ["desa_id", "dibuat_pada"])
+    op.create_index("ix_transaksi_escrow_desa_dibuat", "transaksi", ["desa_id", "dibuat_pada"])
     op.create_index("ix_transaksi_penyedia_status", "transaksi", ["penyedia_tipe", "penyedia_id", "status"])
     op.create_index("ix_transaksi_pesanan", "transaksi", ["pesanan_id"])
 
