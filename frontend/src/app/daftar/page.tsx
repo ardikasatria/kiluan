@@ -1,11 +1,11 @@
 'use client'
 
 import VerifikasiKodeForm from '@/components/auth/VerifikasiKodeForm'
+import AuthPageShell from '@/components/layout/AuthPageShell'
 import { pesanGalat, useAuth } from '@/contexts/AuthProvider'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Field, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
-import Logo from '@/shared/Logo'
 import PasswordInput from '@/shared/PasswordInput'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -58,38 +58,33 @@ export default function DaftarPage() {
   }
 
   return (
-    <div className="container pb-16">
-      <div className="my-12 flex justify-center sm:my-16">
-        <Logo />
+    <AuthPageShell>
+      <div className="text-center">
+        <h1 className="text-2xl font-semibold text-primary-800 dark:text-primary-100">Daftar sigerciv</h1>
+        <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+          Bergabung sebagai wisatawan, kontributor, atau pelaku UMKM lokal.
+        </p>
       </div>
 
-      <div className="mx-auto max-w-md space-y-6">
-        <div className="text-center">
-          <h1 className="text-2xl font-semibold text-primary-800 dark:text-primary-100">Daftar sigerciv</h1>
-          <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
-            Bergabung sebagai wisatawan, kontributor, atau pelaku UMKM lokal.
+      {tahapVerifikasi ? (
+        <>
+          {pesanDaftar && (
+            <p className="text-center text-sm text-primary-800 dark:text-primary-200">{pesanDaftar}</p>
+          )}
+          <VerifikasiKodeForm
+            email={email.trim().toLowerCase()}
+            onBerhasil={handleVerifikasiBerhasil}
+            deskripsi="Masukkan kode 6 digit yang baru dikirim ke email Anda."
+          />
+          <p className="text-center text-sm text-neutral-600 dark:text-neutral-400">
+            Verifikasi nanti?{' '}
+            <Link href="/masuk" className="font-medium text-primary-700 underline dark:text-primary-300">
+              Masuk — kode akan dikirim ulang
+            </Link>
           </p>
-        </div>
-
-        {tahapVerifikasi ? (
-          <div className="space-y-4">
-            {pesanDaftar && (
-              <p className="text-center text-sm text-primary-800 dark:text-primary-200">{pesanDaftar}</p>
-            )}
-            <VerifikasiKodeForm
-              email={email.trim().toLowerCase()}
-              onBerhasil={handleVerifikasiBerhasil}
-              deskripsi="Masukkan kode 6 digit yang baru dikirim ke email Anda."
-            />
-            <p className="text-center text-sm text-neutral-600 dark:text-neutral-400">
-              Verifikasi nanti?{' '}
-              <Link href="/masuk" className="font-medium text-primary-700 underline dark:text-primary-300">
-                Masuk — kode akan dikirim ulang
-              </Link>
-            </p>
-          </div>
-        ) : (
-          <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>
+        </>
+      ) : (
+        <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>
             <Field className="block">
               <Label className="text-neutral-800 dark:text-neutral-200">Nama lengkap</Label>
               <Input
@@ -147,15 +142,16 @@ export default function DaftarPage() {
               {memuat ? 'Mendaftar…' : 'Buat akun'}
             </ButtonPrimary>
           </form>
-        )}
+      )}
 
+      {!tahapVerifikasi && (
         <div className="block text-center text-sm text-neutral-700 dark:text-neutral-300">
           Sudah punya akun?{' '}
           <Link href="/masuk" className="font-medium text-primary-700 underline">
             Masuk
           </Link>
         </div>
-      </div>
-    </div>
+      )}
+    </AuthPageShell>
   )
 }

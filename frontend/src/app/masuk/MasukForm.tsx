@@ -1,12 +1,12 @@
 'use client'
 
 import VerifikasiKodeForm from '@/components/auth/VerifikasiKodeForm'
+import AuthPageShell from '@/components/layout/AuthPageShell'
 import { pesanGalat, useAuth } from '@/contexts/AuthProvider'
 import { kodeGalat } from '@/lib/api/galat'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Field, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
-import Logo from '@/shared/Logo'
 import PasswordInput from '@/shared/PasswordInput'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -55,27 +55,22 @@ export default function MasukForm() {
   }
 
   return (
-    <div className="container pb-16">
-      <div className="my-12 flex justify-center sm:my-16">
-        <Logo size="h-12 w-auto sm:h-14" />
+    <AuthPageShell>
+      <div className="text-center">
+        <h1 className="text-2xl font-semibold text-primary-800 dark:text-primary-100">Masuk ke sigerciv</h1>
+        <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+          Gunakan akun yang sudah terdaftar dan diverifikasi.
+        </p>
       </div>
 
-      <div className="mx-auto max-w-md space-y-6">
-        <div className="text-center">
-          <h1 className="text-2xl font-semibold text-primary-800 dark:text-primary-100">Masuk ke sigerciv</h1>
-          <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
-            Gunakan akun yang sudah terdaftar dan diverifikasi.
-          </p>
-        </div>
-
-        {perluVerifikasi ? (
-          <VerifikasiKodeForm
-            email={email.trim().toLowerCase()}
-            onBerhasil={handleVerifikasiBerhasil}
-            deskripsi="Akun belum diverifikasi. Kode baru telah dikirim ke email Anda."
-          />
-        ) : (
-          <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>
+      {perluVerifikasi ? (
+        <VerifikasiKodeForm
+          email={email.trim().toLowerCase()}
+          onBerhasil={handleVerifikasiBerhasil}
+          deskripsi="Akun belum diverifikasi. Kode baru telah dikirim ke email Anda."
+        />
+      ) : (
+        <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>
             <Field className="block">
               <Label className="text-neutral-800 dark:text-neutral-200">Email</Label>
               <Input
@@ -111,15 +106,14 @@ export default function MasukForm() {
               {memuat ? 'Memproses…' : 'Masuk'}
             </ButtonPrimary>
           </form>
-        )}
+      )}
 
-        <div className="block text-center text-sm text-neutral-700 dark:text-neutral-300">
-          Belum punya akun?{' '}
-          <Link href="/daftar" className="font-medium text-primary-700 underline">
-            Daftar sekarang
-          </Link>
-        </div>
+      <div className="block text-center text-sm text-neutral-700 dark:text-neutral-300">
+        Belum punya akun?{' '}
+        <Link href="/daftar" className="font-medium text-primary-700 underline">
+          Daftar sekarang
+        </Link>
       </div>
-    </div>
+    </AuthPageShell>
   )
 }

@@ -5,6 +5,29 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Mesh gradient — palet sigerciv (kiluan-colors) */
+:root {
+  --kiluan-mesh-base: #f4fff9;
+  --kiluan-mesh-orb-1: rgba(170, 255, 199, 0.55);
+  --kiluan-mesh-orb-2: rgba(103, 192, 144, 0.4);
+  --kiluan-mesh-orb-3: rgba(33, 91, 99, 0.14);
+  --kiluan-mesh-orb-4: rgba(18, 65, 112, 0.1);
+  --kiluan-mesh-from: #f0fff7;
+  --kiluan-mesh-via: #ffffff;
+  --kiluan-mesh-to: #e8f8f0;
+}
+
+.dark {
+  --kiluan-mesh-base: #071018;
+  --kiluan-mesh-orb-1: rgba(170, 255, 199, 0.14);
+  --kiluan-mesh-orb-2: rgba(103, 192, 144, 0.18);
+  --kiluan-mesh-orb-3: rgba(33, 91, 99, 0.38);
+  --kiluan-mesh-orb-4: rgba(18, 65, 112, 0.55);
+  --kiluan-mesh-from: #0d2f52;
+  --kiluan-mesh-via: #0a1628;
+  --kiluan-mesh-to: #124170;
+}
+
 @theme {
   --font-sans: var(--font-niveau-grotesk), ui-sans-serif, system-ui, sans-serif;
 
@@ -79,6 +102,22 @@
   @media screen and (min-width: 1536px) {
     padding-inline: 8rem;
   }
+}
+
+/* Gradient mesh ala docs modern (univer-front) — palet sigerciv */
+@utility kiluan-mesh-bg {
+  background-color: var(--kiluan-mesh-base);
+  background-image:
+    radial-gradient(ellipse 90% 70% at 8% -10%, var(--kiluan-mesh-orb-1), transparent 55%),
+    radial-gradient(ellipse 75% 55% at 95% 5%, var(--kiluan-mesh-orb-2), transparent 50%),
+    radial-gradient(ellipse 65% 65% at 55% 105%, var(--kiluan-mesh-orb-3), transparent 52%),
+    radial-gradient(ellipse 50% 45% at 88% 72%, var(--kiluan-mesh-orb-4), transparent 45%),
+    linear-gradient(155deg, var(--kiluan-mesh-from) 0%, var(--kiluan-mesh-via) 42%, var(--kiluan-mesh-to) 100%);
+  background-attachment: fixed;
+}
+
+@utility kiluan-glass-panel {
+  @apply rounded-2xl border border-white/60 bg-white/75 shadow-sm backdrop-blur-md dark:border-neutral-700/50 dark:bg-neutral-900/70;
 }
 
 @utility pl-container {

@@ -41,7 +41,7 @@ export default async function HomePage({ searchParams }: Props) {
       <HomeFeaturedDesa desa={desaRes.item} />
       <HomeModules />
 
-      <section id="discovery" className="scroll-mt-24 border-t border-neutral-200 py-16 dark:border-neutral-800 sm:py-20">
+      <section id="discovery" className="scroll-mt-24 border-t border-neutral-200/70 py-16 dark:border-neutral-800/70 sm:py-20">
         <div className="container">
           <div className="mb-8 max-w-2xl">
             <p className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-primary-400">

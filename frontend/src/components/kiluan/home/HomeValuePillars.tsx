@@ -30,7 +30,7 @@ const pillars = [
 
 export default function HomeValuePillars() {
   return (
-    <section className="border-b border-neutral-200 bg-neutral-50 py-16 dark:border-neutral-800 dark:bg-neutral-900/50 sm:py-20">
+    <section className="border-b border-neutral-200/70 bg-white/35 py-16 backdrop-blur-sm dark:border-neutral-800/70 dark:bg-neutral-900/25 sm:py-20">
       <div className="container">
         <div className="max-w-2xl">
           <h2 className="text-2xl font-bold text-primary-800 sm:text-3xl dark:text-primary-100">

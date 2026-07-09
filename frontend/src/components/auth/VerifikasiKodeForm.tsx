@@ -58,7 +58,7 @@ export default function VerifikasiKodeForm({
   }
 
   return (
-    <div className="space-y-4 rounded-2xl border border-primary-200 bg-primary-50 p-6 dark:border-primary-700 dark:bg-primary-900/30">
+    <div className="space-y-4">
       <div className="text-center">
         <h2 className="text-lg font-semibold text-primary-900 dark:text-primary-100">{judul}</h2>
         <p className="mt-1 text-sm text-primary-800/80 dark:text-primary-200/80">{deskripsi}</p>
