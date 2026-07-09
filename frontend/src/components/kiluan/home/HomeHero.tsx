@@ -7,16 +7,18 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 
-const HERO_IMG =
-  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2000&auto=format&fit=crop'
+const HERO_IMAGE = {
+  src: '/gallery/laguna.jpg',
+  alt: 'Laguna Teluk Kiluan',
+} as const
 
 export default function HomeHero() {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src={HERO_IMG}
-          alt="Pesisir Teluk Kiluan"
+          src={HERO_IMAGE.src}
+          alt={HERO_IMAGE.alt}
           fill
           className="object-cover"
           priority

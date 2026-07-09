@@ -41,7 +41,7 @@ Edit `.env` (minimal):
 8. `MINIO_PUBLIC_BASE_URL` + `MINIO_SECURE=true` untuk unggah media F4
 
 ```bash
-docker compose --env-file .env up -d --build
+docker compose --env-file .env up -d --build --remove-orphans
 ```
 
 Build pertama bisa **5–15 menit** (terutama frontend). Caddy meminta sertifikat Let's Encrypt otomatis saat container pertama kali jalan (~30–90 detik setelah DNS aktif).
@@ -113,6 +113,7 @@ docker compose logs -f caddy   # pantau penerbitan sertifikat
 
 | Gejala | Solusi |
 |--------|--------|
+| `Bind for 0.0.0.0:80 failed: port is already allocated` | Port 80/443 masih dipakai. Jalankan `./scripts/preflight.sh`. Hentikan service lama: `docker compose down --remove-orphans` (hapus container **nginx** lama), lalu `sudo systemctl stop nginx apache2 caddy` bila ada di host. Caddy **wajib** pakai 80 & 443 untuk TLS otomatis. |
 | Caddy gagal TLS / ACME error | Pastikan DNS sudah aktif; port 80/443 terbuka; cek `docker compose logs caddy` |
 | `minio` unhealthy | `docker compose logs minio` — pastikan `MINIO_ROOT_PASSWORD` ≥ 8 karakter |
 | `backend` restart loop | `docker compose logs backend` — cek koneksi DB & migrasi |
