@@ -68,6 +68,54 @@ class SatuanHarga(str, Enum):
     per_jam = "per_jam"
 
 
+class StatusVerifikasiUmkm(str, Enum):
+    menunggu = "menunggu"
+    terverifikasi = "terverifikasi"
+    ditolak = "ditolak"
+
+
+class JenisProduk(str, Enum):
+    produk = "produk"
+    jasa = "jasa"
+
+
+class StatusProduk(str, Enum):
+    draft = "draft"
+    publikasi = "publikasi"
+    arsip = "arsip"
+
+
+class StatusPaket(str, Enum):
+    draft = "draft"
+    review = "review"
+    publikasi = "publikasi"
+    ditolak = "ditolak"
+    arsip = "arsip"
+
+
+class TipeKontribusi(str, Enum):
+    foto = "foto"
+    tips = "tips"
+    koreksi_data = "koreksi_data"
+    spot_baru = "spot_baru"
+    ulasan = "ulasan"
+
+
+class TargetKontribusi(str, Enum):
+    destinasi = "destinasi"
+    layanan = "layanan"
+    umkm = "umkm"
+    paket_wisata = "paket_wisata"
+    desa = "desa"
+
+
+class StatusKontribusi(str, Enum):
+    menunggu = "menunggu"
+    disetujui = "disetujui"
+    ditolak = "ditolak"
+    revisi = "revisi"
+
+
 class TipeKalender(str, Enum):
     harian = "harian"
     musiman = "musiman"
@@ -89,3 +137,26 @@ class EntitasLampiran(str, Enum):
     layanan = "layanan"
     desa = "desa"
     pengguna = "pengguna"
+    umkm = "umkm"
+    produk_jasa = "produk_jasa"
+    paket_wisata = "paket_wisata"
+    kontribusi = "kontribusi"
+
+
+class SubjekPengajuan(str, Enum):
+    umkm = "umkm"
+    agen = "agen"
+    pokdarwis = "pokdarwis"
+
+
+class StatusPengajuanKartu(str, Enum):
+    menunggu = "menunggu"
+    tervalidasi = "tervalidasi"
+    ditolak = "ditolak"
+    revisi = "revisi"
+
+
+class TingkatSertifikasi(str, Enum):
+    tunas = "tunas"
+    bahari = "bahari"
+    lumba_lumba = "lumba_lumba"

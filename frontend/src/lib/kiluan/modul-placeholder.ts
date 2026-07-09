@@ -18,6 +18,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     judul: 'Pasar Desa',
     modulLabel: 'Kolaborasi Ekosistem',
     fase: 'F1',
+    aktif: true,
     deskripsi:
       'UMKM mendaftarkan produk dan jasa wisata secara mandiri. Transaksi langsung ke penyedia lokal — tanpa komisi agregator pusat.',
     fiturRencana: [
@@ -58,6 +59,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     judul: 'Kontribusi Data',
     modulLabel: 'Gamifikasi Kontribusi',
     fase: 'F1',
+    aktif: true,
     deskripsi:
       'Warga dan wisatawan menyumbang foto, tips, atau koreksi data destinasi. Konten melalui antrian kurasi sebelum tampil publik.',
     fiturRencana: [
@@ -71,6 +73,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     judul: 'Lencana Warga',
     modulLabel: 'Gamifikasi Kontribusi',
     fase: 'F1',
+    aktif: true,
     deskripsi: 'Badge tiga tingkat dan progres partisipasi komunitas di platform Kiluan.',
     fiturRencana: [
       'Koleksi lencana per pengguna',
@@ -83,6 +86,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     judul: 'Leaderboard Kontributor',
     modulLabel: 'Gamifikasi Kontribusi',
     fase: 'F1',
+    aktif: true,
     deskripsi: 'Peringkat kontributor data dan partisipasi regeneratif per desa.',
     fiturRencana: ['Peringkat bulanan & sepanjang masa', 'Filter per kategori kontribusi'],
   },
@@ -144,6 +148,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     judul: 'Naik Kelas Lestari',
     modulLabel: 'Misi Kiluan',
     fase: 'F1',
+    aktif: true,
     deskripsi:
       'Sertifikasi bertingkat owner UMKM/agen: Tunas → Bahari → Lumba-Lumba melalui kartu aksi regeneratif tervalidasi.',
     fiturRencana: [
@@ -170,6 +175,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     judul: 'Tingkat Sertifikasi',
     modulLabel: 'Misi Kiluan',
     fase: 'F1',
+    aktif: true,
     deskripsi: 'Ringkasan tingkat sertifikasi regeneratif yang dimiliki penyedia di desa.',
     fiturRencana: ['Publik: badge di profil UMKM', 'Transparansi kartu tervalidasi'],
   },

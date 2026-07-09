@@ -245,6 +245,254 @@ class RepoLampiran:
         self._data.pop(id, None)
 
 
+class RepoBidangUsaha:
+    def __init__(self):
+        self._data: dict[int, E.BidangUsaha] = {}
+        self._seq = 0
+
+    async def tambah(self, b: E.BidangUsaha) -> E.BidangUsaha:
+        self._seq += 1
+        b.id = self._seq
+        self._data[b.id] = b
+        return b
+
+    async def ambil(self, id: int) -> Optional[E.BidangUsaha]:
+        return self._data.get(id)
+
+    async def daftar(self) -> list[E.BidangUsaha]:
+        return list(self._data.values())
+
+
+class RepoAturanPoin:
+    def __init__(self):
+        self._data: dict[int, E.AturanPoin] = {}
+        self._seq = 0
+
+    async def tambah(self, a: E.AturanPoin) -> E.AturanPoin:
+        self._seq += 1
+        a.id = self._seq
+        self._data[a.id] = a
+        return a
+
+    async def cari(self, **kwargs) -> list[E.AturanPoin]:
+        rows = list(self._data.values())
+        for k, v in kwargs.items():
+            if v is not None:
+                rows = [r for r in rows if getattr(r, k, None) == v]
+        return rows
+
+    async def ambil_aturan(self, desa_id: UUID, kode_aksi: str) -> Optional[E.AturanPoin]:
+        lokal = await self.cari(kode_aksi=kode_aksi, desa_id=desa_id, aktif=True)
+        if lokal:
+            return lokal[0]
+        glob = await self.cari(kode_aksi=kode_aksi, desa_id=None, aktif=True)
+        return glob[0] if glob else None
+
+
+class RepoTransaksiPoin:
+    def __init__(self):
+        self._data: dict[UUID, E.TransaksiPoin] = {}
+
+    async def cari(self, **kwargs) -> list[E.TransaksiPoin]:
+        rows = list(self._data.values())
+        for k, v in kwargs.items():
+            if v is not None:
+                rows = [r for r in rows if getattr(r, k, None) == v]
+        return rows
+
+    async def daftar_desa(self, desa_id: UUID, pengguna_id: UUID | None = None) -> list[E.TransaksiPoin]:
+        rows = [t for t in self._data.values() if t.desa_id == desa_id]
+        if pengguna_id is not None:
+            rows = [t for t in rows if t.pengguna_id == pengguna_id]
+        return rows
+
+    async def award(
+        self,
+        desa_id: UUID,
+        pengguna_id: UUID,
+        aturan_id: int | None,
+        kode_aksi: str,
+        poin: int,
+        referensi_tipe: str | None = None,
+        referensi_id: UUID | None = None,
+    ) -> bool:
+        dup = await self.cari(
+            pengguna_id=pengguna_id, kode_aksi=kode_aksi,
+            referensi_tipe=referensi_tipe, referensi_id=referensi_id,
+        )
+        if dup:
+            return False
+        t = E.TransaksiPoin(
+            desa_id=desa_id, pengguna_id=pengguna_id, aturan_id=aturan_id,
+            kode_aksi=kode_aksi, poin=poin,
+            referensi_tipe=referensi_tipe, referensi_id=referensi_id,
+        )
+        self._data[t.id] = t
+        return True
+
+
+class RepoBadge:
+    def __init__(self):
+        self._data: dict[int, E.Badge] = {}
+        self._seq = 0
+
+    async def tambah(self, b: E.Badge) -> E.Badge:
+        self._seq += 1
+        b.id = self._seq
+        self._data[b.id] = b
+        return b
+
+    async def semua(self) -> list[E.Badge]:
+        return list(self._data.values())
+
+    async def daftar_aktif(self, desa_id: UUID) -> list[E.Badge]:
+        return [
+            b for b in self._data.values()
+            if b.aktif and b.desa_id in (None, desa_id)
+        ]
+
+
+class RepoBadgePengguna:
+    def __init__(self):
+        self._data: dict[UUID, E.BadgePengguna] = {}
+
+    async def cari(self, **kwargs) -> list[E.BadgePengguna]:
+        rows = list(self._data.values())
+        for k, v in kwargs.items():
+            if v is not None:
+                rows = [r for r in rows if getattr(r, k, None) == v]
+        return rows
+
+    async def tambah_idempoten(self, pengguna_id: UUID, badge_id: int) -> bool:
+        if await self.cari(pengguna_id=pengguna_id, badge_id=badge_id):
+            return False
+        bp = E.BadgePengguna(pengguna_id=pengguna_id, badge_id=badge_id)
+        self._data[bp.id] = bp
+        return True
+
+    async def daftar_milik(self, pengguna_id: UUID) -> list[E.BadgePengguna]:
+        return await self.cari(pengguna_id=pengguna_id)
+
+
+class _RepoGenerik:
+    """Repo in-memory generik dengan simpan/ambil/cari."""
+
+    def __init__(self):
+        self._data: dict = {}
+
+    async def simpan(self, entity):
+        self._data[entity.id] = entity
+        return entity
+
+    async def ambil(self, id_):
+        return self._data.get(id_)
+
+    async def cari(self, **kwargs) -> list:
+        rows = list(self._data.values())
+        for k, v in kwargs.items():
+            if v is not None:
+                rows = [r for r in rows if getattr(r, k, None) == v]
+        return rows
+
+    async def hitung(self) -> int:
+        return len(self._data)
+
+
+class RepoUmkm(_RepoGenerik):
+    async def daftar(self, desa_id: UUID) -> list[E.Umkm]:
+        return await self.cari(desa_id=desa_id)
+
+
+class RepoProdukJasa(_RepoGenerik):
+    async def daftar(self, desa_id: UUID) -> list[E.ProdukJasa]:
+        return await self.cari(desa_id=desa_id)
+
+
+class RepoPaketWisata(_RepoGenerik):
+    async def daftar(self, desa_id: UUID) -> list[E.PaketWisata]:
+        return await self.cari(desa_id=desa_id)
+
+    async def ambil_slug(self, desa_id: UUID, slug: str) -> E.PaketWisata | None:
+        for p in await self.cari(desa_id=desa_id, slug=slug):
+            if p.dihapus_pada is None:
+                return p
+        return None
+
+
+class RepoPaketItem(_RepoGenerik):
+    async def daftar_paket(self, paket_id: UUID) -> list[E.PaketItem]:
+        return sorted(await self.cari(paket_id=paket_id), key=lambda i: (i.hari, i.urutan))
+
+    async def hapus(self, id_: UUID) -> None:
+        self._data.pop(id_, None)
+
+
+class RepoKurasiLog(_RepoGenerik):
+    pass
+
+
+class RepoKontribusi(_RepoGenerik):
+    async def daftar(self, desa_id: UUID) -> list[E.Kontribusi]:
+        return await self.cari(desa_id=desa_id)
+
+
+class RepoKartuAksi:
+    def __init__(self):
+        self._data: dict[int, E.KartuAksi] = {}
+        self._seq = 0
+
+    async def tambah(self, k: E.KartuAksi) -> E.KartuAksi:
+        self._seq += 1
+        k.id = self._seq
+        self._data[k.id] = k
+        return k
+
+    async def ambil(self, id_: int) -> Optional[E.KartuAksi]:
+        return self._data.get(id_)
+
+    async def semua(self) -> list[E.KartuAksi]:
+        return list(self._data.values())
+
+    async def daftar_aktif(self, desa_id: UUID) -> list[E.KartuAksi]:
+        return [
+            k for k in self._data.values()
+            if k.aktif and (k.desa_id is None or k.desa_id == desa_id)
+        ]
+
+
+class RepoPengajuanKartu(_RepoGenerik):
+    async def daftar(self, desa_id: UUID) -> list[E.PengajuanKartu]:
+        return await self.cari(desa_id=desa_id)
+
+
+class RepoSertifikasiOwner(_RepoGenerik):
+    async def cari(
+        self,
+        *,
+        desa_id: UUID | None = None,
+        subjek_tipe: str | None = None,
+        subjek_id: UUID | None = None,
+    ) -> list[E.SertifikasiOwner]:
+        rows = list(self._data.values())
+        if desa_id is not None:
+            rows = [r for r in rows if r.desa_id == desa_id]
+        if subjek_tipe is not None:
+            rows = [r for r in rows if r.subjek_tipe == subjek_tipe]
+        if subjek_id is not None:
+            rows = [r for r in rows if r.subjek_id == subjek_id]
+        return rows
+
+    async def upsert(self, s: E.SertifikasiOwner) -> E.SertifikasiOwner:
+        ada = await self.cari(desa_id=s.desa_id, subjek_tipe=s.subjek_tipe, subjek_id=s.subjek_id)
+        if ada:
+            row = ada[0]
+            row.skor = s.skor
+            row.tingkat = s.tingkat
+            row.diperbarui_pada = s.diperbarui_pada
+            return row
+        return await self.simpan(s)
+
+
 class ObjectStorePalsu:
     def __init__(self):
         self._objek: set[str] = set()
@@ -277,4 +525,18 @@ class Penyimpanan:
         self.kalender = RepoKalender()
         self.media = RepoMedia()
         self.lampiran = RepoLampiran()
+        self.bidang_usaha = RepoBidangUsaha()
+        self.aturan_poin = RepoAturanPoin()
+        self.transaksi_poin = RepoTransaksiPoin()
+        self.badge = RepoBadge()
+        self.badge_pengguna = RepoBadgePengguna()
+        self.umkm = RepoUmkm()
+        self.produk_jasa = RepoProdukJasa()
+        self.paket_wisata = RepoPaketWisata()
+        self.paket_item = RepoPaketItem()
+        self.kurasi_log = RepoKurasiLog()
+        self.kontribusi = RepoKontribusi()
+        self.kartu_aksi = RepoKartuAksi()
+        self.pengajuan_kartu = RepoPengajuanKartu()
+        self.sertifikasi_owner = RepoSertifikasiOwner()
         self.objek = ObjectStorePalsu()

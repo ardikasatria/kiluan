@@ -209,7 +209,7 @@ class Layanan(Base):
     satuan_harga: Mapped[str] = mapped_column(String)
     ketersediaan = mapped_column(JSONB)
     penyedia_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("pengguna.id"))
-    # umkm_id ditambahkan saat F1 (Pasar Desa).
+    umkm_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("umkm.id"))
     status: Mapped[str] = mapped_column(String, default="draft")
     dibuat_pada: Mapped[datetime] = _ts_buat()
     diperbarui_pada: Mapped[datetime] = _ts_buat()
@@ -264,9 +264,16 @@ class MediaLampiran(Base):
     id: Mapped[uuid.UUID] = _pk()
     media_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("media.id"))
     entitas_tipe: Mapped[str] = mapped_column(String)
-    entitas_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))  # polimorfik, tanpa FK keras
+    entitas_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
     urutan: Mapped[int] = mapped_column(SmallInteger, default=0)
     utama: Mapped[bool] = mapped_column(default=False)
+    __table_args__ = (
+        CheckConstraint(
+            "entitas_tipe IN ('destinasi','layanan','desa','pengguna',"
+            "'umkm','produk_jasa','paket_wisata','kontribusi')",
+            name="ck_lampiran_entitas",
+        ),
+    )
 
 
 class Tag(Base):
@@ -281,3 +288,262 @@ class DestinasiTag(Base):
     __tablename__ = "destinasi_tag"
     destinasi_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("destinasi.id"), primary_key=True)
     tag_id: Mapped[int] = mapped_column(ForeignKey("tag.id"), primary_key=True)
+
+
+# --- Fase 1 (ERD_Kiluan_Fase1.md) ---
+
+
+class BidangUsaha(Base):
+    __tablename__ = "bidang_usaha"
+    id: Mapped[int] = mapped_column(SmallInteger, primary_key=True, autoincrement=True)
+    kode: Mapped[str] = mapped_column(String, unique=True)
+    nama: Mapped[str] = mapped_column(String)
+    ikon: Mapped[str | None] = mapped_column(String)
+
+
+class Umkm(Base):
+    __tablename__ = "umkm"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pengguna_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    bidang_id: Mapped[int] = mapped_column(ForeignKey("bidang_usaha.id"))
+    nama: Mapped[str] = mapped_column(String)
+    deskripsi: Mapped[str | None] = mapped_column(Text)
+    telepon: Mapped[str | None] = mapped_column(String)
+    whatsapp: Mapped[str | None] = mapped_column(String)
+    alamat: Mapped[str | None] = mapped_column(String)
+    lokasi_geom = mapped_column("lokasi", Geography(geometry_type="POINT", srid=4326), nullable=True)
+    status_verifikasi: Mapped[str] = mapped_column(String, default="menunggu")
+    diverifikasi_oleh: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("pengguna.id"))
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    diperbarui_pada: Mapped[datetime] = _ts_buat()
+    dihapus_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    __table_args__ = (
+        CheckConstraint(
+            "status_verifikasi IN ('menunggu','terverifikasi','ditolak')",
+            name="ck_umkm_status_verifikasi",
+        ),
+    )
+
+
+class ProdukJasa(Base):
+    __tablename__ = "produk_jasa"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    umkm_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("umkm.id"))
+    nama: Mapped[str] = mapped_column(String)
+    deskripsi: Mapped[str | None] = mapped_column(Text)
+    jenis: Mapped[str] = mapped_column(String)
+    harga: Mapped[float] = mapped_column()
+    satuan_harga: Mapped[str] = mapped_column(String)
+    stok: Mapped[int | None] = mapped_column(Integer)
+    status: Mapped[str] = mapped_column(String, default="draft")
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    diperbarui_pada: Mapped[datetime] = _ts_buat()
+    dihapus_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    __table_args__ = (
+        CheckConstraint("jenis IN ('produk','jasa')", name="ck_produk_jenis"),
+        CheckConstraint("status IN ('draft','publikasi','arsip')", name="ck_produk_status"),
+    )
+
+
+class PaketWisata(Base):
+    __tablename__ = "paket_wisata"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    agen_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    slug: Mapped[str] = mapped_column(String)
+    nama: Mapped[str] = mapped_column(String)
+    deskripsi: Mapped[str | None] = mapped_column(Text)
+    durasi_jam: Mapped[int] = mapped_column(Integer)
+    harga: Mapped[float] = mapped_column()
+    satuan_harga: Mapped[str] = mapped_column(String)
+    kuota_default: Mapped[int] = mapped_column(Integer, default=0)
+    status: Mapped[str] = mapped_column(String, default="draft")
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    diperbarui_pada: Mapped[datetime] = _ts_buat()
+    dihapus_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    __table_args__ = (
+        UniqueConstraint("desa_id", "slug", name="uq_paket_desa_slug"),
+        CheckConstraint(
+            "status IN ('draft','review','publikasi','ditolak','arsip')",
+            name="ck_paket_status",
+        ),
+    )
+
+
+class PaketItem(Base):
+    __tablename__ = "paket_item"
+    id: Mapped[uuid.UUID] = _pk()
+    paket_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("paket_wisata.id", ondelete="CASCADE"))
+    hari: Mapped[int] = mapped_column(SmallInteger)
+    urutan: Mapped[int] = mapped_column(SmallInteger)
+    judul: Mapped[str | None] = mapped_column(String)
+    deskripsi: Mapped[str | None] = mapped_column(Text)
+    destinasi_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("destinasi.id"))
+    layanan_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("layanan.id"))
+    produk_jasa_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("produk_jasa.id"))
+    durasi_menit: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class Kontribusi(Base):
+    __tablename__ = "kontribusi"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    penyumbang_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    tipe: Mapped[str] = mapped_column(String)
+    target_tipe: Mapped[str] = mapped_column(String)
+    target_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    muatan = mapped_column(JSONB, default=dict)
+    media_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("media.id"))
+    status: Mapped[str] = mapped_column(String, default="menunggu")
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    diperbarui_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        CheckConstraint(
+            "tipe IN ('foto','tips','koreksi_data','spot_baru','ulasan')",
+            name="ck_kontribusi_tipe",
+        ),
+        CheckConstraint(
+            "target_tipe IN ('destinasi','layanan','umkm','paket_wisata','desa')",
+            name="ck_kontribusi_target_tipe",
+        ),
+        CheckConstraint(
+            "status IN ('menunggu','disetujui','ditolak','revisi')",
+            name="ck_kontribusi_status",
+        ),
+    )
+
+
+class KurasiLog(Base):
+    __tablename__ = "kurasi_log"
+    id: Mapped[uuid.UUID] = _pk()
+    entitas_tipe: Mapped[str] = mapped_column(String)
+    entitas_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    dari_status: Mapped[str] = mapped_column(String)
+    ke_status: Mapped[str] = mapped_column(String)
+    kurator_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    keputusan: Mapped[str] = mapped_column(String)
+    catatan: Mapped[str | None] = mapped_column(Text)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        CheckConstraint(
+            "entitas_tipe IN ('kontribusi','paket_wisata','produk_jasa','umkm','pengajuan_kartu')",
+            name="ck_kurasi_entitas_tipe",
+        ),
+        CheckConstraint(
+            "keputusan IN ('setuju','tolak','minta_revisi','ajukan')",
+            name="ck_kurasi_keputusan",
+        ),
+    )
+
+
+class AturanPoin(Base):
+    __tablename__ = "aturan_poin"
+    id: Mapped[int] = mapped_column(SmallInteger, primary_key=True, autoincrement=True)
+    desa_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("desa.id"))
+    kode_aksi: Mapped[str] = mapped_column(String)
+    poin: Mapped[int] = mapped_column(Integer)
+    deskripsi: Mapped[str | None] = mapped_column(Text)
+    aktif: Mapped[bool] = mapped_column(default=True)
+    __table_args__ = (UniqueConstraint("desa_id", "kode_aksi", name="uq_aturan_poin_desa_kode"),)
+
+
+class TransaksiPoin(Base):
+    __tablename__ = "transaksi_poin"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    pengguna_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    aturan_id: Mapped[int | None] = mapped_column(ForeignKey("aturan_poin.id"))
+    kode_aksi: Mapped[str] = mapped_column(String)
+    poin: Mapped[int] = mapped_column(Integer)
+    referensi_tipe: Mapped[str | None] = mapped_column(String)
+    referensi_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        UniqueConstraint(
+            "pengguna_id", "kode_aksi", "referensi_tipe", "referensi_id",
+            name="uq_transaksi_poin_award",
+        ),
+    )
+
+    @property
+    def urut(self) -> int:
+        if self.dibuat_pada is None:
+            return 0
+        return int(self.dibuat_pada.timestamp() * 1_000_000)
+
+
+class Badge(Base):
+    __tablename__ = "badge"
+    id: Mapped[int] = mapped_column(SmallInteger, primary_key=True, autoincrement=True)
+    desa_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("desa.id"))
+    kode: Mapped[str] = mapped_column(String, unique=True)
+    nama: Mapped[str] = mapped_column(String)
+    deskripsi: Mapped[str | None] = mapped_column(Text)
+    ikon: Mapped[str | None] = mapped_column(String)
+    tingkat: Mapped[int] = mapped_column(SmallInteger, default=1)
+    syarat = mapped_column(JSONB, default=dict)
+    aktif: Mapped[bool] = mapped_column(default=True)
+
+
+class BadgePengguna(Base):
+    __tablename__ = "badge_pengguna"
+    id: Mapped[uuid.UUID] = _pk()
+    pengguna_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    badge_id: Mapped[int] = mapped_column(ForeignKey("badge.id"))
+    diperoleh_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (UniqueConstraint("pengguna_id", "badge_id", name="uq_badge_pengguna"),)
+
+
+class KartuAksi(Base):
+    __tablename__ = "kartu_aksi"
+    id: Mapped[int] = mapped_column(SmallInteger, primary_key=True, autoincrement=True)
+    desa_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("desa.id"))
+    kode: Mapped[str] = mapped_column(String, unique=True)
+    nama: Mapped[str] = mapped_column(String)
+    deskripsi: Mapped[str | None] = mapped_column(Text)
+    kenapa_penting: Mapped[str | None] = mapped_column(Text)
+    bukti_dibutuhkan = mapped_column(JSONB, default=dict)
+    bobot: Mapped[int] = mapped_column(SmallInteger, default=0)
+    aktif: Mapped[bool] = mapped_column(default=True)
+
+
+class PengajuanKartu(Base):
+    __tablename__ = "pengajuan_kartu"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    subjek_tipe: Mapped[str] = mapped_column(String)
+    subjek_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    kartu_id: Mapped[int] = mapped_column(ForeignKey("kartu_aksi.id"))
+    bukti = mapped_column(JSONB, default=dict)
+    status: Mapped[str] = mapped_column(String, default="menunggu")
+    validator_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("pengguna.id"))
+    catatan: Mapped[str | None] = mapped_column(Text)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    divalidasi_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    __table_args__ = (
+        CheckConstraint("subjek_tipe IN ('umkm','agen','pokdarwis')", name="ck_pengajuan_subjek_tipe"),
+        CheckConstraint(
+            "status IN ('menunggu','tervalidasi','ditolak','revisi')",
+            name="ck_pengajuan_status",
+        ),
+    )
+
+
+class SertifikasiOwner(Base):
+    __tablename__ = "sertifikasi_owner"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    subjek_tipe: Mapped[str] = mapped_column(String)
+    subjek_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    tingkat: Mapped[str] = mapped_column(String)
+    skor: Mapped[int] = mapped_column(SmallInteger, default=0)
+    diperbarui_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        UniqueConstraint("desa_id", "subjek_tipe", "subjek_id", name="uq_sertifikasi_owner"),
+        CheckConstraint(
+            "tingkat IN ('tunas','bahari','lumba_lumba')",
+            name="ck_sertifikasi_tingkat",
+        ),
+    )

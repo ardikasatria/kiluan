@@ -70,7 +70,7 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         { id: 'cari', label: 'Cari destinasi', href: '/#discovery', primary: true },
         { id: 'paspor', label: 'Buka Paspor Lestari', href: '/paspor' },
         { id: 'misi', label: 'Lihat misi', href: href(d, 'misi'), segera: true },
-        { id: 'kontrib', label: 'Kontribusi data', href: href(d, 'kontribusi'), segera: true },
+        { id: 'kontrib', label: 'Kontribusi data', href: href(d, 'kontribusi'), segera: false },
       ],
       modulTerkait: [
         { label: 'Discovery', href: '/#discovery' },
@@ -90,7 +90,7 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       nav: [
         { id: 'ringkasan', label: 'Ringkasan', segment: '' },
         { id: 'destinasi', label: 'Destinasi', segment: '/destinasi' },
-        { id: 'kurasi', label: 'Antrian kurasi', segment: '/kurasi', segera: true },
+        { id: 'kurasi', label: 'Antrian kurasi', segment: '/kurasi' },
         { id: 'keanggotaan', label: 'Keanggotaan', segment: '/keanggotaan', segera: true },
         { id: 'dana', label: 'Dana konservasi', segment: '/dana', segera: true },
       ],
@@ -102,6 +102,8 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       ],
       aksiCepat: [
         { id: 'kelola', label: 'Kelola destinasi', href: href(d, 'kelola/destinasi'), primary: true },
+        { id: 'validasi', label: 'Validasi kartu', href: href(d, 'kelola/validasi-kartu'), segera: false },
+        { id: 'kurasi', label: 'Kurasi konten', href: href(d, 'kelola/kurasi-konten'), segera: false },
         { id: 'baru', label: '+ Spot baru', href: href(d, 'kelola/destinasi/baru') },
         { id: 'layanan', label: 'Kelola layanan', href: href(d, 'kelola/layanan') },
         { id: 'etalase', label: 'Lihat etalase publik', href: `/${d}` },
@@ -123,10 +125,10 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       fase: 'F1–F3',
       nav: [
         { id: 'ringkasan', label: 'Ringkasan', segment: '' },
-        { id: 'produk', label: 'Produk & jasa', segment: '/produk', segera: true },
+        { id: 'produk', label: 'Produk & jasa', segment: '/produk' },
         { id: 'pesanan', label: 'Pesanan', segment: '/pesanan', segera: true },
         { id: 'performa', label: 'Performa', segment: '/performa', segera: true },
-        { id: 'sertifikasi', label: 'Naik Kelas Lestari', segment: '/sertifikasi', segera: true },
+        { id: 'sertifikasi', label: 'Naik Kelas Lestari', segment: '/sertifikasi', segera: false },
       ],
       stats: [
         { id: 'produk', label: 'Produk aktif', value: 0, hint: 'Fase 1' },
@@ -136,9 +138,9 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       ],
       aksiCepat: [
         { id: 'pasar', label: 'Buka Pasar Desa', href: href(d, 'pasar'), primary: true },
-        { id: 'produk', label: 'Tambah produk', href: href(d, 'pasar'), segera: true },
-        { id: 'kartu', label: 'Kartu aksi', href: href(d, 'kartu-aksi'), segera: true },
-        { id: 'naik', label: 'Naik kelas', href: href(d, 'naik-kelas'), segera: true },
+        { id: 'produk', label: 'Tambah produk', href: href(d, 'saya/umkm/produk'), segera: false },
+        { id: 'kartu', label: 'Kartu aksi', href: href(d, 'naik-kelas'), segera: false },
+        { id: 'naik', label: 'Naik kelas', href: href(d, 'naik-kelas'), segera: false },
       ],
       modulTerkait: [
         { label: 'Pasar Desa', href: href(d, 'pasar') },
@@ -157,7 +159,7 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       fase: 'F1–F2',
       nav: [
         { id: 'ringkasan', label: 'Ringkasan', segment: '' },
-        { id: 'paket', label: 'Paket saya', segment: '/paket', segera: true },
+        { id: 'paket', label: 'Paket saya', segment: '/paket' },
         { id: 'jadwal', label: 'Kuota & jadwal', segment: '/jadwal', segera: true },
         { id: 'booking', label: 'Booking masuk', segment: '/booking', segera: true },
       ],
@@ -168,7 +170,7 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         { id: 'pendapatan', label: 'Pendapatan', value: '—', hint: 'Fase 2' },
       ],
       aksiCepat: [
-        { id: 'buat', label: 'Buat paket baru', href: href(d, 'paket'), primary: true, segera: true },
+        { id: 'buat', label: 'Buat paket baru', href: href(d, 'saya/paket'), primary: true, segera: false },
         { id: 'agen', label: 'Profil agen', href: href(d, 'agen'), segera: true },
         { id: 'kalender', label: 'Kalender aktivitas', href: href(d, 'kalender') },
       ],
@@ -186,9 +188,9 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       fase: 'F1',
       nav: [
         { id: 'ringkasan', label: 'Ringkasan', segment: '' },
-        { id: 'kontribusi', label: 'Kontribusi saya', segment: '/kontribusi', segera: true },
-        { id: 'lencana', label: 'Lencana', segment: '/lencana', segera: true },
-        { id: 'leaderboard', label: 'Leaderboard', segment: '/leaderboard', segera: true },
+        { id: 'kontribusi', label: 'Kontribusi saya', segment: '/kontribusi' },
+        { id: 'lencana', label: 'Lencana', segment: '/lencana' },
+        { id: 'leaderboard', label: 'Leaderboard', segment: '/leaderboard' },
       ],
       stats: [
         { id: 'total', label: 'Kontribusi', value: 0 },
@@ -197,9 +199,9 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         { id: 'peringkat', label: 'Peringkat desa', value: '—' },
       ],
       aksiCepat: [
-        { id: 'baru', label: 'Kontribusi baru', href: href(d, 'kontribusi'), primary: true, segera: true },
-        { id: 'lencana', label: 'Lihat lencana', href: href(d, 'lencana'), segera: true },
-        { id: 'board', label: 'Leaderboard', href: href(d, 'leaderboard'), segera: true },
+        { id: 'baru', label: 'Kontribusi baru', href: href(d, 'kontribusi'), primary: true, segera: false },
+        { id: 'lencana', label: 'Lihat lencana', href: href(d, 'saya/lencana'), segera: false },
+        { id: 'board', label: 'Leaderboard', href: href(d, 'leaderboard'), segera: false },
       ],
       modulTerkait: [
         { label: 'Kontribusi', href: href(d, 'kontribusi') },

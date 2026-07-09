@@ -168,3 +168,210 @@ class Lampiran:
     utama: bool = False
     id: UUID = field(default_factory=uid)
     urut: int = field(default_factory=urut)
+
+
+# --- F1: Lencana Warga & lookup Pasar Desa ---
+
+
+@dataclass
+class BidangUsaha:
+    kode: str
+    nama: str
+    ikon: str = ""
+    id: Optional[int] = None
+
+
+@dataclass
+class AturanPoin:
+    kode_aksi: str
+    poin: int
+    deskripsi: str = ""
+    desa_id: Optional[UUID] = None
+    aktif: bool = True
+    id: Optional[int] = None
+
+
+@dataclass
+class TransaksiPoin:
+    desa_id: UUID
+    pengguna_id: UUID
+    kode_aksi: str
+    poin: int
+    aturan_id: Optional[int] = None
+    referensi_tipe: Optional[str] = None
+    referensi_id: Optional[UUID] = None
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)
+
+
+@dataclass
+class Badge:
+    kode: str
+    nama: str
+    deskripsi: str = ""
+    ikon: str = ""
+    tingkat: int = 1
+    syarat: dict = field(default_factory=dict)
+    desa_id: Optional[UUID] = None
+    aktif: bool = True
+    id: Optional[int] = None
+
+
+@dataclass
+class BadgePengguna:
+    pengguna_id: UUID
+    badge_id: int
+    id: UUID = field(default_factory=uid)
+    diperoleh_pada: datetime = field(default_factory=_now)
+
+
+# --- F1: Pasar Desa ---
+
+
+@dataclass
+class Umkm:
+    desa_id: UUID
+    pengguna_id: UUID
+    bidang_id: int
+    nama: str
+    deskripsi: str = ""
+    telepon: str = ""
+    whatsapp: str = ""
+    alamat: str = ""
+    lokasi: tuple[float, float] | None = None
+    status_verifikasi: str = "menunggu"
+    diverifikasi_oleh: UUID | None = None
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)
+    diperbarui_pada: datetime = field(default_factory=_now)
+    dihapus_pada: datetime | None = None
+
+
+@dataclass
+class ProdukJasa:
+    desa_id: UUID
+    umkm_id: UUID
+    nama: str
+    jenis: str
+    harga: float
+    satuan_harga: str
+    deskripsi: str = ""
+    stok: int | None = None
+    status: str = "draft"
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)
+    diperbarui_pada: datetime = field(default_factory=_now)
+    dihapus_pada: datetime | None = None
+
+
+@dataclass
+class PaketWisata:
+    desa_id: UUID
+    agen_id: UUID
+    slug: str
+    nama: str
+    durasi_jam: int
+    harga: float
+    satuan_harga: str
+    deskripsi: str = ""
+    kuota_default: int = 0
+    status: str = "draft"
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)
+    diperbarui_pada: datetime = field(default_factory=_now)
+    dihapus_pada: datetime | None = None
+
+
+@dataclass
+class PaketItem:
+    paket_id: UUID
+    hari: int
+    urutan: int
+    judul: str = ""
+    deskripsi: str = ""
+    destinasi_id: UUID | None = None
+    layanan_id: UUID | None = None
+    produk_jasa_id: UUID | None = None
+    durasi_menit: int = 0
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+
+
+@dataclass
+class KurasiLog:
+    entitas_tipe: str
+    entitas_id: UUID
+    dari_status: str
+    ke_status: str
+    kurator_id: UUID
+    keputusan: str
+    catatan: str = ""
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)
+
+
+# --- F1: Dapur Konten ---
+
+
+@dataclass
+class Kontribusi:
+    desa_id: UUID
+    penyumbang_id: UUID
+    tipe: str
+    target_tipe: str
+    muatan: dict = field(default_factory=dict)
+    target_id: UUID | None = None
+    media_id: UUID | None = None
+    status: str = "menunggu"
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)
+    diperbarui_pada: datetime = field(default_factory=_now)
+
+
+# --- F1: Naik Kelas Lestari ---
+
+
+@dataclass
+class KartuAksi:
+    kode: str
+    nama: str
+    deskripsi: str = ""
+    kenapa_penting: str = ""
+    bukti_dibutuhkan: dict = field(default_factory=dict)
+    bobot: int = 10
+    desa_id: UUID | None = None
+    aktif: bool = True
+    id: int | None = None
+
+
+@dataclass
+class PengajuanKartu:
+    desa_id: UUID
+    subjek_tipe: str
+    subjek_id: UUID
+    kartu_id: int
+    bukti: dict = field(default_factory=dict)
+    status: str = "menunggu"
+    validator_id: UUID | None = None
+    catatan: str = ""
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)
+    divalidasi_pada: datetime | None = None
+
+
+@dataclass
+class SertifikasiOwner:
+    desa_id: UUID
+    subjek_tipe: str
+    subjek_id: UUID
+    tingkat: str
+    skor: int
+    id: UUID = field(default_factory=uid)
+    diperbarui_pada: datetime = field(default_factory=_now)

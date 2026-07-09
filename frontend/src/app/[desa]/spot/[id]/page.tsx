@@ -1,5 +1,6 @@
 import SpotGallery from '@/components/kiluan/SpotGallery'
 import SpotMap from '@/components/kiluan/SpotMap'
+import KontribusiSpotPanel from '@/components/kiluan/kontribusi/KontribusiSpotPanel'
 import WeatherWidget from '@/components/kiluan/WeatherWidget'
 import { getCuacaDesa } from '@/lib/api/desa'
 import { getDestinasiDetail } from '@/lib/api/destinasi'
@@ -141,6 +142,7 @@ export default async function SpotDetailPage({ params }: Props) {
 
         <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
           <WeatherWidget cuaca={cuaca} />
+          <KontribusiSpotPanel desaSlug={desa} destinasiId={detail.id} destinasiNama={detail.nama} />
           {detail.tag.length > 0 && (
             <div className="rounded-2xl border border-neutral-200 p-4 dark:border-neutral-700 dark:bg-neutral-800/40">
               <h3 className="flex items-center gap-2 text-sm font-semibold text-neutral-800 dark:text-neutral-200">

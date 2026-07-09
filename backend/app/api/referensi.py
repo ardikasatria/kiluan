@@ -23,3 +23,9 @@ async def daftar_kategori(store=Depends(get_penyimpanan)):
         {"id": k.id, "kode": k.kode, "nama": k.nama, "ikon": k.ikon, "urutan": k.urutan}
         for k in baris
     ]}
+
+
+@router.get("/bidang-usaha")
+async def daftar_bidang_usaha(store=Depends(get_penyimpanan)):
+    from app.layanan.lencana_warga import LencanaLayanan
+    return {"item": await LencanaLayanan(store).daftar_bidang_usaha()}

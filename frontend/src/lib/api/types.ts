@@ -168,3 +168,197 @@ export interface DestinasiBuatPayload {
   jam_operasional?: Record<string, string>
   status?: 'draft' | 'publikasi' | 'arsip'
 }
+
+// --- F1: Lencana Warga ---
+
+export interface BadgeItem {
+  id: number
+  kode: string
+  nama: string
+  deskripsi?: string | null
+  ikon?: string | null
+  tingkat: number
+  syarat: Record<string, unknown>
+}
+
+export interface BadgeMilik extends BadgeItem {
+  diperoleh_pada?: string | null
+}
+
+export interface TransaksiPoinItem {
+  kode_aksi: string
+  poin: number
+  referensi_tipe?: string | null
+  referensi_id?: string | null
+  dibuat_pada?: string | null
+}
+
+export interface PoinSayaResponse {
+  saldo: number
+  riwayat: TransaksiPoinItem[]
+  meta: MetaPaginasi
+}
+
+export interface AturanPoinItem {
+  kode_aksi: string
+  poin: number
+  deskripsi?: string | null
+  aktif: boolean
+}
+
+export interface LeaderboardPengguna {
+  id: string
+  nama: string
+  avatar?: string | null
+}
+
+export interface LeaderboardEntry {
+  peringkat: number
+  pengguna: LeaderboardPengguna
+  poin: number
+  badge_teratas?: { kode: string; nama: string; ikon?: string | null } | null
+}
+
+export interface BidangUsaha {
+  id: number
+  kode: string
+  nama: string
+  ikon?: string | null
+}
+
+// --- F1: Pasar Desa ---
+
+export interface UmkmRingkas {
+  id: string
+  nama: string
+  bidang: { id: number; kode: string; nama: string; ikon?: string | null }
+  status_verifikasi: string
+  lokasi?: Lokasi | null
+  sertifikasi?: { tingkat: string } | null
+  jarak_m?: number
+}
+
+export interface UmkmDetail extends UmkmRingkas {
+  deskripsi?: string | null
+  telepon?: string | null
+  whatsapp?: string | null
+  alamat?: string | null
+  produk_ringkas?: { id: string; nama: string; harga: number }[]
+  dibuat_pada?: string | null
+}
+
+export interface ProdukJasaItem {
+  id: string
+  umkm: { id: string; nama: string }
+  nama: string
+  jenis: 'produk' | 'jasa'
+  deskripsi?: string | null
+  harga: number
+  satuan_harga: string
+  stok?: number | null
+  status: string
+  media?: unknown[]
+}
+
+export interface PaketItemRow {
+  id: string
+  hari: number
+  urutan: number
+  judul?: string | null
+  deskripsi?: string | null
+  destinasi?: { id: string; nama?: string } | null
+  layanan?: { id: string; nama?: string } | null
+  produk_jasa?: { id: string; nama?: string } | null
+  durasi_menit: number
+}
+
+export interface PaketRingkas {
+  id: string
+  slug: string
+  nama: string
+  agen: { id: string; nama: string }
+  durasi_jam: number
+  harga: number
+  satuan_harga: string
+  kuota_default: number
+  status: string
+  media_utama?: unknown | null
+}
+
+export interface PaketDetail extends PaketRingkas {
+  deskripsi?: string | null
+  item: PaketItemRow[]
+}
+
+export interface KurasiLogItem {
+  id: string
+  entitas_tipe: string
+  entitas_id: string
+  dari_status: string
+  ke_status: string
+  keputusan: string
+  catatan?: string | null
+  dibuat_pada?: string | null
+}
+
+// --- F1: Dapur Konten ---
+
+export type TipeKontribusi = 'foto' | 'tips' | 'koreksi_data' | 'spot_baru' | 'ulasan'
+export type TargetKontribusi = 'destinasi' | 'layanan' | 'umkm' | 'paket_wisata' | 'desa'
+export type StatusKontribusi = 'menunggu' | 'disetujui' | 'ditolak' | 'revisi'
+
+export interface KontribusiItem {
+  id: string
+  tipe: TipeKontribusi
+  target_tipe: TargetKontribusi
+  target_id?: string | null
+  muatan: Record<string, unknown>
+  media_id?: string | null
+  status: StatusKontribusi
+  penyumbang_id: string
+  dibuat_pada?: string | null
+  diperbarui_pada?: string | null
+}
+
+export interface KontribusiTarget {
+  target_tipe: TargetKontribusi
+  target_id?: string
+  label?: string
+}
+
+// --- F1: Naik Kelas Lestari ---
+
+export type SubjekPengajuan = 'umkm' | 'agen' | 'pokdarwis'
+export type StatusPengajuanKartu = 'menunggu' | 'tervalidasi' | 'ditolak' | 'revisi'
+export type TingkatSertifikasi = 'tunas' | 'bahari' | 'lumba_lumba'
+
+export interface KartuAksiItem {
+  id: number
+  kode: string
+  nama: string
+  deskripsi?: string
+  kenapa_penting?: string
+  bukti_dibutuhkan: Record<string, boolean>
+  bobot: number
+}
+
+export interface PengajuanKartuItem {
+  id: string
+  subjek_tipe: SubjekPengajuan
+  subjek_id: string
+  kartu: { id: number; nama: string }
+  bukti: Record<string, unknown>
+  status: StatusPengajuanKartu
+  validator?: { id: string; nama: string } | null
+  catatan?: string | null
+  dibuat_pada?: string | null
+  divalidasi_pada?: string | null
+}
+
+export interface SertifikasiItem {
+  subjek_tipe?: string
+  subjek_id?: string
+  tingkat: TingkatSertifikasi | null
+  skor: number
+  diperbarui_pada?: string | null
+}

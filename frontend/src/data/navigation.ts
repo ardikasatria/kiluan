@@ -73,7 +73,7 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
           name: 'Kolaborasi',
           children: [
             { id: 'k-k-1', href: `/${DESA}/kontribusi`, name: 'Kontribusi Data' },
-            { id: 'k-k-2', href: `/${DESA}/lencana`, name: 'Lencana Warga' },
+            { id: 'k-k-2', href: `/${DESA}/saya/lencana`, name: 'Lencana Warga' },
             { id: 'k-k-3', href: `/${DESA}/leaderboard`, name: 'Leaderboard' },
             { id: 'k-k-4', href: `/${DESA}/pasar?sertifikat=lestari`, name: 'UMKM Bersertifikat' },
           ],

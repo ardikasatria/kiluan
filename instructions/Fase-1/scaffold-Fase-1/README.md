@@ -7,15 +7,18 @@ repositori in-memory, `pytest-asyncio`). Sumber kebenaran: `ERD_Kiluan_Fase1.md`
 
 ## Jalankan
 ```bash
-pip install pytest pytest-asyncio
+cd instructions/Fase-1/scaffold-Fase-1
+pip install -r requirements.txt
 pytest -q
 ```
+
+Hasil: **35 passed** (gerbang kontrak §10 + cakupan tambahan).
 
 ## Struktur
 ```
 kiluan_f1/
   errors.py        amplop error kontrak (§1)
-  ids.py           UUIDv7 monotonik (keyset)
+  ids.py           UUID + urut monotonik (keyset)
   enums.py         enum F1 (§4) di level aplikasi
   models.py        dataclass domain (ERD §3)
   konteks.py       Aktor + RBAC (peran per-desa, kepemilikan)
@@ -29,7 +32,9 @@ kiluan_f1/
     dapur_konten.py  Kontribusi (SM), award poin on setuju, kurasi_log
     lencana_warga.py Poin idempoten, Badge otomatis, Leaderboard
     naik_kelas.py    Pengajuan (SM) -> recompute Sertifikasi (tunas/bahari/lumba_lumba)
-tests/               28 test; peta ke gerbang KONTRAK §10
+tests/               35 test; peta ke gerbang KONTRAK §10
+pytest.ini
+requirements.txt
 ```
 
 ## Peta test → gerbang kontrak (§10)

@@ -10,6 +10,8 @@ from ..konteks import Aktor, wajib_peran, wajib_pengelola
 from ..models import KurasiLog, PaketItem, PaketWisata, ProdukJasa, Umkm
 from ..repositori import RepoMemori, keyset
 
+TINGKAT_RANK = {"lumba_lumba": 3, "bahari": 2, "tunas": 1}
+
 
 def _hidup(e, desa_id: UUID):
     """404 untuk lintas-tenant / soft-deleted (KONTRAK §1)."""
@@ -19,8 +21,9 @@ def _hidup(e, desa_id: UUID):
 
 
 class UmkmService:
-    def __init__(self, repo: RepoMemori):
+    def __init__(self, repo: RepoMemori, repo_sertifikasi: RepoMemori | None = None):
         self.repo = repo
+        self.repo_sertifikasi = repo_sertifikasi
 
     async def daftar(self, aktor: Aktor, desa_id: UUID, data: dict) -> Umkm:
         wajib_peran(aktor, desa_id, "umkm")  # pemohon wajib berperan umkm
@@ -56,7 +59,15 @@ class UmkmService:
     async def daftar_publik(self, desa_id: UUID, kursor=None, batas=20):
         rows = [u for u in await self.repo.cari(desa_id=desa_id)
                 if u.dihapus_pada is None and u.status_verifikasi == "terverifikasi"]
+        rows = await self._urut_berperingkat(desa_id, rows)
         return keyset(rows, kursor, batas)
+
+    async def _urut_berperingkat(self, desa_id: UUID, rows: list[Umkm]) -> list[Umkm]:
+        if not self.repo_sertifikasi:
+            return rows
+        sert = await self.repo_sertifikasi.cari(desa_id=desa_id, subjek_tipe="umkm")
+        peta = {s.subjek_id: TINGKAT_RANK.get(s.tingkat, 0) for s in sert}
+        return sorted(rows, key=lambda u: (peta.get(u.id, 0), u.urut), reverse=True)
 
 
 class ProdukService:

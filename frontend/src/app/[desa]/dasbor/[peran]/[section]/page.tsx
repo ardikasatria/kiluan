@@ -19,6 +19,27 @@ export default async function DasborSectionPage({ params }: Props) {
   if (kode === 'wisatawan' && section === 'paspor') {
     redirect('/paspor')
   }
+  if (section === 'lencana') {
+    redirect(`/${desa}/saya/lencana`)
+  }
+  if (section === 'leaderboard') {
+    redirect(`/${desa}/leaderboard`)
+  }
+  if (section === 'produk' && kode === 'umkm') {
+    redirect(`/${desa}/saya/umkm/produk`)
+  }
+  if (section === 'paket' && kode === 'agen') {
+    redirect(`/${desa}/saya/paket`)
+  }
+  if (section === 'kurasi' && kode === 'pokdarwis') {
+    redirect(`/${desa}/kelola/kurasi-konten`)
+  }
+  if (section === 'kontribusi') {
+    redirect(`/${desa}/kontribusi`)
+  }
+  if (section === 'sertifikasi') {
+    redirect(`/${desa}/naik-kelas`)
+  }
 
   const config = konfigDasborPeran(desa)[kode]
   const navItem = config.nav.find((n) => n.segment === `/${section}`)

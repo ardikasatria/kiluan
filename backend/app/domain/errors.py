@@ -24,6 +24,10 @@ class KesalahanValidasi(KesalahanDomain):
     http = 422
 
 
+class TransisiIlegal(KesalahanValidasi):
+    pass
+
+
 class TidakTerautentikasi(KesalahanDomain):
     kode = "tidak_terautentikasi"
     http = 401
