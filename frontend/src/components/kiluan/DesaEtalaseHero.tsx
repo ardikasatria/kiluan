@@ -10,8 +10,11 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 
-const DEFAULT_COVER =
-  'https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=2000&auto=format&fit=crop'
+const DESA_COVER: Record<string, { src: string; alt: string }> = {
+  'teluk-kiluan': { src: '/gallery/laguna.jpg', alt: 'Laguna Teluk Kiluan' },
+}
+
+const FALLBACK_COVER = { src: '/gallery/laguna.jpg', alt: 'Teluk Kiluan' } as const
 
 interface Props {
   profil: ProfilDesa
@@ -22,13 +25,14 @@ interface Props {
 
 export default function DesaEtalaseHero({ profil, desaSlug, cuaca, jumlahDestinasi = 0 }: Props) {
   const lokasi = [profil.pekon, profil.kecamatan, profil.kabupaten, profil.provinsi].filter(Boolean).join(', ')
+  const cover = DESA_COVER[desaSlug] ?? { ...FALLBACK_COVER, alt: profil.nama }
 
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src={DEFAULT_COVER}
-          alt={profil.nama}
+          src={cover.src}
+          alt={cover.alt}
           fill
           className="object-cover"
           priority
