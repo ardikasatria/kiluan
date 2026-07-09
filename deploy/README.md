@@ -115,6 +115,7 @@ docker compose logs -f caddy   # pantau penerbitan sertifikat
 |--------|--------|
 | `Bind for 0.0.0.0:80 failed: port is already allocated` | Port 80/443 masih dipakai. Jalankan `./scripts/preflight.sh`. Hentikan service lama: `docker compose down --remove-orphans` (hapus container **nginx** lama), lalu `sudo systemctl stop nginx apache2 caddy` bila ada di host. Caddy **wajib** pakai 80 & 443 untuk TLS otomatis. |
 | Caddy gagal TLS / ACME error | Pastikan DNS sudah aktif; port 80/443 terbuka; cek `docker compose logs caddy` |
+| `subject does not qualify for certificate: '{env.API_DOMAIN}'` | Caddyfile salah pakai `{env.VAR}` di alamat site — harus `{$VAR}` (sudah diperbaiki di repo). Pastikan `.env` berisi `API_DOMAIN` & `FRONTEND_DOMAIN`. Lalu `docker compose up -d --force-recreate caddy` |
 | `minio` unhealthy | `docker compose logs minio` — pastikan `MINIO_ROOT_PASSWORD` ≥ 8 karakter |
 | `backend` restart loop | `docker compose logs backend` — cek koneksi DB & migrasi |
 | Frontend 502 | Tunggu healthcheck hijau: `docker compose ps` |

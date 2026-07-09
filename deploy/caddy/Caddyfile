@@ -1,12 +1,13 @@
 # deploy/caddy/Caddyfile — reverse proxy + TLS otomatis (Let's Encrypt)
 # Variabel dari container Caddy (lihat docker-compose.yml & deploy/.env)
+# Penting: alamat site pakai {$VAR} (parse-time), BUKAN {env.VAR} (runtime — tidak valid di address).
 
 {
-	email {env.ACME_EMAIL}
+	email {$ACME_EMAIL}
 	admin off
 }
 
-{env.API_DOMAIN} {
+{$API_DOMAIN} {
 	request_body {
 		max_size 25MB
 	}
@@ -26,7 +27,7 @@
 	}
 }
 
-{env.FRONTEND_DOMAIN} {
+{$FRONTEND_DOMAIN} {
 	reverse_proxy frontend:3000 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
