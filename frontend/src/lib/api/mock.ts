@@ -13,6 +13,7 @@ import type { DiscoveryParams } from './types'
 const KILUAN_LOK = { lat: -5.7912, lng: 105.1033 }
 
 export const MOCK_PROFIL: ProfilDesa = {
+  id: 'd1000001-0000-4000-8000-000000000001',
   slug: 'teluk-kiluan',
   nama: 'Teluk Kiluan',
   deskripsi:

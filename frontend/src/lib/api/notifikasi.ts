@@ -1,4 +1,5 @@
-import { apiFetch } from './client'
+import { getAccessToken } from '@/lib/auth/session'
+import { ApiError, apiFetch } from './client'
 import {
   mockDaftarNotifikasi,
   mockHitungNotifikasi,
@@ -11,6 +12,9 @@ export async function getDaftarNotifikasi(
   desaSlug: string,
   opts?: { status?: StatusNotifikasi; kursor?: string; batas?: number },
 ): Promise<{ item: NotifikasiItem[]; meta: MetaPaginasi }> {
+  if (!getAccessToken()) {
+    return mockDaftarNotifikasi(opts)
+  }
   const q = new URLSearchParams()
   if (opts?.status) q.set('status', opts.status)
   if (opts?.kursor) q.set('kursor', opts.kursor)
@@ -18,15 +22,24 @@ export async function getDaftarNotifikasi(
   const qs = q.toString()
   try {
     return await apiFetch(`/api/v1/desa/${desaSlug}/notifikasi${qs ? `?${qs}` : ''}`)
-  } catch {
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 401) {
+      return mockDaftarNotifikasi(opts)
+    }
     return mockDaftarNotifikasi(opts)
   }
 }
 
 export async function getHitungNotifikasi(desaSlug: string): Promise<NotifikasiHitungResponse> {
+  if (!getAccessToken()) {
+    return { belum_dibaca: 0 }
+  }
   try {
     return await apiFetch(`/api/v1/desa/${desaSlug}/notifikasi/hitung`)
-  } catch {
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 401) {
+      return { belum_dibaca: 0 }
+    }
     return mockHitungNotifikasi()
   }
 }

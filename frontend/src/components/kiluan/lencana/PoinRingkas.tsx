@@ -2,8 +2,9 @@
 
 import { SparklesIcon } from '@heroicons/react/24/outline'
 import { Link } from '@/i18n/navigation'
+import { formatPoin } from '@/lib/i18n/format'
 import clsx from 'clsx'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 interface Props {
   saldo: number
@@ -14,6 +15,7 @@ interface Props {
 
 export default function PoinRingkas({ saldo, desaSlug, compact, className }: Props) {
   const t = useTranslations('lencana')
+  const locale = useLocale() as 'id' | 'en'
 
   const inner = (
     <span
@@ -25,7 +27,7 @@ export default function PoinRingkas({ saldo, desaSlug, compact, className }: Pro
       )}
     >
       <SparklesIcon className={clsx(compact ? 'size-4' : 'size-5', 'text-kiluan-sea')} aria-hidden />
-      <span>{saldo.toLocaleString('id-ID')}</span>
+      <span>{formatPoin(saldo, locale)}</span>
       {!compact && <span className="font-normal text-neutral-500 dark:text-neutral-400">{t('poin')}</span>}
     </span>
   )

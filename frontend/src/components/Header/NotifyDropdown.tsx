@@ -1,5 +1,6 @@
 'use client'
 
+import { useAuth } from '@/contexts/AuthProvider'
 import { useDesaSlug } from '@/contexts/DesaKonteksProvider'
 import {
   getDaftarNotifikasi,
@@ -41,6 +42,7 @@ interface Props {
 const NotifyDropdown: FC<Props> = ({ className = '', desaSlug: desaProp }) => {
   const desaKonteks = useDesaSlug()
   const desaSlug = desaProp ?? desaKonteks
+  const { isLoggedIn, isLoading: authLoading } = useAuth()
   const router = useRouter()
   const locale = useLocale()
   const t = useTranslations('nav.notifications')
@@ -55,16 +57,17 @@ const NotifyDropdown: FC<Props> = ({ className = '', desaSlug: desaProp }) => {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const muatHitung = useCallback(async () => {
-    if (document.hidden) return
+    if (document.hidden || !isLoggedIn) return
     try {
       const res = await getHitungNotifikasi(desaSlug)
       setBelumDibaca(res.belum_dibaca)
     } catch {
       /* abaikan — badge tetap 0 */
     }
-  }, [desaSlug])
+  }, [desaSlug, isLoggedIn])
 
   const muatDaftar = useCallback(async () => {
+    if (!isLoggedIn) return
     setMemuat(true)
     try {
       const res = await getDaftarNotifikasi(desaSlug, { batas: 8 })
@@ -72,14 +75,18 @@ const NotifyDropdown: FC<Props> = ({ className = '', desaSlug: desaProp }) => {
     } finally {
       setMemuat(false)
     }
-  }, [desaSlug])
+  }, [desaSlug, isLoggedIn])
 
   useEffect(() => {
+    if (authLoading || !isLoggedIn) {
+      setBelumDibaca(0)
+      return
+    }
     void muatHitung()
     intervalRef.current = setInterval(() => void muatHitung(), POLL_MS)
 
     const onVis = () => {
-      if (!document.hidden) void muatHitung()
+      if (!document.hidden && isLoggedIn) void muatHitung()
     }
     document.addEventListener('visibilitychange', onVis)
 
@@ -87,7 +94,11 @@ const NotifyDropdown: FC<Props> = ({ className = '', desaSlug: desaProp }) => {
       if (intervalRef.current) clearInterval(intervalRef.current)
       document.removeEventListener('visibilitychange', onVis)
     }
-  }, [muatHitung])
+  }, [authLoading, isLoggedIn, muatHitung])
+
+  if (authLoading || !isLoggedIn) {
+    return null
+  }
 
   const bukaDropdown = () => {
     void muatDaftar()

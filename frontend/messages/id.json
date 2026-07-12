@@ -743,21 +743,34 @@
     },
     "guard": {
       "loading": "Memuat sesi…",
-      "title": "Area Pengelola Desa",
-      "desc": "Masuk dengan akun yang memiliki peran pengelola desa (organisasi, perangkat desa, atau admin).",
-      "masuk": "Masuk"
+      "title": "Area Kelola Desa",
+      "desc": "Masuk dengan akun yang memiliki peran pengelola (organisasi, perangkat desa, admin), penyedia dermaga (UMKM, agen), atau verifikator dermaga.",
+      "masuk": "Masuk",
+      "forbiddenTitle": "Akses dibatasi",
+      "forbiddenDesc": "Halaman ini hanya untuk peran tertentu. Gunakan menu navigasi kelola atau kembali ke dasbor.",
+      "kembaliDasbor": "Ke dasbor",
+      "kembaliKelola": "Ke ringkasan kelola",
+      "keDermaga": "Ke pesanan & slot"
     },
     "nav": {
+      "ariaLabel": "Navigasi kelola desa",
       "ringkasan": "Ringkasan",
       "destinasi": "Destinasi",
       "layanan": "Layanan",
       "kalender": "Kalender",
       "berita": "Warta",
+      "slot": "Slot jadwal",
+      "pesanan": "Pesanan",
       "bendahara": "Bendahara",
+      "pembayaran": "Pembayaran",
+      "payout": "Payout",
+      "transaksi": "Transaksi",
       "pendapatan": "Pendapatan",
       "refund": "Refund",
       "hadiah": "Hadiah",
+      "kupon": "Kupon",
       "checkin": "Check-in",
+      "pengaturan": "Pengaturan",
       "kurasi": "Dapur Konten",
       "validasiKartu": "Validasi Kartu",
       "verifikasi": "Verifikasi"
@@ -780,7 +793,11 @@
       "loading": "Memuat panel bendahara…",
       "memproses": "Memproses…",
       "refundLink": "Pengajuan refund wisatawan ditangani terpisah.",
-      "refundCta": "Buka kelola refund →",
+      "refundCta": "Kelola refund →",
+      "pembayaranCta": "Konfirmasi pembayaran →",
+      "payoutCta": "Payout →",
+      "transaksiCta": "Ledger transaksi →",
+      "kembaliBendahara": "← Panel bendahara",
       "escrow": {
         "menunggu": "Menunggu konfirmasi",
         "menungguHint": "{count} pembayaran manual",
@@ -796,10 +813,10 @@
       },
       "statusPayout": {
         "draft": "Draf",
+        "antri": "Antrian transfer",
         "diproses": "Diproses",
         "berhasil": "Berhasil",
-        "gagal": "Gagal",
-        "tandai_berhasil": "Selesai"
+        "gagal": "Gagal"
       },
       "konfirmasi": {
         "title": "Konfirmasi pembayaran manual",
@@ -810,18 +827,29 @@
         "sukses": "Pembayaran dikonfirmasi.",
         "bukti": "bukti",
         "terunggah": "terunggah",
-        "belumAda": "belum ada"
+        "belumAda": "belum ada bukti",
+        "buktiAlt": "Bukti transfer",
+        "lihatBukti": "Lihat bukti transfer",
+        "muatBukti": "Memuat bukti…",
+        "buktiGalat": "Bukti tidak dapat dimuat"
       },
       "payout": {
         "title": "Payout penyedia",
-        "desc": "Cairkan transaksi dirilis ke rekening terverifikasi (transfer manual).",
+        "desc": "Buat payout manual, transfer ke rekening terverifikasi, lalu tandai berhasil atau gagal.",
         "empty": "Belum ada dana dirilis untuk dicairkan.",
         "loadRekening": "Muat rekening penyedia",
         "belumVerifikasi": "(belum verifikasi)",
         "verifikasiRekening": "Verifikasi rekening",
         "rekeningTerverifikasi": "Rekening terverifikasi.",
-        "konfirmasiDialog": "Jalankan payout manual ke rekening ini?",
+        "konfirmasiDialog": "Buat payout ke rekening {rekening}? Setelah transfer manual, tandai berhasil.",
+        "dibuat": "Payout dibuat ({id}…) — lakukan transfer manual lalu tandai berhasil.",
+        "antrian": "Menunggu konfirmasi transfer",
+        "tandaiBerhasil": "Tandai berhasil",
+        "tandaiGagal": "Tandai gagal",
+        "konfirmasiBerhasil": "Konfirmasi payout sudah ditransfer?",
+        "konfirmasiGagal": "Tandai payout gagal? Transaksi akan bisa dicairkan ulang.",
         "sukses": "Payout berhasil dicatat.",
+        "gagalDicatat": "Payout ditandai gagal — dana dapat dicairkan ulang.",
         "riwayat": "Riwayat payout",
         "neto": "neto"
       },
@@ -895,7 +923,13 @@
       "submit": "Check-in",
       "memproses": "Memproses…",
       "sukses": "Check-in berhasil: {kode} → {status}",
-      "error": "Check-in gagal. Pastikan kode valid & booking terkonfirmasi.",
+      "error": "Check-in gagal. Pastikan kode valid, booking terkonfirmasi, dan tanggal kunjungan hari ini.",
+      "bookingHariIni": "Booking {tanggal}",
+      "emptyBooking": "Tidak ada booking hari ini.",
+      "orang": "orang",
+      "selesai": "Tandai selesai",
+      "selesaiKonfirmasi": "Tandai booking {kode} selesai? Escrow akan dievaluasi.",
+      "selesaiSukses": "Booking {kode} selesai — escrow dievaluasi.",
       "status": {
         "terkonfirmasi": "Terkonfirmasi",
         "checkin": "Sudah check-in",
@@ -976,43 +1010,119 @@
       }
     },
     "hadiah": {
-      "seoTitle": "Kelola Hadiah & Kupon",
-      "seoTitleDesa": "Kelola Hadiah & Kupon — {desa}",
+      "seoTitle": "Kelola Hadiah",
+      "seoTitleDesa": "Kelola Hadiah — {desa}",
       "eyebrow": "Kupon & poin",
-      "title": "Kelola Hadiah & Kupon",
-      "subtitle": "Katalog hadiah penukaran poin dan kupon kampanye desa.",
+      "title": "Kelola Hadiah",
+      "subtitle": "Katalog hadiah penukaran poin desa.",
       "subtitleDesa": "Program loyalitas {desa} — hadiah Paspor Lestari & kupon diskon.",
       "loading": "Memuat katalog…",
       "menyimpan": "Menyimpan…",
       "katalog": "Katalog hadiah",
+      "katalogHint": "Hadiah aktif tampil kepada wisatawan. Nonaktifkan tanpa menghapus riwayat penukaran.",
       "emptyHadiah": "Belum ada hadiah. Tambahkan hadiah pertama di bawah.",
       "poinSuffix": "poin",
       "stok": "stok {count}",
+      "stokTakTerbatas": "stok tak terbatas",
       "tambahHadiah": "Tambah hadiah",
-      "kuponKampanye": "Kupon kampanye",
-      "kuponHint": "Kupon kampanye desa — wisatawan dapat menukarnya via poin atau promo.",
-      "buatKupon": "Buat kupon kampanye",
+      "aktifkan": "Aktifkan",
+      "nonaktifkan": "Nonaktifkan",
+      "formTitle": "Tambah hadiah baru",
+      "formHint": "Saldo dan stok selalu divalidasi ulang oleh server saat penukaran.",
+      "status": {
+        "aktif": "Aktif",
+        "nonaktif": "Nonaktif"
+      },
+      "field": {
+        "nama": "Nama hadiah",
+        "jenis": "Jenis hadiah",
+        "biaya": "Biaya poin",
+        "stok": "Stok",
+        "deskripsi": "Deskripsi",
+        "tingkat": "Syarat tingkat minimum",
+        "tingkatHint": "Kosongkan bila hadiah dapat ditukar semua anggota."
+      },
       "placeholder": {
         "nama": "Nama hadiah",
         "biaya": "Biaya poin",
         "stok": "Stok (opsional)",
-        "deskripsi": "Deskripsi singkat (opsional)",
-        "kode": "Kode kupon",
-        "nilai": "Nilai diskon (Rp)",
-        "min": "Min belanja (opsional)"
+        "deskripsi": "Deskripsi singkat (opsional)"
       },
       "jenis": {
         "merchandise": "Merchandise",
         "kupon_diskon": "Kupon diskon",
-        "tiket": "Tiket"
+        "tiket": "Tiket",
+        "donasi": "Donasi"
+      },
+      "tingkat": {
+        "semua": "Tanpa syarat tingkat",
+        "tunas": "Tunas",
+        "bahari": "Bahari",
+        "lumba_lumba": "Lumba-Lumba"
       },
       "sukses": {
         "hadiah": "Hadiah ditambahkan ke katalog.",
-        "kupon": "Kupon kampanye dibuat."
+        "aktif": "Hadiah diaktifkan.",
+        "nonaktif": "Hadiah dinonaktifkan."
       },
       "errors": {
-        "hadiah": "Gagal menambah hadiah.",
-        "kupon": "Gagal membuat kupon."
+        "hadiah": "Gagal menambah hadiah."
+      }
+    },
+    "kupon": {
+      "seo": {
+        "campaign": "Kelola Kupon Kampanye",
+        "owner": "Buat Promo UMKM"
+      },
+      "eyebrow": "Kupon & promosi",
+      "campaignHeading": "Kupon kampanye desa",
+      "campaignSubtitle": "Buat kupon kampanye untuk wisatawan dan penyedia regeneratif di {desa}.",
+      "ownerHeading": "Buat promo UMKM",
+      "ownerSubtitle": "Buat diskon untuk produk dan layanan usaha Anda.",
+      "ownerCostTitle": "Diskon ditanggung pemilik usaha",
+      "ownerCostBody": "Kupon promo owner mengurangi bruto penyedia secara proporsional. Nilai diskon menjadi biaya pemasaran usaha Anda, bukan ditanggung platform atau dana konservasi.",
+      "campaignTitle": "Kampanye dikelola desa",
+      "campaignBody": "Kupon kampanye hanya dapat dibuat pengelola. Tentukan penyedia atau tingkat sertifikasi agar manfaat mengalir ke usaha regeneratif.",
+      "formTitle": {
+        "kampanye": "Buat kupon kampanye",
+        "promo_owner": "Buat kupon promo usaha"
+      },
+      "formHint": "Atur nilai, masa berlaku, batas pemakaian, dan penyedia yang dapat menerima kupon.",
+      "field": {
+        "kode": "Kode kupon",
+        "tipe": "Tipe diskon",
+        "nilai": "Nilai diskon",
+        "min": "Minimum belanja (Rp)",
+        "batas": "Batas pemakaian",
+        "mulai": "Berlaku mulai",
+        "sampai": "Berlaku sampai"
+      },
+      "type": {
+        "persen": "Persentase (%)",
+        "nominal": "Nominal (Rp)"
+      },
+      "provider": {
+        "title": "Penyedia regeneratif yang menerima",
+        "hint": "Kosongkan untuk semua penyedia, atau batasi berdasarkan tingkat sertifikasi dan ID UMKM.",
+        "level": "Tingkat minimum",
+        "all": "Semua tingkat",
+        "ids": "ID UMKM tertentu",
+        "idsPlaceholder": "Pisahkan dengan koma",
+        "flywheel": "Reward diarahkan ke penyedia bersertifikat agar partisipasi regeneratif menciptakan permintaan nyata."
+      },
+      "level": {
+        "tunas": "Tunas",
+        "bahari": "Bahari",
+        "lumba_lumba": "Lumba-Lumba"
+      },
+      "saving": "Menyimpan…",
+      "submit": {
+        "kampanye": "Buat kupon kampanye",
+        "promo_owner": "Terbitkan promo usaha"
+      },
+      "success": {
+        "kampanye": "Kupon kampanye berhasil dibuat.",
+        "promo_owner": "Promo usaha berhasil diterbitkan."
       }
     },
     "kalender": {
@@ -1289,6 +1399,7 @@
       "statNeto": "Neto penyedia",
       "statReinvest": "Reinvestasi",
       "ringkasan": "Neto {neto} · reinvestasi {reinvest}",
+      "lihatLedger": "Lihat ledger lengkap →",
       "ledger": "Ledger transaksi",
       "emptyTransaksi": "Belum ada transaksi.",
       "bruto": "bruto",
@@ -1304,10 +1415,151 @@
       "tambahRekening": "Tambah rekening",
       "errorRekening": "Gagal menyimpan rekening.",
       "statusTransaksi": {
-        "ditahan": "Ditahan",
+        "tertahan_escrow": "Ditahan escrow",
         "dirilis": "Dirilis",
+        "direfund": "Direfund",
+        "sebagian_refund": "Sebagian refund",
+        "ditahan": "Ditahan",
         "dicairkan": "Dicairkan",
         "refund": "Refund"
+      },
+      "rekeningUtamaLabel": "(utama)",
+      "jadikanUtama": "Jadikan utama",
+      "hapusRekening": "Hapus",
+      "hapusRekeningKonfirmasi": "Hapus rekening ini?",
+      "rekeningUtama": "Rekening utama diperbarui.",
+      "rekeningHapus": "Rekening dihapus."
+    },
+    "slot": {
+      "seoTitle": "Kelola Slot Jadwal",
+      "seoTitleDesa": "Kelola Slot — {desa}",
+      "eyebrow": "Dermaga · penyedia",
+      "title": "Editor slot jadwal",
+      "subtitleDesa": "Materialisasi jadwal paket wisata untuk {desa}.",
+      "loading": "Memuat paket…",
+      "noPaket": "Belum ada paket publik — buat paket terlebih dahulu.",
+      "pilihPaket": "Pilih paket",
+      "formTitle": "Tambah slot",
+      "mode": { "tunggal": "Satu tanggal", "batch": "Rentang tanggal" },
+      "tanggal": "Tanggal",
+      "dari": "Dari tanggal",
+      "sampai": "Sampai tanggal",
+      "kuota": "Kuota",
+      "waktuMulai": "Waktu mulai",
+      "hargaOverride": "Harga override (opsional)",
+      "hargaPlaceholder": "Kosongkan = harga paket default",
+      "simpan": "Simpan slot",
+      "menyimpan": "Menyimpan…",
+      "suksesTunggal": "Slot ditambahkan.",
+      "suksesBatch": "Slot batch dibuat.",
+      "daftarTitle": "Jadwal aktif",
+      "empty": "Belum ada slot — tambahkan jadwal agar bisa dijual.",
+      "kuotaTerpakai": "{terpakai} / {kuota} terpakai",
+      "ubahKuota": "Ubah kuota",
+      "hapus": "Hapus slot",
+      "hapusKonfirmasi": "Hapus slot ini?",
+      "hapusTerblokir": "Slot sudah memiliki booking — tidak bisa dihapus.",
+      "suksesHapus": "Slot dihapus.",
+      "status": {
+        "buka": "Buka",
+        "penuh": "Penuh",
+        "tutup": "Tutup"
+      }
+    },
+    "pesanan": {
+      "seoTitle": "Pesanan Masuk",
+      "seoTitleDesa": "Pesanan Masuk — {desa}",
+      "eyebrow": "Dermaga · penyedia",
+      "title": "Pesanan masuk",
+      "subtitleDesa": "Fulfillment pesanan wisatawan untuk {desa}.",
+      "desc": "Perbarui status fulfillment barang fisik. Booking paket wisata ditangani via check-in.",
+      "loading": "Memuat pesanan…",
+      "empty": "Belum ada pesanan.",
+      "filterUmkm": "Filter UMKM",
+      "filterStatus": "Filter status",
+      "filterSemua": "Semua",
+      "semuaPenyedia": "Semua penyedia",
+      "suksesFulfillment": "Status fulfillment diperbarui.",
+      "kodeCheckin": "Check-in: {kode}",
+      "ubahFulfillment": "Ubah fulfillment",
+      "statusPesanan": {
+        "dibayar": "Dibayar",
+        "diproses": "Diproses",
+        "selesai": "Selesai"
+      },
+      "fulfillment": {
+        "menunggu": "Menunggu",
+        "disiapkan": "Disiapkan",
+        "dikirim": "Dikirim",
+        "diterima": "Diterima",
+        "diambil": "Diambil",
+        "batal": "Batal"
+      }
+    },
+    "pengaturan": {
+      "seoTitle": "Pengaturan Dermaga",
+      "seoTitleDesa": "Pengaturan Dermaga — {desa}",
+      "eyebrow": "Tata kelola",
+      "title": "Pengaturan desa",
+      "subtitleDesa": "Kebijakan escrow & pembayaran untuk {desa}.",
+      "desc": "Jalur manual (PkM) aktif secara default. Escrow nyata memerlukan kesepakatan tata kelola.",
+      "loading": "Memuat pengaturan…",
+      "fgdTitle": "Perlu kesepakatan tata kelola (FGD Organisasi)",
+      "fgdBody": "Persentase reinvestasi ke dana konservasi harus disepakati Organisasi sebelum escrow nyata dinyalakan. Angka ini tidak dapat diubah sepihak dari panel ini.",
+      "reinvestSaatIni": "Reinvestasi saat ini: {persen}%",
+      "formTitle": "Parameter operasional",
+      "feePlatform": "Fee platform (%)",
+      "feeHint": "Potongan platform dari bruto transaksi",
+      "batasHold": "Batas hold (menit)",
+      "batasHoldHint": "Waktu kedaluwarsa pesanan menunggu pembayaran",
+      "gateway": "Gateway pembayaran",
+      "gatewayManual": "Manual (transfer + konfirmasi bendahara)",
+      "gatewayHint": "Gateway otomatis akan aktif setelah ADR ditandatangani.",
+      "simpan": "Simpan pengaturan",
+      "menyimpan": "Menyimpan…",
+      "sukses": "Pengaturan disimpan."
+    },
+    "pembayaran": {
+      "seoTitle": "Konfirmasi Pembayaran",
+      "seoTitleDesa": "Konfirmasi Pembayaran — {desa}",
+      "eyebrow": "Escrow · manual",
+      "title": "Konfirmasi pembayaran manual",
+      "subtitleDesa": "Verifikasi bukti transfer wisatawan untuk {desa}."
+    },
+    "payoutPage": {
+      "seoTitle": "Payout Penyedia",
+      "seoTitleDesa": "Payout Penyedia — {desa}",
+      "eyebrow": "Escrow · settlement",
+      "title": "Payout penyedia",
+      "subtitleDesa": "Cairkan dana dirilis ke rekening terverifikasi — {desa}."
+    },
+    "transaksi": {
+      "seoTitle": "Ledger Transaksi",
+      "seoTitleDesa": "Ledger Transaksi — {desa}",
+      "eyebrow": "Dermaga · transparansi",
+      "title": "Ledger transaksi",
+      "subtitleDesa": "Split bruto, fee, reinvestasi, dan neto penyedia — {desa}.",
+      "desc": "Read-only — transparansi aliran escrow ke penyedia. Filter per UMKM atau status.",
+      "loading": "Memuat transaksi…",
+      "empty": "Belum ada transaksi.",
+      "filterUmkm": "Filter UMKM",
+      "filterStatus": "Filter status",
+      "filterSemua": "Semua status",
+      "semuaPenyedia": "Semua penyedia",
+      "statBruto": "Total bruto",
+      "statNeto": "Total neto",
+      "statReinvest": "Total reinvestasi",
+      "ledger": "Daftar transaksi",
+      "pesanan": "Pesanan {id}…",
+      "bruto": "bruto",
+      "fee": "fee",
+      "reinvestasi": "reinvestasi",
+      "sudahPayout": "sudah payout",
+      "status": {
+        "tertahan_escrow": "Ditahan escrow",
+        "dirilis": "Dirilis",
+        "direfund": "Direfund",
+        "sebagian_refund": "Sebagian refund"
       }
     },
     "refund": {
@@ -2032,10 +2284,16 @@
       "description": "Dompet kupon diskon Anda."
     },
     "title": "Dompet Kupon",
-    "subtitle": "Pakai kode saat checkout.",
-    "tukarPoinLink": "Tukar poin →",
+    "subtitle": "Simpan, salin, dan gunakan kupon di penyedia regeneratif saat checkout.",
+    "tukarPoinLink": "Cari hadiah",
     "loading": "Memuat…",
-    "empty": "Belum ada kupon aktif.",
+    "empty": "Belum ada kupon di dompet Anda.",
+    "activeTitle": "Kupon saya",
+    "activeHint": "Kupon aktif dan riwayat kupon yang pernah Anda peroleh.",
+    "count": "{count} kupon",
+    "copy": "Salin kode",
+    "copied": "Tersalin",
+    "useAtCheckout": "Belanja dan pakai saat checkout",
     "sumber": {
       "tukar_poin": "Dari tukar poin",
       "promo_owner": "Diskon UMKM bersertifikat",
@@ -2043,7 +2301,33 @@
     },
     "diskonPersen": "{nilai}% off",
     "diskonRupiah": "Rp {nilai} off",
-    "minBelanja": "Min. belanja Rp {nilai}"
+    "diskonNominal": "Potongan {nilai}",
+    "minBelanja": "Min. belanja Rp {nilai}",
+    "minBelanjaFormat": "Minimum belanja {nilai}",
+    "validUntil": "Berlaku hingga {date}",
+    "usage": "Dipakai {used} dari {limit} kali",
+    "status": {
+      "aktif": "Aktif",
+      "terpakai": "Terpakai",
+      "kedaluwarsa": "Kedaluwarsa",
+      "nonaktif": "Nonaktif"
+    },
+    "penyedia": {
+      "title": "Dapat digunakan di",
+      "all": "Semua penyedia yang berpartisipasi",
+      "nama": "UMKM {nama}",
+      "flywheel": "Pilihan regeneratif: kupon ini mengarahkan belanja ke penyedia yang naik kelas."
+    },
+    "historyTitle": "Riwayat penukaran",
+    "historyHint": "Catatan poin yang telah ditukar menjadi hadiah atau kupon.",
+    "historyEmpty": "Belum ada penukaran poin.",
+    "historyReward": "Hadiah",
+    "historyStatus": {
+      "berhasil": "Berhasil",
+      "menunggu": "Menunggu",
+      "gagal": "Gagal"
+    },
+    "points": "poin"
   },
   "tukarPoin": {
     "seo": {
@@ -2052,16 +2336,44 @@
       "description": "Penukaran poin hadiah."
     },
     "title": "Tukar Poin",
+    "subtitle": "Ubah kontribusi dan misi lestari menjadi hadiah dari komunitas desa.",
+    "saldoLabel": "Saldo poin desa",
     "riwayatPoin": "Riwayat poin",
+    "paspor": "Paspor Lestari",
     "loading": "Memuat katalog…",
+    "empty": "Belum ada hadiah aktif di desa ini.",
     "error": "Tukar gagal — cek saldo, stok, atau syarat tingkat.",
     "suksesKupon": "Berhasil! Kupon {kode} ditambahkan ke dompet Anda.",
     "sukses": "Penukaran berhasil.",
     "lihatDompet": "Lihat dompet kupon",
     "syaratTingkat": "Butuh sertifikasi {tingkat}",
+    "syaratLabel": "Syarat:",
     "stok": "Stok: {count}",
     "poin": "{count} poin",
-    "tukar": "Tukar"
+    "tukar": "Tukar",
+    "jenis": {
+      "kupon_diskon": "Kupon diskon",
+      "merchandise": "Merchandise",
+      "tiket": "Tiket",
+      "donasi": "Donasi"
+    },
+    "alasan": {
+      "saldo": "Saldo poin belum cukup",
+      "habis": "Stok hadiah habis",
+      "syarat": "Tingkat sertifikasi Anda belum memenuhi syarat"
+    },
+    "confirm": {
+      "eyebrow": "Konfirmasi penukaran",
+      "title": "Tukar poin sekarang?",
+      "body": "Anda akan menukar {poin} poin dengan “{nama}”.",
+      "saldo": "Saldo saat ini",
+      "biaya": "Biaya penukaran",
+      "serverNote": "Saldo akhir akan diambil ulang dari server setelah penukaran berhasil.",
+      "close": "Tutup konfirmasi",
+      "cancel": "Batal",
+      "submit": "Ya, tukar poin",
+      "processing": "Menukar…"
+    }
   },
   "leaderboard": {
     "seoTitle": "Leaderboard",
@@ -2715,10 +3027,12 @@
         "kurasi": "Kurasi konten",
         "baru": "+ Spot baru",
         "layanan": "Kelola layanan",
+        "kupon": "Buat kupon kampanye",
         "etalase": "Lihat etalase publik"
       },
       "modul": {
         "crud": "Kelola desa (CRUD)",
+        "hadiah": "Hadiah & kupon",
         "anjungan": "Anjungan Data",
         "dayaDukung": "Daya dukung"
       },
@@ -2765,12 +3079,14 @@
         "produk": "Tambah produk",
         "layanan": "Tambah layanan",
         "kartu": "Kartu aksi",
-        "naik": "Naik kelas"
+        "naik": "Naik kelas",
+        "promo": "Buat promo"
       },
       "modul": {
         "pasar": "Pasar Desa",
         "dermaga": "Dermaga (booking)",
-        "performa": "Performa UMKM"
+        "performa": "Performa UMKM",
+        "promo": "Kupon promo"
       },
       "aktivitas": {
         "a1": "Mengajukan kartu aksi \"tanpa plastik sekali pakai\"",

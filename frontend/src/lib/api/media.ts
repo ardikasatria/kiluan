@@ -40,6 +40,10 @@ export async function konfirmasiMedia(desaSlug: string, payload: KonfirmasiMedia
   })
 }
 
+export async function getMediaDetail(desaSlug: string, mediaId: string): Promise<MediaItem> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/media/${mediaId}`)
+}
+
 /** PUT biner langsung ke MinIO (presigned) — dengan progress 0–100. */
 export function unggahKeMinio(
   urlUnggah: string,

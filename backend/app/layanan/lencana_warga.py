@@ -71,8 +71,20 @@ class LencanaLayanan:
     ) -> dict:
         rows = await self.store.transaksi_poin.daftar_desa(desa_id, pengguna_id)
         hal = keyset(rows, batas=batas, kursor=kursor)
+        urutan_tingkat = {"tunas": 1, "bahari": 2, "lumba_lumba": 3}
+        tingkat: str | None = None
+        skor_tingkat = 0
+        for umkm in await self.store.umkm.cari(desa_id=desa_id, pengguna_id=pengguna_id):
+            for sertifikasi in await self.store.sertifikasi_owner.cari(
+                desa_id=desa_id, subjek_tipe="umkm", subjek_id=umkm.id,
+            ):
+                skor = urutan_tingkat.get(sertifikasi.tingkat, 0)
+                if skor > skor_tingkat:
+                    tingkat = sertifikasi.tingkat
+                    skor_tingkat = skor
         return {
             "saldo": await self.saldo(desa_id, pengguna_id),
+            "tingkat": tingkat,
             "riwayat": [
                 {
                     "kode_aksi": t.kode_aksi,

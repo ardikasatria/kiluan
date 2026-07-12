@@ -20,6 +20,9 @@ class Konfig(BaseSettings):
     MINIO_ROOT_USER: str = "kiluan"
     MINIO_ROOT_PASSWORD: str = "kiluan"
     MINIO_BUCKET: str = "kiluan"
+    # TLS ke endpoint internal Docker (minio:9000) — biasanya false
+    MINIO_INTERNAL_SECURE: bool = False
+    # Legacy alias; dipakai untuk skema URL publik presign bila MINIO_PUBLIC_BASE_URL kosong
     MINIO_SECURE: bool = False
     # Kosong = turunan dari endpoint + bucket (lihat inti/minio.url_publik_objek)
     MINIO_PUBLIC_BASE_URL: str = ""

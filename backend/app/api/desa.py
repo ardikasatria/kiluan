@@ -24,6 +24,7 @@ async def profil(slug: str, store=Depends(get_penyimpanan)):
     elif hasattr(d, "lokasi"):
         lokasi = d.lokasi
     return {
+        "id": str(d.id),
         "slug": d.slug,
         "nama": d.nama,
         "deskripsi": d.deskripsi,

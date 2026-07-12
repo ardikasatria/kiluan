@@ -10,6 +10,11 @@ export function formatRupiah(value: number, locale: Locale): string {
   }).format(value)
 }
 
+/** Format jumlah poin tanpa mengasumsikan locale Indonesia. */
+export function formatPoin(value: number, locale: Locale): string {
+  return new Intl.NumberFormat(locale === 'id' ? 'id-ID' : 'en').format(value)
+}
+
 /** Format tanggal per locale. */
 export function formatTanggal(value: Date | string | number, locale: Locale, options?: Intl.DateTimeFormatOptions): string {
   const date = value instanceof Date ? value : new Date(value)

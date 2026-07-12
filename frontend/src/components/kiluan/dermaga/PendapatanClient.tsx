@@ -2,23 +2,37 @@
 
 import { pesanGalat } from '@/lib/api/galat'
 import { getUmkmKelola } from '@/lib/api/pasar'
-import { buatRekening, getRekening, getTransaksi } from '@/lib/api/uang'
+import { buatRekening, getRekening, getTransaksi, hapusRekening, patchRekening } from '@/lib/api/uang'
 import type { RekeningDto, TransaksiDto, UmkmRingkas } from '@/lib/api/types'
+import { useAuth } from '@/contexts/AuthProvider'
+import { Link } from '@/i18n/navigation'
+import { hanyaPenyediaDermaga } from '@/lib/kiluan/kelola-akses'
+import { punyaPeranDiDesa } from '@/lib/kiluan/peran'
 import { formatHarga } from '@/lib/kiluan/pasar'
 import { formatTanggal } from '@/lib/kiluan/lencana'
 import { useLocale, useTranslations } from 'next-intl'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   desaSlug: string
+  desaId?: string | null
   /** pengelola = pilih UMKM desa; umkm = UMKM milik user (default pertama) */
   mode?: 'pengelola' | 'umkm'
 }
 
-export default function PendapatanClient({ desaSlug, mode = 'pengelola' }: Props) {
+export default function PendapatanClient({ desaSlug, desaId, mode: modeProp }: Props) {
   const locale = useLocale()
   const t = useTranslations('kelola.pendapatan')
   const tr = t as unknown as (key: string) => string
+  const { user } = useAuth()
+  const profil = user?.profil ?? null
+  const scopePenyedia = hanyaPenyediaDermaga(profil, desaId)
+  const scopeAgen = scopePenyedia && punyaPeranDiDesa(profil, 'agen', desaId)
+  const mode = useMemo(() => {
+    if (modeProp === 'umkm' || (scopePenyedia && punyaPeranDiDesa(profil, 'umkm', desaId))) return 'umkm'
+    if (scopeAgen) return 'agen'
+    return modeProp ?? 'pengelola'
+  }, [modeProp, scopePenyedia, scopeAgen, profil, desaId])
   const [daftarUmkm, setDaftarUmkm] = useState<UmkmRingkas[]>([])
   const [umkmId, setUmkmId] = useState<string | null>(null)
   const [transaksi, setTransaksi] = useState<TransaksiDto[]>([])
@@ -31,53 +45,94 @@ export default function PendapatanClient({ desaSlug, mode = 'pengelola' }: Props
 
   const umkm = daftarUmkm.find((u) => u.id === umkmId) ?? null
 
+  const penyediaQuery = useMemo(() => {
+    if (mode === 'agen' && profil) {
+      return { penyedia_tipe: 'pengguna', penyedia_id: profil.id }
+    }
+    if (umkmId) {
+      return { penyedia_tipe: 'umkm', penyedia_id: umkmId }
+    }
+    return null
+  }, [mode, profil, umkmId])
+
   const muatUmkm = useCallback(async () => {
+    if (mode === 'agen') {
+      setLoading(false)
+      return
+    }
     setLoading(true)
     setGalat(null)
     try {
       const u = await getUmkmKelola(desaSlug)
       setDaftarUmkm(u.item)
-      setUmkmId((prev) => prev ?? u.item[0]?.id ?? null)
+      if (mode === 'umkm') {
+        setUmkmId(u.item[0]?.id ?? null)
+      } else {
+        setUmkmId((prev) => prev ?? u.item[0]?.id ?? null)
+      }
     } catch (err) {
       setGalat(pesanGalat(err, locale as 'id' | 'en'))
     } finally {
       setLoading(false)
     }
-  }, [desaSlug, locale])
+  }, [desaSlug, locale, mode])
 
   const muatDetail = useCallback(async () => {
-    if (!umkmId) return
+    if (!penyediaQuery) return
     setGalat(null)
     try {
       const [tRes, r] = await Promise.all([
-        getTransaksi(desaSlug, { penyedia_tipe: 'umkm', penyedia_id: umkmId }),
-        getRekening(desaSlug, { penyedia_tipe: 'umkm', penyedia_id: umkmId }),
+        getTransaksi(desaSlug, penyediaQuery),
+        getRekening(desaSlug, penyediaQuery),
       ])
       setTransaksi(tRes.item)
       setRekening(r.item)
     } catch (err) {
       setGalat(pesanGalat(err, locale as 'id' | 'en'))
     }
-  }, [desaSlug, umkmId, locale])
+  }, [desaSlug, penyediaQuery, locale])
 
   useEffect(() => {
     void muatUmkm()
   }, [muatUmkm])
 
   useEffect(() => {
-    if (umkmId) void muatDetail()
-  }, [umkmId, muatDetail])
+    if (penyediaQuery) void muatDetail()
+  }, [penyediaQuery, muatDetail])
+
+  async function setUtama(rekeningId: string) {
+    setGalat(null)
+    try {
+      await patchRekening(desaSlug, rekeningId, { utama: true })
+      setSukses(t('rekeningUtama'))
+      await muatDetail()
+    } catch (err) {
+      setGalat(pesanGalat(err, locale as 'id' | 'en'))
+    }
+  }
+
+  async function hapusRek(rekeningId: string) {
+    if (!confirm(t('hapusRekeningKonfirmasi'))) return
+    setGalat(null)
+    try {
+      await hapusRekening(desaSlug, rekeningId)
+      setSukses(t('rekeningHapus'))
+      await muatDetail()
+    } catch (err) {
+      setGalat(pesanGalat(err, locale as 'id' | 'en'))
+    }
+  }
 
   async function simpanRekening(e: React.FormEvent) {
     e.preventDefault()
-    if (!umkmId) return
+    if (!penyediaQuery) return
     setGalat(null)
     setSukses(null)
     setMenyimpan(true)
     try {
       await buatRekening(desaSlug, {
-        penyedia_tipe: 'umkm',
-        penyedia_id: umkmId,
+        penyedia_tipe: penyediaQuery.penyedia_tipe,
+        penyedia_id: penyediaQuery.penyedia_id,
         jenis: 'bank',
         nomor: form.nomor,
         nama_pemilik: form.nama_pemilik,
@@ -97,7 +152,7 @@ export default function PendapatanClient({ desaSlug, mode = 'pengelola' }: Props
     return <p className="text-sm text-neutral-500">{t('loading')}</p>
   }
 
-  if (daftarUmkm.length === 0) {
+  if (mode !== 'agen' && daftarUmkm.length === 0) {
     return <p className="text-sm text-neutral-500">{t('noUmkm')}</p>
   }
 
@@ -124,7 +179,7 @@ export default function PendapatanClient({ desaSlug, mode = 'pengelola' }: Props
         </div>
       )}
 
-      {umkm && (
+      {(umkm || mode === 'agen') && (
         <>
           <div className="grid gap-4 sm:grid-cols-3">
             <div className="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
@@ -148,6 +203,14 @@ export default function PendapatanClient({ desaSlug, mode = 'pengelola' }: Props
               neto: formatHarga(totalNeto, 'per_paket'),
               reinvest: formatHarga(totalReinvest, 'per_paket'),
             })}
+            {!scopePenyedia && (
+              <>
+                {' '}
+                <Link href={`/${desaSlug}/kelola/transaksi`} className="font-medium text-primary-600 hover:underline dark:text-primary-400">
+                  {t('lihatLedger')}
+                </Link>
+              </>
+            )}
           </p>
         </>
       )}
@@ -199,13 +262,39 @@ export default function PendapatanClient({ desaSlug, mode = 'pengelola' }: Props
         {rekening.length > 0 && (
           <ul className="mt-3 space-y-2 text-sm">
             {rekening.map((r) => (
-              <li key={r.id} className="rounded-lg bg-neutral-50 px-3 py-2 dark:bg-neutral-800/50">
-                {r.nomor_mask} · {r.nama_pemilik}{' '}
-                {r.terverifikasi ? (
-                  <span className="text-green-600 dark:text-green-400">{t('terverifikasi')}</span>
-                ) : (
-                  <span className="text-amber-600 dark:text-amber-400">{t('menungguVerifikasi')}</span>
-                )}
+              <li
+                key={r.id}
+                className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-neutral-50 px-3 py-2 dark:bg-neutral-800/50"
+              >
+                <span className="text-neutral-800 dark:text-neutral-200">
+                  {r.nomor_mask} · {r.nama_pemilik}{' '}
+                  {r.utama && (
+                    <span className="text-primary-600 dark:text-primary-400">{t('rekeningUtamaLabel')}</span>
+                  )}{' '}
+                  {r.terverifikasi ? (
+                    <span className="text-green-600 dark:text-green-400">{t('terverifikasi')}</span>
+                  ) : (
+                    <span className="text-amber-600 dark:text-amber-400">{t('menungguVerifikasi')}</span>
+                  )}
+                </span>
+                <div className="flex gap-2">
+                  {!r.utama && (
+                    <button
+                      type="button"
+                      onClick={() => void setUtama(r.id)}
+                      className="text-xs text-primary-600 hover:underline dark:text-primary-400"
+                    >
+                      {t('jadikanUtama')}
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => void hapusRek(r.id)}
+                    className="text-xs text-red-600 hover:underline dark:text-red-400"
+                  >
+                    {t('hapusRekening')}
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

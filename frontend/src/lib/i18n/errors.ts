@@ -15,6 +15,10 @@ const PESAN_ERROR: Record<Locale, Record<string, string>> = {
     jaringan: 'Tidak dapat terhubung. Periksa koneksi Anda.',
     di_luar_geofence: 'Anda harus berada di stasiun yang ditentukan (di luar radius geofence).',
     bukti_kurang: 'Bukti verifikasi tidak memenuhi syarat — periksa QR, lokasi, atau foto.',
+    saldo_poin_kurang: 'Saldo poin Anda belum cukup untuk hadiah ini.',
+    stok_habis: 'Hadiah ini baru saja habis. Pilih hadiah lain.',
+    idempotency_key_wajib: 'Permintaan penukaran tidak valid. Silakan coba lagi.',
+    kupon_tidak_berlaku: 'Kupon tidak berlaku untuk transaksi ini.',
     default: 'Terjadi kesalahan. Coba lagi.',
   },
   en: {
@@ -30,6 +34,10 @@ const PESAN_ERROR: Record<Locale, Record<string, string>> = {
     jaringan: 'Unable to connect. Check your network.',
     di_luar_geofence: 'You must be at the designated station (outside the geofence radius).',
     bukti_kurang: 'Verification evidence is insufficient — check QR, location, or photo.',
+    saldo_poin_kurang: 'You do not have enough points for this reward.',
+    stok_habis: 'This reward has just run out. Choose another reward.',
+    idempotency_key_wajib: 'The redemption request is invalid. Please try again.',
+    kupon_tidak_berlaku: 'This coupon is not valid for the transaction.',
     default: 'Something went wrong. Please try again.',
   },
 }

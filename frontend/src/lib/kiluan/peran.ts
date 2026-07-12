@@ -128,6 +128,64 @@ export function statusKeanggotaan(
   return null
 }
 
+function cocokDesaId(desaIdKeanggotaan: string | null, desaId: string): boolean {
+  if (!desaIdKeanggotaan) return false
+  return String(desaIdKeanggotaan) === String(desaId)
+}
+
+/** Peran aktif di tenant desa tertentu (admin global tetap berlaku). */
+export function punyaPeranDiDesa(
+  profil: ProfilSaya | null,
+  kode: PeranKode,
+  desaId: string | null | undefined,
+): boolean {
+  if (!profil) return false
+  if (kode === 'admin') {
+    return punyaPeran(profil, 'admin')
+  }
+  if (!desaId) {
+    return punyaPeran(profil, kode)
+  }
+  return profil.keanggotaan.some(
+    (k) => k.status === 'aktif' && k.peran === kode && cocokDesaId(k.desa_id, desaId),
+  )
+}
+
+/** Status keanggotaan peran di desa tertentu. */
+export function statusKeanggotaanDiDesa(
+  profil: ProfilSaya | null,
+  kode: PeranKode,
+  desaId: string | null | undefined,
+): 'aktif' | 'menunggu' | 'ditolak' | 'revisi' | null {
+  if (!profil) return null
+  if (kode === 'admin') return statusKeanggotaan(profil, 'admin')
+  if (!desaId) return statusKeanggotaan(profil, kode)
+  const cocok = profil.keanggotaan.filter((k) => k.peran === kode && cocokDesaId(k.desa_id, desaId))
+  if (cocok.length === 0) return null
+  if (cocok.some((k) => k.status === 'aktif')) return 'aktif'
+  if (cocok.some((k) => k.status === 'menunggu')) return 'menunggu'
+  if (cocok.some((k) => k.status === 'revisi')) return 'revisi'
+  if (cocok.some((k) => k.status === 'ditolak')) return 'ditolak'
+  return null
+}
+
+const PERAN_KELOLA_DESA: PeranKode[] = ['pokdarwis', 'perangkat_desa', 'umkm', 'agen']
+
+/** Keanggotaan kelola yang belum aktif di desa ini (untuk guard pending). */
+export function keanggotaanKelolaTertunda(
+  profil: ProfilSaya | null,
+  desaId: string | null | undefined,
+): { peran: PeranKode; status: 'menunggu' | 'ditolak' | 'revisi' } | null {
+  if (!profil || !desaId) return null
+  for (const p of PERAN_KELOLA_DESA) {
+    const s = statusKeanggotaanDiDesa(profil, p, desaId)
+    if (s === 'menunggu' || s === 'ditolak' || s === 'revisi') {
+      return { peran: p, status: s }
+    }
+  }
+  return null
+}
+
 export function dasborHref(desaSlug: string, kode: PeranKode): string {
   if (kode === 'admin') return '/admin/dasbor'
   if (kode === 'wisatawan') return RUTE_DASBOR_WISATAWAN

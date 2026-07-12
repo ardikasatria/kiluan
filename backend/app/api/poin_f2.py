@@ -1,6 +1,7 @@
 """Router kupon & tukar poin (KONTRAK F2 §5)."""
 from __future__ import annotations
 
+from datetime import datetime
 from decimal import Decimal
 from uuid import UUID
 
@@ -51,6 +52,8 @@ class KuponBody(BaseModel):
     min_belanja: float | None = None
     batas_pakai: int = 100
     penyedia_terbatas: list[str] | None = None
+    berlaku_mulai: datetime | None = None
+    berlaku_sampai: datetime | None = None
 
 
 @router.get("/hadiah")

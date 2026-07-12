@@ -743,21 +743,34 @@
     },
     "guard": {
       "loading": "Loading session…",
-      "title": "Village Manager Area",
-      "desc": "Sign in with an account that has village manager role (organization, village official, or admin).",
-      "masuk": "Sign in"
+      "title": "Village Management Area",
+      "desc": "Sign in with an account that has a manager role (organization, village official, admin), dock provider (MSME, agent), or dock verifier role.",
+      "masuk": "Sign in",
+      "forbiddenTitle": "Access restricted",
+      "forbiddenDesc": "This page is limited to specific roles. Use the manage navigation or return to your dashboard.",
+      "kembaliDasbor": "Go to dashboard",
+      "kembaliKelola": "Back to manage overview",
+      "keDermaga": "Go to orders & slots"
     },
     "nav": {
+      "ariaLabel": "Village management navigation",
       "ringkasan": "Overview",
       "destinasi": "Destinations",
       "layanan": "Services",
       "kalender": "Calendar",
       "berita": "News",
+      "slot": "Schedule slots",
+      "pesanan": "Orders",
       "bendahara": "Treasurer",
+      "pembayaran": "Payments",
+      "payout": "Payouts",
+      "transaksi": "Transactions",
       "pendapatan": "Revenue",
       "refund": "Refunds",
       "hadiah": "Rewards",
+      "kupon": "Coupons",
       "checkin": "Check-in",
+      "pengaturan": "Settings",
       "kurasi": "Content Kitchen",
       "validasiKartu": "Action Card Validation",
       "verifikasi": "Verification"
@@ -780,7 +793,11 @@
       "loading": "Loading treasurer panel…",
       "memproses": "Processing…",
       "refundLink": "Traveler refund requests are handled separately.",
-      "refundCta": "Open refund management →",
+      "refundCta": "Manage refunds →",
+      "pembayaranCta": "Confirm payments →",
+      "payoutCta": "Payouts →",
+      "transaksiCta": "Transaction ledger →",
+      "kembaliBendahara": "← Treasurer panel",
       "escrow": {
         "menunggu": "Awaiting confirmation",
         "menungguHint": "{count} manual payments",
@@ -796,10 +813,10 @@
       },
       "statusPayout": {
         "draft": "Draft",
+        "antri": "Awaiting transfer",
         "diproses": "Processing",
         "berhasil": "Successful",
-        "gagal": "Failed",
-        "tandai_berhasil": "Completed"
+        "gagal": "Failed"
       },
       "konfirmasi": {
         "title": "Manual payment confirmation",
@@ -810,18 +827,29 @@
         "sukses": "Payment confirmed.",
         "bukti": "proof",
         "terunggah": "uploaded",
-        "belumAda": "not yet uploaded"
+        "belumAda": "no proof yet",
+        "buktiAlt": "Transfer proof",
+        "lihatBukti": "View transfer proof",
+        "muatBukti": "Loading proof…",
+        "buktiGalat": "Could not load proof"
       },
       "payout": {
         "title": "Provider payouts",
-        "desc": "Disburse released transactions to verified accounts (manual transfer).",
+        "desc": "Create manual payouts, transfer to verified accounts, then mark success or failure.",
         "empty": "No released funds ready for disbursement.",
         "loadRekening": "Load provider accounts",
         "belumVerifikasi": "(not verified)",
         "verifikasiRekening": "Verify account",
         "rekeningTerverifikasi": "Account verified.",
-        "konfirmasiDialog": "Run manual payout to this account?",
+        "konfirmasiDialog": "Create payout to account {rekening}? After manual transfer, mark as successful.",
+        "dibuat": "Payout created ({id}…) — complete manual transfer then mark successful.",
+        "antrian": "Awaiting transfer confirmation",
+        "tandaiBerhasil": "Mark successful",
+        "tandaiGagal": "Mark failed",
+        "konfirmasiBerhasil": "Confirm this payout was transferred?",
+        "konfirmasiGagal": "Mark payout as failed? Funds can be disbursed again.",
         "sukses": "Payout recorded successfully.",
+        "gagalDicatat": "Payout marked failed — funds can be disbursed again.",
         "riwayat": "Payout history",
         "neto": "net"
       },
@@ -895,7 +923,13 @@
       "submit": "Check in",
       "memproses": "Processing…",
       "sukses": "Check-in successful: {kode} → {status}",
-      "error": "Check-in failed. Ensure the code is valid and the booking is confirmed.",
+      "error": "Check-in failed. Ensure the code is valid, booking is confirmed, and visit date is today.",
+      "bookingHariIni": "Bookings {tanggal}",
+      "emptyBooking": "No bookings today.",
+      "orang": "people",
+      "selesai": "Mark complete",
+      "selesaiKonfirmasi": "Mark booking {kode} complete? Escrow will be evaluated.",
+      "selesaiSukses": "Booking {kode} complete — escrow evaluated.",
       "status": {
         "terkonfirmasi": "Confirmed",
         "checkin": "Checked in",
@@ -976,43 +1010,119 @@
       }
     },
     "hadiah": {
-      "seoTitle": "Manage Rewards & Coupons",
-      "seoTitleDesa": "Manage Rewards & Coupons — {desa}",
+      "seoTitle": "Manage Rewards",
+      "seoTitleDesa": "Manage Rewards — {desa}",
       "eyebrow": "Coupons & points",
-      "title": "Manage Rewards & Coupons",
-      "subtitle": "Point redemption catalog and village campaign coupons.",
+      "title": "Manage Rewards",
+      "subtitle": "Village point redemption catalog.",
       "subtitleDesa": "{desa} loyalty program — Regenerative Passport rewards & discount coupons.",
       "loading": "Loading catalog…",
       "menyimpan": "Saving…",
       "katalog": "Reward catalog",
+      "katalogHint": "Active rewards appear to travelers. Deactivate without deleting redemption history.",
       "emptyHadiah": "No rewards yet. Add the first reward below.",
       "poinSuffix": "points",
       "stok": "stock {count}",
+      "stokTakTerbatas": "unlimited stock",
       "tambahHadiah": "Add reward",
-      "kuponKampanye": "Campaign coupons",
-      "kuponHint": "Village campaign coupons — travelers can redeem via points or promos.",
-      "buatKupon": "Create campaign coupon",
+      "aktifkan": "Activate",
+      "nonaktifkan": "Deactivate",
+      "formTitle": "Add a new reward",
+      "formHint": "Balance and stock are always revalidated by the server during redemption.",
+      "status": {
+        "aktif": "Active",
+        "nonaktif": "Inactive"
+      },
+      "field": {
+        "nama": "Reward name",
+        "jenis": "Reward type",
+        "biaya": "Point cost",
+        "stok": "Stock",
+        "deskripsi": "Description",
+        "tingkat": "Minimum tier requirement",
+        "tingkatHint": "Leave empty when all members may redeem this reward."
+      },
       "placeholder": {
         "nama": "Reward name",
         "biaya": "Point cost",
         "stok": "Stock (optional)",
-        "deskripsi": "Short description (optional)",
-        "kode": "Coupon code",
-        "nilai": "Discount value (IDR)",
-        "min": "Min. purchase (optional)"
+        "deskripsi": "Short description (optional)"
       },
       "jenis": {
         "merchandise": "Merchandise",
         "kupon_diskon": "Discount coupon",
-        "tiket": "Ticket"
+        "tiket": "Ticket",
+        "donasi": "Donation"
+      },
+      "tingkat": {
+        "semua": "No tier requirement",
+        "tunas": "Tunas",
+        "bahari": "Bahari",
+        "lumba_lumba": "Lumba-Lumba"
       },
       "sukses": {
         "hadiah": "Reward added to catalog.",
-        "kupon": "Campaign coupon created."
+        "aktif": "Reward activated.",
+        "nonaktif": "Reward deactivated."
       },
       "errors": {
-        "hadiah": "Failed to add reward.",
-        "kupon": "Failed to create coupon."
+        "hadiah": "Failed to add reward."
+      }
+    },
+    "kupon": {
+      "seo": {
+        "campaign": "Manage Campaign Coupons",
+        "owner": "Create an MSME Promotion"
+      },
+      "eyebrow": "Coupons & promotions",
+      "campaignHeading": "Village campaign coupons",
+      "campaignSubtitle": "Create campaign coupons for travelers and regenerative providers in {desa}.",
+      "ownerHeading": "Create an MSME promotion",
+      "ownerSubtitle": "Create discounts for your business products and services.",
+      "ownerCostTitle": "The business owner funds this discount",
+      "ownerCostBody": "Owner promo coupons proportionally reduce the provider's gross amount. The discount is your marketing cost, not funded by the platform or conservation fund.",
+      "campaignTitle": "Village-managed campaign",
+      "campaignBody": "Only managers can create campaign coupons. Choose providers or certification tiers so benefits flow to regenerative businesses.",
+      "formTitle": {
+        "kampanye": "Create campaign coupon",
+        "promo_owner": "Create business promo coupon"
+      },
+      "formHint": "Set the value, validity period, usage limit, and eligible providers.",
+      "field": {
+        "kode": "Coupon code",
+        "tipe": "Discount type",
+        "nilai": "Discount value",
+        "min": "Minimum purchase (IDR)",
+        "batas": "Usage limit",
+        "mulai": "Valid from",
+        "sampai": "Valid until"
+      },
+      "type": {
+        "persen": "Percentage (%)",
+        "nominal": "Nominal (IDR)"
+      },
+      "provider": {
+        "title": "Eligible regenerative providers",
+        "hint": "Leave empty for all providers, or restrict by certification tier and MSME IDs.",
+        "level": "Minimum tier",
+        "all": "All tiers",
+        "ids": "Specific MSME IDs",
+        "idsPlaceholder": "Separate with commas",
+        "flywheel": "Rewards are directed to certified providers so regenerative participation creates real demand."
+      },
+      "level": {
+        "tunas": "Tunas",
+        "bahari": "Bahari",
+        "lumba_lumba": "Lumba-Lumba"
+      },
+      "saving": "Saving…",
+      "submit": {
+        "kampanye": "Create campaign coupon",
+        "promo_owner": "Publish business promotion"
+      },
+      "success": {
+        "kampanye": "Campaign coupon created.",
+        "promo_owner": "Business promotion published."
       }
     },
     "kalender": {
@@ -1289,6 +1399,7 @@
       "statNeto": "Provider net",
       "statReinvest": "Reinvestment",
       "ringkasan": "Net {neto} · reinvestment {reinvest}",
+      "lihatLedger": "View full ledger →",
       "ledger": "Transaction ledger",
       "emptyTransaksi": "No transactions yet.",
       "bruto": "gross",
@@ -1304,10 +1415,151 @@
       "tambahRekening": "Add account",
       "errorRekening": "Failed to save account.",
       "statusTransaksi": {
-        "ditahan": "Held",
+        "tertahan_escrow": "Escrow held",
         "dirilis": "Released",
+        "direfund": "Refunded",
+        "sebagian_refund": "Partial refund",
+        "ditahan": "Held",
         "dicairkan": "Disbursed",
         "refund": "Refund"
+      },
+      "rekeningUtamaLabel": "(primary)",
+      "jadikanUtama": "Set as primary",
+      "hapusRekening": "Remove",
+      "hapusRekeningKonfirmasi": "Remove this account?",
+      "rekeningUtama": "Primary account updated.",
+      "rekeningHapus": "Account removed."
+    },
+    "slot": {
+      "seoTitle": "Manage Schedule Slots",
+      "seoTitleDesa": "Manage Slots — {desa}",
+      "eyebrow": "Dermaga · provider",
+      "title": "Schedule slot editor",
+      "subtitleDesa": "Materialize tour package schedules for {desa}.",
+      "loading": "Loading packages…",
+      "noPaket": "No public packages yet — create a package first.",
+      "pilihPaket": "Select package",
+      "formTitle": "Add slot",
+      "mode": { "tunggal": "Single date", "batch": "Date range" },
+      "tanggal": "Date",
+      "dari": "From date",
+      "sampai": "To date",
+      "kuota": "Quota",
+      "waktuMulai": "Start time",
+      "hargaOverride": "Price override (optional)",
+      "hargaPlaceholder": "Leave empty = default package price",
+      "simpan": "Save slot",
+      "menyimpan": "Saving…",
+      "suksesTunggal": "Slot added.",
+      "suksesBatch": "Batch slots created.",
+      "daftarTitle": "Active schedule",
+      "empty": "No slots yet — add schedules to enable sales.",
+      "kuotaTerpakai": "{terpakai} / {kuota} used",
+      "ubahKuota": "Change quota",
+      "hapus": "Delete slot",
+      "hapusKonfirmasi": "Delete this slot?",
+      "hapusTerblokir": "Slot has bookings — cannot delete.",
+      "suksesHapus": "Slot deleted.",
+      "status": {
+        "buka": "Open",
+        "penuh": "Full",
+        "tutup": "Closed"
+      }
+    },
+    "pesanan": {
+      "seoTitle": "Incoming Orders",
+      "seoTitleDesa": "Incoming Orders — {desa}",
+      "eyebrow": "Dermaga · provider",
+      "title": "Incoming orders",
+      "subtitleDesa": "Order fulfillment for travelers in {desa}.",
+      "desc": "Update physical item fulfillment status. Tour bookings are handled via check-in.",
+      "loading": "Loading orders…",
+      "empty": "No orders yet.",
+      "filterUmkm": "Filter business",
+      "filterStatus": "Filter status",
+      "filterSemua": "All",
+      "semuaPenyedia": "All providers",
+      "suksesFulfillment": "Fulfillment status updated.",
+      "kodeCheckin": "Check-in: {kode}",
+      "ubahFulfillment": "Change fulfillment",
+      "statusPesanan": {
+        "dibayar": "Paid",
+        "diproses": "Processing",
+        "selesai": "Completed"
+      },
+      "fulfillment": {
+        "menunggu": "Pending",
+        "disiapkan": "Preparing",
+        "dikirim": "Shipped",
+        "diterima": "Received",
+        "diambil": "Picked up",
+        "batal": "Cancelled"
+      }
+    },
+    "pengaturan": {
+      "seoTitle": "Dermaga Settings",
+      "seoTitleDesa": "Dermaga Settings — {desa}",
+      "eyebrow": "Governance",
+      "title": "Village settings",
+      "subtitleDesa": "Escrow & payment policy for {desa}.",
+      "desc": "Manual path (PkM) is active by default. Live escrow requires governance agreement.",
+      "loading": "Loading settings…",
+      "fgdTitle": "Requires governance agreement (Organization FGD)",
+      "fgdBody": "Reinvestment percentage for conservation funds must be agreed by the Organization before live escrow is enabled. This value cannot be changed unilaterally from this panel.",
+      "reinvestSaatIni": "Current reinvestment: {persen}%",
+      "formTitle": "Operational parameters",
+      "feePlatform": "Platform fee (%)",
+      "feeHint": "Platform cut from gross transactions",
+      "batasHold": "Hold limit (minutes)",
+      "batasHoldHint": "Expiry time for unpaid orders",
+      "gateway": "Payment gateway",
+      "gatewayManual": "Manual (transfer + treasurer confirmation)",
+      "gatewayHint": "Automatic gateway will activate after ADR is signed.",
+      "simpan": "Save settings",
+      "menyimpan": "Saving…",
+      "sukses": "Settings saved."
+    },
+    "pembayaran": {
+      "seoTitle": "Payment Confirmation",
+      "seoTitleDesa": "Payment Confirmation — {desa}",
+      "eyebrow": "Escrow · manual",
+      "title": "Manual payment confirmation",
+      "subtitleDesa": "Verify traveler transfer proof for {desa}."
+    },
+    "payoutPage": {
+      "seoTitle": "Provider Payouts",
+      "seoTitleDesa": "Provider Payouts — {desa}",
+      "eyebrow": "Escrow · settlement",
+      "title": "Provider payouts",
+      "subtitleDesa": "Disburse released funds to verified accounts — {desa}."
+    },
+    "transaksi": {
+      "seoTitle": "Transaction Ledger",
+      "seoTitleDesa": "Transaction Ledger — {desa}",
+      "eyebrow": "Dermaga · transparency",
+      "title": "Transaction ledger",
+      "subtitleDesa": "Gross, fee, reinvestment, and provider net split — {desa}.",
+      "desc": "Read-only — escrow flow transparency for providers. Filter by business or status.",
+      "loading": "Loading transactions…",
+      "empty": "No transactions yet.",
+      "filterUmkm": "Filter business",
+      "filterStatus": "Filter status",
+      "filterSemua": "All statuses",
+      "semuaPenyedia": "All providers",
+      "statBruto": "Total gross",
+      "statNeto": "Total net",
+      "statReinvest": "Total reinvestment",
+      "ledger": "Transaction list",
+      "pesanan": "Order {id}…",
+      "bruto": "gross",
+      "fee": "fee",
+      "reinvestasi": "reinvestment",
+      "sudahPayout": "paid out",
+      "status": {
+        "tertahan_escrow": "Escrow held",
+        "dirilis": "Released",
+        "direfund": "Refunded",
+        "sebagian_refund": "Partial refund"
       }
     },
     "refund": {
@@ -2032,10 +2284,16 @@
       "description": "Your discount coupon wallet."
     },
     "title": "Coupon Wallet",
-    "subtitle": "Use the code at checkout.",
-    "tukarPoinLink": "Redeem points →",
+    "subtitle": "Save, copy, and use coupons with regenerative providers at checkout.",
+    "tukarPoinLink": "Browse rewards",
     "loading": "Loading…",
-    "empty": "No active coupons yet.",
+    "empty": "There are no coupons in your wallet yet.",
+    "activeTitle": "My coupons",
+    "activeHint": "Active coupons and coupons you previously received.",
+    "count": "{count} coupons",
+    "copy": "Copy code",
+    "copied": "Copied",
+    "useAtCheckout": "Shop and use at checkout",
     "sumber": {
       "tukar_poin": "From point redemption",
       "promo_owner": "Certified MSME discount",
@@ -2043,7 +2301,33 @@
     },
     "diskonPersen": "{nilai}% off",
     "diskonRupiah": "Rp {nilai} off",
-    "minBelanja": "Min. purchase Rp {nilai}"
+    "diskonNominal": "{nilai} off",
+    "minBelanja": "Min. purchase Rp {nilai}",
+    "minBelanjaFormat": "Minimum purchase {nilai}",
+    "validUntil": "Valid until {date}",
+    "usage": "Used {used} of {limit} times",
+    "status": {
+      "aktif": "Active",
+      "terpakai": "Used",
+      "kedaluwarsa": "Expired",
+      "nonaktif": "Inactive"
+    },
+    "penyedia": {
+      "title": "Accepted by",
+      "all": "All participating providers",
+      "nama": "MSME {nama}",
+      "flywheel": "Regenerative choice: this coupon directs spending to providers that level up."
+    },
+    "historyTitle": "Redemption history",
+    "historyHint": "A record of points exchanged for rewards or coupons.",
+    "historyEmpty": "No point redemptions yet.",
+    "historyReward": "Reward",
+    "historyStatus": {
+      "berhasil": "Successful",
+      "menunggu": "Pending",
+      "gagal": "Failed"
+    },
+    "points": "points"
   },
   "tukarPoin": {
     "seo": {
@@ -2052,16 +2336,44 @@
       "description": "Redeem points for rewards."
     },
     "title": "Redeem Points",
+    "subtitle": "Turn contributions and regenerative missions into community rewards.",
+    "saldoLabel": "Village point balance",
     "riwayatPoin": "Point history",
+    "paspor": "Regenerative Passport",
     "loading": "Loading catalog…",
+    "empty": "There are no active rewards in this village yet.",
     "error": "Redemption failed — check balance, stock, or tier requirements.",
     "suksesKupon": "Success! Coupon {kode} added to your wallet.",
     "sukses": "Redemption successful.",
     "lihatDompet": "View coupon wallet",
     "syaratTingkat": "Requires {tingkat} certification",
+    "syaratLabel": "Requirement:",
     "stok": "Stock: {count}",
     "poin": "{count} points",
-    "tukar": "Redeem"
+    "tukar": "Redeem",
+    "jenis": {
+      "kupon_diskon": "Discount coupon",
+      "merchandise": "Merchandise",
+      "tiket": "Ticket",
+      "donasi": "Donation"
+    },
+    "alasan": {
+      "saldo": "Not enough points",
+      "habis": "Reward is out of stock",
+      "syarat": "Your certification tier does not meet the requirement"
+    },
+    "confirm": {
+      "eyebrow": "Confirm redemption",
+      "title": "Redeem points now?",
+      "body": "You will exchange {poin} points for “{nama}”.",
+      "saldo": "Current balance",
+      "biaya": "Redemption cost",
+      "serverNote": "Your final balance will be fetched again from the server after a successful redemption.",
+      "close": "Close confirmation",
+      "cancel": "Cancel",
+      "submit": "Yes, redeem points",
+      "processing": "Redeeming…"
+    }
   },
   "leaderboard": {
     "seoTitle": "Leaderboard",
@@ -2715,10 +3027,12 @@
         "kurasi": "Curate content",
         "baru": "+ New spot",
         "layanan": "Manage services",
+        "kupon": "Create campaign coupon",
         "etalase": "View public showcase"
       },
       "modul": {
         "crud": "Village management (CRUD)",
+        "hadiah": "Rewards & coupons",
         "anjungan": "Data Kiosk",
         "dayaDukung": "Carrying capacity"
       },
@@ -2765,12 +3079,14 @@
         "produk": "Add product",
         "layanan": "Add service",
         "kartu": "Action cards",
-        "naik": "Level up"
+        "naik": "Level up",
+        "promo": "Create promotion"
       },
       "modul": {
         "pasar": "Village Market",
         "dermaga": "Dock (booking)",
-        "performa": "UMKM performance"
+        "performa": "UMKM performance",
+        "promo": "Promo coupons"
       },
       "aktivitas": {
         "a1": "Submitted \"no single-use plastic\" action card",

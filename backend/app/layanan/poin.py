@@ -88,7 +88,28 @@ class PoinLayanan:
             raise KuponTidakBerlaku("Min belanja belum terpenuhi.")
         if kupon.penyedia_terbatas:
             allowed = set(kupon.penyedia_terbatas)
-            if not penyedia.intersection(allowed):
+            cocok = bool(penyedia.intersection(allowed))
+            batas_tingkat = [
+                item.split(":", 1)[1]
+                for item in allowed
+                if item.startswith("tingkat:") and ":" in item
+            ]
+            if not cocok and batas_tingkat:
+                tingkat_min = max((URUTAN_TINGKAT.get(item, 0) for item in batas_tingkat), default=0)
+                for ref in penyedia:
+                    if not ref.startswith("umkm:"):
+                        continue
+                    try:
+                        umkm_id = UUID(ref.split(":", 1)[1])
+                    except (ValueError, IndexError):
+                        continue
+                    sertifikasi = await self.store.sertifikasi_owner.cari(
+                        desa_id=kupon.desa_id, subjek_tipe="umkm", subjek_id=umkm_id,
+                    )
+                    if any(URUTAN_TINGKAT.get(item.tingkat, 0) >= tingkat_min for item in sertifikasi):
+                        cocok = True
+                        break
+            if not cocok:
                 raise KuponTidakBerlaku("Penyedia di luar cakupan kupon.")
 
     def hitung_diskon(self, kupon: M.Kupon, subtotal: Decimal) -> Decimal:
@@ -269,6 +290,11 @@ class PoinLayanan:
         if sumber == "promo_owner":
             if konteks.pengguna_id is None:
                 raise TidakBerwenang()
+            umkm = await self.store.umkm.cari(
+                desa_id=desa_id, pengguna_id=konteks.pengguna_id,
+            )
+            if not umkm:
+                raise TidakBerwenang()
         k = M.Kupon(
             id=uuid4(),
             desa_id=desa_id,
@@ -280,6 +306,8 @@ class PoinLayanan:
             min_belanja=Decimal(str(data["min_belanja"])) if data.get("min_belanja") else None,
             batas_pakai=int(data.get("batas_pakai", 100)),
             penyedia_terbatas=data.get("penyedia_terbatas"),
+            berlaku_mulai=data.get("berlaku_mulai"),
+            berlaku_sampai=data.get("berlaku_sampai"),
             dibuat_pada=_now(),
         )
         return await self.kupon.simpan(k)

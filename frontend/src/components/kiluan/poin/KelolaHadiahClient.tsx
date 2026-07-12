@@ -1,8 +1,10 @@
 'use client'
 
 import { pesanGalat } from '@/lib/api/galat'
-import { buatHadiah, buatKuponKampanye, getHadiah } from '@/lib/api/poin'
+import { buatHadiah, getHadiah, ubahHadiah } from '@/lib/api/poin'
 import type { HadiahDto } from '@/lib/api/types'
+import { formatPoin } from '@/lib/i18n/format'
+import { GiftIcon, PlusIcon, PowerIcon } from '@heroicons/react/24/outline'
 import { useLocale, useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -16,7 +18,7 @@ export default function KelolaHadiahClient({ desaSlug }: Props) {
   const tr = t as unknown as (key: string) => string
   const [hadiah, setHadiah] = useState<HadiahDto[]>([])
   const [loading, setLoading] = useState(true)
-  const [menyimpan, setMenyimpan] = useState<'hadiah' | 'kupon' | null>(null)
+  const [menyimpan, setMenyimpan] = useState<string | null>(null)
   const [galat, setGalat] = useState<string | null>(null)
   const [sukses, setSukses] = useState<string | null>(null)
 
@@ -50,6 +52,7 @@ export default function KelolaHadiahClient({ desaSlug }: Props) {
         biaya_poin: Number(fd.get('biaya')),
         deskripsi: String(fd.get('deskripsi') || '') || undefined,
         stok: fd.get('stok') ? Number(fd.get('stok')) : undefined,
+        syarat: fd.get('tingkat') ? { tingkat_min: String(fd.get('tingkat')) } : {},
       })
       e.currentTarget.reset()
       setSukses(t('sukses.hadiah'))
@@ -61,21 +64,14 @@ export default function KelolaHadiahClient({ desaSlug }: Props) {
     }
   }
 
-  async function tambahKupon(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    const fd = new FormData(e.currentTarget)
+  async function ubahStatus(item: HadiahDto) {
     setGalat(null)
     setSukses(null)
-    setMenyimpan('kupon')
+    setMenyimpan(item.id)
     try {
-      await buatKuponKampanye(desaSlug, {
-        kode: String(fd.get('kode')),
-        nilai: Number(fd.get('nilai')),
-        tipe_diskon: 'nominal',
-        min_belanja: fd.get('min') ? Number(fd.get('min')) : undefined,
-      })
-      e.currentTarget.reset()
-      setSukses(t('sukses.kupon'))
+      await ubahHadiah(desaSlug, item.id, { aktif: !item.aktif })
+      setSukses(item.aktif ? t('sukses.nonaktif') : t('sukses.aktif'))
+      await muat()
     } catch (err) {
       setGalat(pesanGalat(err, locale as 'id' | 'en'))
     } finally {
@@ -88,7 +84,7 @@ export default function KelolaHadiahClient({ desaSlug }: Props) {
   }
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       <p className="text-sm text-neutral-600 dark:text-neutral-400">{t('subtitle')}</p>
 
       {galat && (
@@ -100,102 +96,95 @@ export default function KelolaHadiahClient({ desaSlug }: Props) {
         </p>
       )}
 
-      <section className="rounded-xl border border-neutral-200 p-5 dark:border-neutral-700">
-        <h3 className="font-semibold">{t('katalog')}</h3>
+      <section className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+        <div className="border-b border-neutral-200 bg-neutral-50/70 px-5 py-4 dark:border-neutral-700 dark:bg-neutral-800/50">
+          <h3 className="font-semibold text-primary-800 dark:text-primary-100">{t('katalog')}</h3>
+          <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{t('katalogHint')}</p>
+        </div>
         {hadiah.length === 0 ? (
-          <p className="mt-2 text-sm text-neutral-500">{t('emptyHadiah')}</p>
+          <div className="px-5 py-10 text-center">
+            <GiftIcon className="mx-auto size-8 text-neutral-400" aria-hidden />
+            <p className="mt-2 text-sm text-neutral-500">{t('emptyHadiah')}</p>
+          </div>
         ) : (
-          <ul className="mt-3 space-y-2">
+          <ul className="divide-y divide-neutral-200 dark:divide-neutral-700">
             {hadiah.map((h) => (
               <li
                 key={h.id}
-                className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-neutral-50 px-3 py-2 text-sm dark:bg-neutral-800/50"
+                className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
               >
-                <div>
-                  <p className="font-medium">{h.nama}</p>
-                  {h.deskripsi && <p className="text-xs text-neutral-500">{h.deskripsi}</p>}
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="font-medium text-neutral-900 dark:text-neutral-100">{h.nama}</p>
+                    <span className={h.aktif ? 'rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold uppercase text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-200' : 'rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] font-semibold uppercase text-neutral-600 dark:bg-neutral-800 dark:text-neutral-300'}>
+                      {h.aktif ? t('status.aktif') : t('status.nonaktif')}
+                    </span>
+                  </div>
+                  {h.deskripsi && <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{h.deskripsi}</p>}
+                  <p className="mt-1 text-xs text-neutral-600 dark:text-neutral-400">
+                    {formatPoin(h.biaya_poin, locale as 'id' | 'en')} {t('poinSuffix')} · {tr(`jenis.${h.jenis}`)}
+                    {h.stok != null ? ` · ${t('stok', { count: h.stok })}` : ` · ${t('stokTakTerbatas')}`}
+                  </p>
                 </div>
-                <span className="text-xs text-neutral-600 dark:text-neutral-400">
-                  {h.biaya_poin} {t('poinSuffix')} · {tr(`jenis.${h.jenis}`)}
-                  {h.stok != null ? ` · ${t('stok', { count: h.stok })}` : ''}
-                </span>
+                <button type="button" onClick={() => void ubahStatus(h)} disabled={menyimpan === h.id} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-neutral-300 px-4 py-2 text-xs font-semibold text-neutral-700 hover:border-primary-300 hover:text-primary-700 disabled:opacity-50 dark:border-neutral-600 dark:text-neutral-200 dark:hover:border-primary-600 dark:hover:text-primary-200">
+                  <PowerIcon className="size-4" aria-hidden />
+                  {menyimpan === h.id ? t('menyimpan') : h.aktif ? t('nonaktifkan') : t('aktifkan')}
+                </button>
               </li>
             ))}
           </ul>
         )}
-        <form onSubmit={(e) => void tambahHadiah(e)} className="mt-4 grid gap-2 sm:grid-cols-2">
-          <input
-            name="nama"
-            placeholder={t('placeholder.nama')}
-            required
-            className="rounded-lg border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
-          />
-          <select name="jenis" className="rounded-lg border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900">
-            <option value="merchandise">{t('jenis.merchandise')}</option>
-            <option value="kupon_diskon">{t('jenis.kupon_diskon')}</option>
-            <option value="tiket">{t('jenis.tiket')}</option>
-          </select>
-          <input
-            name="biaya"
-            type="number"
-            min={1}
-            placeholder={t('placeholder.biaya')}
-            required
-            className="rounded-lg border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
-          />
-          <input
-            name="stok"
-            type="number"
-            min={0}
-            placeholder={t('placeholder.stok')}
-            className="rounded-lg border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
-          />
-          <input
-            name="deskripsi"
-            placeholder={t('placeholder.deskripsi')}
-            className="rounded-lg border px-3 py-2 text-sm sm:col-span-2 dark:border-neutral-600 dark:bg-neutral-900"
-          />
-          <button
-            type="submit"
-            disabled={menyimpan === 'hadiah'}
-            className="rounded-full bg-primary-700 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50 sm:col-span-2 sm:w-fit"
-          >
-            {menyimpan === 'hadiah' ? t('menyimpan') : t('tambahHadiah')}
-          </button>
-        </form>
       </section>
 
-      <section className="rounded-xl border border-neutral-200 p-5 dark:border-neutral-700">
-        <h3 className="font-semibold">{t('kuponKampanye')}</h3>
-        <p className="mt-1 text-xs text-neutral-500">{t('kuponHint')}</p>
-        <form onSubmit={(e) => void tambahKupon(e)} className="mt-4 grid gap-2 sm:grid-cols-2">
-          <input
-            name="kode"
-            placeholder={t('placeholder.kode')}
-            required
-            className="rounded-lg border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
-          />
-          <input
-            name="nilai"
-            type="number"
-            min={1}
-            placeholder={t('placeholder.nilai')}
-            required
-            className="rounded-lg border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
-          />
-          <input
-            name="min"
-            type="number"
-            min={0}
-            placeholder={t('placeholder.min')}
-            className="rounded-lg border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
-          />
-          <button
-            type="submit"
-            disabled={menyimpan === 'kupon'}
-            className="rounded-full bg-primary-700 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50 sm:col-span-2 sm:w-fit"
-          >
-            {menyimpan === 'kupon' ? t('menyimpan') : t('buatKupon')}
+      <section className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-700 dark:bg-neutral-900 sm:p-6">
+        <div className="flex items-start gap-3">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-700 dark:bg-primary-950 dark:text-primary-200">
+            <PlusIcon className="size-5" aria-hidden />
+          </div>
+          <div>
+            <h3 className="font-semibold text-primary-800 dark:text-primary-100">{t('formTitle')}</h3>
+            <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{t('formHint')}</p>
+          </div>
+        </div>
+        <form onSubmit={(e) => void tambahHadiah(e)} className="mt-5 grid gap-4 sm:grid-cols-2">
+          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            {t('field.nama')}
+            <input name="nama" placeholder={t('placeholder.nama')} required className="mt-1.5 w-full rounded-xl border bg-white px-3 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-950" />
+          </label>
+          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            {t('field.jenis')}
+            <select name="jenis" className="mt-1.5 w-full rounded-xl border bg-white px-3 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-950">
+              <option value="merchandise">{t('jenis.merchandise')}</option>
+              <option value="kupon_diskon">{t('jenis.kupon_diskon')}</option>
+              <option value="tiket">{t('jenis.tiket')}</option>
+              <option value="donasi">{t('jenis.donasi')}</option>
+            </select>
+          </label>
+          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            {t('field.biaya')}
+            <input name="biaya" type="number" min={1} placeholder={t('placeholder.biaya')} required className="mt-1.5 w-full rounded-xl border bg-white px-3 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-950" />
+          </label>
+          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+            {t('field.stok')}
+            <input name="stok" type="number" min={0} placeholder={t('placeholder.stok')} className="mt-1.5 w-full rounded-xl border bg-white px-3 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-950" />
+          </label>
+          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:col-span-2">
+            {t('field.deskripsi')}
+            <textarea name="deskripsi" rows={3} placeholder={t('placeholder.deskripsi')} className="mt-1.5 w-full rounded-xl border bg-white px-3 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-950" />
+          </label>
+          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300 sm:col-span-2">
+            {t('field.tingkat')}
+            <select name="tingkat" className="mt-1.5 w-full rounded-xl border bg-white px-3 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-950">
+              <option value="">{t('tingkat.semua')}</option>
+              <option value="tunas">{t('tingkat.tunas')}</option>
+              <option value="bahari">{t('tingkat.bahari')}</option>
+              <option value="lumba_lumba">{t('tingkat.lumba_lumba')}</option>
+            </select>
+            <span className="mt-1 block text-xs font-normal text-neutral-500 dark:text-neutral-400">{t('field.tingkatHint')}</span>
+          </label>
+          <button type="submit" disabled={menyimpan === 'hadiah'} className="inline-flex items-center justify-center gap-2 rounded-full bg-primary-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-800 disabled:opacity-50 sm:col-span-2 sm:w-fit dark:bg-primary-600 dark:hover:bg-primary-500">
+            <PlusIcon className="size-4" aria-hidden />
+            {menyimpan === 'hadiah' ? t('menyimpan') : t('tambahHadiah')}
           </button>
         </form>
       </section>

@@ -21,6 +21,7 @@ export interface DiscoveryParams {
 }
 
 export interface ProfilDesa {
+  id?: string
   slug: string
   nama: string
   deskripsi?: string | null
@@ -225,6 +226,7 @@ export interface TransaksiPoinItem {
 
 export interface PoinSayaResponse {
   saldo: number
+  tingkat?: string | null
   riwayat: TransaksiPoinItem[]
   meta: MetaPaginasi
 }
@@ -418,6 +420,7 @@ export interface SlotJadwal {
   tanggal: string
   waktu_mulai?: string | null
   kuota: number
+  kuota_terpakai?: number
   sisa: number
   harga_override?: number | null
   status: string
@@ -433,6 +436,7 @@ export interface PesananItemDto {
   subtotal: number
   status_fulfillment: string
   metadata?: Record<string, unknown>
+  penyedia?: { tipe: string; id: string; nama?: string | null }
   booking?: { id: string; kode_checkin: string; status: string } | null
 }
 
@@ -510,6 +514,24 @@ export interface RefundDto {
   selesai_pada?: string | null
 }
 
+export interface PengaturanDesa {
+  persen_reinvestasi: number
+  persen_fee_platform: number
+  batas_hold_menit: number
+  gateway: string
+  kebijakan_pembatalan: Record<string, unknown>
+}
+
+export interface BookingDto {
+  id: string
+  kode_checkin: string
+  slot_jadwal: { id: string; tanggal?: string | null; waktu_mulai?: string | null }
+  jumlah_orang: number
+  tanggal_kunjungan: string
+  status: string
+  checkin_pada?: string | null
+}
+
 export interface HadiahDto {
   id: string
   kode: string
@@ -520,13 +542,17 @@ export interface HadiahDto {
   stok: number | null
   syarat: Record<string, unknown>
   aktif: boolean
+  media?: { url: string; alt?: string | null } | null
 }
+
+export type SumberKupon = 'tukar_poin' | 'promo_owner' | 'kampanye'
+export type TipeDiskon = 'persen' | 'nominal'
 
 export interface KuponRingkas {
   id: string
   kode: string
-  sumber: string
-  tipe_diskon: string
+  sumber: SumberKupon | string
+  tipe_diskon: TipeDiskon | string
   nilai: number
   min_belanja?: number | null
   batas_pakai: number
@@ -534,6 +560,8 @@ export interface KuponRingkas {
   status: string
   penyedia_terbatas?: string[] | null
   pemilik_id?: string | null
+  berlaku_mulai?: string | null
+  berlaku_sampai?: string | null
 }
 
 export interface PenukaranDto {

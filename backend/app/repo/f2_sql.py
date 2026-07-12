@@ -189,6 +189,33 @@ class RepoPesananItemSQL:
             return None
         return row
 
+    async def wajib(self, id: UUID, desa_id: UUID) -> M.PesananItem:
+        row = await self.ambil(id, desa_id)
+        if row is None:
+            raise TidakDitemukan("Item pesanan tidak ditemukan.")
+        return row
+
+    async def daftar_penyedia(
+        self,
+        desa_id: UUID,
+        penyedia_tipe: str,
+        penyedia_id: UUID,
+        status_pesanan: str | None = None,
+    ) -> list[M.PesananItem]:
+        q = (
+            select(M.PesananItem)
+            .join(M.Pesanan, M.PesananItem.pesanan_id == M.Pesanan.id)
+            .where(
+                M.PesananItem.desa_id == desa_id,
+                M.PesananItem.penyedia_tipe == penyedia_tipe,
+                M.PesananItem.penyedia_id == penyedia_id,
+            )
+        )
+        if status_pesanan:
+            q = q.where(M.Pesanan.status == status_pesanan)
+        res = await self.s.execute(q.order_by(M.Pesanan.dibuat_pada.desc()))
+        return list(res.scalars().all())
+
 
 class RepoBookingSQL:
     def __init__(self, s: AsyncSession):

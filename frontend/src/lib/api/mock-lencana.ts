@@ -63,7 +63,7 @@ export function mockPoinSaya(kursor?: string): PoinSayaResponse {
     ada_lagi: offset + 2 < semua.length,
     batas: 2,
   }
-  return { saldo: 30, riwayat: slice, meta }
+  return { saldo: 30, tingkat: 'tunas', riwayat: slice, meta }
 }
 
 export function mockLeaderboard(periode: string) {

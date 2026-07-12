@@ -124,7 +124,7 @@
 .kiluan-header[data-landing]:not(.is-scrolled) .kiluan-nav-btn {
   @apply text-white hover:bg-white/12 hover:text-white;
 }
-.kiluan-header[data-landing]:not(.is-scrolled) .menu-megamenu:hover > .kiluan-nav-btn {
+.kiluan-header[data-landing]:not(.is-scrolled) .menu-megamenu.is-open > .kiluan-nav-btn {
   @apply bg-white/15 text-white;
 }
 .kiluan-header[data-landing]:not(.is-scrolled) .kiluan-search-trigger {

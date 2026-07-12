@@ -53,7 +53,7 @@ export default function PaketDesaClient({ desaSlug, desaNama }: Props) {
 
   return (
     <div className="pb-16">
-      <div className="border-b border-neutral-200 bg-gradient-to-br from-kiluan-sea/15 via-primary-50 to-white dark:from-primary-950 dark:to-neutral-950">
+      <div className="border-b border-neutral-200 bg-gradient-to-br from-kiluan-sea/15 via-primary-50 to-white dark:border-neutral-800 dark:from-neutral-950 dark:via-primary-950/60 dark:to-neutral-900">
         <div className="container py-10 sm:py-12">
           <p className="text-sm font-medium text-primary-600 dark:text-primary-400">{desaNama}</p>
           <h1 className="mt-1 text-3xl font-bold tracking-tight text-primary-800 dark:text-primary-100">

@@ -1,7 +1,9 @@
 import { apiFetch } from './client'
 import type {
+  BookingDto,
   CheckoutPayload,
   PembayaranDto,
+  PesananItemDto,
   PesananRingkas,
   SlotJadwal,
 } from './types'
@@ -12,7 +14,13 @@ function hdrIdem(key: string): HeadersInit {
 
 export async function getSlot(
   desaSlug: string,
-  opts: { subjek_tipe: string; subjek_id: string; dari?: string; sampai?: string },
+  opts: {
+    subjek_tipe: string
+    subjek_id: string
+    dari?: string
+    sampai?: string
+    kelola?: boolean
+  },
 ): Promise<{ item: SlotJadwal[] }> {
   const q = new URLSearchParams({
     subjek_tipe: opts.subjek_tipe,
@@ -20,7 +28,58 @@ export async function getSlot(
   })
   if (opts.dari) q.set('dari', opts.dari)
   if (opts.sampai) q.set('sampai', opts.sampai)
-  return apiFetch(`/api/v1/desa/${desaSlug}/slot?${q}`, { auth: false })
+  if (opts.kelola) q.set('kelola', 'true')
+  return apiFetch(`/api/v1/desa/${desaSlug}/slot?${q}`, { auth: opts.kelola ?? false })
+}
+
+export async function buatSlot(
+  desaSlug: string,
+  body: {
+    subjek_tipe: string
+    subjek_id: string
+    tanggal: string
+    kuota: number
+    waktu_mulai?: string
+    harga_override?: number
+  },
+): Promise<SlotJadwal> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/slot`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function buatSlotBatch(
+  desaSlug: string,
+  body: {
+    subjek_tipe: string
+    subjek_id: string
+    dari: string
+    sampai: string
+    kuota: number
+    waktu_mulai?: string
+    harga_override?: number
+  },
+): Promise<{ item: SlotJadwal[] }> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/slot/batch`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function ubahSlot(
+  desaSlug: string,
+  slotId: string,
+  body: { kuota?: number; harga_override?: number | null; status?: string },
+): Promise<SlotJadwal> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/slot/${slotId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function hapusSlot(desaSlug: string, slotId: string): Promise<void> {
+  await apiFetch(`/api/v1/desa/${desaSlug}/slot/${slotId}`, { method: 'DELETE' })
 }
 
 export async function checkout(
@@ -41,6 +100,29 @@ export async function getPesanan(desaSlug: string, id: string): Promise<PesananR
 
 export async function daftarPesananSaya(desaSlug: string): Promise<{ item: PesananRingkas[] }> {
   return apiFetch(`/api/v1/desa/${desaSlug}/pesanan?milik=saya`)
+}
+
+export async function daftarPesananKelola(
+  desaSlug: string,
+  opts?: { status?: string; penyedia_tipe?: string; penyedia_id?: string },
+): Promise<{ item: PesananRingkas[] }> {
+  const q = new URLSearchParams({ kelola: 'true' })
+  if (opts?.status) q.set('status', opts.status)
+  if (opts?.penyedia_tipe) q.set('penyedia_tipe', opts.penyedia_tipe)
+  if (opts?.penyedia_id) q.set('penyedia_id', opts.penyedia_id)
+  return apiFetch(`/api/v1/desa/${desaSlug}/pesanan?${q}`)
+}
+
+export async function ubahFulfillment(
+  desaSlug: string,
+  pesananId: string,
+  itemId: string,
+  status_fulfillment: string,
+): Promise<{ item: PesananItemDto }> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/pesanan/${pesananId}/item/${itemId}/fulfillment`, {
+    method: 'PATCH',
+    body: JSON.stringify({ status_fulfillment }),
+  })
 }
 
 export async function buatPembayaran(
@@ -78,12 +160,34 @@ export async function cekKupon(
   return apiFetch(`/api/v1/desa/${desaSlug}/kupon/${encodeURIComponent(kode)}/cek?${q}`)
 }
 
+export async function daftarBooking(
+  desaSlug: string,
+  opts?: { tanggal?: string; status?: string },
+): Promise<{ item: BookingDto[] }> {
+  const q = new URLSearchParams()
+  if (opts?.tanggal) q.set('tanggal', opts.tanggal)
+  if (opts?.status) q.set('status', opts.status)
+  const qs = q.toString()
+  return apiFetch(`/api/v1/desa/${desaSlug}/booking${qs ? `?${qs}` : ''}`)
+}
+
 export async function checkinBooking(
   desaSlug: string,
-  bookingId: string,
-): Promise<{ id: string; kode_checkin: string; status: string }> {
-  return apiFetch(`/api/v1/desa/${desaSlug}/booking/${bookingId}/checkin`, {
+  bookingIdOrKode: string,
+): Promise<BookingDto> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/booking/${encodeURIComponent(bookingIdOrKode)}/checkin`, {
     method: 'POST',
+  })
+}
+
+export async function selesaiBooking(
+  desaSlug: string,
+  bookingId: string,
+  idempotencyKey: string,
+): Promise<{ pesanan: PesananRingkas }> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/booking/${bookingId}/selesai`, {
+    method: 'POST',
+    headers: hdrIdem(idempotencyKey),
   })
 }
 

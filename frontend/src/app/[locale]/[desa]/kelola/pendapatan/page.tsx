@@ -34,7 +34,7 @@ export default async function PendapatanPage({ params }: Props) {
           {t('subtitleDesa', { desa: profil.nama })}
         </p>
       </div>
-      <PendapatanClient desaSlug={desa} mode="pengelola" />
+      <PendapatanClient desaSlug={desa} desaId={profil.id} mode="pengelola" />
     </div>
   )
 }

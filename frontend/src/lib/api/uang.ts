@@ -1,5 +1,5 @@
 import { apiFetch } from './client'
-import type { PayoutDto, RefundDto, RekeningDto, TransaksiDto } from './types'
+import type { PengaturanDesa, PayoutDto, RefundDto, RekeningDto, TransaksiDto } from './types'
 
 function hdrIdem(key: string): HeadersInit {
   return { 'Idempotency-Key': key }
@@ -37,12 +37,28 @@ export async function buatRekening(
     nomor: string
     nama_pemilik: string
     bank_kode?: string
+    utama?: boolean
   },
 ): Promise<{ rekening: RekeningDto }> {
   return apiFetch(`/api/v1/desa/${desaSlug}/rekening`, {
     method: 'POST',
     body: JSON.stringify(body),
   })
+}
+
+export async function patchRekening(
+  desaSlug: string,
+  rekeningId: string,
+  body: { utama?: boolean; nama_pemilik?: string },
+): Promise<{ rekening: RekeningDto }> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/rekening/${rekeningId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function hapusRekening(desaSlug: string, rekeningId: string): Promise<void> {
+  await apiFetch(`/api/v1/desa/${desaSlug}/rekening/${rekeningId}`, { method: 'DELETE' })
 }
 
 export async function verifikasiRekening(
@@ -83,9 +99,11 @@ export async function transisiPayout(
   desaSlug: string,
   payoutId: string,
   aksi: 'tandai_berhasil' | 'tandai_gagal',
+  idempotencyKey: string,
 ): Promise<{ payout: PayoutDto }> {
   return apiFetch(`/api/v1/desa/${desaSlug}/payout/${payoutId}/transisi`, {
     method: 'POST',
+    headers: hdrIdem(idempotencyKey),
     body: JSON.stringify({ aksi }),
   })
 }
@@ -117,15 +135,25 @@ export async function transisiRefund(
   desaSlug: string,
   refundId: string,
   aksi: 'setuju' | 'tolak' | 'proses' | 'selesai',
+  idempotencyKey: string,
 ): Promise<{ refund: RefundDto }> {
   return apiFetch(`/api/v1/desa/${desaSlug}/refund/${refundId}/transisi`, {
     method: 'POST',
+    headers: hdrIdem(idempotencyKey),
     body: JSON.stringify({ aksi }),
   })
 }
 
-export async function getPengaturanDesa(
-  desaSlug: string,
-): Promise<{ persen_reinvestasi: number; persen_fee_platform: number }> {
+export async function getPengaturanDesa(desaSlug: string): Promise<PengaturanDesa> {
   return apiFetch(`/api/v1/desa/${desaSlug}/pengaturan`, { auth: false })
+}
+
+export async function patchPengaturanDesa(
+  desaSlug: string,
+  body: Partial<PengaturanDesa>,
+): Promise<PengaturanDesa> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/pengaturan`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  })
 }

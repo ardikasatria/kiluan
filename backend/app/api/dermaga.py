@@ -36,6 +36,26 @@ class SlotBuat(BaseModel):
     harga_override: float | None = None
 
 
+class SlotBatchBody(BaseModel):
+    subjek_tipe: str
+    subjek_id: str
+    dari: str
+    sampai: str
+    kuota: int
+    waktu_mulai: str | None = None
+    harga_override: float | None = None
+
+
+class SlotUbahBody(BaseModel):
+    kuota: int | None = None
+    harga_override: float | None = None
+    status: str | None = None
+
+
+class FulfillmentBody(BaseModel):
+    status_fulfillment: str
+
+
 class CheckoutBody(BaseModel):
     kontak: dict = Field(default_factory=dict)
     metode_ambil: str = "ambil_ditempat"
@@ -60,10 +80,13 @@ async def daftar_slot(
     subjek_id: str = Query(...),
     dari: str | None = None,
     sampai: str | None = None,
+    kelola: bool = False,
     desa_id: UUID = Depends(resolusi_desa),
     svc: DermagaLayanan = Depends(_svc),
 ):
-    slots = await svc.daftar_slot(desa_id, subjek_tipe, UUID(subjek_id), dari, sampai)
+    slots = await svc.daftar_slot(
+        desa_id, subjek_tipe, UUID(subjek_id), dari, sampai, kelola=kelola,
+    )
     return {"item": [slot_dto(s) for s in slots]}
 
 
@@ -71,10 +94,52 @@ async def daftar_slot(
 async def buat_slot(
     body: SlotBuat,
     desa_id: UUID = Depends(resolusi_desa),
+    konteks: Konteks = Depends(konteks_saat_ini),
     svc: DermagaLayanan = Depends(_svc),
 ):
+    if not (konteks.admin_global() or konteks.peran_di(desa_id)):
+        from app.domain.errors import TidakBerwenang
+        raise TidakBerwenang()
     slot = await svc.buat_slot(desa_id, body.model_dump())
     return slot_dto(slot)
+
+
+@router.post("/slot/batch", status_code=201)
+async def buat_slot_batch(
+    body: SlotBatchBody,
+    desa_id: UUID = Depends(resolusi_desa),
+    konteks: Konteks = Depends(konteks_saat_ini),
+    svc: DermagaLayanan = Depends(_svc),
+):
+    if not (konteks.admin_global() or konteks.peran_di(desa_id)):
+        from app.domain.errors import TidakBerwenang
+        raise TidakBerwenang()
+    slots = await svc.buat_slot_batch(desa_id, body.model_dump())
+    return {"item": [slot_dto(s) for s in slots]}
+
+
+@router.patch("/slot/{slot_id}")
+async def ubah_slot(
+    slot_id: str,
+    body: SlotUbahBody,
+    desa_id: UUID = Depends(resolusi_desa),
+    konteks: Konteks = Depends(konteks_saat_ini),
+    svc: DermagaLayanan = Depends(_svc),
+):
+    slot = await svc.ubah_slot(
+        konteks, desa_id, UUID(slot_id), body.model_dump(exclude_unset=True),
+    )
+    return slot_dto(slot)
+
+
+@router.delete("/slot/{slot_id}", status_code=204)
+async def hapus_slot(
+    slot_id: str,
+    desa_id: UUID = Depends(resolusi_desa),
+    konteks: Konteks = Depends(konteks_saat_ini),
+    svc: DermagaLayanan = Depends(_svc),
+):
+    await svc.hapus_slot(konteks, desa_id, UUID(slot_id))
 
 
 @router.post("/checkout", status_code=201)
@@ -97,11 +162,25 @@ async def checkout(
 async def daftar_pesanan(
     status: str | None = None,
     milik: str | None = None,
+    kelola: bool = False,
+    penyedia_tipe: str | None = None,
+    penyedia_id: str | None = None,
     desa_id: UUID = Depends(resolusi_desa),
     konteks: Konteks = Depends(konteks_saat_ini),
     pid: UUID = Depends(_wajib_login),
     svc: DermagaLayanan = Depends(_svc),
 ):
+    if kelola or penyedia_tipe or penyedia_id:
+        pid_pen = UUID(penyedia_id) if penyedia_id else None
+        rows = await svc.daftar_pesanan_penyedia(
+            konteks, desa_id, penyedia_tipe, pid_pen, status=status,
+        )
+        return {
+            "item": [
+                pesanan_detail(p, items, bmap)
+                for p, items, bmap in rows
+            ],
+        }
     pembeli = pid if milik == "saya" else None
     rows = await svc.pesanan.daftar(desa_id, status=status, pembeli_id=pembeli)
     return {"item": [pesanan_ringkas(p) for p in rows]}
@@ -128,6 +207,22 @@ async def batal_pesanan(
     pesanan = await svc.pesanan.wajib(pesanan_id, desa_id)
     pesanan = await svc.batalkan(konteks, desa_id, pesanan.id)
     return pesanan_ringkas(pesanan)
+
+
+@router.patch("/pesanan/{pesanan_id}/item/{item_id}/fulfillment")
+async def ubah_fulfillment(
+    pesanan_id: str,
+    item_id: str,
+    body: FulfillmentBody,
+    desa_id: UUID = Depends(resolusi_desa),
+    konteks: Konteks = Depends(konteks_saat_ini),
+    svc: DermagaLayanan = Depends(_svc),
+):
+    it = await svc.ubah_fulfillment(
+        konteks, desa_id, UUID(pesanan_id), UUID(item_id), body.status_fulfillment,
+    )
+    from app.skema.f2 import pesanan_item
+    return {"item": pesanan_item(it)}
 
 
 @router.post("/pesanan/{pesanan_id}/pembayaran", status_code=201)

@@ -82,9 +82,10 @@ def pembayaran_dto(p) -> dict[str, Any]:
 
 
 def slot_dto(s) -> dict[str, Any]:
+    terpakai = getattr(s, "kuota_terpakai", 0)
     sisa = getattr(s, "sisa", None)
     if sisa is None and hasattr(s, "kuota"):
-        sisa = s.kuota - s.kuota_terpakai
+        sisa = s.kuota - terpakai
     return {
         "id": str(s.id),
         "subjek_tipe": s.subjek_tipe,
@@ -92,6 +93,7 @@ def slot_dto(s) -> dict[str, Any]:
         "tanggal": _tanggal(s.tanggal),
         "waktu_mulai": str(s.waktu_mulai) if s.waktu_mulai else None,
         "kuota": s.kuota,
+        "kuota_terpakai": terpakai,
         "sisa": sisa,
         "harga_override": _dec(s.harga_override),
         "status": s.status,
@@ -219,6 +221,8 @@ def kupon_dto(k) -> dict[str, Any]:
         "status": k.status,
         "penyedia_terbatas": k.penyedia_terbatas,
         "pemilik_id": str(k.pemilik_id) if k.pemilik_id else None,
+        "berlaku_mulai": k.berlaku_mulai.isoformat() if k.berlaku_mulai else None,
+        "berlaku_sampai": k.berlaku_sampai.isoformat() if k.berlaku_sampai else None,
     }
 
 

@@ -1,6 +1,8 @@
+import KelolaGuard from '@/components/kiluan/KelolaGuard'
 import KelolaNav from '@/components/kiluan/KelolaNav'
+import KelolaShellActions from '@/components/kiluan/KelolaShellActions'
+import KelolaZonaGuard from '@/components/kiluan/KelolaZonaGuard'
 import OfflineIndicator from '@/components/kiluan/OfflineIndicator'
-import PengelolaGuard from '@/components/kiluan/PengelolaGuard'
 import { Link } from '@/i18n/navigation'
 import { getProfilDesa } from '@/lib/api/desa'
 import { metadataKelola } from '@/lib/kiluan/seo'
@@ -28,7 +30,7 @@ export default async function KelolaLayout({ children, params }: Props) {
   const desaNama = profil.nama
 
   return (
-    <PengelolaGuard desaSlug={desa}>
+    <KelolaGuard desaSlug={desa} desaId={profil.id} desaNama={desaNama}>
       <div className="container py-8 sm:py-12">
         <nav
           aria-label={t('shell.breadcrumbLabel')}
@@ -51,26 +53,15 @@ export default async function KelolaLayout({ children, params }: Props) {
             <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
               {t('layoutSubtitle', { desa: desaNama })}
             </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <Link
-                href={`/${desa}`}
-                className="inline-flex rounded-full border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-700 hover:border-primary-300 hover:text-primary-800 dark:border-neutral-600 dark:text-neutral-300 dark:hover:border-primary-600 dark:hover:text-primary-200"
-              >
-                {t('shell.backEtalase')}
-              </Link>
-              <Link
-                href={`/${desa}/dasbor/pokdarwis`}
-                className="inline-flex rounded-full border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-700 hover:border-primary-300 hover:text-primary-800 dark:border-neutral-600 dark:text-neutral-300 dark:hover:border-primary-600 dark:hover:text-primary-200"
-              >
-                {t('shell.backDasbor')}
-              </Link>
-            </div>
+            <KelolaShellActions desaSlug={desa} />
           </div>
           <OfflineIndicator desaSlug={desa} />
         </div>
-        <KelolaNav desaSlug={desa} />
-        <div className="mt-8">{children}</div>
+        <KelolaNav desaSlug={desa} desaId={profil.id} />
+        <div className="mt-8">
+          <KelolaZonaGuard desaSlug={desa} desaId={profil.id}>{children}</KelolaZonaGuard>
+        </div>
       </div>
-    </PengelolaGuard>
+    </KelolaGuard>
   )
 }

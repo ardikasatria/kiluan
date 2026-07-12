@@ -99,11 +99,12 @@ class DermagaLayanan:
     async def daftar_slot(
         self, desa_id: UUID, subjek_tipe: str, subjek_id: UUID,
         dari: str | None = None, sampai: str | None = None,
+        kelola: bool = False,
     ) -> list[M.SlotJadwal]:
         rows = await self.slot.daftar(desa_id, subjek_tipe=subjek_tipe, subjek_id=subjek_id)
         return [
             s for s in rows
-            if s.status in ("buka", "penuh")
+            if (kelola or s.status in ("buka", "penuh"))
             and (dari is None or str(s.tanggal) >= dari)
             and (sampai is None or str(s.tanggal) <= sampai)
         ]
@@ -120,6 +121,123 @@ class DermagaLayanan:
             harga_override=Decimal(str(data["harga_override"])) if data.get("harga_override") else None,
         )
         return await self.slot.simpan(slot)
+
+    async def buat_slot_batch(self, desa_id: UUID, data: dict) -> list[M.SlotJadwal]:
+        dari = date.fromisoformat(data["dari"])
+        sampai = date.fromisoformat(data["sampai"])
+        if sampai < dari:
+            raise KesalahanValidasi("Rentang tanggal tidak valid.")
+        hasil: list[M.SlotJadwal] = []
+        cur = dari
+        while cur <= sampai:
+            hasil.append(await self.buat_slot(desa_id, {
+                **data,
+                "tanggal": cur.isoformat(),
+            }))
+            cur += timedelta(days=1)
+        return hasil
+
+    async def ubah_slot(
+        self, konteks: Konteks, desa_id: UUID, slot_id: UUID, ubah: dict,
+    ) -> M.SlotJadwal:
+        if not (konteks.admin_global() or konteks.peran_di(desa_id) & VERIFIKATOR):
+            raise TidakBerwenang()
+        slot = await self.slot.ambil(slot_id, desa_id)
+        if slot is None:
+            raise TidakDitemukan("Slot tidak ditemukan.")
+        if "kuota" in ubah and ubah["kuota"] is not None:
+            if int(ubah["kuota"]) < slot.kuota_terpakai:
+                raise KesalahanValidasi("Kuota tidak boleh kurang dari terpakai.")
+            slot.kuota = int(ubah["kuota"])
+            if slot.kuota_terpakai >= slot.kuota:
+                slot.status = "penuh"
+            elif slot.status == "penuh":
+                slot.status = "buka"
+        if "harga_override" in ubah:
+            slot.harga_override = (
+                Decimal(str(ubah["harga_override"])) if ubah["harga_override"] is not None else None
+            )
+        if "status" in ubah and ubah["status"] is not None:
+            slot.status = ubah["status"]
+        return slot
+
+    async def hapus_slot(self, konteks: Konteks, desa_id: UUID, slot_id: UUID) -> None:
+        if not (konteks.admin_global() or konteks.peran_di(desa_id) & VERIFIKATOR):
+            raise TidakBerwenang()
+        slot = await self.slot.ambil(slot_id, desa_id)
+        if slot is None:
+            raise TidakDitemukan("Slot tidak ditemukan.")
+        if slot.kuota_terpakai > 0:
+            raise TransisiIlegalF2("Slot sudah memiliki booking — tidak bisa dihapus.")
+        await self.store.sesi.delete(slot)
+
+    async def daftar_pesanan_penyedia(
+        self,
+        konteks: Konteks,
+        desa_id: UUID,
+        penyedia_tipe: str | None = None,
+        penyedia_id: UUID | None = None,
+        status: str | None = None,
+    ) -> list[tuple[M.Pesanan, list[M.PesananItem], dict]]:
+        if not (konteks.admin_global() or konteks.peran_di(desa_id) & VERIFIKATOR):
+            if penyedia_tipe is None or penyedia_id is None:
+                raise TidakBerwenang()
+        if penyedia_tipe and penyedia_id:
+            items = await self.item.daftar_penyedia(
+                desa_id, penyedia_tipe, penyedia_id, status_pesanan=status,
+            )
+            pesanan_ids = list(dict.fromkeys(it.pesanan_id for it in items))
+        else:
+            rows = await self.pesanan.daftar(desa_id, status=status)
+            pesanan_ids = [p.id for p in rows if p.status in ("dibayar", "diproses", "selesai")]
+            items = []
+            for pid in pesanan_ids:
+                items.extend(await self.item.daftar_pesanan(pid))
+        hasil: list[tuple[M.Pesanan, list[M.PesananItem], dict]] = []
+        seen: set[UUID] = set()
+        for it in items:
+            if it.pesanan_id in seen:
+                continue
+            if penyedia_tipe and penyedia_id:
+                if it.penyedia_tipe != penyedia_tipe or it.penyedia_id != penyedia_id:
+                    continue
+            seen.add(it.pesanan_id)
+            pesanan = await self.pesanan.ambil(it.pesanan_id, desa_id)
+            if pesanan is None:
+                continue
+            if status and pesanan.status != status:
+                continue
+            all_items = await self.item.daftar_pesanan(pesanan.id)
+            if penyedia_tipe and penyedia_id:
+                all_items = [
+                    x for x in all_items
+                    if x.penyedia_tipe == penyedia_tipe and x.penyedia_id == penyedia_id
+                ]
+            bmap: dict = {}
+            for x in all_items:
+                if x.item_tipe == "paket_wisata":
+                    bk_rows = await self.booking.daftar(desa_id, status=None)
+                    for bk in bk_rows:
+                        if bk.pesanan_item_id == x.id:
+                            bmap[x.id] = bk
+            hasil.append((pesanan, all_items, bmap))
+        return hasil
+
+    async def ubah_fulfillment(
+        self,
+        konteks: Konteks,
+        desa_id: UUID,
+        pesanan_id: UUID,
+        item_id: UUID,
+        status_fulfillment: str,
+    ) -> M.PesananItem:
+        if not (konteks.admin_global() or konteks.peran_di(desa_id) & VERIFIKATOR):
+            raise TidakBerwenang()
+        it = await self.item.wajib(item_id, desa_id)
+        if it.pesanan_id != pesanan_id:
+            raise KesalahanValidasi("Item tidak termasuk pesanan ini.")
+        it.status_fulfillment = status_fulfillment
+        return it
 
     async def checkout(
         self,
@@ -444,6 +562,8 @@ class DermagaLayanan:
         bk = await self.booking.wajib(booking_id, desa_id)
         if bk.status != "terkonfirmasi":
             raise TransisiIlegalF2("Booking belum terkonfirmasi.")
+        if bk.tanggal_kunjungan != date.today():
+            raise TransisiIlegalF2("Check-in hanya pada tanggal kunjungan.")
         bk.status = "checkin"
         bk.checkin_pada = _now()
         it = await self.item.ambil(bk.pesanan_item_id, desa_id)

@@ -1,9 +1,11 @@
 'use client'
 
+import PanelKeputusan from '@/components/kiluan/kurasi/PanelKeputusan'
 import { pesanGalat } from '@/lib/api/galat'
 import { getRefund, transisiRefund } from '@/lib/api/uang'
 import type { RefundDto } from '@/lib/api/types'
 import { Link } from '@/i18n/navigation'
+import { kunciIdempotensi, hapusKunciIdempotensi } from '@/lib/kiluan/cart'
 import { formatHarga } from '@/lib/kiluan/pasar'
 import { formatTanggal } from '@/lib/kiluan/lencana'
 import { useLocale, useTranslations } from 'next-intl'
@@ -11,12 +13,6 @@ import { useCallback, useEffect, useState } from 'react'
 
 interface Props {
   desaSlug: string
-}
-
-const AKSI: Record<string, Array<'setuju' | 'tolak' | 'proses' | 'selesai'>> = {
-  diajukan: ['setuju', 'tolak'],
-  disetujui: ['proses'],
-  diproses: ['selesai'],
 }
 
 const STATUS_FILTER = ['', 'diajukan', 'disetujui', 'diproses', 'selesai', 'ditolak'] as const
@@ -49,18 +45,23 @@ export default function RefundKelolaClient({ desaSlug }: Props) {
     void muat()
   }, [muat])
 
-  async function transisi(id: string, aksi: 'setuju' | 'tolak' | 'proses' | 'selesai') {
-    const konfirmasiKey = aksi === 'tolak' ? 'konfirmasiTolak' : aksi === 'setuju' ? 'konfirmasiSetuju' : null
-    if (konfirmasiKey && !confirm(t(konfirmasiKey))) return
+  async function transisi(
+    id: string,
+    aksi: 'setuju' | 'tolak' | 'proses' | 'selesai',
+    catatan = '',
+  ) {
     setGalat(null)
     setSukses(null)
     setAksiId(id)
+    const idem = kunciIdempotensi(`refund-${id}-${aksi}`)
     try {
-      await transisiRefund(desaSlug, id, aksi)
+      await transisiRefund(desaSlug, id, aksi, idem)
+      hapusKunciIdempotensi(`refund-${id}-${aksi}`)
       setSukses(t(`sukses.${aksi}`))
       await muat()
     } catch (err) {
       setGalat(pesanGalat(err, locale as 'id' | 'en'))
+      throw err
     } finally {
       setAksiId(null)
     }
@@ -100,17 +101,21 @@ export default function RefundKelolaClient({ desaSlug }: Props) {
       )}
 
       {loading ? (
-        <p className="text-sm text-neutral-500">{t('loading')}</p>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400">{t('loading')}</p>
       ) : refund.length === 0 ? (
-        <p className="text-sm text-neutral-500">{t('empty')}</p>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400">{t('empty')}</p>
       ) : (
         <ul className="divide-y divide-neutral-100 rounded-xl border border-neutral-200 dark:divide-neutral-800 dark:border-neutral-700">
           {refund.map((r) => (
             <li key={r.id} className="p-4">
               <div className="flex flex-wrap justify-between gap-2">
                 <div>
-                  <p className="font-medium">{formatHarga(r.jumlah, 'per_paket')}</p>
-                  <p className="text-xs text-neutral-500">{t('pesanan', { id: r.pesanan_id.slice(0, 8) })}</p>
+                  <p className="font-medium text-neutral-900 dark:text-neutral-100">
+                    {formatHarga(r.jumlah, 'per_paket')}
+                  </p>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                    {t('pesanan', { id: r.pesanan_id.slice(0, 8) })}
+                  </p>
                   <p className="mt-1 text-sm text-neutral-700 dark:text-neutral-300">{r.alasan}</p>
                   {r.dibuat_pada && (
                     <time className="mt-1 block text-xs text-neutral-500" dateTime={r.dibuat_pada}>
@@ -118,23 +123,45 @@ export default function RefundKelolaClient({ desaSlug }: Props) {
                     </time>
                   )}
                 </div>
-                <span className="h-fit rounded-full bg-neutral-100 px-2.5 py-0.5 text-xs font-medium dark:bg-neutral-800">
+                <span className="h-fit rounded-full bg-neutral-100 px-2.5 py-0.5 text-xs font-medium dark:bg-neutral-800 dark:text-neutral-200">
                   {tr(`status.${r.status}`)}
                 </span>
               </div>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {(AKSI[r.status] ?? []).map((a) => (
-                  <button
-                    key={a}
-                    type="button"
-                    disabled={aksiId === r.id}
-                    onClick={() => void transisi(r.id, a)}
-                    className="rounded-full border border-primary-300 px-3 py-1 text-xs font-medium hover:bg-primary-50 disabled:opacity-50 dark:border-primary-600 dark:hover:bg-primary-900/30"
-                  >
-                    {aksiId === r.id ? t('memproses') : tr(`aksi.${a}`)}
-                  </button>
-                ))}
-              </div>
+
+              {r.status === 'diajukan' && (
+                <PanelKeputusan
+                  aktif
+                  sembunyikanRevisi
+                  labelSetuju={tr('aksi.setuju')}
+                  className="mt-4"
+                  onKeputusan={async (aksi, catatan) => {
+                    const mapped = aksi === 'setuju' ? 'setuju' : 'tolak'
+                    await transisi(r.id, mapped, catatan)
+                  }}
+                />
+              )}
+
+              {r.status === 'disetujui' && (
+                <button
+                  type="button"
+                  disabled={aksiId === r.id}
+                  onClick={() => void transisi(r.id, 'proses')}
+                  className="mt-3 rounded-full border border-primary-300 px-4 py-1.5 text-xs font-medium dark:border-primary-600"
+                >
+                  {aksiId === r.id ? t('memproses') : tr('aksi.proses')}
+                </button>
+              )}
+
+              {r.status === 'diproses' && (
+                <button
+                  type="button"
+                  disabled={aksiId === r.id}
+                  onClick={() => void transisi(r.id, 'selesai')}
+                  className="mt-3 rounded-full bg-primary-700 px-4 py-1.5 text-xs font-semibold text-white disabled:opacity-50"
+                >
+                  {aksiId === r.id ? t('memproses') : tr('aksi.selesai')}
+                </button>
+              )}
             </li>
           ))}
         </ul>
