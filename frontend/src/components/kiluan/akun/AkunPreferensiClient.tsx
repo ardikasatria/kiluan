@@ -150,7 +150,7 @@ function StatusKeanggotaanBadge({ status }: { status: string }) {
 }
 
 export default function AkunPreferensiClient({ desaSlug, desaNama, lintasDesa = false }: Props) {
-  const { user, refreshProfil } = useAuth()
+  const { user, refreshProfil, isLoading: authLoading } = useAuth()
   const theme = useContext(ThemeContext)
   const t = useTranslations('akun')
   const tPeran = useTranslations('peran')
@@ -214,6 +214,7 @@ export default function AkunPreferensiClient({ desaSlug, desaNama, lintasDesa = 
 
   async function handleAvatar(file: File) {
     if (!user) return
+    if (authLoading) return
     bersihkanPesan()
     setUnggahAvatar(true)
     setPctUnggah(0)

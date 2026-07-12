@@ -32,6 +32,6 @@ MATRIKS: dict[str, set] = {
     KELOLA_LAYANAN_DESA: set(_PENGELOLA),
     KELOLA_KALENDER: set(_PENGELOLA),
     KELOLA_LAYANAN_SENDIRI: {KodePeran.umkm, KodePeran.agen} | _PENGELOLA,
-    UNGGAH_MEDIA: {KodePeran.kontributor, KodePeran.umkm, KodePeran.agen} | _PENGELOLA,
+    UNGGAH_MEDIA: {KodePeran.wisatawan, KodePeran.kontributor, KodePeran.umkm, KodePeran.agen} | _PENGELOLA,
     KELOLA_LAMPIRAN: {KodePeran.umkm, KodePeran.agen} | _PENGELOLA,
 }

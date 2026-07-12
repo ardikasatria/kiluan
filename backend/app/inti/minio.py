@@ -73,11 +73,14 @@ class PenyimpananObjekMinio:
     async def presign_put(self, objek: str) -> str:
         def _presign() -> str:
             client = self._presign_client or self._client
-            url = client.presigned_put_object(
-                self._bucket,
-                objek,
-                expires=timedelta(seconds=_PRESIGN_DETIK),
-            )
+            try:
+                url = client.presigned_put_object(
+                    self._bucket,
+                    objek,
+                    expires=timedelta(seconds=_PRESIGN_DETIK),
+                )
+            except S3Error as exc:
+                raise RuntimeError(f"MinIO presign gagal: {exc}") from exc
             return self._sisipkan_prefix_publik(url)
 
         return await anyio.to_thread.run_sync(_presign)

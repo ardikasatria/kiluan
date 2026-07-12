@@ -38,7 +38,8 @@ Edit `.env` (minimal):
 5. `CORS_ORIGINS` harus mencakup origin **frontend**
 6. Ganti semua password & `JWT_SECRET`
 7. `COOKIE_SECURE=true` (default; Caddy selalu HTTPS)
-8. `MINIO_PUBLIC_BASE_URL` + `MINIO_SECURE=true` untuk unggah media F4
+8. `COOKIE_SAMESITE=none` — wajib bila frontend & API beda subdomain (cookie refresh ikut cross-site)
+9. `MINIO_PUBLIC_BASE_URL` + `MINIO_SECURE=true` untuk unggah media F4
 
 ```bash
 docker compose --env-file .env up -d --build --remove-orphans
@@ -119,7 +120,8 @@ docker compose logs -f caddy   # pantau penerbitan sertifikat
 | `minio` unhealthy | `docker compose logs minio` — pastikan `MINIO_ROOT_PASSWORD` ≥ 8 karakter |
 | `backend` restart loop | `docker compose logs backend` — cek koneksi DB & migrasi |
 | Frontend 502 | Tunggu healthcheck hijau: `docker compose ps` |
-| Login gagal / cookie | `CORS_ORIGINS` harus origin **frontend**; `COOKIE_SECURE=true`; API di `api.sigerciv.com` |
+| Login gagal / cookie | `CORS_ORIGINS` harus origin **frontend**; `COOKIE_SECURE=true`; `COOKIE_SAMESITE=none` bila `NEXT_PUBLIC_API_URL` beda origin; API di `api.sigerciv.com` |
+| Unggah media `tidak_terautentikasi` | Pastikan sudah login; set `COOKIE_SAMESITE=none` + redeploy backend; atau kosongkan `NEXT_PUBLIC_API_URL` agar API lewat proxy same-origin Next.js |
 | Build frontend OOM | Tambah swap di VM atau build di mesin lain lalu push image |
 
 ## Port internal

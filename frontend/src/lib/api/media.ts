@@ -1,3 +1,4 @@
+import { pastikanTokenAkses } from './auth'
 import { apiFetch } from './client'
 import type {
   KonfirmasiMediaPayload,
@@ -5,6 +6,12 @@ import type {
   MediaItem,
   PresignResponse,
 } from './types'
+
+function namaBerkasAman(nama: string): string {
+  const dasar = nama.split(/[/\\]/).pop()?.trim() || 'upload'
+  const aman = dasar.replace(/[^\w.\-()+]/g, '_').slice(0, 120)
+  return aman || 'upload'
+}
 
 /** URL foto sampul (utama) dari daftar media entitas. */
 export function urlSampulDariMedia(media: MediaItem[]): string | null {
@@ -23,10 +30,11 @@ export async function presignMedia(
   desaSlug: string,
   file: Pick<File, 'name' | 'type' | 'size'>,
 ): Promise<PresignResponse> {
+  await pastikanTokenAkses()
   return apiFetch(`/api/v1/desa/${desaSlug}/media/presign`, {
     method: 'POST',
     body: JSON.stringify({
-      nama_berkas: file.name,
+      nama_berkas: namaBerkasAman(file.name),
       mime: file.type || 'application/octet-stream',
       ukuran: file.size,
     }),

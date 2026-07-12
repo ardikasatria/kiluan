@@ -28,6 +28,9 @@ type FetchOpts = RequestInit & {
 function fetchCredentials(path: string, init?: FetchOpts): RequestCredentials {
   if (init?.credentials) return init.credentials
   if (path.startsWith('/api/v1/auth')) return 'include'
+  // Cross-origin API (sigerciv.com → api.sigerciv.com): kirim cookie refresh untuk segarkan token
+  const base = getApiBase()
+  if (base.startsWith('http')) return 'include'
   return 'same-origin'
 }
 

@@ -41,6 +41,8 @@ class Konfig(BaseSettings):
         "http://sigerciv.com"
     )
     COOKIE_SECURE: bool = False
+    # lax = same-origin frontend+API; none = frontend & API beda subdomain (sigerciv.com + api.sigerciv.com)
+    COOKIE_SAMESITE: str = "lax"
 
     def cors_origins(self) -> list[str]:
         raw = (self.CORS_ORIGINS or "").strip()

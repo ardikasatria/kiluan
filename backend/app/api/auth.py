@@ -28,10 +28,23 @@ def _layanan(store) -> AuthLayanan:
 
 def _set_refresh(resp: Response, token: str) -> None:
     cfg = konfig()
+    samesite = (cfg.COOKIE_SAMESITE or "lax").lower()
+    if samesite not in ("lax", "strict", "none"):
+        samesite = "lax"
+    secure = cfg.COOKIE_SECURE or samesite == "none"
     resp.set_cookie(
-        _COOKIE, token, httponly=True, secure=cfg.COOKIE_SECURE,
-        samesite="lax", path="/api/v1/auth",
+        _COOKIE, token, httponly=True, secure=secure,
+        samesite=samesite, path="/api/v1/auth",
     )
+
+
+def _hapus_refresh(resp: Response) -> None:
+    cfg = konfig()
+    samesite = (cfg.COOKIE_SAMESITE or "lax").lower()
+    if samesite not in ("lax", "strict", "none"):
+        samesite = "lax"
+    secure = cfg.COOKIE_SECURE or samesite == "none"
+    resp.delete_cookie(_COOKIE, path="/api/v1/auth", secure=secure, samesite=samesite)
 
 
 class TokenReq(BaseModel):
@@ -119,7 +132,7 @@ async def keluar(request: Request, response: Response, store=Depends(get_penyimp
     refresh = request.cookies.get(_COOKIE)
     if refresh:
         await _layanan(store).keluar(refresh)
-    response.delete_cookie(_COOKIE, path="/api/v1/auth")
+    _hapus_refresh(response)
 
 
 @router.post("/lupa-sandi")

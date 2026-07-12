@@ -23,8 +23,8 @@ export async function getDaftarNotifikasi(
   try {
     return await apiFetch(`/api/v1/desa/${desaSlug}/notifikasi${qs ? `?${qs}` : ''}`)
   } catch (err) {
-    if (err instanceof ApiError && err.status === 401) {
-      return mockDaftarNotifikasi(opts)
+    if (err instanceof ApiError && (err.status === 401 || err.status === 404)) {
+      return { item: [], meta: { kursor_berikutnya: null, ada_lagi: false, batas: opts?.batas ?? 20 } }
     }
     return mockDaftarNotifikasi(opts)
   }
@@ -37,7 +37,7 @@ export async function getHitungNotifikasi(desaSlug: string): Promise<NotifikasiH
   try {
     return await apiFetch(`/api/v1/desa/${desaSlug}/notifikasi/hitung`)
   } catch (err) {
-    if (err instanceof ApiError && err.status === 401) {
+    if (err instanceof ApiError && (err.status === 401 || err.status === 404)) {
       return { belum_dibaca: 0 }
     }
     return mockHitungNotifikasi()

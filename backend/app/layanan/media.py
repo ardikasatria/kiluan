@@ -1,6 +1,8 @@
 """Media (MinIO presigned) + lampiran polimorfik (async)."""
 from __future__ import annotations
 
+import re
+import uuid
 from uuid import UUID
 
 from ..domain import konteks as ctx
@@ -9,6 +11,8 @@ from ..domain.entitas import Lampiran, Media
 from ..domain.enums import EntitasLampiran, TipeMedia
 from ..domain.errors import KesalahanValidasi, TidakDitemukan
 from ..inti.minio import url_publik_objek
+
+_NAMA_BERKAS_RE = re.compile(r"[^\w.\-()+]")
 
 
 class MediaLayanan:
@@ -32,11 +36,18 @@ class MediaLayanan:
         ctx.wajib(konteks, rbac.UNGGAH_MEDIA, desa_id)
         if ukuran <= 0:
             raise KesalahanValidasi("ukuran berkas tidak valid")
-        objek = f"{desa_id}/{nama_berkas}"
+        if ukuran > 20 * 1024 * 1024:
+            raise KesalahanValidasi("ukuran berkas melebihi batas 20 MB")
+        dasar = (nama_berkas or "upload").split("/")[-1].split("\\")[-1].strip() or "upload"
+        aman = _NAMA_BERKAS_RE.sub("_", dasar)[:120] or "upload"
+        objek = f"{desa_id}/{uuid.uuid4().hex}_{aman}"
         m = Media(desa_id=desa_id, objek_minio=objek, tipe=TipeMedia.foto, mime=mime,
                   ukuran=ukuran, diunggah_oleh=konteks.pengguna_id, dikonfirmasi=False)
         await self.store.media.tambah(m)
-        url = await self.store.objek.presign_put(objek)
+        try:
+            url = await self.store.objek.presign_put(objek)
+        except Exception as exc:
+            raise KesalahanValidasi("penyimpanan media tidak tersedia — coba lagi nanti") from exc
         return {"media_id": m.id, "objek_minio": objek, "url_unggah": url, "kedaluwarsa_dalam": 600}
 
     async def konfirmasi(self, konteks: ctx.Konteks, desa_id: UUID, media_id: UUID, tipe: TipeMedia, **meta) -> Media:

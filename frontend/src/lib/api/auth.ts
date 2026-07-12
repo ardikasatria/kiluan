@@ -137,3 +137,10 @@ export async function bootstrapSesi(): Promise<ProfilSaya | null> {
     return null
   }
 }
+
+/** Pastikan access token ada — segarkan dari cookie bila perlu. */
+export async function pastikanTokenAkses(): Promise<string> {
+  const ada = getAccessToken()
+  if (ada) return ada
+  return segarkanToken()
+}
