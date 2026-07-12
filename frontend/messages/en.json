@@ -2452,6 +2452,12 @@
     "geoDenied": "Location permission denied — distance to stations is hidden.",
     "backToMisi": "← Back to Sigerciv missions"
   },
+  "layananKatalog": {
+    "subtitle": "Local {jenis} services from providers in {desa}.",
+    "empty": "No published {jenis} services yet.",
+    "backEtalase": "Back to village showcase",
+    "linkPasar": "Explore Village Market"
+  },
   "pemandu": {
     "seoTitle": "Tour Guide",
     "title": "Tour Guide",

@@ -2452,6 +2452,12 @@
     "geoDenied": "Izin lokasi ditolak — jarak ke stasiun tidak ditampilkan.",
     "backToMisi": "← Kembali ke Misi sigerciv"
   },
+  "layananKatalog": {
+    "subtitle": "Daftar layanan {jenis} dari penyedia lokal di {desa}.",
+    "empty": "Belum ada layanan {jenis} yang dipublikasikan.",
+    "backEtalase": "Kembali ke etalase desa",
+    "linkPasar": "Jelajah Pasar Desa"
+  },
   "pemandu": {
     "seoTitle": "Pemandu Wisata",
     "title": "Pemandu Wisata",

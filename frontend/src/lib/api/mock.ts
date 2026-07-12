@@ -42,6 +42,16 @@ const SPOTS: DestinasiLengkap[] = [
     media: [],
     layanan: [
       {
+        id: 'b1000002-0000-4000-8000-000000000001',
+        nama: 'Homestay Kiluan Negeri',
+        jenis: 'penginapan',
+        harga: 250000,
+        satuan_harga: 'per_hari',
+        status: 'publikasi',
+        deskripsi: 'Penginapan sederhana dekat dermaga — sarapan lokal tersedia.',
+        penyedia: { id: 'u-mock-1', nama: 'Kelompok Wisata Kiluan' },
+      },
+      {
         id: 'b1000001-0000-4000-8000-000000000001',
         nama: 'Perahu lumba-lumba pagi',
         jenis: 'transportasi',
