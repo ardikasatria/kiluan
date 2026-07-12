@@ -6,6 +6,7 @@ import PwaInstallButton from '@/components/kiluan/PwaInstallButton'
 import { useAuth } from '@/contexts/AuthProvider'
 import { patchProfilSaya } from '@/lib/api/auth'
 import { pesanGalat } from '@/lib/api/galat'
+import { pesanErrorDariKode } from '@/lib/i18n/errors'
 import { konfirmasiMedia, presignMedia, unggahKeMinio } from '@/lib/api/media'
 import {
   bacaPrefsLokal,
@@ -150,7 +151,7 @@ function StatusKeanggotaanBadge({ status }: { status: string }) {
 }
 
 export default function AkunPreferensiClient({ desaSlug, desaNama, lintasDesa = false }: Props) {
-  const { user, refreshProfil, isLoading: authLoading } = useAuth()
+  const { user, refreshProfil, isLoading: authLoading, isLoggedIn } = useAuth()
   const theme = useContext(ThemeContext)
   const t = useTranslations('akun')
   const tPeran = useTranslations('peran')
@@ -206,15 +207,18 @@ export default function AkunPreferensiClient({ desaSlug, desaNama, lintasDesa = 
     } catch (err) {
       setNama(namaLama)
       setTelepon(teleponLama)
-      setPesanError(pesanGalat(err))
+      setPesanError(pesanGalat(err, locale))
     } finally {
       setSimpanProfil(false)
     }
   }
 
   async function handleAvatar(file: File) {
-    if (!user) return
     if (authLoading) return
+    if (!isLoggedIn || !user) {
+      setPesanError(pesanErrorDariKode('tidak_terautentikasi', locale))
+      return
+    }
     bersihkanPesan()
     setUnggahAvatar(true)
     setPctUnggah(0)
@@ -230,7 +234,7 @@ export default function AkunPreferensiClient({ desaSlug, desaNama, lintasDesa = 
       await refreshProfil()
       setPesanSukses(t('profil.avatarSukses'))
     } catch (err) {
-      setPesanError(pesanGalat(err))
+      setPesanError(pesanGalat(err, locale))
     } finally {
       setUnggahAvatar(false)
       setPctUnggah(0)

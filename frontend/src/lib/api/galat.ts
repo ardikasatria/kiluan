@@ -7,8 +7,8 @@ interface GalatAmplop {
 }
 
 export function pesanGalat(err: unknown, locale: Locale = 'id'): string {
-  if (err instanceof Error && 'body' in err) {
-    const body = (err as ApiError).body as GalatAmplop | undefined
+  if (err instanceof ApiError) {
+    const body = err.body as GalatAmplop | undefined
     const kode = body?.galat?.kode
     if (kode) return pesanErrorDariKode(kode, locale)
     if (body?.galat?.pesan) return body.galat.pesan
@@ -19,8 +19,8 @@ export function pesanGalat(err: unknown, locale: Locale = 'id'): string {
 }
 
 export function kodeGalat(err: unknown): string | null {
-  if (err instanceof Error && 'body' in err) {
-    const body = (err as ApiError).body as GalatAmplop | undefined
+  if (err instanceof ApiError) {
+    const body = err.body as GalatAmplop | undefined
     return body?.galat?.kode ?? null
   }
   return null

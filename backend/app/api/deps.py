@@ -6,7 +6,7 @@ from uuid import UUID
 
 from fastapi import Depends, Header
 
-from app.domain.errors import TidakDitemukan
+from app.domain.errors import TidakDitemukan, TidakTerautentikasi
 from app.domain.konteks import Konteks, bangun_konteks, wajib
 from app.inti import keamanan
 from app.inti.db import BuatSesi
@@ -29,7 +29,11 @@ async def pengguna_id_opsional(authorization: Optional[str] = Header(default=Non
     if not authorization or not authorization.lower().startswith("bearer "):
         return None
     token = authorization.split(" ", 1)[1]
-    payload = keamanan.baca_access(token)  # → TidakTerautentikasi bila invalid
+    try:
+        payload = keamanan.baca_access(token)
+    except TidakTerautentikasi:
+        # Token kedaluwarsa/invalid — anggap anonim agar klien bisa segarkan via cookie.
+        return None
     return UUID(payload["sub"])
 
 

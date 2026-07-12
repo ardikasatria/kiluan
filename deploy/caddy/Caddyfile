@@ -28,8 +28,18 @@
 }
 
 {$FRONTEND_DOMAIN} {
-	reverse_proxy frontend:3000 {
-		header_up Host {host}
-		header_up X-Real-IP {remote_host}
+	# API same-origin — cookie refresh & Bearer refresh jalan tanpa CORS cross-site
+	handle /api/v1/* {
+		reverse_proxy backend:8000 {
+			header_up Host {host}
+			header_up X-Real-IP {remote_host}
+		}
+	}
+
+	handle {
+		reverse_proxy frontend:3000 {
+			header_up Host {host}
+			header_up X-Real-IP {remote_host}
+		}
 	}
 }

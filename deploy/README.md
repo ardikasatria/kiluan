@@ -10,7 +10,7 @@ Stack: **PostGIS · Redis · MinIO · Backend · Frontend · Caddy** (TLS otomat
 | `https://api.sigerciv.com` | API FastAPI (`/api/v1/*`) |
 | `https://api.sigerciv.com/media/` | MinIO (unggah & baca media) |
 
-Frontend memanggil API lewat `NEXT_PUBLIC_API_URL` (bukan `/api` same-origin).
+Frontend memanggil API lewat **`https://sigerciv.com/api/v1/*`** (same-origin via Caddy) bila `NEXT_PUBLIC_API_URL` kosong — **disarankan**. Subdomain `api.sigerciv.com` tetap dipakai untuk MinIO `/media/*` dan akses API langsung.
 
 ## Prasyarat VM
 
@@ -34,7 +34,7 @@ Edit `.env` (minimal):
 1. `ACME_EMAIL` — email valid untuk Let's Encrypt
 2. `FRONTEND_DOMAIN` / `API_DOMAIN` — sesuaikan jika perlu
 3. `APP_BASE_URL` = URL frontend (`https://sigerciv.com`)
-4. `NEXT_PUBLIC_API_URL` = URL API (`https://api.sigerciv.com`)
+4. `NEXT_PUBLIC_API_URL` — **kosongkan** (default) agar API same-origin; isi `https://api.sigerciv.com` hanya jika perlu + `COOKIE_SAMESITE=none`
 5. `CORS_ORIGINS` harus mencakup origin **frontend**
 6. Ganti semua password & `JWT_SECRET`
 7. `COOKIE_SECURE=true` (default; Caddy selalu HTTPS)
