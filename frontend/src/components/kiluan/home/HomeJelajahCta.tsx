@@ -1,15 +1,23 @@
-import { ArrowRightIcon, GlobeAltIcon, MapIcon } from '@heroicons/react/24/outline'
+import HomeJelajahMap from '@/components/kiluan/home/HomeJelajahMap'
+import { daftarDesaDiscovery } from '@/lib/api/discovery'
+import type { DestinasiRingkas } from '@/lib/api/types'
+import { ArrowRightIcon, GlobeAltIcon } from '@heroicons/react/24/outline'
 import { Link } from '@/i18n/navigation'
 import { getTranslations } from 'next-intl/server'
 
-export default async function HomeJelajahCta() {
+interface Props {
+  destinasi?: DestinasiRingkas[]
+}
+
+export default async function HomeJelajahCta({ destinasi = [] }: Props) {
   const t = await getTranslations('landing.jelajahCta')
+  const { item: desa } = await daftarDesaDiscovery({ batas: 24 })
 
   return (
     <section className="border-t border-neutral-200/70 py-16 dark:border-neutral-800/70 sm:py-20">
       <div className="container">
         <div className="kiluan-glass-panel overflow-hidden">
-          <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+          <div className="grid lg:grid-cols-2 lg:items-stretch">
             <div className="p-8 sm:p-10 lg:p-12">
               <p className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-primary-400">
                 <GlobeAltIcon className="size-4" aria-hidden />
@@ -25,11 +33,8 @@ export default async function HomeJelajahCta() {
                 <ArrowRightIcon className="size-4" aria-hidden />
               </Link>
             </div>
-            <div className="relative hidden min-h-[220px] bg-gradient-to-br from-primary-700/90 via-kiluan-teal/80 to-kiluan-sea/70 lg:block">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <MapIcon className="size-24 text-white/20" aria-hidden />
-              </div>
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(170,255,199,.25),transparent_55%)]" />
+            <div className="relative min-h-[260px] border-t border-neutral-200/70 dark:border-neutral-700/70 lg:min-h-[320px] lg:border-t-0 lg:border-s">
+              <HomeJelajahMap desa={desa} destinasi={destinasi} />
             </div>
           </div>
         </div>

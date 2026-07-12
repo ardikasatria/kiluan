@@ -50,7 +50,7 @@ export default async function HomePage() {
       <HomePasarDesa umkm={umkmRes.item} />
       <HomePaketPilihan paket={paketRes.item} />
       <HomeJejakRegeneratif />
-      <HomeJelajahCta />
+      <HomeJelajahCta destinasi={destinasiRes.item} />
       <HomeCta />
       <HomeWeather cuaca={cuaca} />
     </div>
