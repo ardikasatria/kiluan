@@ -1,24 +1,26 @@
 'use client'
 
 import { useAuth } from '@/contexts/AuthProvider'
-import { punyaPeran, type PeranKode } from '@/lib/kiluan/peran'
+import { labelPeran, punyaPeran, statusKeanggotaan, type PeranKode } from '@/lib/kiluan/peran'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import MembershipStatusAlert from './MembershipStatusAlert'
 
 interface Props {
   desaSlug: string
+  desaNama?: string
   peran?: PeranKode
   children: React.ReactNode
-  /** true = hanya butuh login (hub wisatawan) */
   loginOnly?: boolean
 }
 
-export default function DasborGuard({ desaSlug, peran, children, loginOnly }: Props) {
+export default function DasborGuard({ desaSlug, desaNama = 'Desa', peran, children, loginOnly }: Props) {
   const { isLoggedIn, isLoading, user } = useAuth()
   const router = useRouter()
 
+  const statusPeran = peran ? statusKeanggotaan(user?.profil ?? null, peran) : null
   const boleh =
     loginOnly || !peran
       ? isLoggedIn
@@ -26,9 +28,10 @@ export default function DasborGuard({ desaSlug, peran, children, loginOnly }: Pr
 
   useEffect(() => {
     if (!isLoading && isLoggedIn && peran && !punyaPeran(user?.profil ?? null, peran)) {
+      if (statusPeran === 'menunggu' || statusPeran === 'ditolak') return
       router.replace(`/${desaSlug}/dasbor`)
     }
-  }, [isLoading, isLoggedIn, peran, user, desaSlug, router])
+  }, [isLoading, isLoggedIn, peran, user, desaSlug, router, statusPeran])
 
   if (isLoading) {
     return (
@@ -38,7 +41,7 @@ export default function DasborGuard({ desaSlug, peran, children, loginOnly }: Pr
 
   if (!isLoggedIn) {
     return (
-      <div className="py-16 text-center">
+      <div className="rounded-2xl border border-neutral-200 bg-white px-6 py-16 text-center dark:border-neutral-700 dark:bg-neutral-800/60">
         <h1 className="text-xl font-semibold text-primary-800 dark:text-primary-100">Dasbor sigerciv</h1>
         <p className="mx-auto mt-2 max-w-md text-sm text-neutral-600 dark:text-neutral-400">
           Masuk untuk mengakses dasbor sesuai peran keanggotaan Anda.
@@ -52,6 +55,24 @@ export default function DasborGuard({ desaSlug, peran, children, loginOnly }: Pr
             Daftar
           </Link>
         </div>
+      </div>
+    )
+  }
+
+  if (peran && (statusPeran === 'menunggu' || statusPeran === 'ditolak')) {
+    return (
+      <div className="space-y-4">
+        <MembershipStatusAlert
+          status={statusPeran}
+          peranLabel={labelPeran(peran)}
+          desaNama={desaNama}
+        />
+        <Link
+          href={`/${desaSlug}/dasbor`}
+          className="inline-block text-sm font-semibold text-primary-700 dark:text-primary-300"
+        >
+          Kembali ke pemilih dasbor
+        </Link>
       </div>
     )
   }

@@ -13,7 +13,7 @@ export default function DashboardModulLinks({ modul }: Props) {
         <li key={m.href + m.label}>
           <Link
             href={m.href}
-            className="flex items-center justify-between gap-2 rounded-xl border border-neutral-200 px-4 py-3 text-sm font-medium text-neutral-800 transition hover:border-primary-300 hover:bg-primary-50/50 dark:border-neutral-700 dark:text-neutral-200 dark:hover:border-primary-600 dark:hover:bg-primary-900/20"
+            className="flex items-center justify-between gap-2 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm font-medium text-neutral-800 transition hover:border-kiluan-sea/50 hover:bg-kiluan-mint/10 dark:border-neutral-700 dark:bg-neutral-800/40 dark:text-neutral-200 dark:hover:border-primary-600 dark:hover:bg-primary-900/20"
           >
             {m.label}
             <ArrowTopRightOnSquareIcon className="size-4 shrink-0 text-neutral-400" aria-hidden />

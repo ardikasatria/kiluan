@@ -1,121 +1,209 @@
 const DESA = 'teluk-kiluan'
 
+export type TNavigationFeatured = {
+  title: string
+  description: string
+  href: string
+  badge?: string
+  image?: string
+}
+
+export type TNavigationItem = Partial<{
+  id: string
+  href: string
+  name: string
+  description?: string
+  type?: 'dropdown' | 'mega-menu'
+  isNew?: boolean
+  soon?: boolean
+  children?: TNavigationItem[]
+  featured?: TNavigationFeatured
+}>
+
 export async function getNavigation(): Promise<TNavigationItem[]> {
   return [
     {
-      id: 'jelajahi',
+      id: 'jelajah',
       href: `/${DESA}`,
-      name: 'Jelajahi',
+      name: 'Jelajah',
       type: 'mega-menu',
-      description: 'Gerbang & Destinasi sigerciv',
+      description: 'Destinasi & tempat wisata',
+      featured: {
+        title: 'Laguna Kiluan',
+        description: 'Spot unggulan untuk snorkeling di perairan tenang Teluk Kiluan.',
+        href: `/${DESA}/spot/laguna-kiluan`,
+        badge: 'Spot unggulan',
+        image: '/gallery/laguna.jpg',
+      },
       children: [
         {
-          id: 'jelajahi-destinasi',
-          name: 'Destinasi',
+          id: 'jelajah-kategori',
+          name: 'Kategori',
           children: [
-            { id: 'j-d-1', href: `/${DESA}`, name: 'Beranda Desa' },
-            { id: 'j-d-2', href: `/${DESA}#destinasi`, name: 'Katalog Spot' },
-            { id: 'j-d-3', href: `/${DESA}/peta`, name: 'Peta Destinasi' },
-            { id: 'j-d-4', href: '/cari', name: 'Cari Sekitar Saya' },
+            { id: 'j-k-1', href: `/${DESA}?kategori=pantai#destinasi`, name: 'Pantai' },
+            { id: 'j-k-2', href: `/${DESA}?kategori=snorkeling#destinasi`, name: 'Snorkeling' },
+            { id: 'j-k-3', href: `/${DESA}?kategori=lumba-lumba#destinasi`, name: 'Lumba-lumba' },
+            { id: 'j-k-4', href: `/${DESA}?kategori=mangrove#destinasi`, name: 'Mangrove' },
+            { id: 'j-k-5', href: `/${DESA}?kategori=budaya#destinasi`, name: 'Budaya' },
+            { id: 'j-k-6', href: `/${DESA}?kategori=kuliner#destinasi`, name: 'Kuliner' },
           ],
         },
         {
-          id: 'jelajahi-pengalaman',
-          name: 'Pengalaman',
+          id: 'jelajah-cara',
+          name: 'Cara jelajah',
           children: [
-            { id: 'j-p-1', href: `/${DESA}/destinasi?kategori=lumba-lumba`, name: 'Lumba-lumba Pagi' },
-            { id: 'j-p-2', href: `/${DESA}/destinasi?kategori=snorkeling`, name: 'Snorkeling & Karang' },
-            { id: 'j-p-3', href: `/${DESA}/destinasi?kategori=tracking`, name: 'Tracking Hutan' },
-            { id: 'j-p-4', href: `/${DESA}/destinasi?kategori=pantai`, name: 'Pantai & Teluk' },
+            { id: 'j-c-1', href: `/${DESA}/peta`, name: 'Peta' },
+            { id: 'j-c-2', href: '/#spot-unggulan', name: 'Spot unggulan' },
+            { id: 'j-c-3', href: '/cari', name: 'Terdekat' },
           ],
         },
         {
-          id: 'jelajahi-info',
-          name: 'Informasi',
+          id: 'jelajah-kalender',
+          name: 'Kalender',
           children: [
-            { id: 'j-i-1', href: `/${DESA}/kalender`, name: 'Kalender Aktivitas' },
-            { id: 'j-i-2', href: `/${DESA}/panduan`, name: 'Panduan Berkunjung' },
-            { id: 'j-i-3', href: `/${DESA}/tentang`, name: 'Profil Desa' },
-            { id: 'j-i-4', href: '/', name: 'Discovery Multi-Desa' },
+            { id: 'j-l-1', href: `/${DESA}/kalender`, name: 'Aktivitas musiman' },
+            { id: 'j-l-2', href: `/${DESA}?kategori=lumba-lumba#destinasi`, name: 'Jadwal lumba-lumba pagi' },
+            { id: 'j-l-3', href: `/${DESA}/panduan`, name: 'Panduan berkunjung' },
           ],
         },
       ],
     },
     {
-      id: 'komunitas',
+      id: 'pengalaman',
+      href: `/${DESA}/paket`,
+      name: 'Pengalaman',
+      type: 'mega-menu',
+      description: 'Paket, layanan, dan misi lestari',
+      featured: {
+        title: 'Paket wisata kurasi',
+        description: 'Trip bahari dan pengalaman lokal — kurasi komunitas desa.',
+        href: `/${DESA}/paket`,
+        badge: 'Pengalaman',
+      },
+      children: [
+        {
+          id: 'pengalaman-paket',
+          name: 'Paket wisata',
+          children: [
+            { id: 'p-p-1', href: `/${DESA}/paket`, name: 'Semua paket' },
+            { id: 'p-p-2', href: `/${DESA}/paket?durasi=1-hari`, name: 'Paket sehari', soon: true },
+            { id: 'p-p-3', href: `/${DESA}/paket?durasi=keluarga`, name: 'Paket keluarga', soon: true },
+          ],
+        },
+        {
+          id: 'pengalaman-layanan',
+          name: 'Layanan',
+          children: [
+            { id: 'p-l-1', href: `/${DESA}/pemandu`, name: 'Pemandu', soon: true },
+            { id: 'p-l-2', href: `/${DESA}/penginapan`, name: 'Penginapan', soon: true },
+            { id: 'p-l-3', href: `/${DESA}/sewa-alat`, name: 'Sewa alat', soon: true },
+            { id: 'p-l-4', href: `/${DESA}/transport`, name: 'Transport', soon: true },
+            { id: 'p-l-5', href: `/${DESA}/pasar?kategori=kuliner`, name: 'Kuliner' },
+            { id: 'p-l-6', href: `/${DESA}/tiket`, name: 'Tiket', soon: true },
+          ],
+        },
+        {
+          id: 'pengalaman-misi',
+          name: 'Misi Lestari',
+          children: [
+            { id: 'p-m-1', href: `/${DESA}/misi`, name: 'Penjelajah Lestari' },
+            { id: 'p-m-2', href: '/paspor', name: 'Paspor Lestari' },
+            { id: 'p-m-3', href: `/${DESA}/stasiun-lestari`, name: 'Stasiun Lestari', soon: true },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'pasar-desa',
       href: `/${DESA}/pasar`,
-      name: 'Komunitas',
+      name: 'Pasar Desa',
       type: 'mega-menu',
-      description: 'Pasar Desa & Kolaborasi',
+      description: 'UMKM & produk lokal bersertifikat',
+      featured: {
+        title: 'UMKM bersertifikat',
+        description: 'Penyedia lokal dengan tingkat Tunas, Bahari, atau Lumba-Lumba.',
+        href: `/${DESA}/pasar?sertifikat=lestari`,
+        badge: 'Owner bersertifikat',
+      },
       children: [
         {
-          id: 'komunitas-umkm',
-          name: 'Pasar Desa',
+          id: 'pasar-kategori',
+          name: 'Kategori UMKM',
           children: [
-            { id: 'k-u-1', href: `/${DESA}/pasar`, name: 'Semua UMKM' },
-            { id: 'k-u-2', href: `/${DESA}/pasar?kategori=kuliner`, name: 'Kuliner Lokal' },
-            { id: 'k-u-3', href: `/${DESA}/pasar?kategori=kerajinan`, name: 'Kerajinan & Souvenir' },
-            { id: 'k-u-4', href: `/${DESA}/pasar?kategori=jasa`, name: 'Jasa Wisata' },
+            { id: 'pd-k-1', href: `/${DESA}/pasar`, name: 'Semua UMKM' },
+            { id: 'pd-k-2', href: `/${DESA}/pasar?kategori=kuliner`, name: 'Kuliner lokal' },
+            { id: 'pd-k-3', href: `/${DESA}/pasar?kategori=kerajinan`, name: 'Kerajinan & souvenir' },
+            { id: 'pd-k-4', href: `/${DESA}/pasar?kategori=jasa`, name: 'Jasa wisata' },
           ],
         },
         {
-          id: 'komunitas-paket',
-          name: 'Paket Wisata',
+          id: 'pasar-sertifikasi',
+          name: 'Owner bersertifikat',
           children: [
-            { id: 'k-p-1', href: `/${DESA}/paket`, name: 'Semua Paket' },
-            { id: 'k-p-2', href: `/${DESA}/paket?durasi=1-hari`, name: 'Paket Sehari' },
-            { id: 'k-p-3', href: `/${DESA}/paket?durasi=keluarga`, name: 'Paket Keluarga' },
-            { id: 'k-p-4', href: `/${DESA}/agen`, name: 'Agen Lokal' },
+            { id: 'pd-s-1', href: `/${DESA}/sertifikasi`, name: 'Tingkat Tunas' },
+            { id: 'pd-s-2', href: `/${DESA}/sertifikasi`, name: 'Tingkat Bahari' },
+            { id: 'pd-s-3', href: `/${DESA}/sertifikasi`, name: 'Tingkat Lumba-Lumba' },
           ],
         },
         {
-          id: 'komunitas-kolaborasi',
-          name: 'Kolaborasi',
+          id: 'pasar-produk',
+          name: 'Produk & jasa',
           children: [
-            { id: 'k-k-1', href: `/${DESA}/kontribusi`, name: 'Kontribusi Data' },
-            { id: 'k-k-2', href: `/${DESA}/saya/lencana`, name: 'Lencana Warga' },
-            { id: 'k-k-3', href: `/${DESA}/leaderboard`, name: 'Leaderboard' },
-            { id: 'k-k-4', href: `/${DESA}/pasar?sertifikat=lestari`, name: 'UMKM Bersertifikat' },
+            { id: 'pd-p-1', href: `/${DESA}/pasar`, name: 'Katalog produk' },
+            { id: 'pd-p-2', href: `/${DESA}/pasar?sertifikat=lestari`, name: 'Penyedia bersertifikat' },
+            { id: 'pd-p-3', href: `/${DESA}/agen`, name: 'Agen lokal', soon: true },
           ],
         },
       ],
     },
     {
-      id: 'lestari',
-      href: `/${DESA}/misi`,
-      name: 'Lestari',
+      id: 'cerita-dampak',
+      href: `/${DESA}/tentang`,
+      name: 'Cerita & Dampak',
       type: 'mega-menu',
-      isNew: true,
-      description: 'Misi sigerciv & Jejak Lestari',
+      description: 'Komunitas, regeneratif, dan gabung',
+      featured: {
+        title: 'Gabung komunitas sigerciv',
+        description: 'Daftar sebagai warga, UMKM, agen, atau pengelola Pokdarwis.',
+        href: '/daftar',
+        badge: 'Gabung',
+      },
       children: [
         {
-          id: 'lestari-wisatawan',
-          name: 'Misi Wisatawan',
+          id: 'cerita-tentang',
+          name: 'Tentang sigerciv',
           children: [
-            { id: 'l-w-1', href: `/${DESA}/misi`, name: 'Penjelajah Lestari' },
-            { id: 'l-w-2', href: `/${DESA}/paspor`, name: 'Paspor Lestari' },
-            { id: 'l-w-3', href: `/${DESA}/stasiun-lestari`, name: 'Stasiun Lestari' },
-            { id: 'l-w-4', href: `/${DESA}/misi?status=aktif`, name: 'Quest Aktif' },
+            { id: 'cd-t-1', href: `/${DESA}/tentang`, name: 'Kisah desa' },
+            { id: 'cd-t-2', href: `/${DESA}/tentang`, name: 'Kepemilikan komunitas' },
+            { id: 'cd-t-3', href: '/', name: 'Gerbang multi-desa' },
           ],
         },
         {
-          id: 'lestari-owner',
-          name: 'Praktik Regeneratif',
+          id: 'cerita-regeneratif',
+          name: 'Wisata Regeneratif',
           children: [
-            { id: 'l-o-1', href: `/${DESA}/naik-kelas`, name: 'Naik Kelas Lestari' },
-            { id: 'l-o-2', href: `/${DESA}/kartu-aksi`, name: 'Kartu Aksi' },
-            { id: 'l-o-3', href: `/${DESA}/kelola`, name: 'Dashboard Pengelola' },
-            { id: 'l-o-4', href: `/${DESA}/sertifikasi`, name: 'Tingkat Sertifikasi' },
+            { id: 'cd-r-1', href: `/${DESA}/panduan`, name: 'Apa & mengapa' },
+            { id: 'cd-r-2', href: `/${DESA}/panduan`, name: 'Kode etik lumba-lumba' },
+            { id: 'cd-r-3', href: `/${DESA}/panduan`, name: 'Kode etik karang' },
           ],
         },
         {
-          id: 'lestari-transparansi',
-          name: 'Transparansi',
+          id: 'cerita-jejak',
+          name: 'Jejak Konservasi',
           children: [
-            { id: 'l-t-1', href: `/${DESA}/dana-konservasi`, name: 'Dana Konservasi' },
-            { id: 'l-t-2', href: `/${DESA}/neraca-regeneratif`, name: 'Neraca Regeneratif' },
-            { id: 'l-t-3', href: `/${DESA}/daya-dukung`, name: 'Daya Dukung Spot' },
-            { id: 'l-t-4', href: `/${DESA}/monitoring`, name: 'Monitoring Ekologi' },
+            { id: 'cd-j-1', href: `/${DESA}/dana-konservasi`, name: 'Dana konservasi', soon: true },
+            { id: 'cd-j-2', href: `/${DESA}/neraca-regeneratif`, name: 'Neraca regeneratif', soon: true },
+            { id: 'cd-j-3', href: '/#jejak-regeneratif', name: 'Komitmen transparansi' },
+          ],
+        },
+        {
+          id: 'cerita-gabung',
+          name: 'Gabung Komunitas',
+          children: [
+            { id: 'cd-g-1', href: '/daftar?peran=wisatawan', name: 'Warga / Wisatawan' },
+            { id: 'cd-g-2', href: '/daftar?peran=umkm', name: 'UMKM' },
+            { id: 'cd-g-3', href: '/daftar?peran=agen', name: 'Agen' },
+            { id: 'cd-g-4', href: '/daftar?peran=pokdarwis', name: 'Pokdarwis' },
           ],
         },
       ],
@@ -127,16 +215,6 @@ export async function getNavMegaMenu(): Promise<TNavigationItem> {
   const navigation = await getNavigation()
   return navigation[0] || {}
 }
-
-export type TNavigationItem = Partial<{
-  id: string
-  href: string
-  name: string
-  description?: string
-  type?: 'dropdown' | 'mega-menu'
-  isNew?: boolean
-  children?: TNavigationItem[]
-}>
 
 export const getLanguages = async () => {
   return [

@@ -9,7 +9,7 @@ interface Props {
 const Layout: React.FC<Props> = ({ children }) => {
   return (
     <KiluanMeshBackground className="min-h-screen">
-      <ApplicationLayout headerHasBorder>{children}</ApplicationLayout>
+      <ApplicationLayout headerVariant="landing">{children}</ApplicationLayout>
     </KiluanMeshBackground>
   )
 }

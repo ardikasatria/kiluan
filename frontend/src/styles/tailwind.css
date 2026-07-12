@@ -120,6 +120,17 @@
   @apply rounded-2xl border border-white/60 bg-white/75 shadow-sm backdrop-blur-md dark:border-neutral-700/50 dark:bg-neutral-900/70;
 }
 
+/* Landing header — transparan di hero, solid setelah scroll */
+.kiluan-header[data-landing]:not(.is-scrolled) .kiluan-nav-btn {
+  @apply text-white hover:bg-white/12 hover:text-white;
+}
+.kiluan-header[data-landing]:not(.is-scrolled) .kiluan-nav-btn[aria-expanded='true'] {
+  @apply bg-white/15 text-white;
+}
+.kiluan-header[data-landing]:not(.is-scrolled) .kiluan-search-trigger {
+  @apply border-white/25 bg-white/10 text-primary-100 hover:border-white/40;
+}
+
 @utility pl-container {
   @apply pl-4 sm:pl-[calc((100vw-40rem+2rem)/2)] md:pl-[calc((100vw-48rem+2rem)/2)] lg:pl-[calc((100vw-64rem+2rem)/2)] xl:pl-[calc((100vw-80rem+2rem)/2)] 2xl:pl-[calc((100vw-96rem+16rem)/2)];
 }

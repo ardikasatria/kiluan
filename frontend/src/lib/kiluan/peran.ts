@@ -88,6 +88,20 @@ export function daftarPeranPengguna(profil: ProfilSaya | null): PeranKode[] {
   return SEMUA_PERAN.filter((k) => punyaPeran(profil, k))
 }
 
+/** Status keanggotaan untuk peran (termasuk menunggu/ditolak) */
+export function statusKeanggotaan(
+  profil: ProfilSaya | null,
+  kode: PeranKode,
+): 'aktif' | 'menunggu' | 'ditolak' | null {
+  if (!profil) return null
+  const cocok = profil.keanggotaan.filter((k) => k.peran === kode)
+  if (cocok.length === 0) return null
+  if (cocok.some((k) => k.status === 'aktif')) return 'aktif'
+  if (cocok.some((k) => k.status === 'menunggu')) return 'menunggu'
+  if (cocok.some((k) => k.status === 'ditolak')) return 'ditolak'
+  return null
+}
+
 export function dasborHref(desaSlug: string, kode: PeranKode): string {
   if (kode === 'admin') return '/admin/dasbor'
   return `/${desaSlug}/dasbor/${slugPeran(kode)}`

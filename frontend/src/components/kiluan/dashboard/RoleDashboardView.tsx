@@ -3,49 +3,64 @@
 import DashboardActivity from '@/components/kiluan/dashboard/DashboardActivity'
 import DashboardModulLinks from '@/components/kiluan/dashboard/DashboardModulLinks'
 import DashboardQuickActions from '@/components/kiluan/dashboard/DashboardQuickActions'
+import DashboardShell from '@/components/kiluan/dashboard/DashboardShell'
 import DashboardSidebar from '@/components/kiluan/dashboard/DashboardSidebar'
 import DashboardStatGrid from '@/components/kiluan/dashboard/DashboardStatGrid'
+import DashboardTopbar from '@/components/kiluan/dashboard/DashboardTopbar'
+import DashboardWidgetGrid from '@/components/kiluan/dashboard/DashboardWidgetGrid'
 import type { DashboardPeranConfig } from '@/lib/kiluan/dashboard-peran'
-import { labelPeran } from '@/lib/kiluan/peran'
 import { BeakerIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
 
 interface Props {
   desaSlug: string
+  desaNama: string
   config: DashboardPeranConfig
   statsOverride?: Partial<Record<string, string | number>>
+  sectionTitle?: string
 }
 
-export default function RoleDashboardView({ desaSlug, config, statsOverride }: Props) {
+export default function RoleDashboardView({
+  desaSlug,
+  desaNama,
+  config,
+  statsOverride,
+  sectionTitle = 'Ringkasan',
+}: Props) {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
   const stats = config.stats.map((s) => ({
     ...s,
     value: statsOverride?.[s.id] ?? s.value,
   }))
 
   return (
-    <div className="flex flex-col gap-8 lg:flex-row lg:gap-10">
-      <DashboardSidebar
-        desaSlug={desaSlug}
-        peran={config.kode}
-        nav={config.nav}
-        tagline={config.tagline}
-      />
-
-      <div className="min-w-0 flex-1 space-y-8">
-        <header className="lg:hidden">
-          <p className="text-xs font-medium text-primary-600 uppercase dark:text-primary-400">Dasbor</p>
-          <h1 className="text-2xl font-bold text-primary-800 dark:text-primary-100">{labelPeran(config.kode)}</h1>
-          <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{config.deskripsi}</p>
-        </header>
-
-        <div className="hidden rounded-2xl border border-neutral-200 bg-gradient-to-br from-primary-50/80 to-white p-6 lg:block dark:border-neutral-700 dark:from-primary-950/40 dark:to-neutral-900/40">
+    <DashboardShell
+      sidebarOpen={sidebarOpen}
+      sidebar={
+        <DashboardSidebar desaSlug={desaSlug} peran={config.kode} nav={config.nav} tagline={config.tagline} />
+      }
+      topbar={
+        <DashboardTopbar
+          desaSlug={desaSlug}
+          desaNama={desaNama}
+          config={config}
+          sectionTitle={sectionTitle}
+          sidebarOpen={sidebarOpen}
+          onToggleSidebar={() => setSidebarOpen((v) => !v)}
+        />
+      }
+    >
+      <div className="space-y-8">
+        <div className="rounded-2xl border border-primary-200/60 bg-gradient-to-br from-kiluan-mint/15 via-white to-primary-50/50 p-5 dark:border-primary-800/40 dark:from-primary-950/40 dark:via-neutral-900/60 dark:to-kiluan-navy/20 sm:p-6">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-semibold text-primary-800 dark:bg-primary-900/60 dark:text-primary-200">
+            <span className="rounded-full bg-kiluan-mint/30 px-2.5 py-0.5 text-xs font-semibold text-primary-800 dark:bg-primary-900/60 dark:text-kiluan-mint">
               Fase {config.fase}
             </span>
-            {stats.some((s) => s.hint?.startsWith('Fase')) && (
+            {stats.some((s) => s.value === '—' || s.segera) && (
               <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">
                 <BeakerIcon className="size-3.5" aria-hidden />
-                Beberapa metrik menyusul
+                Beberapa fitur menyusul
               </span>
             )}
           </div>
@@ -57,6 +72,11 @@ export default function RoleDashboardView({ desaSlug, config, statsOverride }: P
         <section>
           <h2 className="mb-4 text-sm font-semibold text-neutral-800 dark:text-neutral-200">Ringkasan</h2>
           <DashboardStatGrid stats={stats} />
+        </section>
+
+        <section>
+          <h2 className="mb-4 text-sm font-semibold text-neutral-800 dark:text-neutral-200">Modul peran</h2>
+          <DashboardWidgetGrid widgets={config.widgets} />
         </section>
 
         <section>
@@ -78,6 +98,6 @@ export default function RoleDashboardView({ desaSlug, config, statsOverride }: P
           </section>
         </div>
       </div>
-    </div>
+    </DashboardShell>
   )
 }

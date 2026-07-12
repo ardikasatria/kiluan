@@ -1,6 +1,7 @@
 import { formatHarga, labelSertifikasi } from '@/lib/kiluan/pasar'
 import { tambahKeKeranjang } from '@/lib/kiluan/cart'
 import type { ProdukJasaItem } from '@/lib/api/types'
+import { GlobeAsiaAustraliaIcon, SunIcon, TrophyIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 
 interface Props {
@@ -67,8 +68,13 @@ export default function ProdukCard({ produk, desaSlug }: Props) {
 export function SertifikasiBadge({ tingkat }: { tingkat?: string | null }) {
   const label = labelSertifikasi(tingkat)
   if (!label) return null
+
+  const Icon =
+    tingkat === 'lumba_lumba' ? TrophyIcon : tingkat === 'bahari' ? GlobeAsiaAustraliaIcon : SunIcon
+
   return (
-    <span className="inline-flex rounded-full bg-primary-50 px-2 py-0.5 text-xs font-medium text-primary-800 ring-1 ring-primary-200 dark:bg-primary-900/40 dark:text-primary-100">
+    <span className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2 py-0.5 text-xs font-medium text-primary-800 ring-1 ring-primary-200 dark:bg-primary-900/40 dark:text-primary-100">
+      <Icon className="size-3.5 shrink-0" aria-hidden />
       {label}
     </span>
   )

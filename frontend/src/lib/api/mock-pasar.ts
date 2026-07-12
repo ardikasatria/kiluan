@@ -1,8 +1,8 @@
 import type { MetaPaginasi, PaketDetail, PaketRingkas, ProdukJasaItem, UmkmRingkas } from './types'
 
 const BIDANG = [
-  { id: 1, kode: 'kuliner', nama: 'Kuliner', ikon: '🍲' },
-  { id: 2, kode: 'kerajinan', nama: 'Kerajinan', ikon: '🧺' },
+  { id: 1, kode: 'kuliner', nama: 'Kuliner' },
+  { id: 2, kode: 'kerajinan', nama: 'Kerajinan' },
 ]
 
 const MOCK_UMKM: UmkmRingkas[] = [

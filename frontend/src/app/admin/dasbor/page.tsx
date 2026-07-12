@@ -1,5 +1,6 @@
 import DasborGuard from '@/components/kiluan/dashboard/DasborGuard'
 import RoleDashboardView from '@/components/kiluan/dashboard/RoleDashboardView'
+import KiluanMeshBackground from '@/components/kiluan/KiluanMeshBackground'
 import { konfigDasborPeran } from '@/lib/kiluan/dashboard-peran'
 import { ApplicationLayout } from '@/app/(app)/application-layout'
 import Aside from '@/components/aside'
@@ -16,20 +17,17 @@ export default function AdminDasborPage() {
   return (
     <Aside.Provider>
       <ApplicationLayout headerHasBorder>
-        <DasborGuard desaSlug="teluk-kiluan" peran="admin">
-          <div className="container py-8 sm:py-12">
-            <div className="mb-8">
-              <p className="text-xs font-medium tracking-wide text-primary-600 uppercase dark:text-primary-400">
-                Steward platform
-              </p>
-              <h1 className="text-2xl font-bold text-primary-800 dark:text-primary-100">Dasbor Admin</h1>
-              <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                Lintas-tenant · modul Nusantara (Fase 4)
-              </p>
+        <KiluanMeshBackground className="min-h-screen">
+          <DasborGuard desaSlug="teluk-kiluan" desaNama="Lintas desa" peran="admin">
+            <div className="container py-6 sm:py-10">
+              <RoleDashboardView
+                desaSlug="teluk-kiluan"
+                desaNama="Steward platform"
+                config={config}
+              />
             </div>
-            <RoleDashboardView desaSlug="teluk-kiluan" config={config} />
-          </div>
-        </DasborGuard>
+          </DasborGuard>
+        </KiluanMeshBackground>
       </ApplicationLayout>
     </Aside.Provider>
   )

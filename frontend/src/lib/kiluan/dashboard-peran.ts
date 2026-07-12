@@ -14,6 +14,18 @@ export interface DashboardStat {
   value: string | number
   hint?: string
   href?: string
+  segera?: boolean
+  fase?: string
+}
+
+export interface DashboardWidget {
+  id: string
+  title: string
+  description: string
+  fase: string
+  href?: string
+  segera?: boolean
+  placeholder?: boolean
 }
 
 export interface DashboardQuickAction {
@@ -39,6 +51,7 @@ export interface DashboardPeranConfig {
   aksiCepat: DashboardQuickAction[]
   modulTerkait: DashboardModulLink[]
   aktivitasContoh: string[]
+  widgets: DashboardWidget[]
 }
 
 function href(desa: string, path: string) {
@@ -81,6 +94,44 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         'Menyelesaikan micro-lesson kode etik lumba-lumba',
         'Menyimpan spot Pantai Gigi Hiu ke daftar kunjungan',
       ],
+      widgets: [
+        {
+          id: 'booking',
+          title: 'Pesanan & booking',
+          description: 'Riwayat pemesanan paket dan layanan — alur manual thin-F2.',
+          fase: '2',
+          segera: true,
+        },
+        {
+          id: 'paspor',
+          title: 'Paspor Lestari',
+          description: 'Kumpulkan stempel dari misi lestari yang terverifikasi.',
+          fase: '2',
+          href: '/paspor',
+        },
+        {
+          id: 'misi',
+          title: 'Misi berjalan',
+          description: 'Quest Penjelajah Lestari dan aksi terverifikasi.',
+          fase: '2',
+          href: href(d, 'misi'),
+          segera: true,
+        },
+        {
+          id: 'kontrib',
+          title: 'Kontribusi saya',
+          description: 'Foto, tips, dan koreksi data — status kurasi komunitas.',
+          fase: '1',
+          href: href(d, 'kontribusi'),
+        },
+        {
+          id: 'poin',
+          title: 'Poin & lencana',
+          description: 'Gamifikasi partisipasi wisatawan di desa.',
+          fase: '1',
+          href: href(d, 'saya/lencana'),
+        },
+      ],
     },
     pokdarwis: {
       kode: 'pokdarwis',
@@ -98,7 +149,7 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         { id: 'publik', label: 'Destinasi publik', value: '—' },
         { id: 'draft', label: 'Draft', value: '—' },
         { id: 'layanan', label: 'Layanan', value: '—' },
-        { id: 'kontrib', label: 'Kontribusi menunggu', value: '—', hint: 'Fase 1' },
+        { id: 'kontrib', label: 'Kontribusi menunggu', value: '—', hint: 'Antrian kurasi', fase: '1' },
       ],
       aksiCepat: [
         { id: 'kelola', label: 'Kelola destinasi', href: href(d, 'kelola/destinasi'), primary: true },
@@ -116,6 +167,43 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       aktivitasContoh: [
         'Mempublikasikan spot Laguna Kiluan',
         'Menyetujui kontribusi foto dari wisatawan',
+      ],
+      widgets: [
+        {
+          id: 'destinasi',
+          title: 'Kelola destinasi',
+          description: 'Spot, layanan, kalender aktivitas — modul F0 aktif.',
+          fase: '0',
+          href: href(d, 'kelola/destinasi'),
+        },
+        {
+          id: 'kurasi',
+          title: 'Dapur Konten',
+          description: 'Antrian kurasi kontribusi wisatawan dan paket agen.',
+          fase: '1',
+          href: href(d, 'kelola/kurasi-konten'),
+        },
+        {
+          id: 'naik-kelas',
+          title: 'Validasi Naik Kelas',
+          description: 'Setujui kartu aksi dan tingkat sertifikasi UMKM.',
+          fase: '1',
+          href: href(d, 'kelola/validasi-kartu'),
+        },
+        {
+          id: 'keanggotaan',
+          title: 'Persetujuan keanggotaan',
+          description: 'Aktivasi peran baru di desa.',
+          fase: '0',
+          segera: true,
+        },
+        {
+          id: 'dana',
+          title: 'Dana konservasi',
+          description: 'Ringkasan kunjungan dan aliran dana lestari.',
+          fase: '3',
+          placeholder: true,
+        },
       ],
     },
     umkm: {
@@ -151,6 +239,43 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         'Mengajukan kartu aksi “tanpa plastik sekali pakai”',
         'Memperbarui harga paket snorkeling',
       ],
+      widgets: [
+        {
+          id: 'produk',
+          title: 'Produk & jasa',
+          description: 'Katalog Pasar Desa milik UMKM Anda.',
+          fase: '1',
+          href: href(d, 'saya/umkm/produk'),
+        },
+        {
+          id: 'pesanan',
+          title: 'Pesanan masuk',
+          description: 'Booking manual thin-F2 dari wisatawan.',
+          fase: '2',
+          segera: true,
+        },
+        {
+          id: 'naik-kelas',
+          title: 'Naik Kelas Lestari',
+          description: 'Kartu aksi dan progres tingkat Tunas → Lumba-Lumba.',
+          fase: '1',
+          href: href(d, 'naik-kelas'),
+        },
+        {
+          id: 'verifikasi',
+          title: 'Status verifikasi',
+          description: 'Profil UMKM dan legitimasi penyedia lokal.',
+          fase: '0',
+          href: href(d, 'pasar'),
+        },
+        {
+          id: 'performa',
+          title: 'Performa ringkas',
+          description: 'Metrik penjualan dan dampak lestari.',
+          fase: '3',
+          placeholder: true,
+        },
+      ],
     },
     agen: {
       kode: 'agen',
@@ -180,6 +305,36 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         { label: 'Dermaga', href: href(d, 'paket') },
       ],
       aktivitasContoh: ['Paket “Lumba Pagi + Snorkeling” menunggu kurasi', 'Kuota weekend 80% terisi'],
+      widgets: [
+        {
+          id: 'paket',
+          title: 'Editor paket wisata',
+          description: 'State machine draft → review → publikasi.',
+          fase: '1',
+          href: href(d, 'saya/paket'),
+        },
+        {
+          id: 'jadwal',
+          title: 'Kuota & jadwal',
+          description: 'Atur slot dan kapasitas paket.',
+          fase: '1',
+          segera: true,
+        },
+        {
+          id: 'booking',
+          title: 'Pesanan paket',
+          description: 'Booking masuk dari wisatawan.',
+          fase: '2',
+          segera: true,
+        },
+        {
+          id: 'sertifikasi',
+          title: 'Progres sertifikasi',
+          description: 'Tingkat lestari agen lokal.',
+          fase: '1',
+          href: href(d, 'naik-kelas'),
+        },
+      ],
     },
     kontributor: {
       kode: 'kontributor',
@@ -208,6 +363,36 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         { label: 'Lencana Warga', href: href(d, 'lencana') },
       ],
       aktivitasContoh: ['Mengunggah foto spot Gigi Hiu — menunggu kurasi', 'Mendapat lencana Kontributor Aktif'],
+      widgets: [
+        {
+          id: 'kontrib',
+          title: 'Kontribusi saya',
+          description: 'Foto, tips, koreksi — dengan status kurasi.',
+          fase: '1',
+          href: href(d, 'kontribusi'),
+        },
+        {
+          id: 'poin',
+          title: 'Poin & lencana',
+          description: 'Gamifikasi kontribusi komunitas.',
+          fase: '1',
+          href: href(d, 'saya/lencana'),
+        },
+        {
+          id: 'leaderboard',
+          title: 'Leaderboard',
+          description: 'Peringkat kontributor aktif di desa.',
+          fase: '1',
+          href: href(d, 'leaderboard'),
+        },
+        {
+          id: 'misi',
+          title: 'Misi kontribusi',
+          description: 'Quest data lapangan untuk relawan.',
+          fase: '2',
+          segera: true,
+        },
+      ],
     },
     organisasi: {
       kode: 'organisasi',
@@ -236,6 +421,36 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         { label: 'Jejak Lestari', href: href(d, 'neraca-regeneratif') },
       ],
       aktivitasContoh: ['Mengunggah data indeks karang Q2', 'Menyponsori program mangrove'],
+      widgets: [
+        {
+          id: 'program',
+          title: 'Program konservasi',
+          description: 'Kolaborasi riset dan aksi lapangan bersama Pokdarwis.',
+          fase: '3',
+          placeholder: true,
+        },
+        {
+          id: 'ekologi',
+          title: 'Data ekologi',
+          description: 'Monitoring indeks karang, mangrove, dan biodiversitas.',
+          fase: '3',
+          placeholder: true,
+        },
+        {
+          id: 'sponsor',
+          title: 'Sponsor & reinvestment',
+          description: 'Alokasi dana mitra ke program lestari.',
+          fase: '3',
+          placeholder: true,
+        },
+        {
+          id: 'kontak',
+          title: 'Kanal kolaborasi',
+          description: 'Profil mitra dan kontak kerja sama desa.',
+          fase: '0',
+          href: href(d, 'tentang'),
+        },
+      ],
     },
     perangkat_desa: {
       kode: 'perangkat_desa',
@@ -270,6 +485,43 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         'Menyetujui keanggotaan UMKM baru',
         'Menerbitkan laporan transparansi dana Q1',
       ],
+      widgets: [
+        {
+          id: 'verifikasi',
+          title: 'Persetujuan keanggotaan',
+          description: 'Legitimasi peran UMKM, agen, dan kontributor.',
+          fase: '0',
+          segera: true,
+        },
+        {
+          id: 'kelola',
+          title: 'Kelola operasional',
+          description: 'Dashboard pengelolaan desa dan kebijakan.',
+          fase: '0',
+          href: href(d, 'kelola'),
+        },
+        {
+          id: 'dana',
+          title: 'Transparansi dana',
+          description: 'Aliran dana konservasi desa.',
+          fase: '3',
+          placeholder: true,
+        },
+        {
+          id: 'daya-dukung',
+          title: 'Daya dukung spot',
+          description: 'Lampu hijau/kuning/merah per destinasi.',
+          fase: '3',
+          placeholder: true,
+        },
+        {
+          id: 'laporan',
+          title: 'Laporan desa',
+          description: 'Ringkasan kinerja wisata regeneratif.',
+          fase: '3',
+          placeholder: true,
+        },
+      ],
     },
     admin: {
       kode: 'admin',
@@ -301,6 +553,37 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       aktivitasContoh: [
         'Tenant baru dalam antrian onboarding',
         'Audit log RBAC lintas desa',
+      ],
+      widgets: [
+        {
+          id: 'moderasi',
+          title: 'Moderasi lintas-desa',
+          description: 'Antrian konten dan laporan pengguna.',
+          fase: '0',
+          segera: true,
+        },
+        {
+          id: 'keanggotaan',
+          title: 'Kelola peran & keanggotaan',
+          description: 'RBAC dan scope per tenant.',
+          fase: '0',
+          segera: true,
+        },
+        {
+          id: 'sistem',
+          title: 'Konfigurasi platform',
+          description: 'Parameter sistem dan integrasi.',
+          fase: '0',
+          segera: true,
+        },
+        {
+          id: 'nusantara',
+          title: 'Provisioning Nusantara',
+          description: 'White-label dan replikasi desa mitra.',
+          fase: '4',
+          placeholder: true,
+          href: '/admin/dasbor/nusantara',
+        },
       ],
     },
   }

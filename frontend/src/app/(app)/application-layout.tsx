@@ -11,6 +11,7 @@ interface Props {
   children: ReactNode
   headerHasBorder?: boolean
   headerStyle?: 'kiluan' | 'header-1' | 'header-2'
+  headerVariant?: 'default' | 'landing'
   showBanner?: boolean
 }
 
@@ -18,12 +19,15 @@ const ApplicationLayout: React.FC<Props> = ({
   children,
   headerHasBorder,
   headerStyle = 'kiluan',
+  headerVariant = 'default',
   showBanner = false,
 }) => {
   return (
     <>
       {showBanner && <Banner />}
-      {headerStyle === 'kiluan' && <KiluanHeader bottomBorder={headerHasBorder} />}
+      {headerStyle === 'kiluan' && (
+        <KiluanHeader bottomBorder={headerHasBorder} variant={headerVariant} />
+      )}
       {headerStyle === 'header-2' && <Header2 bottomBorder={headerHasBorder} />}
       {headerStyle === 'header-1' && <Header bottomBorder={headerHasBorder} />}
 

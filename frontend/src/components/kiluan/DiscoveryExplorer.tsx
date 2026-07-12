@@ -25,6 +25,7 @@ interface Props {
   kategori: Kategori[]
   initialQ?: string
   initialTab?: Tab
+  initialKategoriId?: number
 }
 
 export default function DiscoveryExplorer({
@@ -35,10 +36,11 @@ export default function DiscoveryExplorer({
   kategori,
   initialQ = '',
   initialTab = 'destinasi',
+  initialKategoriId,
 }: Props) {
   const [tab, setTab] = useState<Tab>(initialTab)
   const [q, setQ] = useState(initialQ)
-  const [kategoriId, setKategoriId] = useState<number | ''>('')
+  const [kategoriId, setKategoriId] = useState<number | ''>(initialKategoriId ?? '')
   const [desaSlug, setDesaSlug] = useState('')
   const [dekat, setDekat] = useState<string | undefined>()
   const [destinasi, setDestinasi] = useState(initialDestinasi)

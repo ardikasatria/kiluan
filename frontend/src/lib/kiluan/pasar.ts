@@ -21,9 +21,9 @@ const STATUS_VERIFIKASI: Record<string, string> = {
 }
 
 const TINGKAT_SERTIFIKASI: Record<string, string> = {
-  tunas: '🌱 Tunas',
-  bahari: '🐚 Bahari',
-  lumba_lumba: '🐬 Lumba-Lumba',
+  tunas: 'Tunas',
+  bahari: 'Bahari',
+  lumba_lumba: 'Lumba-Lumba',
 }
 
 export function formatHarga(harga: number, satuan?: string): string {
