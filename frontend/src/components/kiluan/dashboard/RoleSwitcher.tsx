@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthProvider'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   desaSlug: string
@@ -15,6 +16,8 @@ interface Props {
 export default function RoleSwitcher({ desaSlug, peranAktif, className }: Props) {
   const { user } = useAuth()
   const pathname = usePathname()
+  const t = useTranslations('dasbor.switcher')
+  const tPeran = useTranslations('peran')
   const peran = daftarPeranPengguna(user?.profil ?? null).filter((p) => p !== 'admin')
 
   if (peran.length <= 1) return null
@@ -22,7 +25,7 @@ export default function RoleSwitcher({ desaSlug, peranAktif, className }: Props)
   return (
     <div className={clsx('space-y-2', className)}>
       <p className="text-xs font-medium tracking-wide text-neutral-500 uppercase dark:text-neutral-400">
-        Ganti peran
+        {t('gantiPeran')}
       </p>
       <div className="flex flex-wrap gap-2">
         {peran.map((k) => {
@@ -39,7 +42,7 @@ export default function RoleSwitcher({ desaSlug, peranAktif, className }: Props)
                   : 'bg-neutral-100 text-neutral-700 hover:bg-primary-100 hover:text-primary-800 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-primary-900/40',
               )}
             >
-              {labelPeran(k)}
+              {labelPeran(k, tPeran)}
             </Link>
           )
         })}

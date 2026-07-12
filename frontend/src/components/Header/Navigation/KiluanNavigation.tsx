@@ -6,12 +6,14 @@ import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
 function SoonBadge() {
+  const t = useTranslations('common')
   return (
     <span className="rounded bg-neutral-100 px-1.5 py-0.5 text-[10px] font-medium text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">
-      segera
+      {t('soon')}
     </span>
   )
 }

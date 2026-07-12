@@ -1,4 +1,4 @@
-import { ApplicationLayout } from '@/app/(app)/application-layout'
+import { ApplicationLayout } from '@/app/[locale]/(app)/application-layout'
 import Aside from '@/components/aside'
 import KiluanMeshBackground from '@/components/kiluan/KiluanMeshBackground'
 

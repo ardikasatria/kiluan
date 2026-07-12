@@ -4,23 +4,22 @@ import {
   SparklesIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline'
+import { Link } from '@/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
-import Link from 'next/link'
-import { BADGE_PLATFORM, TAGLINE_PLATFORM } from '@/lib/kiluan/seo'
 import HomeHeroSearch from './HomeHeroSearch'
 
-const HERO_IMAGE = {
-  src: '/gallery/laguna.jpg',
-  alt: 'Destinasi wisata bahari Lampung — snorkeling di perairan tenang',
-} as const
+const HERO_IMAGE = '/gallery/laguna.jpg'
 
-export default function HomeHero() {
+export default async function HomeHero() {
+  const t = await getTranslations('landing.hero')
+
   return (
     <section className="relative -mt-[72px] overflow-hidden pt-[72px] lg:-mt-20 lg:pt-20">
       <div className="absolute inset-0">
         <Image
-          src={HERO_IMAGE.src}
-          alt={HERO_IMAGE.alt}
+          src={HERO_IMAGE}
+          alt={t('imageAlt')}
           fill
           className="object-cover"
           priority
@@ -33,15 +32,12 @@ export default function HomeHero() {
         <div className="max-w-2xl">
           <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm font-medium text-primary-100 backdrop-blur-sm">
             <SparklesIcon className="size-4" aria-hidden />
-            {BADGE_PLATFORM}
+            {t('badge')}
           </p>
           <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl lg:leading-tight">
-            {TAGLINE_PLATFORM}
+            {t('tagline')}
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-primary-50/90 sm:text-lg">
-            Sigerciv menatalayan teknologi agar data destinasi dimiliki komunitas, nilai ekonomi mengalir ke
-            warga lokal, dan dana konservasi dapat diawasi secara transparan.
-          </p>
+          <p className="mt-5 text-base leading-relaxed text-primary-50/90 sm:text-lg">{t('subtitle')}</p>
 
           <HomeHeroSearch />
 
@@ -50,22 +46,22 @@ export default function HomeHero() {
               href="/jelajah"
               className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary-800 shadow-lg transition hover:bg-primary-50 focus-visible:ring-2 focus-visible:ring-kiluan-mint focus-visible:outline-none"
             >
-              Jelajah
+              {t('explore')}
               <ArrowRightIcon className="size-4" aria-hidden />
             </Link>
             <Link
-              href="/daftar"
+              href="/gabung"
               className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-kiluan-mint focus-visible:outline-none"
             >
               <UserPlusIcon className="size-4" aria-hidden />
-              Gabung
+              {t('join')}
             </Link>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-4 text-sm text-primary-100/85">
             <span className="inline-flex items-center gap-2">
               <DevicePhoneMobileIcon className="size-4 shrink-0" aria-hidden />
-              PWA offline-first
+              {t('pwaNote')}
             </span>
           </div>
         </div>

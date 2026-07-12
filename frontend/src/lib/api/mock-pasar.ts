@@ -1,8 +1,8 @@
-import type { MetaPaginasi, PaketDetail, PaketRingkas, ProdukJasaItem, UmkmRingkas } from './types'
+import type { MetaPaginasi, PaketDetail, PaketRingkas, ProdukJasaItem, UmkmDetail, UmkmRingkas } from './types'
 
 const BIDANG = [
-  { id: 1, kode: 'kuliner', nama: 'Kuliner' },
-  { id: 2, kode: 'kerajinan', nama: 'Kerajinan' },
+  { id: 1, kode: 'kuliner', nama: 'Kuliner', ikon: '🍲' },
+  { id: 2, kode: 'kerajinan', nama: 'Kerajinan', ikon: '🧺' },
 ]
 
 const MOCK_UMKM: UmkmRingkas[] = [
@@ -12,14 +12,14 @@ const MOCK_UMKM: UmkmRingkas[] = [
     bidang: BIDANG[0],
     status_verifikasi: 'terverifikasi',
     lokasi: { lat: -5.791, lng: 105.103 },
-    sertifikasi: { tingkat: 'bahari' },
+    sertifikasi: { tingkat: 'bahari', skor: 72 },
   },
   {
     id: 'umkm-2',
     nama: 'Anyaman Lestari',
     bidang: BIDANG[1],
     status_verifikasi: 'terverifikasi',
-    sertifikasi: { tingkat: 'tunas' },
+    sertifikasi: { tingkat: 'tunas', skor: 38 },
   },
 ]
 
@@ -99,11 +99,50 @@ export function mockPaketDetail(id: string): PaketDetail {
   const p = MOCK_PAKET.find((x) => x.id === id || x.slug === id) ?? MOCK_PAKET[0]
   return {
     ...p,
-    deskripsi: 'Perjalanan melihat lumba-lumba di Teluk Kiluan',
+    deskripsi: 'Perjalanan melihat lumba-lumba di Teluk Kiluan dengan pemandu berpengalaman.',
+    media: [],
     item: [
-      { id: 'i1', hari: 1, urutan: 1, judul: 'Berkumpul di dermaga', durasi_menit: 30 },
-      { id: 'i2', hari: 1, urutan: 2, judul: 'Snorkeling', durasi_menit: 90 },
+      {
+        id: 'i1',
+        hari: 1,
+        urutan: 1,
+        judul: 'Berkumpul di dermaga',
+        deskripsi: 'Briefing keselamatan dan distribusi alat snorkeling.',
+        durasi_menit: 30,
+      },
+      {
+        id: 'i2',
+        hari: 1,
+        urutan: 2,
+        judul: 'Snorkeling',
+        deskripsi: 'Eksplorasi terumbu karang.',
+        durasi_menit: 90,
+      },
+      {
+        id: 'i3',
+        hari: 2,
+        urutan: 1,
+        judul: 'Mengamati lumba-lumba',
+        durasi_menit: 120,
+      },
     ],
+  }
+}
+
+export function mockDetailUmkm(id: string): UmkmDetail {
+  const u = MOCK_UMKM.find((x) => x.id === id) ?? MOCK_UMKM[0]
+  const produk = MOCK_PRODUK.filter((p) => p.umkm.id === u.id)
+  return {
+    ...u,
+    bidang_id: u.bidang.id,
+    deskripsi:
+      'UMKM lokal Teluk Kiluan yang mengangkat produk khas desa dengan prinsip wisata regeneratif.',
+    telepon: '0812-0000-0000',
+    whatsapp: '6281200000000',
+    alamat: 'Pekon Kiluan Negeri, Tanggamus, Lampung',
+    produk_ringkas: produk.map((p) => ({ id: p.id, nama: p.nama, harga: p.harga })),
+    media: [],
+    dibuat_pada: '2025-06-01T00:00:00Z',
   }
 }
 

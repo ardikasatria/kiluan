@@ -1,109 +1,167 @@
 'use client'
 
-import { getAntreanValidasi, transisiPengajuan } from '@/lib/api/naik-kelas'
-import type { PengajuanKartuItem } from '@/lib/api/types'
+import AntreanKurasi from '@/components/kiluan/kurasi/AntreanKurasi'
+import PanelKeputusan from '@/components/kiluan/kurasi/PanelKeputusan'
+import BuktiPengajuanPreview from '@/components/kiluan/naik-kelas/BuktiPengajuanPreview'
+import TingkatSertifikasi from '@/components/kiluan/pasar/TingkatSertifikasi'
+import { pesanGalat } from '@/lib/api/galat'
+import { getAntreanValidasi, getSertifikasi, transisiPengajuan } from '@/lib/api/naik-kelas'
+import type { PengajuanKartuItem, SertifikasiItem } from '@/lib/api/types'
 import { labelStatusPengajuan } from '@/lib/kiluan/naik-kelas'
-import { ArrowLeftIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
-import { useCallback, useEffect, useState } from 'react'
+import { formatTanggal } from '@/lib/kiluan/lencana'
+import { useLocale, useTranslations } from 'next-intl'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   desaSlug: string
-  desaNama: string
 }
 
-export default function ValidasiKartuClient({ desaSlug, desaNama }: Props) {
+export default function ValidasiKartuClient({ desaSlug }: Props) {
+  const locale = useLocale()
+  const t = useTranslations('kelola.validasiKartu')
+  const tNaik = useTranslations('naikKelas')
+  const tLib = tNaik as unknown as (key: string) => string
   const [antrean, setAntrean] = useState<PengajuanKartuItem[]>([])
-  const [catatan, setCatatan] = useState<Record<string, string>>({})
+  const [pilihId, setPilihId] = useState<string | null>(null)
+  const [sertifikasi, setSertifikasi] = useState<SertifikasiItem | null>(null)
   const [loading, setLoading] = useState(true)
+  const [galat, setGalat] = useState<string | null>(null)
+  const [sukses, setSukses] = useState<string | null>(null)
+
+  const pilih = useMemo(() => antrean.find((p) => p.id === pilihId) ?? null, [antrean, pilihId])
 
   const muat = useCallback(async () => {
     setLoading(true)
+    setGalat(null)
     try {
-      const res = await getAntreanValidasi(desaSlug)
+      const res = await getAntreanValidasi(desaSlug, { status: 'menunggu' })
       setAntrean(res.item)
+      setPilihId((prev) => {
+        if (prev && res.item.some((p) => p.id === prev)) return prev
+        return res.item[0]?.id ?? null
+      })
+    } catch (err) {
+      setGalat(pesanGalat(err, locale as 'id' | 'en') || t('errors.load'))
     } finally {
       setLoading(false)
     }
-  }, [desaSlug])
+  }, [desaSlug, locale, t])
 
   useEffect(() => {
     void muat()
   }, [muat])
 
-  async function keputusan(id: string, aksi: 'setuju' | 'tolak' | 'minta_revisi') {
-    await transisiPengajuan(desaSlug, id, aksi, catatan[id] ?? '')
-    void muat()
+  useEffect(() => {
+    if (!pilih) {
+      setSertifikasi(null)
+      return
+    }
+    void getSertifikasi(desaSlug, pilih.subjek_tipe, pilih.subjek_id).then(setSertifikasi)
+  }, [pilih, desaSlug])
+
+  async function putuskan(aksi: 'setuju' | 'tolak' | 'minta_revisi', catatan: string) {
+    if (!pilih) return
+    await transisiPengajuan(desaSlug, pilih.id, aksi, catatan)
+    setSukses(t(`sukses.${aksi === 'setuju' ? 'setuju' : aksi === 'tolak' ? 'tolak' : 'minta_revisi'}`))
+    await muat()
+    if (aksi === 'setuju') {
+      const s = await getSertifikasi(desaSlug, pilih.subjek_tipe, pilih.subjek_id)
+      setSertifikasi(s)
+    }
   }
 
   return (
-    <div className="pb-16">
-      <div className="border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900">
-        <div className="container py-8">
-          <Link href={`/${desaSlug}/kelola`} className="inline-flex items-center gap-2 text-sm text-primary-600 hover:underline">
-            <ArrowLeftIcon className="size-4" /> Kelola desa
-          </Link>
-          <h1 className="mt-4 text-2xl font-bold text-primary-800 dark:text-primary-100">Validasi Kartu Aksi</h1>
-          <p className="text-sm text-neutral-500">{desaNama}</p>
+    <div className="space-y-6">
+      <p className="text-sm text-neutral-600 dark:text-neutral-400">{t('subtitle')}</p>
+
+      {galat && (
+        <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800 dark:bg-red-900/30 dark:text-red-200">{galat}</p>
+      )}
+      {sukses && (
+        <p className="rounded-lg bg-primary-50 px-4 py-3 text-sm text-primary-800 dark:bg-primary-900/30 dark:text-primary-200">
+          {sukses}
+        </p>
+      )}
+
+      <div className="grid gap-6 lg:grid-cols-5">
+        <div className="lg:col-span-2">
+          <AntreanKurasi
+            items={antrean}
+            selectedId={pilihId}
+            onSelect={setPilihId}
+            loading={loading}
+            loadingMessage={t('loading')}
+            emptyMessage={t('empty')}
+            ariaLabel={t('antreanLabel')}
+            renderItem={(p) => (
+              <>
+                <p className="font-medium text-neutral-900 dark:text-neutral-100">
+                  {p.kartu.nama} · {t(`subjek.${p.subjek_tipe}` as 'subjek.umkm')}
+                </p>
+                <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
+                  {labelStatusPengajuan(p.status, tLib)}
+                  {p.dibuat_pada && ` · ${formatTanggal(p.dibuat_pada, locale === 'en' ? 'en-US' : 'id-ID')}`}
+                </p>
+              </>
+            )}
+          />
+        </div>
+
+        <div className="space-y-4 lg:col-span-3">
+          {pilih ? (
+            <>
+              <div className="rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900/40">
+                <h3 className="font-semibold text-neutral-900 dark:text-neutral-100">{t('detailTitle')}</h3>
+                <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{pilih.kartu.nama}</p>
+                <p className="mt-2 text-xs text-neutral-500">
+                  {t(`subjek.${pilih.subjek_tipe}` as 'subjek.umkm')} · {pilih.subjek_id.slice(0, 8)}…
+                </p>
+
+                <div className="mt-4">
+                  <BuktiPengajuanPreview bukti={pilih.bukti} />
+                </div>
+
+                {sertifikasi && (
+                  <div className="mt-4 rounded-lg bg-neutral-50 p-3 dark:bg-neutral-800/50">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+                      {t('tingkatSubjek')}
+                    </p>
+                    <div className="mt-2">
+                      <TingkatSertifikasi tingkat={sertifikasi.tingkat} skor={sertifikasi.skor} size="md" />
+                    </div>
+                    <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                      {tNaik('skorPraktik', { skor: sertifikasi.skor })}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <PanelKeputusan
+                aktif
+                labelSetuju={t('validasi')}
+                onKeputusan={async (aksi, catatan) => {
+                  setGalat(null)
+                  setSukses(null)
+                  try {
+                    await putuskan(aksi, catatan)
+                  } catch (err) {
+                    setGalat(pesanGalat(err, locale as 'id' | 'en'))
+                    throw err
+                  }
+                }}
+              />
+            </>
+          ) : (
+            !loading && (
+              <p className="rounded-xl border border-dashed border-neutral-300 px-4 py-8 text-center text-sm text-neutral-500 dark:border-neutral-600">
+                {t('empty')}
+              </p>
+            )
+          )}
         </div>
       </div>
 
-      <div className="container py-8">
-        {loading ? (
-          <p className="text-sm text-neutral-500">Memuat antrean…</p>
-        ) : antrean.length === 0 ? (
-          <p className="text-sm text-neutral-500">Tidak ada pengajuan menunggu.</p>
-        ) : (
-          <ul className="space-y-4">
-            {antrean.map((p) => (
-              <li key={p.id} className="rounded-2xl border border-neutral-200 p-5 dark:border-neutral-700">
-                <p className="font-semibold text-primary-800 dark:text-primary-100">
-                  {p.kartu.nama} · {p.subjek_tipe}
-                </p>
-                <p className="mt-1 text-xs text-neutral-500">{labelStatusPengajuan(p.status)}</p>
-                {typeof p.bukti.pernyataan === 'string' && p.bukti.pernyataan && (
-                  <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                    {p.bukti.pernyataan}
-                  </p>
-                )}
-                <textarea
-                  placeholder="Catatan validator"
-                  value={catatan[p.id] ?? ''}
-                  onChange={(e) => setCatatan((prev) => ({ ...prev, [p.id]: e.target.value }))}
-                  className="mt-3 w-full rounded-lg border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
-                  rows={2}
-                />
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={() => void keputusan(p.id, 'setuju')}
-                    className="rounded-lg bg-primary-700 px-4 py-2 text-sm font-medium text-white"
-                  >
-                    Validasi
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => void keputusan(p.id, 'minta_revisi')}
-                    className="rounded-lg border border-neutral-300 px-4 py-2 text-sm dark:border-neutral-600"
-                  >
-                    Minta revisi
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => void keputusan(p.id, 'tolak')}
-                    className="rounded-lg border border-red-300 px-4 py-2 text-sm text-red-700"
-                  >
-                    Tolak
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-        <p className="mt-8 text-xs text-neutral-500">
-          Validasi menaikkan skor & tingkat sertifikasi owner — memengaruhi urutan di Pasar Desa.
-        </p>
-      </div>
+      <p className="text-xs text-neutral-500 dark:text-neutral-400">{t('footnote')}</p>
     </div>
   )
 }

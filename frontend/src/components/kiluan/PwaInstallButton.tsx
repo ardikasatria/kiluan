@@ -2,6 +2,7 @@
 
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 interface BeforeInstallPromptEvent extends Event {
@@ -17,6 +18,7 @@ interface Props {
 export default function PwaInstallButton({ className, variant = 'header' }: Props) {
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null)
   const [visible, setVisible] = useState(false)
+  const t = useTranslations('nav.pwa')
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -52,7 +54,7 @@ export default function PwaInstallButton({ className, variant = 'header' }: Prop
       )}
     >
       <ArrowDownTrayIcon className="size-4" aria-hidden />
-      Pasang aplikasi
+      {t('install')}
     </button>
   )
 }

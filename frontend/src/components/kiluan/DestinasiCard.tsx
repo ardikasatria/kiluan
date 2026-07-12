@@ -1,9 +1,12 @@
+'use client'
+
 import SimpanTombol from '@/components/kiluan/simpanan/SimpanTombol'
+import { Link } from '@/i18n/navigation'
 import type { DestinasiRingkas, Kategori } from '@/lib/api/types'
 import { MapPinIcon, PhotoIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import Link from 'next/link'
 
 const PLACEHOLDER =
   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop'
@@ -24,6 +27,7 @@ export default function DestinasiCard({
   showDesa,
   sampulUrl,
 }: Props) {
+  const t = useTranslations('spot')
   const slug = desaSlug ?? destinasi.desa_slug ?? 'teluk-kiluan'
   const href = `/${slug}/spot/${destinasi.slug}`
   const gambar = sampulUrl || PLACEHOLDER
@@ -90,7 +94,7 @@ export default function DestinasiCard({
         )}
         {destinasi.jarak_m != null && (
           <p className="mt-2 text-xs font-medium text-primary-600 dark:text-primary-400">
-            ± {destinasi.jarak_m} m dari Anda
+            {t('distance', { distance: destinasi.jarak_m })}
           </p>
         )}
       </div>

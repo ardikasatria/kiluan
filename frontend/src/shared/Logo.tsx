@@ -1,6 +1,6 @@
 import clsx from 'clsx'
+import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
 import { JUDUL_PLATFORM } from '@/lib/kiluan/seo'
 

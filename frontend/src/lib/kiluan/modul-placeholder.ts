@@ -255,4 +255,39 @@ export function ambilModul(slug: string): ModulPlaceholderConfig | null {
   return MODUL_PLACEHOLDER[slug] ?? MODUL_ROOT[slug] ?? null
 }
 
+type ModulTranslateFn = (key: string) => string
+
+/** Apply optional next-intl translator; falls back to embedded Indonesian copy. */
+export function lokalisasiModul(
+  config: ModulPlaceholderConfig,
+  t?: ModulTranslateFn,
+  raw?: (key: string) => unknown,
+): ModulPlaceholderConfig {
+  if (!t) return config
+  const prefix = `items.${config.slug}`
+  const field = (name: string, fallback: string) => {
+    try {
+      return t(`${prefix}.${name}`)
+    } catch {
+      return fallback
+    }
+  }
+  let fiturRencana = config.fiturRencana
+  try {
+    const fiturRaw = raw?.(`${prefix}.fiturRencana`)
+    if (Array.isArray(fiturRaw) && fiturRaw.every((x) => typeof x === 'string')) {
+      fiturRencana = fiturRaw as string[]
+    }
+  } catch {
+    /* keep default */
+  }
+  return {
+    ...config,
+    judul: field('judul', config.judul),
+    modulLabel: field('modulLabel', config.modulLabel),
+    deskripsi: field('deskripsi', config.deskripsi),
+    fiturRencana,
+  }
+}
+
 export const SLUG_MODUL_DESA = Object.keys(MODUL_PLACEHOLDER)

@@ -1,6 +1,7 @@
 'use client'
 
 import { useAuth } from '@/contexts/AuthProvider'
+import { useRouter } from '@/i18n/navigation'
 import {
   cekStatusSimpanan,
   hapusSimpananAman,
@@ -11,7 +12,7 @@ import { pesanGalat } from '@/lib/api/galat'
 import { HeartIcon } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
-import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 
 interface Props {
@@ -34,6 +35,7 @@ export default function SimpanTombol({
 }: Props) {
   const { isLoggedIn } = useAuth()
   const router = useRouter()
+  const t = useTranslations('simpanan')
   const [disimpan, setDisimpan] = useState(false)
   const [simpananId, setSimpananId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -106,7 +108,7 @@ export default function SimpanTombol({
       onClick={(e) => void toggle(e)}
       disabled={memuat || loading}
       aria-pressed={disimpan}
-      aria-label={disimpan ? 'Hapus dari wishlist' : 'Simpan ke wishlist'}
+      aria-label={disimpan ? t('removeFromWishlist') : t('addToWishlist')}
       className={clsx(
         'inline-flex items-center justify-center rounded-full backdrop-blur-sm transition focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none',
         btnSize,

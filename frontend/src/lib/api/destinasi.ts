@@ -2,15 +2,11 @@ import { apiFetch } from './client'
 import {
   mockDestinasiDetail,
   mockDestinasiList,
-  mockKalender,
-  mockLayanan,
 } from './mock'
 import type {
   DestinasiBuatPayload,
   DestinasiLengkap,
   DestinasiRingkas,
-  KalenderItem,
-  LayananItem,
   MetaPaginasi,
 } from './types'
 
@@ -87,20 +83,35 @@ export async function ubahStatusDestinasi(
   })
 }
 
-export async function getLayananDesa(slug: string): Promise<LayananItem[]> {
-  try {
-    const res = await apiFetch<{ item: LayananItem[] }>(`/api/v1/desa/${slug}/layanan`)
-    return res.item
-  } catch {
-    return mockLayanan(slug)
-  }
+export async function hapusDestinasi(slug: string, id: string): Promise<void> {
+  await apiFetch(`/api/v1/desa/${slug}/destinasi/${id}`, { method: 'DELETE' })
 }
 
-export async function getKalenderDesa(slug: string): Promise<KalenderItem[]> {
+export async function setTagDestinasi(slug: string, id: string, tagIds: number[]): Promise<void> {
+  await apiFetch(`/api/v1/desa/${slug}/destinasi/${id}/tag`, {
+    method: 'POST',
+    body: JSON.stringify({ tag_id: tagIds }),
+  })
+}
+
+export async function hapusTagDestinasi(slug: string, id: string, tagId: number): Promise<void> {
+  await apiFetch(`/api/v1/desa/${slug}/destinasi/${id}/tag/${tagId}`, { method: 'DELETE' })
+}
+
+export async function cariDestinasiKelolaFiltered(
+  slug: string,
+  params?: { status?: string; kategori?: number; batas?: number },
+): Promise<CariResponse> {
+  const qs = new URLSearchParams()
+  qs.set('batas', String(params?.batas ?? 100))
+  if (params?.status) qs.set('status', params.status)
+  if (params?.kategori) qs.set('kategori', String(params.kategori))
   try {
-    const res = await apiFetch<{ item: KalenderItem[] }>(`/api/v1/desa/${slug}/kalender`)
-    return res.item
+    return await apiFetch<CariResponse>(`/api/v1/desa/${slug}/destinasi?${qs}`)
   } catch {
-    return mockKalender(slug)
+    let item = mockDestinasiList(slug, false)
+    if (params?.status) item = item.filter((d) => d.status === params.status)
+    if (params?.kategori) item = item.filter((d) => d.kategori_id === params.kategori)
+    return { item, meta: { kursor_berikutnya: null, ada_lagi: false, batas: params?.batas ?? 100 } }
   }
 }

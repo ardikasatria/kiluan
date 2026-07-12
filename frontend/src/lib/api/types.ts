@@ -97,7 +97,7 @@ export interface KonfirmasiMediaPayload {
 
 export interface LampiranPayload {
   media_id: string
-  entitas_tipe: 'destinasi' | 'layanan' | 'desa' | 'pengguna'
+  entitas_tipe: 'destinasi' | 'layanan' | 'desa' | 'pengguna' | 'umkm' | 'produk_jasa' | 'paket_wisata' | 'kontribusi' | 'berita'
   entitas_id: string
   urutan?: number
   utama?: boolean
@@ -166,7 +166,37 @@ export interface DestinasiBuatPayload {
   deskripsi?: string
   alamat?: string
   jam_operasional?: Record<string, string>
+  area?: AreaPoligon | null
   status?: 'draft' | 'publikasi' | 'arsip'
+}
+
+export interface AreaPoligon {
+  type: 'Polygon'
+  coordinates: [number, number][][]
+}
+
+export interface LayananBuatPayload {
+  nama: string
+  jenis: string
+  deskripsi?: string
+  harga: number
+  satuan_harga: string
+  destinasi_id?: string | null
+  penyedia_id?: string | null
+  ketersediaan?: Record<string, unknown> | null
+  status?: string
+}
+
+export interface KalenderBuatPayload {
+  judul: string
+  tipe: string
+  destinasi_id?: string | null
+  waktu_mulai?: string | null
+  waktu_selesai?: string | null
+  pengulangan?: Record<string, unknown> | null
+  berlaku_mulai?: string | null
+  berlaku_sampai?: string | null
+  status?: string
 }
 
 // --- F1: Lencana Warga ---
@@ -228,17 +258,24 @@ export interface BidangUsaha {
 
 // --- F1: Pasar Desa ---
 
+export interface SertifikasiRingkas {
+  tingkat: string | null
+  skor?: number
+}
+
 export interface UmkmRingkas {
   id: string
   nama: string
   bidang: { id: number; kode: string; nama: string; ikon?: string | null }
   status_verifikasi: string
   lokasi?: Lokasi | null
-  sertifikasi?: { tingkat: string } | null
+  sertifikasi?: SertifikasiRingkas | null
   jarak_m?: number
+  media?: MediaItem[]
 }
 
 export interface UmkmDetail extends UmkmRingkas {
+  bidang_id?: number
   deskripsi?: string | null
   telepon?: string | null
   whatsapp?: string | null
@@ -249,7 +286,7 @@ export interface UmkmDetail extends UmkmRingkas {
 
 export interface ProdukJasaItem {
   id: string
-  umkm: { id: string; nama: string }
+  umkm: { id: string; nama: string; status_verifikasi?: string }
   nama: string
   jenis: 'produk' | 'jasa'
   deskripsi?: string | null
@@ -257,7 +294,7 @@ export interface ProdukJasaItem {
   satuan_harga: string
   stok?: number | null
   status: string
-  media?: unknown[]
+  media?: MediaItem[]
 }
 
 export interface PaketItemRow {
@@ -287,6 +324,7 @@ export interface PaketRingkas {
 
 export interface PaketDetail extends PaketRingkas {
   deskripsi?: string | null
+  media?: MediaItem[]
   item: PaketItemRow[]
 }
 
@@ -355,12 +393,20 @@ export interface PengajuanKartuItem {
   divalidasi_pada?: string | null
 }
 
+export interface SertifikasiProgres {
+  kartu_tervalidasi: number[]
+  ambang_tingkat: { tingkat: TingkatSertifikasi; skor_min: number }[]
+  tingkat_berikut: TingkatSertifikasi | null
+  skor_berikut: number | null
+}
+
 export interface SertifikasiItem {
   subjek_tipe?: string
   subjek_id?: string
   tingkat: TingkatSertifikasi | null
   skor: number
   diperbarui_pada?: string | null
+  progres?: SertifikasiProgres
 }
 
 // --- F2 Dermaga ---
@@ -572,6 +618,8 @@ export interface VerifikasiDto {
   verifikator_id?: string | null
   dibuat_pada: string
   diputuskan_pada?: string | null
+  bukti?: Record<string, unknown> | null
+  syarat?: Record<string, unknown> | null
 }
 
 export interface MisiSelesaiPayload {

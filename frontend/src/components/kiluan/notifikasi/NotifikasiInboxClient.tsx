@@ -7,6 +7,7 @@ import {
 } from '@/lib/api/notifikasi'
 import type { NotifikasiItem, StatusNotifikasi } from '@/lib/api/types'
 import { formatWaktuRelatif, urlEntitasNotifikasi } from '@/lib/kiluan/notifikasi'
+import { Link, useRouter } from '@/i18n/navigation'
 import {
   BanknotesIcon,
   BellIcon,
@@ -15,8 +16,7 @@ import {
   TicketIcon,
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 
 interface Props {
@@ -33,7 +33,12 @@ function ikonNotifikasi(tipe: string) {
   return ShoppingBagIcon
 }
 
+const FILTER_OPSI = ['semua', 'belum_dibaca', 'dibaca'] as const
+
 export default function NotifikasiInboxClient({ desaSlug, desaNama }: Props) {
+  const t = useTranslations('genta')
+  const locale = useLocale()
+  const tWaktu = t as unknown as (key: string, values?: Record<string, string | number>) => string
   const router = useRouter()
   const [filter, setFilter] = useState<StatusNotifikasi | 'semua'>('semua')
   const [item, setItem] = useState<NotifikasiItem[]>([])
@@ -99,45 +104,43 @@ export default function NotifikasiInboxClient({ desaSlug, desaNama }: Props) {
             <p className="text-sm font-medium text-primary-600 dark:text-primary-400">{desaNama}</p>
             <h1 className="mt-1 flex items-center gap-2 text-3xl font-bold tracking-tight text-primary-800 dark:text-primary-100">
               <BellIcon className="size-8" aria-hidden />
-              Genta
+              {t('title')}
             </h1>
-            <p className="mt-2 max-w-xl text-sm text-neutral-600 dark:text-neutral-400">
-              Notifikasi aktivitas transaksi — pesanan, booking, payout, dan misi lestari.
-            </p>
+            <p className="mt-2 max-w-xl text-sm text-neutral-600 dark:text-neutral-400">{t('subtitle')}</p>
           </div>
           <button
             type="button"
             onClick={() => void bacaSemua()}
             className="shrink-0 rounded-full border border-primary-600 px-4 py-2 text-sm font-medium text-primary-700 hover:bg-primary-50 dark:text-primary-300 dark:hover:bg-primary-950"
           >
-            Tandai semua dibaca
+            {t('markAllRead')}
           </button>
         </div>
       </div>
 
       <div className="container py-8 sm:py-10">
         <div className="mb-6 flex gap-1 rounded-full bg-neutral-100 p-1 dark:bg-neutral-800">
-          {(['semua', 'belum_dibaca', 'dibaca'] as const).map((f) => (
+          {FILTER_OPSI.map((f) => (
             <button
               key={f}
               type="button"
               onClick={() => setFilter(f)}
               className={clsx(
-                'rounded-full px-4 py-2 text-sm font-medium capitalize transition',
+                'rounded-full px-4 py-2 text-sm font-medium transition',
                 filter === f
                   ? 'bg-white text-primary-800 shadow-sm dark:bg-neutral-900 dark:text-primary-100'
                   : 'text-neutral-600 hover:text-primary-700 dark:text-neutral-400',
               )}
             >
-              {f === 'semua' ? 'Semua' : f.replace('_', ' ')}
+              {t(`filter.${f}`)}
             </button>
           ))}
         </div>
 
         {loading ? (
-          <p className="py-12 text-center text-sm text-neutral-500">Memuat notifikasi…</p>
+          <p className="py-12 text-center text-sm text-neutral-500">{t('loading')}</p>
         ) : item.length === 0 ? (
-          <p className="py-12 text-center text-sm text-neutral-500">Tidak ada notifikasi.</p>
+          <p className="py-12 text-center text-sm text-neutral-500">{t('empty')}</p>
         ) : (
           <ul className="divide-y divide-neutral-200 overflow-hidden rounded-2xl border border-neutral-200 bg-white dark:divide-neutral-700 dark:border-neutral-700 dark:bg-neutral-900/40">
             {item.map((n) => {
@@ -176,7 +179,9 @@ export default function NotifikasiInboxClient({ desaSlug, desaNama }: Props) {
                         )}
                       </div>
                       <p className="mt-0.5 line-clamp-2 text-sm text-neutral-500 dark:text-neutral-400">{n.isi}</p>
-                      <p className="mt-1 text-xs text-neutral-400">{formatWaktuRelatif(n.dibuat_pada)}</p>
+                      <p className="mt-1 text-xs text-neutral-400">
+                        {formatWaktuRelatif(n.dibuat_pada, { t: tWaktu, locale })}
+                      </p>
                     </div>
                   </button>
                 </li>
@@ -193,14 +198,14 @@ export default function NotifikasiInboxClient({ desaSlug, desaNama }: Props) {
               onClick={() => void muat(false)}
               className="rounded-full border border-neutral-300 px-5 py-2 text-sm font-medium dark:border-neutral-600"
             >
-              {memuatLebih ? 'Memuat…' : 'Muat lebih banyak'}
+              {memuatLebih ? t('memuat') : t('loadMore')}
             </button>
           </div>
         )}
 
         <p className="mt-8 text-center text-sm text-neutral-500">
           <Link href={`/${desaSlug}`} className="text-primary-600 hover:underline dark:text-primary-400">
-            Kembali ke beranda desa
+            {t('backHome')}
           </Link>
         </p>
       </div>

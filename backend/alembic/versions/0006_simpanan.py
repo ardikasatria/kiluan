@@ -30,7 +30,7 @@ def upgrade() -> None:
         sa.Column("catatan", sa.Text),
         sa.Column("dibuat_pada", TS, server_default=sa.text("now()"), nullable=False),
         sa.CheckConstraint(
-            "tipe IN ('destinasi','paket','misi')",
+            "tipe IN ('destinasi','paket','misi','produk')",
             name="ck_simpanan_tipe",
         ),
         sa.UniqueConstraint("pengguna_id", "tipe", "entitas_id", name="uq_simpanan_pengguna_entitas"),

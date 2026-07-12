@@ -1,0 +1,3333 @@
+{
+  "common": {
+    "platform": "Sigerciv",
+    "platformRegion": "Sigerciv · Lampung",
+    "locale": {
+      "id": "Bahasa Indonesia",
+      "en": "English",
+      "switchLabel": "Language",
+      "shortId": "ID",
+      "shortEn": "EN"
+    },
+    "ugcLanguageNotice": "Written in Indonesian",
+    "soon": "Coming soon",
+    "loading": "Loading…",
+    "close": "Close"
+  },
+  "auth": {
+    "masuk": "Sign in",
+    "daftar": "Register",
+    "fields": {
+      "email": "Email",
+      "password": "Password",
+      "fullName": "Full name",
+      "confirmPassword": "Confirm password",
+      "verifyCode": "Verification code",
+      "registeredEmail": "Registered email",
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "email@example.com",
+      "codePlaceholder": "000000"
+    },
+    "masukPage": {
+      "seo": {
+        "title": "Sign in",
+        "description": "Sign in to your Sigerciv account to access your dashboard, Paspor Lestari, and community features."
+      },
+      "title": "Sign in to Sigerciv",
+      "subtitle": "Use your registered and verified account.",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "noAccount": "Don't have an account?",
+      "registerNow": "Register now",
+      "verifyPending": "Account not yet verified. A new code has been sent to your email."
+    },
+    "daftarPage": {
+      "seo": {
+        "title": "Register",
+        "description": "Join Sigerciv as a visitor, MSME, local agent, or village tourism manager."
+      },
+      "title": "Register for Sigerciv",
+      "subtitle": "Join as a visitor, contributor, or local MSME operator.",
+      "passwordHint": "At least 8 characters",
+      "submit": "Create account",
+      "submitting": "Registering…",
+      "hasAccount": "Already have an account?",
+      "verifyDescription": "Enter the 6-digit code just sent to your email.",
+      "verifyLater": "Verify later?",
+      "verifyLaterLink": "Sign in — code will be resent"
+    },
+    "lupaSandiPage": {
+      "seo": {
+        "title": "Forgot Password",
+        "description": "Reset your Sigerciv account password."
+      },
+      "title": "Forgot password",
+      "submit": "Send reset link",
+      "submitting": "Sending…",
+      "backToLogin": "Back to sign in",
+      "successMessage": "If the email is registered, a reset link has been sent. Check your inbox."
+    },
+    "verifikasiEmailPage": {
+      "seo": {
+        "title": "Verify Email",
+        "description": "Verify your Sigerciv account email address."
+      },
+      "title": "Verify email",
+      "subtitle": "Enter the 6-digit code sent to your email.",
+      "continue": "Continue to verification code",
+      "backToLogin": "Back to sign in"
+    },
+    "verifyForm": {
+      "title": "Verify email",
+      "description": "Enter the 6-digit code sent to your email.",
+      "submit": "Verify",
+      "submitting": "Verifying…",
+      "noCode": "Didn't receive a code?",
+      "resend": "Resend",
+      "resending": "Sending…",
+      "resendSuccess": "A new verification code has been sent to your email."
+    },
+    "errors": {
+      "passwordMismatch": "Password confirmation does not match.",
+      "profileLoadFailed": "Failed to load profile after sign in"
+    }
+  },
+  "nav": {
+    "badge": {
+      "featured": "Featured",
+      "package": "Package",
+      "certified": "Certified",
+      "community": "Community"
+    },
+    "menu": {
+      "jelajah": {
+        "name": "Explore"
+      },
+      "pengalaman": {
+        "name": "Experiences"
+      },
+      "pasar-desa": {
+        "name": "Village Market"
+      },
+      "cerita-dampak": {
+        "name": "Stories & Impact"
+      }
+    },
+    "section": {
+      "jelajah-kategori": {
+        "name": "Categories"
+      },
+      "jelajah-cara": {
+        "name": "Ways to explore"
+      },
+      "jelajah-info": {
+        "name": "Information"
+      },
+      "pengalaman-paket": {
+        "name": "Tour packages"
+      },
+      "pengalaman-layanan": {
+        "name": "Services"
+      },
+      "pengalaman-misi": {
+        "name": "Regenerative missions"
+      },
+      "pasar-kategori": {
+        "name": "Shop"
+      },
+      "pasar-sertifikasi": {
+        "name": "Level up"
+      },
+      "pasar-produk": {
+        "name": "Discover"
+      },
+      "cerita-tentang": {
+        "name": "About"
+      },
+      "cerita-regeneratif": {
+        "name": "Regenerative"
+      },
+      "cerita-jejak": {
+        "name": "Transparency"
+      },
+      "cerita-gabung": {
+        "name": "Join us"
+      }
+    },
+    "featured": {
+      "jelajah": {
+        "title": "Kiluan Lagoon",
+        "description": "A flagship snorkeling spot from the Sigerciv village tourism network."
+      },
+      "pengalaman": {
+        "title": "Curated tour packages",
+        "description": "Coastal trips and local experiences — crafted by agents and village communities."
+      },
+      "pasar-desa": {
+        "title": "Certified MSMEs",
+        "description": "Support local providers at Tunas, Bahari, or Lumba-Lumba certification tiers."
+      },
+      "cerita-dampak": {
+        "title": "Join the community",
+        "description": "Register as a traveler, MSME, local agent, or Pokdarwis manager."
+      }
+    },
+    "item": {
+      "j-k-1": {
+        "name": "Beaches",
+        "description": "Coasts & sunsets"
+      },
+      "j-k-2": {
+        "name": "Snorkeling",
+        "description": "Reefs & lagoons"
+      },
+      "j-k-3": {
+        "name": "Dolphins",
+        "description": "Ethical morning trips"
+      },
+      "j-k-4": {
+        "name": "Mangroves",
+        "description": "Coastal forests"
+      },
+      "j-k-5": {
+        "name": "Culture",
+        "description": "Fishing traditions"
+      },
+      "j-k-6": {
+        "name": "Local cuisine",
+        "description": "Authentic flavors"
+      },
+      "j-c-1": {
+        "name": "Interactive map",
+        "description": "Locations & routes"
+      },
+      "j-c-2": {
+        "name": "Featured spots",
+        "description": "Community picks"
+      },
+      "j-c-3": {
+        "name": "Nearby destinations",
+        "description": "Based on your location"
+      },
+      "j-l-1": {
+        "name": "Visitor guide",
+        "description": "Ethics & tips"
+      },
+      "j-l-2": {
+        "name": "Dolphin schedule",
+        "description": "Best morning windows"
+      },
+      "j-l-3": {
+        "name": "Village news",
+        "description": "Latest updates"
+      },
+      "p-p-1": {
+        "name": "All packages",
+        "description": "Full itineraries"
+      },
+      "p-p-2": {
+        "name": "Day trips",
+        "description": "Short adventures"
+      },
+      "p-p-3": {
+        "name": "Family packages",
+        "description": "Kid-friendly"
+      },
+      "p-l-1": {
+        "name": "Local guides",
+        "description": "Certified hosts"
+      },
+      "p-l-2": {
+        "name": "Stays",
+        "description": "Village homestays"
+      },
+      "p-l-3": {
+        "name": "Gear rental",
+        "description": "Snorkel & more"
+      },
+      "p-l-4": {
+        "name": "Local transport",
+        "description": "Pick-up & drop-off"
+      },
+      "p-m-1": {
+        "name": "Regenerative Explorer",
+        "description": "Education & action missions"
+      },
+      "p-m-2": {
+        "name": "Regenerative Passport",
+        "description": "Track your impact"
+      },
+      "p-m-3": {
+        "name": "Check-in stations",
+        "description": "QR geofence"
+      },
+      "pd-k-1": {
+        "name": "All MSMEs",
+        "description": "Full directory"
+      },
+      "pd-k-2": {
+        "name": "Local food",
+        "description": "Food & drinks"
+      },
+      "pd-k-3": {
+        "name": "Handicrafts",
+        "description": "Authentic souvenirs"
+      },
+      "pd-k-4": {
+        "name": "Tourism services",
+        "description": "Community offerings"
+      },
+      "pd-s-1": {
+        "name": "Tunas tier",
+        "description": "Regenerative starter"
+      },
+      "pd-s-2": {
+        "name": "Bahari tier",
+        "description": "Good practice"
+      },
+      "pd-s-3": {
+        "name": "Lumba-Lumba tier",
+        "description": "Village flagship"
+      },
+      "pd-p-1": {
+        "name": "Certified providers",
+        "description": "Quality filter"
+      },
+      "pd-p-2": {
+        "name": "Upskilling program",
+        "description": "MSME growth"
+      },
+      "pd-p-3": {
+        "name": "Local agents",
+        "description": "Curated packages"
+      },
+      "cd-t-1": {
+        "name": "Village story",
+        "description": "Profile & history"
+      },
+      "cd-w-1": {
+        "name": "News & stories",
+        "description": "Community voices"
+      },
+      "cd-t-3": {
+        "name": "Multi-village gateway",
+        "description": "Explore the archipelago"
+      },
+      "cd-r-1": {
+        "name": "What & why",
+        "description": "Tourism principles"
+      },
+      "cd-r-2": {
+        "name": "Dolphin ethics",
+        "description": "Distance & behavior"
+      },
+      "cd-r-3": {
+        "name": "Reef ethics",
+        "description": "Protect the ecosystem"
+      },
+      "cd-j-3": {
+        "name": "Village commitments",
+        "description": "Open impact"
+      },
+      "cd-j-1": {
+        "name": "Conservation fund",
+        "description": "Fund allocation"
+      },
+      "cd-j-2": {
+        "name": "Regenerative ledger",
+        "description": "Impact reports"
+      },
+      "cd-g-1": {
+        "name": "Travelers",
+        "description": "Explore & contribute"
+      },
+      "cd-g-2": {
+        "name": "MSMEs",
+        "description": "Sell products & services"
+      },
+      "cd-g-3": {
+        "name": "Local agents",
+        "description": "Curate packages"
+      },
+      "cd-g-4": {
+        "name": "Pokdarwis",
+        "description": "Manage the village"
+      }
+    },
+    "userMenu": {
+      "dasbor": "My dashboard",
+      "gabung": "Join community",
+      "paspor": "Regenerative Passport",
+      "wishlist": "My wishlist",
+      "booking": "My bookings",
+      "kontribusi": "My contributions",
+      "poin": "Points & badges",
+      "akun": "Account & preferences",
+      "panduan": "Guide & help",
+      "kelola": "Manage village",
+      "keluar": "Sign out",
+      "wishlistLink": "My wishlist →",
+      "menuLabel": "User menu",
+      "accountMenuLabel": "Account menu",
+      "soon": "soon"
+    },
+    "search": {
+      "trigger": "Search destinations…",
+      "placeholder": "Search spots, beaches, dolphins…",
+      "modalLabel": "Search destinations",
+      "close": "Close",
+      "hint": "Press Enter to open Explore with your search term.",
+      "ariaSearch": "Search destinations"
+    },
+    "pwa": {
+      "install": "Install app"
+    },
+    "notifications": {
+      "title": "Genta",
+      "viewAll": "View all",
+      "loading": "Loading…",
+      "empty": "No notifications yet.",
+      "ariaLabel": "Notifications",
+      "unreadSuffix": ", {count} unread"
+    },
+    "offline": {
+      "syncPending": "{count} changes pending sync",
+      "offlineMode": "Offline — changes saved locally"
+    },
+    "sidebar": {
+      "tagline": "A community-led regenerative village tourism platform — explore destinations, support local MSMEs, and join regenerative missions.",
+      "searchPlaceholder": "Type and press Enter",
+      "masuk": "Sign in",
+      "daftar": "Register"
+    },
+    "footerLinks": {
+      "news": "News & stories",
+      "aboutVillage": "About the village",
+      "visitGuide": "Visitor guide",
+      "villageMarket": "Village Market"
+    }
+  },
+  "footer": {
+    "tagline": "Sigerciv — a cross-village regenerative tourism platform in Lampung. Destination data is community-owned; economic value returns to residents; data exports are available to authorized managers.",
+    "columns": {
+      "jelajah": "Explore",
+      "pengalaman": "Experiences",
+      "pasar": "Village Market",
+      "komunitas": "Community"
+    },
+    "links": {
+      "home": "Sigerciv home",
+      "explore": "Explore Lampung",
+      "featuredSpots": "Featured spots",
+      "findDestinations": "Find destinations",
+      "packages": "Tour packages",
+      "explorer": "Regenerative Explorer",
+      "paspor": "Regenerative Passport",
+      "guideEthics": "Guide & ethics",
+      "localUmkm": "Local MSMEs",
+      "certificationTiers": "Certification tiers",
+      "registerUmkm": "Register as an MSME",
+      "signIn": "Sign in",
+      "register": "Create account",
+      "villagesInNetwork": "Villages in the network",
+      "regenerativeTrail": "Regenerative trail"
+    },
+    "copyright": "© {year} sigerciv · CIV Scientific Group, Sains Data Study Program, ITERA.",
+    "domainNote": "sigerciv.com · PWA offline-first"
+  },
+  "landing": {
+    "seo": {
+      "title": "sigerciv — Regenerative Tourism Platform for Lampung",
+      "description": "Sigerciv connects regenerative village tourism across Lampung — discover cross-village destinations, support local MSMEs, and join regenerative missions."
+    },
+    "hero": {
+      "badge": "Sigerciv platform · Lampung",
+      "tagline": "Travel that leaves a positive impact in Lampung",
+      "imageAlt": "Coastal tourism destination in Lampung — snorkeling in calm waters",
+      "subtitle": "Sigerciv stewards technology so destination data stays community-owned, economic value flows to local residents, and conservation funds can be monitored transparently.",
+      "explore": "Explore",
+      "join": "Join",
+      "pwaNote": "PWA offline-first",
+      "searchLabel": "Search destinations or categories",
+      "searchPlaceholder": "Search destinations, beaches, snorkeling…",
+      "searchButton": "Search"
+    },
+    "categoryChips": {
+      "eyebrow": "Quick explore",
+      "title": "Destination categories"
+    },
+    "featuredSpots": {
+      "eyebrow": "Public showcase",
+      "title": "Featured spots",
+      "subtitle": "Active destinations from partner villages — community-curated and ready to explore.",
+      "viewAll": "View all"
+    },
+    "valuePillars": {
+      "title": "Why sigerciv",
+      "subtitle": "Three pillars of regenerative tourism: community data ownership, local value flows, and conservation transparency.",
+      "pillars": {
+        "dataOwnership": {
+          "title": "Village-owned data",
+          "body": "Spot inventories, services, and media are curated by the community. The platform is only a steward — data remains with the village and Pokdarwis."
+        },
+        "localValue": {
+          "title": "Value returns to residents",
+          "body": "Transactions flow to MSME providers and local agents. A share of reinvestment is allocated to village conservation funds."
+        },
+        "conservation": {
+          "title": "Transparent conservation funds",
+          "body": "Committed to publishing verified conservation fund flows — no impact figures claimed before the data is ready."
+        }
+      }
+    },
+    "misiLestari": {
+      "eyebrow": "Regenerative missions",
+      "title": "Regenerative Explorer & Regenerative Passport",
+      "subtitle": "Learn coastal tourism ethics, take verified actions, and collect stamps in your Regenerative Passport. Full quests and Regenerative Stations will follow in the next phase.",
+      "exploreVillages": "Explore village tourism",
+      "viewPaspor": "View Regenerative Passport",
+      "steps": {
+        "learn": {
+          "title": "Learn",
+          "body": "Understand coastal ethics, dolphin viewing codes, and regenerative practices before you visit."
+        },
+        "act": {
+          "title": "Act",
+          "body": "Join verified missions — from observation to contributing conservation data."
+        },
+        "stamp": {
+          "title": "Passport stamps",
+          "body": "Collect Regenerative Passport stamps as a record of your regenerative journey."
+        }
+      }
+    },
+    "pasarDesa": {
+      "eyebrow": "Village Market",
+      "title": "Certified MSMEs & local products",
+      "subtitle": "Tourism value flows to local providers. Certification tiers mark regenerative commitment from Tunas to Lumba-Lumba.",
+      "tiers": {
+        "tunas": {
+          "title": "Tunas",
+          "body": "First steps in regenerative practice — a baseline commitment to sustainable business."
+        },
+        "bahari": {
+          "title": "Bahari",
+          "body": "Measured coastal practice — marine tourism ethics and community contribution."
+        },
+        "lumba": {
+          "title": "Lumba-Lumba",
+          "body": "Highest tier — regenerative standards and transparent impact reporting."
+        }
+      },
+      "emptyCatalog": "Certified MSME catalog coming soon — register as a local provider to join the Village Market.",
+      "exploreNetwork": "Explore villages in the network"
+    },
+    "paketPilihan": {
+      "eyebrow": "Experiences",
+      "title": "Curated packages & experiences",
+      "subtitle": "Community-curated tour packages — local agents, flexible schedules, value returning to the village.",
+      "explorePackages": "Browse packages",
+      "emptyTitle": "Tour packages — coming soon",
+      "emptyBody": "Coastal packages and local experiences are being prepared with agents and Pokdarwis across the Sigerciv village network.",
+      "exploreCta": "Browse packages in Lampung"
+    },
+    "jejakRegeneratif": {
+      "eyebrow": "Regenerative trail",
+      "title": "Conservation impact transparency",
+      "subtitle": "sigerciv is committed to showing verified conservation outcomes — from conservation funds to carrying-capacity indicators. Impact figures will only appear once verified monitoring data is available, not as aspirational claims.",
+      "commitmentTitle": "Open commitment",
+      "commitmentBody": "Conservation funds and the regenerative ledger will be published when the F3 data pipeline is active.",
+      "targetLabel": "Transparency target",
+      "targetBody": "Transparency will follow once conservation data is verified — no hard-coded figures on this page."
+    },
+    "jelajahCta": {
+      "eyebrow": "Cross-village · Lampung",
+      "title": "Explore village tourism across Lampung",
+      "subtitle": "Interactive map, category filters, search, and distance from your location — find regenerative destinations village by village.",
+      "cta": "Open Explore"
+    },
+    "communityCta": {
+      "eyebrow": "Join the community",
+      "title": "Choose your role on sigerciv",
+      "subtitle": "Register for your membership role — traveler, MSME operator, local agent, or Pokdarwis manager. Install the app as a PWA for offline access in the field.",
+      "register": "Register",
+      "roles": {
+        "wisatawan": {
+          "label": "Resident / Traveler",
+          "desc": "Explore destinations, join regenerative missions, and collect Passport stamps."
+        },
+        "umkm": {
+          "label": "MSME",
+          "desc": "Showcase products and services in the Village Market with regenerative certification tiers."
+        },
+        "agen": {
+          "label": "Agent",
+          "desc": "Curate tour packages and coastal services with the local community."
+        },
+        "pokdarwis": {
+          "label": "Pokdarwis",
+          "desc": "Manage destination data, curate content, and oversee the village's regenerative impact."
+        }
+      }
+    },
+    "weather": {
+      "eyebrow": "Weather & safety",
+      "title": "Coastal & land conditions",
+      "subtitle": "Check the forecast before setting out. This card hides automatically when weather service is unavailable."
+    },
+    "featuredDesa": {
+      "eyebrow": "Multi-village tenant",
+      "title": "Tourism villages in the sigerciv network",
+      "subtitle": "Sigerciv connects regenerative tourism villages across Lampung — from coast to inland, ready to grow together with cross-village modules.",
+      "viewMap": "View all on map"
+    },
+    "modules": {
+      "title": "Phase 0 modules — live platform foundation",
+      "subtitle": "Three core spaces already active: public showcase, multi-role membership, and structured destination data.",
+      "learnMore": "Learn more →",
+      "items": {
+        "gerbang": {
+          "name": "Gateway",
+          "tag": "Showcase & Discovery",
+          "desc": "Cross-village destination catalog, interactive map, category filters, and public spot pages."
+        },
+        "balai": {
+          "name": "Community Hall",
+          "tag": "Identity & Membership",
+          "desc": "Multi-role auth, RBAC per tenant, sign in & register for travelers through Pokdarwis managers."
+        },
+        "destinasi": {
+          "name": "Sigerciv Destinations",
+          "tag": "Tourism Data Foundation",
+          "desc": "Structured spots with PostGIS geo, services, activity calendar, and MinIO media gallery."
+        }
+      }
+    }
+  },
+  "jelajah": {
+    "seo": {
+      "defaultTitle": "Explore Village Tourism in Lampung",
+      "defaultDescription": "Discover regenerative village tourism in Lampung — interactive map, category filters, and cross-village destinations on Sigerciv.",
+      "villageTitle": "Explore {villageName}",
+      "villageDescription": "Destinations and tourism in {villageName}, Lampung — Sigerciv public showcase.",
+      "searchTitle": "Search \"{query}\" — Explore Lampung",
+      "searchDescription": "Search results for destinations and village tourism matching \"{query}\" on Sigerciv."
+    },
+    "hero": {
+      "badge": "Sigerciv · Lampung",
+      "title": "Explore village tourism",
+      "subtitle": "Pick a village on the Lampung map or search cross-village destinations — community-owned regenerative tourism."
+    },
+    "explorer": {
+      "region": "Region",
+      "allLampung": "All Lampung",
+      "openShowcase": "Open showcase",
+      "clearDesaFilter": "Clear village filter",
+      "filter": "Filter",
+      "search": "Search",
+      "searchPlaceholder": "Destination or village name…",
+      "category": "Category",
+      "allCategories": "All categories",
+      "tag": "Tag (this village)",
+      "allTags": "All tags",
+      "apply": "Apply",
+      "resetLocation": "Reset location",
+      "nearMe": "Near me",
+      "activeFilters": "Active filters",
+      "resetAll": "Reset all",
+      "lensDesa": "Pick a village",
+      "lensWisata": "Find experiences",
+      "loading": "Loading results…",
+      "emptyDesa": "No active village tourism matches yet.",
+      "emptyDestinasi": "No public destinations match your filters.",
+      "loadMore": "Load more",
+      "mapDesa": "Lampung village tourism map",
+      "mapDestinasi": "Destination map",
+      "mapEmpty": "No markers for this filter. Try different criteria or browse All Lampung.",
+      "mapHint": "Click a village marker to filter experiences in that village. Hover a card or marker to highlight it.",
+      "geoUnsupported": "Your browser does not support geolocation.",
+      "geoDenied": "Location permission denied — showing central Lampung without distance.",
+      "categoryFallback": "Category",
+      "tagPrefix": "Tag: {tag}",
+      "nearMeChip": "Near me",
+      "distanceKm": "± {distance} km from you"
+    },
+    "card": {
+      "villageLabel": "Village tourism · Lampung",
+      "pickVillage": "Select this village →",
+      "exploreShowcase": "Explore showcase →"
+    }
+  },
+  "cari": {
+    "seo": {
+      "title": "Find Destinations",
+      "description": "Browse regenerative tourism destinations across sigerciv villages."
+    }
+  },
+  "etalase": {
+    "seoFallback": "Tourism showcase for {desa}",
+    "destinasi": {
+      "badge": "Sigerciv Destinations module",
+      "title": "Tourism spot catalog",
+      "desc": "Structured destinations with geo, services, and gallery — curated by village managers."
+    },
+    "hero": {
+      "back": "Back to Sigerciv",
+      "badge": "Regenerative Village Tourism Showcase",
+      "exploreCta": "Explore destinations",
+      "dasborCta": "My dashboard",
+      "kelolaCta": "Manage village",
+      "spotPublik": "Public spots",
+      "tenant": "Tenant"
+    },
+    "quickLinks": {
+      "title": "Explore further",
+      "soon": "Coming soon",
+      "open": "Open →",
+      "panduan": {
+        "title": "Visitor guide",
+        "desc": "Marine ethics, weather, and offline PWA tips."
+      },
+      "tentang": {
+        "title": "Village profile",
+        "desc": "Community story & regenerative vision."
+      },
+      "pasar": {
+        "title": "Village Market",
+        "desc": "Local businesses & services (Phase 1)."
+      },
+      "kalender": {
+        "title": "Activity calendar",
+        "desc": "Dolphin schedules & seasonal events."
+      }
+    },
+    "explorer": {
+      "searchLabel": "Search destinations",
+      "searchPlaceholder": "Search tourism spots…",
+      "filterLabel": "Filter category",
+      "allCategories": "All categories",
+      "search": "Search",
+      "empty": "No matching public destinations yet.",
+      "loadMore": "Load more"
+    }
+  },
+  "kelola": {
+    "seoTitle": "Village Manager",
+    "layoutTitle": "Village Manager",
+    "layoutSubtitle": "Operations console for {desa}",
+    "drafLokal": {
+      "bannerJudul": "Local draft found",
+      "bannerDesc": "Unsaved changes are stored in this browser (last saved {waktu}).",
+      "pulihkan": "Restore draft",
+      "buang": "Discard draft",
+      "menyimpan": "Saving local draft…",
+      "tersimpan": "Local draft saved · {waktu}"
+    },
+    "shell": {
+      "breadcrumbLabel": "Village manager navigation",
+      "breadcrumbHome": "Home",
+      "breadcrumbKelola": "Village Manager",
+      "backEtalase": "Public showcase",
+      "backDasbor": "Manager dashboard"
+    },
+    "guard": {
+      "loading": "Loading session…",
+      "title": "Village Manager Area",
+      "desc": "Sign in with an account that has village manager role (pokdarwis, village official, or admin).",
+      "masuk": "Sign in"
+    },
+    "nav": {
+      "ringkasan": "Overview",
+      "destinasi": "Destinations",
+      "layanan": "Services",
+      "kalender": "Calendar",
+      "berita": "News",
+      "bendahara": "Treasurer",
+      "pendapatan": "Revenue",
+      "refund": "Refunds",
+      "hadiah": "Rewards",
+      "checkin": "Check-in",
+      "kurasi": "Content Kitchen",
+      "validasiKartu": "Action Card Validation",
+      "verifikasi": "Verification"
+    },
+    "ringkasan": {
+      "intro": "Manage destinations, services, and schedules for {desa}. Changes can be saved offline and synced automatically.",
+      "publik": "Published destinations",
+      "draft": "Drafts",
+      "layanan": "Services",
+      "kalender": "Calendar",
+      "dasborPokdarwis": "Pokdarwis dashboard",
+      "tambahDestinasi": "+ Add new destination"
+    },
+    "bendahara": {
+      "seoTitle": "Treasurer Panel",
+      "seoTitleDesa": "Treasurer Panel — {desa}",
+      "eyebrow": "Escrow & settlement",
+      "title": "Treasurer Panel",
+      "subtitleDesa": "Financial operations for {desa} — payment confirmation, escrow, and provider payouts.",
+      "loading": "Loading treasurer panel…",
+      "memproses": "Processing…",
+      "refundLink": "Traveler refund requests are handled separately.",
+      "refundCta": "Open refund management →",
+      "escrow": {
+        "menunggu": "Awaiting confirmation",
+        "menungguHint": "{count} manual payments",
+        "ditahan": "Held funds (escrow)",
+        "ditahanHint": "Not yet released to providers",
+        "dirilis": "Ready to disburse",
+        "dirilisHint": "Released transactions, no payout yet"
+      },
+      "penyediaTipe": {
+        "umkm": "MSME",
+        "agen": "Tour agent",
+        "pokdarwis": "Village manager"
+      },
+      "statusPayout": {
+        "draft": "Draft",
+        "diproses": "Processing",
+        "berhasil": "Successful",
+        "gagal": "Failed",
+        "tandai_berhasil": "Completed"
+      },
+      "konfirmasi": {
+        "title": "Manual payment confirmation",
+        "desc": "Verify transfer proof — buyers cannot confirm on their own.",
+        "empty": "No payments awaiting verification.",
+        "confirm": "Confirm paid",
+        "konfirmasiDialog": "Confirm this payment as fully paid?",
+        "sukses": "Payment confirmed.",
+        "bukti": "proof",
+        "terunggah": "uploaded",
+        "belumAda": "not yet uploaded"
+      },
+      "payout": {
+        "title": "Provider payouts",
+        "desc": "Disburse released transactions to verified accounts (manual transfer).",
+        "empty": "No released funds ready for disbursement.",
+        "loadRekening": "Load provider accounts",
+        "belumVerifikasi": "(not verified)",
+        "verifikasiRekening": "Verify account",
+        "rekeningTerverifikasi": "Account verified.",
+        "konfirmasiDialog": "Run manual payout to this account?",
+        "sukses": "Payout recorded successfully.",
+        "riwayat": "Payout history",
+        "neto": "net"
+      },
+      "errors": {
+        "konfirmasi": "Confirmation failed.",
+        "payout": "Payout failed — ensure the account is verified."
+      }
+    },
+    "berita": {
+      "seoTitle": "Manage News",
+      "seoTitleDesa": "Manage News — {desa}",
+      "eyebrow": "Village content",
+      "title": "Manage News",
+      "subtitle": "Drafts, publishing, archiving, and scheduling.",
+      "subtitleDesa": "Curate news & announcements for {desa}.",
+      "newArticle": "+ New article",
+      "editTitle": "Edit article",
+      "newTitle": "New article",
+      "backToList": "News list",
+      "empty": "No articles yet. Create your first article.",
+      "sorotan": "featured",
+      "edit": "Edit",
+      "table": {
+        "judul": "Title",
+        "kategori": "Category",
+        "status": "Status",
+        "terbit": "Published",
+        "aksi": "Actions"
+      },
+      "status": {
+        "draft": "Draft",
+        "publikasi": "Published",
+        "arsip": "Archived"
+      },
+      "form": {
+        "judul": "Title",
+        "slug": "URL slug",
+        "ringkasan": "Summary",
+        "konten": "Content (Markdown)",
+        "kontenPlaceholder": "## Section heading\n\nWrite with **markdown**…",
+        "kategori": "Category",
+        "terbitPada": "Publish at",
+        "terbitHint": "Leave empty = publish immediately after approval",
+        "sorotan": "Show as featured",
+        "tag": "Tags",
+        "sampul": "Cover image",
+        "sampulAlt": "Cover",
+        "unggahFoto": "Upload photo",
+        "simpanDraft": "Save draft",
+        "simpanPerubahan": "Save changes",
+        "menyimpan": "Saving…",
+        "publikasikan": "Publish",
+        "arsipkan": "Archive",
+        "kembalikanDraft": "Revert to draft",
+        "hapus": "Delete",
+        "hapusKonfirmasi": "Delete this article? (soft delete)",
+        "terjadwal": "Scheduled / published: {tanggal}",
+        "slugKonflik": "Slug is already used by another article. Choose a different slug."
+      }
+    },
+    "checkin": {
+      "seoTitle": "Booking check-in",
+      "seoTitleDesa": "Booking check-in — {desa}",
+      "eyebrow": "Dermaga · tickets",
+      "title": "Check-in scanner",
+      "subtitle": "Enter or scan the traveler's ticket QR code. Authorized staff/agents only.",
+      "subtitleDesa": "Validate traveler arrivals in {desa} — enter a check-in code or booking ID.",
+      "desc": "Ensure the booking is confirmed before check-in. Invalid codes or cancelled bookings will be rejected.",
+      "formLabel": "Ticket code",
+      "placeholder": "CI-XXXXXX or booking ID",
+      "submit": "Check in",
+      "memproses": "Processing…",
+      "sukses": "Check-in successful: {kode} → {status}",
+      "error": "Check-in failed. Ensure the code is valid and the booking is confirmed.",
+      "status": {
+        "terkonfirmasi": "Confirmed",
+        "checkin": "Checked in",
+        "selesai": "Completed",
+        "batal": "Cancelled"
+      }
+    },
+    "destinasi": {
+      "seoTitle": "Manage Destinations",
+      "listTitle": "Destination list",
+      "new": "+ New",
+      "createTitle": "Create destination",
+      "editTitle": "Edit: {nama}",
+      "table": {
+        "nama": "Name",
+        "slug": "Slug",
+        "status": "Status",
+        "aksi": "Actions"
+      },
+      "edit": "Edit",
+      "status": {
+        "draft": "Draft",
+        "publikasi": "Published",
+        "arsip": "Archived"
+      },
+      "form": {
+        "nama": "Destination name",
+        "slug": "URL slug",
+        "kategori": "Category",
+        "kategoriSnorkeling": "Snorkeling",
+        "kategoriPantai": "Beach",
+        "alamat": "Address",
+        "deskripsi": "Description",
+        "jamOperasional": "Opening hours",
+        "jamHint": "Per-day format, e.g. 06:00-18:00. Leave blank for closed days.",
+        "jamPlaceholder": "06:00-18:00",
+        "hari": {
+          "sen": "Mon",
+          "sel": "Tue",
+          "rab": "Wed",
+          "kam": "Thu",
+          "jum": "Fri",
+          "sab": "Sat",
+          "min": "Sun"
+        },
+        "lokasi": "Location (point & area)",
+        "tag": "Tags",
+        "status": "Status",
+        "galeriTitle": "Photo gallery",
+        "galeriDesc": "Upload directly to MinIO (presigned). Cover photo appears on the public spot page.",
+        "simpan": "Create destination",
+        "simpanPerubahan": "Save changes",
+        "menyimpan": "Saving…",
+        "publikasikan": "Publish",
+        "hapus": "Delete destination",
+        "hapusKonfirmasi": "Delete this destination? It will no longer appear on the public showcase.",
+        "slugKonflik": "This slug is already used in this village. Choose another slug.",
+        "offlineSaved": "Saved offline — will sync when online.",
+        "apiOffline": "API unavailable — saved to offline queue.",
+        "published": "Destination published.",
+        "publishFailed": "Failed to publish — try again when online."
+      },
+      "filterSemuaStatus": "All statuses",
+      "filterSemuaKategori": "All categories",
+      "empty": "No destinations match the current filters.",
+      "media": {
+        "empty": "No photos yet. Upload the first image above.",
+        "sampul": "Cover",
+        "alt": "Destination media",
+        "jadikanSampul": "Set as cover",
+        "geserKiri": "Move left",
+        "geserKanan": "Move right",
+        "hapus": "Remove",
+        "hapusKonfirmasi": "Detach media from this destination?",
+        "errorSampul": "Failed to set cover.",
+        "errorUrutan": "Failed to reorder.",
+        "errorHapus": "Failed to remove attachment."
+      }
+    },
+    "hadiah": {
+      "seoTitle": "Manage Rewards & Coupons",
+      "seoTitleDesa": "Manage Rewards & Coupons — {desa}",
+      "eyebrow": "Coupons & points",
+      "title": "Manage Rewards & Coupons",
+      "subtitle": "Point redemption catalog and village campaign coupons.",
+      "subtitleDesa": "{desa} loyalty program — Regenerative Passport rewards & discount coupons.",
+      "loading": "Loading catalog…",
+      "menyimpan": "Saving…",
+      "katalog": "Reward catalog",
+      "emptyHadiah": "No rewards yet. Add the first reward below.",
+      "poinSuffix": "points",
+      "stok": "stock {count}",
+      "tambahHadiah": "Add reward",
+      "kuponKampanye": "Campaign coupons",
+      "kuponHint": "Village campaign coupons — travelers can redeem via points or promos.",
+      "buatKupon": "Create campaign coupon",
+      "placeholder": {
+        "nama": "Reward name",
+        "biaya": "Point cost",
+        "stok": "Stock (optional)",
+        "deskripsi": "Short description (optional)",
+        "kode": "Coupon code",
+        "nilai": "Discount value (IDR)",
+        "min": "Min. purchase (optional)"
+      },
+      "jenis": {
+        "merchandise": "Merchandise",
+        "kupon_diskon": "Discount coupon",
+        "tiket": "Ticket"
+      },
+      "sukses": {
+        "hadiah": "Reward added to catalog.",
+        "kupon": "Campaign coupon created."
+      },
+      "errors": {
+        "hadiah": "Failed to add reward.",
+        "kupon": "Failed to create coupon."
+      }
+    },
+    "kalender": {
+      "seoTitle": "Activity Calendar",
+      "title": "Activity Calendar",
+      "tambah": "Add calendar activity",
+      "ubah": "Edit activity",
+      "judul": "Title",
+      "tipe": "Type",
+      "destinasi": "Linked destination",
+      "destinasiOpsional": "— No destination —",
+      "pengulangan": "Recurrence (RRULE)",
+      "interval": "Interval",
+      "mulai": "Start time",
+      "selesai": "End time",
+      "berlakuMulai": "Valid from",
+      "berlakuSampai": "Valid until (optional)",
+      "simpan": "Save activity",
+      "simpanUbah": "Save changes",
+      "menyimpan": "Saving…",
+      "batal": "Cancel",
+      "nonaktifkan": "Deactivate",
+      "nonaktifkanKonfirmasi": "Deactivate this activity?",
+      "nonaktifkanSukses": "Activity deactivated.",
+      "hapus": "Delete permanently",
+      "hapusKonfirmasi": "Permanently delete this activity?",
+      "deleted": "Activity deleted.",
+      "updated": "Activity updated.",
+      "statusNonaktif": "inactive",
+      "empty": "No calendar activities yet.",
+      "previewTitle": "Date preview (client)",
+      "previewDisclaimer": "Estimate from RRULE pattern — server stores the rule only, not materialized dates.",
+      "previewEmpty": "Set valid-from and recurrence pattern to see a preview.",
+      "tipeOpsi": {
+        "harian": "Daily",
+        "musiman": "Seasonal",
+        "event": "Event"
+      },
+      "freq": {
+        "DAILY": "Every day",
+        "WEEKLY": "Weekly"
+      },
+      "byday": "Days of week (BYDAY)",
+      "bydayKosong": "Select at least one day.",
+      "bydayWajib": "Weekly recurrence requires at least one day (BYDAY).",
+      "previewBydayKosong": "Select days of the week to preview weekly recurrence.",
+      "hari": {
+        "MO": "Mon",
+        "TU": "Tue",
+        "WE": "Wed",
+        "TH": "Thu",
+        "FR": "Fri",
+        "SA": "Sat",
+        "SU": "Sun"
+      },
+      "offlineSaved": "Saved to offline queue.",
+      "added": "Activity added."
+    },
+    "kurasi": {
+      "seoTitle": "Content Kitchen",
+      "seoTitleDesa": "Content Kitchen — {desa}",
+      "title": "Content Kitchen",
+      "subtitle": "Curation queue for traveler contributions, agent package reviews, and transparent audit log.",
+      "subtitleDesa": "Village manager for {desa} — review, approve, or request revision before content goes public.",
+      "tabLabel": "Content kitchen tabs",
+      "tabs": {
+        "kontribusi": "Contributions",
+        "paket": "Packages",
+        "log": "Curation log"
+      },
+      "subKontrib": {
+        "menunggu": "Pending",
+        "belumDiterapkan": "Not yet applied"
+      },
+      "filterTipe": "Filter contribution type",
+      "filterTarget": "Filter target",
+      "filterSemuaTipe": "All types",
+      "filterSemuaTarget": "All targets",
+      "filterLogEntitas": "Filter log entity",
+      "filterSemuaEntitas": "All entities",
+      "loading": "Loading…",
+      "loadMore": "Load more",
+      "emptyKontribMenunggu": "No pending contributions.",
+      "emptyBelumDiterapkan": "No approved proposals awaiting manual application.",
+      "emptyPaket": "No packages awaiting curation.",
+      "emptyLog": "No curation log entries yet.",
+      "pilihKontrib": "Select a contribution from the queue to view details and decide.",
+      "pilihPaket": "Select a package from the queue to review metadata and itinerary.",
+      "antreanKontribusi": "Contribution queue",
+      "antreanPaket": "Package review queue",
+      "setujuiPublikasi": "Approve & publish",
+      "paketDurasi": "Duration",
+      "paketHarga": "Price",
+      "paketKuota": "Default quota",
+      "jam": "hours",
+      "menit": "min",
+      "hari": "Day {hari}",
+      "itinerary": "Itinerary",
+      "footnote": "Approved data corrections and new spot proposals do not auto-update destinations — apply manually via Manage editor.",
+      "entitas": {
+        "kontribusi": "Contribution",
+        "paket_wisata": "Tour package"
+      },
+      "logKolom": {
+        "waktu": "Time",
+        "entitas": "Entity",
+        "transisi": "Transition",
+        "keputusan": "Decision",
+        "catatan": "Note"
+      },
+      "sukses": {
+        "kontribusi": {
+          "setuju": "Contribution approved.",
+          "tolak": "Contribution rejected.",
+          "minta_revisi": "Revision request sent to contributor."
+        },
+        "paket": {
+          "setuju": "Package approved and published.",
+          "tolak": "Package rejected.",
+          "minta_revisi": "Revision request sent to agent."
+        }
+      },
+      "panel": {
+        "title": "Curator decision",
+        "catatanLabel": "Note",
+        "catatanPlaceholder": "Note for contributor/agent (required for reject & revision)",
+        "catatanHint": "Optional for approve. Required for reject or request revision.",
+        "catatanWajib": "A note is required for reject or request revision.",
+        "setujui": "Approve",
+        "mintaRevisi": "Request revision",
+        "tolak": "Reject",
+        "tolakKonfirm": "Yes, reject",
+        "batal": "Cancel",
+        "konfirmasiTolak": "Are you sure you want to reject? This cannot be undone.",
+        "memproses": "Processing…"
+      },
+      "kontribusiDetail": {
+        "tipe": "Type",
+        "target": "Target",
+        "field": "Field",
+        "nilaiSaatIni": "Current value",
+        "usulan": "Proposal",
+        "alasan": "Reason",
+        "namaSpot": "Spot name",
+        "deskripsi": "Description",
+        "fotoMedia": "Media #{id}…",
+        "bannerBelumDiterapkan": "Approved — not yet applied",
+        "bannerDesc": "This proposal does not automatically change destination data. Apply manually via Manage editor.",
+        "bukaEditor": "Open destination editor"
+      }
+    },
+    "kurasiKonten": {
+      "seoTitle": "Content Curation",
+      "seoTitleDesa": "Content Curation — {desa}",
+      "title": "Content Curation Queue",
+      "subtitle": "Review traveler contributions — photos, tips, data corrections, and new spot proposals.",
+      "subtitleDesa": "{desa} content kitchen — curation queue and apply suggestions.",
+      "tabMenunggu": "Awaiting curation",
+      "tabTerapkan": "Apply suggestions",
+      "filterTipe": "Filter contribution type",
+      "filterSemuaTipe": "All types",
+      "loading": "Loading…",
+      "memproses": "Processing…",
+      "emptyMenunggu": "No contributions awaiting curation.",
+      "emptyTerapkan": "No suggestions awaiting application.",
+      "catatanPlaceholder": "Curator note",
+      "setujui": "Approve",
+      "mintaRevisi": "Request revision",
+      "tolak": "Reject",
+      "terapkan": "Apply in destination editor →",
+      "footnote": "Approved corrections and new spots do not automatically change destinations — use Apply to open the destination editor.",
+      "sukses": {
+        "setuju": "Contribution approved.",
+        "tolak": "Contribution rejected.",
+        "minta_revisi": "Revision request sent."
+      }
+    },
+    "kurasiPaket": {
+      "seoTitle": "Package Curation",
+      "seoTitleDesa": "Package Curation — {desa}",
+      "title": "Tour Package Curation",
+      "subtitle": "Approve, request revision, or reject tour packages submitted by agents.",
+      "subtitleDesa": "Package curation queue for {desa}.",
+      "loading": "Loading queue…",
+      "memproses": "Processing…",
+      "empty": "No packages awaiting curation.",
+      "jam": "hours",
+      "lihatDetail": "View package details →",
+      "logTitle": "Recent curation log",
+      "catatanPlaceholder": "Curator note (optional)",
+      "setujui": "Approve & publish",
+      "mintaRevisi": "Request revision",
+      "tolak": "Reject",
+      "sukses": {
+        "setuju": "Package approved and published.",
+        "tolak": "Package rejected.",
+        "minta_revisi": "Revision request sent to agent."
+      },
+      "statusPaket": {
+        "draft": "Draft",
+        "review": "Awaiting curation",
+        "publikasi": "Published",
+        "ditolak": "Rejected",
+        "arsip": "Archived"
+      }
+    },
+    "layanan": {
+      "seoTitle": "Tourism Services",
+      "title": "Tourism Services",
+      "tambah": "Add service",
+      "ubah": "Edit service",
+      "nama": "Name",
+      "jenis": "Type",
+      "deskripsi": "Description",
+      "harga": "Price (IDR)",
+      "satuan": "Price unit",
+      "destinasi": "Link to spot",
+      "destinasiOpsional": "— No spot —",
+      "kuota": "Daily quota",
+      "statusLabel": "Status",
+      "simpan": "Save service",
+      "simpanUbah": "Save changes",
+      "menyimpan": "Saving…",
+      "batal": "Cancel",
+      "hapus": "Delete",
+      "hapusKonfirmasi": "Delete this service?",
+      "deleted": "Service deleted.",
+      "updated": "Service updated.",
+      "forbidden": "You are not allowed to edit another provider's service.",
+      "readOnly": "Owned by another provider",
+      "pemilikIntro": "Manage tourism services you offer — transport, guides, equipment rental, and more. Only services owned by your account can be edited.",
+      "pemilikIntroAgen": "Manage services that support your tour packages — boats, guides, transport, and tickets. Only services owned by your agent account can be edited.",
+      "emptyPemilik": "You have no services yet. Add your first service using the form above.",
+      "memuatSesi": "Loading session…",
+      "butuhMasuk": "Sign in to manage services.",
+      "empty": "No services yet.",
+      "filterSemuaJenis": "All types",
+      "filterSemuaStatus": "All statuses",
+      "status": {
+        "draft": "Draft",
+        "publikasi": "Published",
+        "arsip": "Archived"
+      },
+      "jenisOpsi": {
+        "transportasi": "Transport",
+        "pemandu": "Guide",
+        "penginapan": "Accommodation",
+        "sewa_alat": "Gear rental",
+        "kuliner": "Food & drink",
+        "tiket_masuk": "Entry ticket",
+        "lainnya": "Other"
+      },
+      "satuanOpsi": {
+        "per_orang": "Per person",
+        "per_paket": "Per package",
+        "per_hari": "Per day",
+        "per_unit": "Per unit"
+      },
+      "offlineSaved": "Saved to offline queue.",
+      "added": "Service added."
+    },
+    "pendapatan": {
+      "seoTitle": "Revenue & Accounts",
+      "seoTitleDesa": "Revenue & Accounts — {desa}",
+      "eyebrow": "Provider",
+      "title": "Revenue & Accounts",
+      "subtitleDesa": "MSME revenue summary in {desa} — transaction ledger and payout accounts.",
+      "loading": "Loading revenue data…",
+      "menyimpan": "Saving…",
+      "pilihUmkm": "Select MSME",
+      "noUmkm": "No registered businesses in this village yet.",
+      "titleUmkm": "Revenue — {nama}",
+      "statBruto": "Gross",
+      "statNeto": "Provider net",
+      "statReinvest": "Reinvestment",
+      "ringkasan": "Net {neto} · reinvestment {reinvest}",
+      "ledger": "Transaction ledger",
+      "emptyTransaksi": "No transactions yet.",
+      "bruto": "gross",
+      "fee": "fee",
+      "reinvestasi": "reinvestment",
+      "rekening": "Payout accounts",
+      "rekeningHint": "Accounts are verified by the treasurer before payout.",
+      "rekeningSukses": "Account added.",
+      "terverifikasi": "verified",
+      "menungguVerifikasi": "awaiting treasurer verification",
+      "placeholderNomor": "Account number",
+      "placeholderNama": "Account holder name",
+      "tambahRekening": "Add account",
+      "errorRekening": "Failed to save account.",
+      "statusTransaksi": {
+        "ditahan": "Held",
+        "dirilis": "Released",
+        "dicairkan": "Disbursed",
+        "refund": "Refund"
+      }
+    },
+    "refund": {
+      "seoTitle": "Manage Refunds",
+      "seoTitleDesa": "Manage Refunds — {desa}",
+      "eyebrow": "Escrow",
+      "title": "Manage Refunds",
+      "subtitleDesa": "Traveler refund requests for {desa}.",
+      "loading": "Loading refunds…",
+      "memproses": "Processing…",
+      "desc": "Refunds after completed orders are not automatic — manual treasurer workflow.",
+      "bendaharaLink": "Payment confirmation & payouts are in the treasurer panel.",
+      "bendaharaCta": "Open treasurer panel →",
+      "filterStatus": "Filter status",
+      "filterSemua": "All statuses",
+      "empty": "No requests.",
+      "pesanan": "Order {id}…",
+      "konfirmasiSetuju": "Approve this refund request?",
+      "konfirmasiTolak": "Reject this refund request?",
+      "sukses": {
+        "setuju": "Refund approved.",
+        "tolak": "Refund rejected.",
+        "proses": "Refund processing.",
+        "selesai": "Refund completed."
+      },
+      "aksi": {
+        "setuju": "Approve",
+        "tolak": "Reject",
+        "proses": "Process",
+        "selesai": "Complete"
+      },
+      "status": {
+        "diajukan": "Submitted",
+        "disetujui": "Approved",
+        "diproses": "Processing",
+        "selesai": "Completed",
+        "ditolak": "Rejected"
+      }
+    },
+    "validasiKartu": {
+      "seoTitle": "Action Card Validation",
+      "seoTitleDesa": "Action Card Validation — {desa}",
+      "title": "Action Card Validation",
+      "subtitle": "Review regenerative action card applications from MSMEs, agents, and village managers.",
+      "subtitleDesa": "Regenerative Level-Up validation queue — {desa}.",
+      "loading": "Loading queue…",
+      "memproses": "Processing…",
+      "empty": "No pending applications.",
+      "antreanLabel": "Pending submission queue",
+      "detailTitle": "Submission detail",
+      "tingkatSubjek": "Current subject level",
+      "catatanPlaceholder": "Validator note",
+      "validasi": "Validate",
+      "mintaRevisi": "Request revision",
+      "tolak": "Reject",
+      "footnote": "Validation increases owner score & certification tier — affects Village Market ranking.",
+      "errors": {
+        "load": "Failed to load validation queue."
+      },
+      "subjek": {
+        "umkm": "MSME",
+        "agen": "Agent",
+        "pokdarwis": "Village manager"
+      },
+      "sukses": {
+        "setuju": "Action card validated.",
+        "tolak": "Application rejected.",
+        "minta_revisi": "Revision request sent."
+      }
+    },
+    "verifikasi": {
+      "seoTitle": "Verification queue",
+      "seoTitleDesa": "Explorer Verification — {desa}",
+      "eyebrow": "Explorer · mission stamps",
+      "title": "Explorer Verification",
+      "subtitle": "Confirm mission stamps via guide method — {desa}",
+      "subtitleDesa": "Mission stamp validation queue in {desa} — authorized verifiers only.",
+      "desc": "Review stamp evidence from guides. Reject if proof is invalid or does not match the mission.",
+      "loading": "Loading queue…",
+      "memproses": "Processing…",
+      "empty": "No verifications pending.",
+      "antreanLabel": "Stamp verification queue",
+      "detailTitle": "Stamp detail",
+      "metode": "Method",
+      "entitas": "Stamp ID",
+      "dampakKlaim": "Claimed impact",
+      "fotoBukti": "Proof photo (media {id}…)",
+      "lokasiBukti": "Proof location",
+      "stempel": "Stamp",
+      "tolak": "Reject",
+      "valid": "Valid",
+      "konfirmasiTolak": "Reject this verification? This action cannot be undone.",
+      "sukses": {
+        "valid": "Stamp validated.",
+        "invalid": "Verification rejected."
+      },
+      "errors": {
+        "load": "Could not load queue — ensure you have verifier role.",
+        "putuskan": "Failed to decide verification."
+      }
+    }
+  },
+  "pasar": {
+    "seoTitle": "Village Market",
+    "loading": "Loading…",
+    "title": "Village Market",
+    "subtitle": "Verified local businesses, local products, and curated tour packages — sorted by certification & freshness.",
+    "searchPlaceholder": "Search products or businesses…",
+    "tab": {
+      "produk": "Products",
+      "umkm": "Local businesses"
+    },
+    "all": "All",
+    "loadingCatalog": "Loading catalog…",
+    "emptyProduk": "No public products yet.",
+    "emptyUmkm": "No verified local businesses yet.",
+    "distanceM": "{distance} m",
+    "nearMe": "Nearby",
+    "loadMore": "Load more",
+    "geoUnsupported": "Device does not support location.",
+    "geoDenied": "Location permission denied. Enable it to see nearby businesses.",
+    "sortNearNote": "Sorted by distance from your location.",
+    "card": {
+      "cart": "Cart",
+      "viewUmkm": "View business",
+      "checkout": "Checkout",
+      "detail": "Details",
+      "stock": "Stock {count}"
+    },
+    "umkmDetail": {
+      "seoFallback": "Business Detail",
+      "seoDesc": "Local business profile in {desa}.",
+      "loading": "Loading business…",
+      "notFound": "Business not found.",
+      "back": "Back to Market",
+      "about": "About",
+      "gallery": "Gallery",
+      "products": "Products & Services",
+      "noProducts": "This business has no public products yet.",
+      "contact": "Contact",
+      "whatsapp": "Contact via WhatsApp"
+    },
+    "produkDetail": {
+      "seoFallback": "Product Detail",
+      "seoDesc": "Local product in {desa}.",
+      "loading": "Loading product…",
+      "notFound": "Product not found.",
+      "back": "Back to Market",
+      "stock": "In stock: {count}",
+      "soldBy": "Sold by",
+      "addCheckout": "Buy now",
+      "addCart": "+ Cart",
+      "added": "Added to cart.",
+      "viewCheckout": "View checkout"
+    },
+    "umkmDaftar": {
+      "title": "Register MSME",
+      "subtitle": "Complete your business profile in {desa}. Once registered, village managers will review it for verification.",
+      "back": "Back",
+      "verifNotice": "New MSMEs start as pending verification. Products can be created as drafts but can only be published after the MSME is verified by village managers.",
+      "bidang": "Business field",
+      "bidangPilih": "Choose a business field…",
+      "nama": "Business name",
+      "namaPlaceholder": "e.g. Kiluan Coffee Stall",
+      "deskripsi": "Description",
+      "deskripsiPlaceholder": "Tell us about your business…",
+      "telepon": "Phone",
+      "whatsapp": "WhatsApp",
+      "alamat": "Address",
+      "alamatPlaceholder": "Business address",
+      "lokasiToggle": "Pin location on map (optional)",
+      "lokasiHint": "Coordinates: {lat}, {lng}",
+      "daftar": "Register MSME",
+      "mengirim": "Submitting…",
+      "batal": "Cancel",
+      "errorWajib": "Business field and name are required."
+    },
+    "umkmKelola": {
+      "loading": "Loading…",
+      "backDashboard": "MSME Dashboard",
+      "title": "Products & Services",
+      "subnavLabel": "MSME catalog navigation",
+      "tabProduk": "Market products",
+      "tabLayanan": "Tourism services",
+      "noUmkm": "No registered MSME yet.",
+      "registerUmkm": "Register MSME",
+      "unverifiedNotice": "products can only be saved as drafts until verified by managers.",
+      "productList": "Product list",
+      "emptyKelola": "No products yet. Add your first product.",
+      "add": "Add",
+      "productName": "Product name",
+      "priceIdr": "Price (IDR)",
+      "jenis": "Type",
+      "jenisProduk": "Product",
+      "jenisJasa": "Service",
+      "satuan": "Price unit",
+      "satuanOpsi": {
+        "per_unit": "per unit",
+        "per_orang": "per person",
+        "per_paket": "per package",
+        "per_malam": "per night",
+        "per_jam": "per hour"
+      },
+      "stok": "Stock",
+      "deskripsi": "Description",
+      "save": "Save",
+      "menyimpan": "Saving…",
+      "cancel": "Cancel",
+      "publish": "Publish",
+      "publishTitle": "Publish product",
+      "archive": "Archive",
+      "toDraft": "Move to draft",
+      "edit": "Edit",
+      "delete": "Delete",
+      "hapusKonfirmasi": "Delete product \"{nama}\"?",
+      "unverifiedTitle": "MSME not verified",
+      "errorWajib": "Name and price are required.",
+      "errorSave": "Failed to save product.",
+      "errorPublish": "Failed to publish product.",
+      "statusProduk": {
+        "draft": "Draft",
+        "publikasi": "Published",
+        "arsip": "Archived"
+      },
+      "verifikasi": {
+        "menunggu": "Awaiting verification",
+        "terverifikasi": "Verified",
+        "ditolak": "Rejected"
+      }
+    },
+    "umkmLayanan": {
+      "loading": "Loading…",
+      "backDashboard": "MSME Dashboard",
+      "title": "Tourism Services",
+      "subtitle": "Transport, guides, equipment rental, and other tourism services — linked to village spots. Ownership follows your account.",
+      "subnavLabel": "MSME catalog navigation",
+      "tabProduk": "Market products",
+      "tabLayanan": "Tourism services",
+      "butuhMasuk": "Sign in to manage tourism services."
+    },
+    "paketKelola": {
+      "loading": "Loading…",
+      "backDashboard": "Agent Dashboard",
+      "title": "Tour Packages",
+      "subnavLabel": "Agent catalog navigation",
+      "tabPaket": "Tour packages",
+      "tabLayanan": "Tourism services",
+      "myPackages": "My packages",
+      "new": "New",
+      "formNew": "New package",
+      "slugPlaceholder": "package-slug",
+      "packageName": "Package name",
+      "description": "Package description",
+      "price": "Price (IDR)",
+      "durationHours": "Duration (hours)",
+      "kuotaDefault": "Default quota (people)",
+      "satuanHarga": "Price unit",
+      "satuan": {
+        "per_paket": "Per package",
+        "per_orang": "Per person"
+      },
+      "create": "Create package",
+      "saving": "Saving…",
+      "saved": "Changes saved.",
+      "created": "Package created.",
+      "saveMetadata": "Save metadata",
+      "submitCuration": "Submit for curation",
+      "archive": "Archive",
+      "viewPublic": "View public page",
+      "itinerary": "Itinerary",
+      "gallery": "Photo gallery",
+      "metadata": "Package metadata",
+      "selectPackage": "Select a package to edit, or create a new one.",
+      "emptyList": "No packages for this filter.",
+      "filterStatus": "Status filter",
+      "filter": {
+        "semua": "All",
+        "draft": "Draft",
+        "review": "Review",
+        "publikasi": "Published",
+        "ditolak": "Rejected",
+        "arsip": "Archived"
+      },
+      "waitingReview": "This package is awaiting village manager review. Metadata and itinerary are locked for now.",
+      "curatorNote": "Curator note",
+      "transisi": {
+        "ajukan": "Package submitted to curation queue.",
+        "arsip": "Package archived."
+      },
+      "errors": {
+        "slugConflict": "Slug already used in this village. Choose another."
+      },
+      "statusPaket": {
+        "draft": "Draft",
+        "review": "Awaiting curation",
+        "publikasi": "Published",
+        "ditolak": "Rejected",
+        "arsip": "Archived"
+      },
+      "itineraryEditor": {
+        "empty": "No activities yet. Add a day and your first activity.",
+        "dayGroup": "Day {hari}",
+        "dayLabel": "Day {hari}",
+        "addActivity": "Activity",
+        "newDay": "New day number",
+        "addDay": "Add day",
+        "defaultJudul": "Activity {urutan}",
+        "titlePlaceholder": "Activity title",
+        "durationPlaceholder": "Duration (minutes)",
+        "descPlaceholder": "Short description",
+        "refNone": "No reference",
+        "refDestinasi": "Destination",
+        "refLayanan": "Service",
+        "refProduk": "Product/service",
+        "refPick": "Pick reference…",
+        "validation": "Enter a title or pick a reference.",
+        "moveUp": "Move up",
+        "moveDown": "Move down",
+        "delete": "Delete activity",
+        "minutes": "{count} min"
+      }
+    },
+    "agenLayanan": {
+      "loading": "Loading…",
+      "backDashboard": "Agent Dashboard",
+      "title": "Tourism Services",
+      "subtitle": "Boats, guides, transport, and package support services — linked to village spots. Ownership follows your agent account.",
+      "subnavLabel": "Agent catalog navigation",
+      "tabPaket": "Tour packages",
+      "tabLayanan": "Tourism services",
+      "butuhMasuk": "Sign in to manage tourism services."
+    }
+  },
+  "paket": {
+    "seoTitle": "Tour Packages",
+    "loading": "Loading…",
+    "title": "Tour Packages",
+    "subtitle": "Locally curated agent packages — explore itineraries and save your favorites.",
+    "durasi": {
+      "semua": "All packages",
+      "sehari": "Day trips",
+      "keluarga": "Family packages"
+    },
+    "showing": "Showing:",
+    "paketCount": "· {count} packages",
+    "loadingList": "Loading packages…",
+    "emptyFiltered": "No packages match this filter. Try another category or view all packages.",
+    "emptyAll": "No published packages yet.",
+    "card": {
+      "duration": "{jam} hours · default quota {kuota} people",
+      "ctaDetail": "View details"
+    },
+    "detail": {
+      "seoFallback": "Package details",
+      "seoDesc": "Tour package in {desa}.",
+      "loading": "Loading package…",
+      "notFound": "Package not found or not yet published.",
+      "back": "← All packages",
+      "itinerary": "Itinerary",
+      "hari": "Day {hari}",
+      "duration": "{jam} hours",
+      "kuota": "Default quota {count} people",
+      "minutes": "{count} min",
+      "priceNote": "Indicative package price. Scheduling and booking will be available in a later phase.",
+      "contactTitle": "Interested in this package?",
+      "contactDesc": "Contact {agen} for schedule and availability information."
+    },
+    "slot": {
+      "loading": "Loading schedule availability…",
+      "empty": "No schedule slots for this package yet. Contact the local agent.",
+      "title": "Pick departure date",
+      "hint": "Next 30 days · real-time quota from Dermaga",
+      "depart": "Departs {waktu}",
+      "full": "Full",
+      "seats": "{count} seats left",
+      "allFull": "All dates in this range are full. Try another date or contact the agent."
+    }
+  },
+  "misi": {
+    "seoTitle": "Regenerative Missions",
+    "title": "Sigerciv missions",
+    "subtitle": "Learn the code of ethics → take action in the field. Only verified stamps count toward your Regenerative Passport.",
+    "pasporLink": "Open Regenerative Passport →",
+    "stasiunLink": "Lestari Stations →",
+    "filter": {
+      "semuaJenis": "All types"
+    },
+    "kategori": {
+      "semua": "All",
+      "mangrove": "Mangrove",
+      "karang": "Coral",
+      "sampah": "Waste",
+      "lumba": "Dolphins",
+      "budaya": "Culture"
+    },
+    "loading": "Loading missions…",
+    "empty": "No active missions in this village yet.",
+    "poin": "{count} points",
+    "belajarDulu": "Complete the learning mission first",
+    "belajarDuluKategori": "Complete the learning mission for the {kategori} category first.",
+    "jenis": {
+      "belajar": "learn",
+      "aksi": "action"
+    },
+    "lesson": {
+      "title": "Micro-lesson",
+      "sectionFallback": "Section {n}",
+      "confirm": "I understand the code of ethics above and am ready to continue.",
+      "complete": "Mark complete"
+    },
+    "qr": {
+      "tabScan": "Scan QR",
+      "tabManual": "Manual input",
+      "scanHint": "Point the camera at the station QR code",
+      "cameraDenied": "Camera permission denied — use manual token input from the station board.",
+      "manualLabel": "Station QR token",
+      "manualPlaceholder": "STN-…",
+      "manualHint": "Geofence is still validated via your device location.",
+      "tokenDetected": "Token: {token}"
+    },
+    "detail": {
+      "back": "← Back to catalog",
+      "completeTitle": "Complete mission",
+      "syaratTitle": "Verification requirements",
+      "fotoWajib": "Proof photo upload is required.",
+      "radius": "Geofence radius {radius} m",
+      "jarak": "± {jarak} m from your location",
+      "mapCaption": "Location of {nama}",
+      "rewardTitle": "Impact reward",
+      "rewardNote": "Only verified stamps count toward your Passport summary.",
+      "pemanduHint": "After submission, the stamp awaits guide confirmation — not yet counted in Passport impact.",
+      "metode": {
+        "otomatis": "Automatic verification (micro-lesson)",
+        "qr_checkin": "QR check-in + station geofence",
+        "foto_geotag": "Photo upload + geolocation",
+        "konfirmasi_pemandu": "Guide/Pokdarwis confirmation"
+      }
+    },
+    "modal": {
+      "microLesson": "Micro-lesson",
+      "aksiLapangan": "Field action",
+      "kodeEtik": "Code of ethics",
+      "qrLabel": "Station QR token",
+      "qrPlaceholder": "STN-…",
+      "qrHint": "GPS location will be captured automatically for geofence check.",
+      "fotoBukti": "Proof photo",
+      "tutup": "Close",
+      "memproses": "Processing…",
+      "tandaiSelesai": "Mark complete",
+      "selesaikan": "Complete mission"
+    },
+    "errors": {
+      "load": "Failed to load mission.",
+      "qrRequired": "Enter or scan the station QR token.",
+      "lokasiRequired": "Allow location access for geofence verification.",
+      "fotoRequired": "Upload a proof photo.",
+      "diLuarGeofence": "You must be at {stasiun} (radius {radius} m).",
+      "buktiKurang": "Verification evidence is insufficient — check QR, location, or photo.",
+      "gagal": "Failed to complete mission — check QR, location, or proof."
+    },
+    "sukses": {
+      "terverifikasi": "Mission complete! Verified stamp added to your passport.",
+      "menunggu": "Mission recorded — awaiting guide confirmation."
+    }
+  },
+  "kontribusi": {
+    "seoTitle": "Contributions",
+    "title": "My Contributions",
+    "backDasbor": "Dashboard",
+    "new": "New contribution",
+    "loading": "Loading history…",
+    "empty": "No contributions yet.",
+    "revisi": "Revise & resubmit",
+    "tipe": {
+      "foto": "Photo",
+      "tips": "Tips",
+      "koreksi_data": "Data correction",
+      "spot_baru": "New spot proposal",
+      "ulasan": "Review"
+    },
+    "status": {
+      "menunggu": "Awaiting curation",
+      "disetujui": "Approved",
+      "ditolak": "Rejected",
+      "revisi": "Needs revision"
+    },
+    "target": {
+      "destinasi": "Destination",
+      "layanan": "Service",
+      "umkm": "MSME",
+      "paket_wisata": "Tour package",
+      "desa": "Village"
+    },
+    "muatan": {
+      "spotBaru": "New spot proposal",
+      "foto": "Photo contribution"
+    },
+    "form": {
+      "revisiTitle": "Revise contribution",
+      "newTitle": "New contribution",
+      "untuk": "For: {label}",
+      "tipe": {
+        "foto": "Photo",
+        "tips": "Tips",
+        "ulasan": "Review",
+        "koreksi_data": "Correction",
+        "spot_baru": "New spot"
+      },
+      "placeholder": {
+        "foto": "Photo caption (optional)",
+        "default": "Write here…",
+        "field": "Field (e.g. jam_operasional)",
+        "usulan": "Proposed value",
+        "alasan": "Reason for correction",
+        "namaSpot": "Proposed spot name",
+        "deskripsiSpot": "Description & location"
+      },
+      "fotoTerunggah": "Photo uploaded",
+      "mengunggah": "Uploading…",
+      "pilihFoto": "Choose photo",
+      "errorUpload": "Failed to upload photo.",
+      "errorKirim": "Failed to submit contribution.",
+      "mengirim": "Sending…",
+      "kirimUlang": "Resubmit",
+      "kirim": "Submit contribution"
+    }
+  },
+  "tentang": {
+    "seoTitle": "About the Village",
+    "back": "Back to showcase",
+    "title": "About {nama}",
+    "communityTitle": "Community-owned tourism",
+    "communityBody": "{nama} is part of the sigerciv network — a regenerative village tourism platform where destination data and services are owned by the local community (Pokdarwis & village officials), not a commercial aggregator. Every visit should ideally leave destinations better through carrying-capacity monitoring, reinvestment in conservation funds, and community participation.",
+    "rolesTitle": "Roles in the ecosystem",
+    "roles": {
+      "pokdarwis": {
+        "title": "Pokdarwis & residents",
+        "body": "Curate spots, services, and content; verify field data."
+      },
+      "umkm": {
+        "title": "Local businesses & agents",
+        "body": "Provide packages and services directly to travelers without a central intermediary."
+      },
+      "platform": {
+        "title": "Sigerciv platform",
+        "body": "Multi-tenant technology stewardship — ready to replicate to partner villages."
+      }
+    },
+    "locationTitle": "Administrative location",
+    "location": {
+      "pekon": "Village (Pekon)",
+      "kecamatan": "Subdistrict",
+      "kabupaten": "Regency",
+      "provinsi": "Province"
+    },
+    "locationEmpty": "Not filled in yet.",
+    "panduanCta": "Read visiting guide →"
+  },
+  "panduan": {
+    "seoTitle": "Visiting Guide",
+    "back": "Back to showcase",
+    "title": "Visiting guide — {nama}",
+    "subtitle": "Marine ethics, offline readiness, and how to install sigerciv on your device.",
+    "tips": {
+      "lumba": {
+        "title": "Best time for dolphins",
+        "body": "Morning dolphin activity is usually 05:30–07:00. Arrive early at the dock and keep a safe distance — do not chase or touch."
+      },
+      "offline": {
+        "title": "Prepare offline mode",
+        "body": "Signal in some remote tourism villages is limited. Install Sigerciv as a PWA and open destination pages while online so content is saved for offline reading."
+      },
+      "pwa": {
+        "title": "Install PWA on your phone",
+        "body": "Android: Install / Add to Home Screen in Chrome. iOS: Share → Add to Home Screen in Safari. Opens full-screen without the Play Store."
+      }
+    },
+    "ethicsTitle": "Regenerative code of ethics",
+    "ethics": {
+      "karang": "Do not touch or step on coral reefs; use reef-safe sunscreen.",
+      "sampah": "Take plastic waste with you — many marine spots have no trash bins.",
+      "kuota": "Follow spot quotas & schedules; respect carrying capacity set by managers.",
+      "lokal": "Direct transactions with local providers support the community economy."
+    }
+  },
+  "berita": {
+    "seoTitle": "News & Updates",
+    "seoDesc": "News, announcements, and stories from the tourism village.",
+    "loading": "Loading…",
+    "title": "News",
+    "subtitle": "Announcements, village stories, conservation updates, and event recaps — curated by Pokdarwis & village officials.",
+    "searchPlaceholder": "Search articles…",
+    "allCategories": "All categories",
+    "tagFilter": "Filter by tag…",
+    "loadingArticles": "Loading articles…",
+    "empty": "No matching articles yet.",
+    "featured": "Featured",
+    "others": "More articles",
+    "back": "Back to News",
+    "notFound": "Article not found",
+    "kategori": {
+      "pengumuman": "Announcement",
+      "cerita": "Story",
+      "konservasi": "Conservation",
+      "acara": "Event",
+      "panduan": "Guide",
+      "lainnya": "Other"
+    }
+  },
+  "spot": {
+    "seoFallback": "Destination",
+    "back": "Back to showcase",
+    "about": "About this spot",
+    "location": "Location",
+    "services": "Services",
+    "schedule": "Activity schedule",
+    "tags": "Tags",
+    "kontribusi": {
+      "title": "Community contributions",
+      "loginPrompt": "to submit photos, tips, or data corrections for this spot.",
+      "login": "Sign in",
+      "thanks": "Thank you! Your contribution is awaiting curation.",
+      "history": "View my history",
+      "panelTitle": "Contribute to this spot",
+      "cta": "Submit photo / tips / correction"
+    },
+    "gallery": {
+      "empty": "Photo gallery coming soon",
+      "carouselLabel": "Gallery {nama}",
+      "photoAlt": "{nama} — photo {n}",
+      "prev": "Previous photo",
+      "next": "Next photo",
+      "counter": "Photo {current} of {total}",
+      "viewPhoto": "View photo {n}"
+    },
+    "map": {
+      "location": "Location: {nama}"
+    },
+    "wishlist": {
+      "save": "Save {nama} to wishlist"
+    },
+    "distance": "± {distance} m from you"
+  },
+  "checkout": {
+    "seoTitle": "Checkout",
+    "seoDesc": "Complete payment for your tourism order.",
+    "seoTitleDesa": "Checkout — {desa}",
+    "loading": "Loading…",
+    "title": "Checkout",
+    "subtitle": "Online payment only · slot quota held until the time limit.",
+    "empty": "Your cart is empty.",
+    "linkPaket": "Tour packages",
+    "linkPasar": "Village market",
+    "items": "Order items",
+    "contact": "Contact",
+    "placeholder": {
+      "nama": "Name *",
+      "telepon": "Phone / WhatsApp",
+      "email": "Email"
+    },
+    "metode": {
+      "ambil_ditempat": "Pickup on site",
+      "kirim": "Delivery"
+    },
+    "kupon": "Coupon",
+    "kuponPlaceholder": "Coupon code",
+    "cekKupon": "Apply",
+    "ringkasan": "Summary",
+    "subtotal": "Subtotal",
+    "diskon": "Discount",
+    "total": "Total",
+    "errors": {
+      "kupon": "Coupon is not valid.",
+      "nama": "Contact name is required.",
+      "gagal": "Checkout failed. Please try again."
+    },
+    "memproses": "Processing…",
+    "bayar": "Create order & proceed to payment",
+    "note": "Paid status only changes after treasurer verification.",
+    "orang": "{count} people"
+  },
+  "pesanan": {
+    "seo": {
+      "title": "Order",
+      "titleDesa": "Order — {desa}",
+      "description": "Your tourism order details."
+    },
+    "loading": "Loading order…",
+    "label": "Order {code}",
+    "status": {
+      "menunggu_pembayaran": "Awaiting payment",
+      "dibayar": "Paid",
+      "diproses": "Processing",
+      "selesai": "Completed",
+      "dibatalkan": "Cancelled",
+      "kedaluwarsa": "Expired",
+      "refund_diajukan": "Refund requested"
+    },
+    "payWithin": "Pay within {time}",
+    "payExpired": "Payment window has expired",
+    "manualTransfer": "Manual transfer",
+    "uploadProof": "Upload transfer proof",
+    "uploadError": "Failed to upload proof.",
+    "treasurerNote": "Payment confirmation is done by the Pokdarwis treasurer only — not automatically after upload.",
+    "refund": {
+      "title": "Request refund",
+      "note": "Refunds after a completed visit require manual treasurer approval.",
+      "success": "Request submitted — awaiting manager decision.",
+      "placeholder": "Reason for cancellation…",
+      "submit": "Request refund",
+      "error": "Refund request failed."
+    },
+    "checkIn": {
+      "title": "Check-in tickets",
+      "qrAlt": "Ticket QR"
+    }
+  },
+  "kupon": {
+    "seo": {
+      "title": "My Coupons",
+      "titleDesa": "My Coupons — {desa}",
+      "description": "Your discount coupon wallet."
+    },
+    "title": "Coupon Wallet",
+    "subtitle": "Use the code at checkout.",
+    "tukarPoinLink": "Redeem points →",
+    "loading": "Loading…",
+    "empty": "No active coupons yet.",
+    "sumber": {
+      "tukar_poin": "From point redemption",
+      "promo_owner": "Certified MSME discount",
+      "kampanye": "Village campaign"
+    },
+    "diskonPersen": "{nilai}% off",
+    "diskonRupiah": "Rp {nilai} off",
+    "minBelanja": "Min. purchase Rp {nilai}"
+  },
+  "tukarPoin": {
+    "seo": {
+      "title": "Redeem Points",
+      "titleDesa": "Redeem Points — {desa}",
+      "description": "Redeem points for rewards."
+    },
+    "title": "Redeem Points",
+    "riwayatPoin": "Point history",
+    "loading": "Loading catalog…",
+    "error": "Redemption failed — check balance, stock, or tier requirements.",
+    "suksesKupon": "Success! Coupon {kode} added to your wallet.",
+    "sukses": "Redemption successful.",
+    "lihatDompet": "View coupon wallet",
+    "syaratTingkat": "Requires {tingkat} certification",
+    "stok": "Stock: {count}",
+    "poin": "{count} points",
+    "tukar": "Redeem"
+  },
+  "leaderboard": {
+    "seoTitle": "Leaderboard",
+    "title": "Leaderboard",
+    "subtitle": "Regenerative participation rankings — names and avatars only, no private data.",
+    "periodeAria": "Leaderboard period",
+    "periode": {
+      "all": "All time",
+      "30h": "30 days",
+      "7h": "7 days"
+    },
+    "loading": "Loading rankings…",
+    "empty": "No rankings for this period yet.",
+    "signInPrompt": "Sign in to view your badges.",
+    "myBadges": "Open my badges"
+  },
+  "sertifikasi": {
+    "seoTitle": "Certification Tiers",
+    "title": "Certification Tiers",
+    "subtitle": "Transparency of Regenerative Level-Up tiers for providers in the village — Tunas, Bahari, Lumba-Lumba.",
+    "searchPlaceholder": "Search MSMEs…",
+    "loading": "Loading…",
+    "skorPraktik": "Practice score: {skor}",
+    "belumSertifikasi": "No certification yet."
+  },
+  "stasiunLestari": {
+    "seoTitle": "Lestari Stations",
+    "seoTitleDesa": "Lestari Stations — {desa}",
+    "title": "Lestari Stations",
+    "subtitle": "QR check-in points + geofence for action missions.",
+    "loading": "Loading stations…",
+    "empty": "No stations registered yet.",
+    "radius": "{tipe} · {radius} m radius",
+    "jarak": "± {jarak} m from you",
+    "geoDenied": "Location permission denied — distance to stations is hidden.",
+    "backToMisi": "← Back to Sigerciv missions"
+  },
+  "pemandu": {
+    "seoTitle": "Tour Guide",
+    "title": "Tour Guide",
+    "subtitle": "Automatic planner based on local data. Rule-based model is active by default; a custom-trained model can be enabled via backend configuration (not OpenAI).",
+    "planTitle": "Plan your trip",
+    "durasi": "Duration (days)",
+    "jumlahOrang": "Number of people",
+    "budget": "Budget (IDR)",
+    "minat": "Interests",
+    "minatOpsi": {
+      "lumba": "Dolphins",
+      "mangrove": "Mangrove",
+      "snorkeling": "Snorkeling",
+      "budaya": "Culture",
+      "kuliner": "Culinary"
+    },
+    "menyusun": "Planning…",
+    "susunItinerary": "Build itinerary",
+    "error": "Failed to build itinerary — try again.",
+    "mesin": "Engine: {info}",
+    "perkiraanTotal": "Estimated total: {total}",
+    "slotPaket": "Package slot",
+    "paketWisata": "Tour package",
+    "keranjang": "+ Cart",
+    "ditambahkanKeranjang": "{nama} added to cart.",
+    "checkout": "Checkout →",
+    "chatTitle": "Ask about destinations",
+    "chatNote": "Rule-based answers from local destination content. No login required.",
+    "chatEmpty": "No conversation yet.",
+    "chatAnda": "You: …",
+    "sumber": "Sources: {nama}",
+    "chatPlaceholder": "Ask about destinations…",
+    "kirim": "Send"
+  },
+  "naikKelas": {
+    "seoTitle": "Regenerative Level-Up",
+    "title": "Regenerative Level-Up",
+    "backDashboard": "Dashboard",
+    "skorPraktik": "Score {skor} practice points",
+    "loading": "Loading catalog…",
+    "errors": {
+      "load": "Failed to load Level-Up data.",
+      "noSubjek": "You don't have a registered MSME in this village yet. Register an MSME first to submit action cards.",
+      "daftarUmkm": "Register MSME →"
+    },
+    "progres": {
+      "title": "Regenerative level progress",
+      "subtitle": "Levels rise from validated action cards — requirements come from the village, not guesswork.",
+      "skorSaatIni": "Score {skor}",
+      "menuju": "Toward {tingkat} · {skor} points",
+      "tingkatMaks": "You're at Lumba-Lumba level — keep up your regenerative practices.",
+      "mulai": "Submit your first action card to start leveling up.",
+      "insentif": "Higher levels show a badge on Village Market and rotation exposure opportunities — not a guaranteed rank."
+    },
+    "buktiPreview": {
+      "title": "Submission proof",
+      "empty": "No proof attached yet.",
+      "foto": "Photo proof (media {id}…)",
+      "dokumen": "Document (media {id}…)"
+    },
+    "kartuAksi": {
+      "title": "Action cards",
+      "subtitle": "Learn first, then submit proof of your regenerative practice.",
+      "kenapaPenting": "Why it matters: ",
+      "kenapaPentingJudul": "Why it matters?",
+      "belumDiajukan": "Not submitted",
+      "bobot": "Weight {bobot} · {bukti}",
+      "ajukan": "Submit",
+      "ajukanUlang": "Resubmit"
+    },
+    "pengajuan": {
+      "title": "My submissions",
+      "empty": "No submissions yet.",
+      "catatan": "Validator note: {catatan}",
+      "perbaiki": "Revise & resubmit →"
+    },
+    "status": {
+      "menunggu": "Awaiting validation",
+      "tervalidasi": "Validated",
+      "ditolak": "Rejected",
+      "revisi": "Needs revision"
+    },
+    "bukti": {
+      "foto": "Photo proof",
+      "dokumen": "Document",
+      "pernyataan": "Written statement"
+    },
+    "form": {
+      "ajukanTitle": "Submit card proof",
+      "revisiTitle": "Revise proof & resubmit",
+      "buktiLabel": "Proof: {bukti}",
+      "unggah": "Upload proof photo",
+      "unggahDokumen": "Upload document",
+      "mengunggah": "Uploading…",
+      "fotoTerunggah": "Photo uploaded ✓",
+      "dokumenTerunggah": "Document uploaded ✓",
+      "placeholder": "Describe the practice you performed…",
+      "uploadError": "Failed to upload file.",
+      "submitError": "Failed to submit application.",
+      "mengirim": "Submitting…",
+      "kirimUlang": "Resubmit",
+      "ajukanKartu": "Submit card",
+      "batal": "Cancel",
+      "errors": {
+        "foto_wajib": "Photo proof is required.",
+        "dokumen_wajib": "Document is required.",
+        "pernyataan_wajib": "Written statement is required.",
+        "buktiKurang": "Proof is incomplete for this action card."
+      }
+    }
+  },
+  "genta": {
+    "seo": {
+      "title": "Genta",
+      "titleDesa": "Genta — {desa}",
+      "description": "Transaction activity notification inbox."
+    },
+    "title": "Genta",
+    "subtitle": "Transaction activity notifications — orders, bookings, payouts, and regenerative missions.",
+    "markAllRead": "Mark all as read",
+    "filter": {
+      "semua": "All",
+      "belum_dibaca": "Unread",
+      "dibaca": "Read"
+    },
+    "loading": "Loading notifications…",
+    "empty": "No notifications.",
+    "loadMore": "Load more",
+    "memuat": "Loading…",
+    "backHome": "Back to village home",
+    "waktu": {
+      "baru": "Just now",
+      "menit": "{count} min ago",
+      "jam": "{count} hr ago",
+      "hari": "{count} days ago"
+    }
+  },
+  "lencana": {
+    "seo": {
+      "title": "Citizen Badges",
+      "titleDesa": "Citizen Badges — {desa}",
+      "description": "Point balance and badge collection."
+    },
+    "loading": "Loading badges…",
+    "backDashboard": "Dashboard",
+    "title": "Citizen Badges",
+    "subtitle": "Points and badges from contributions, products, and regenerative participation in this village.",
+    "saldoPoin": "Point balance",
+    "koleksiBadge": "Badge collection",
+    "leaderboard": "Leaderboard",
+    "diperoleh": "Earned",
+    "syarat": "Requirement: {syarat}",
+    "terkunci": "Locked",
+    "belumDiperoleh": "{nama} — not yet earned",
+    "riwayatPoin": "Point history",
+    "riwayatEmpty": "No point transactions yet. Contribute data or register products to start earning points.",
+    "error": "Failed to load badge data. Try again.",
+    "retry": "Try again",
+    "muatLagi": "Load more",
+    "memuat": "Loading…",
+    "poin": "points",
+    "aksi": {
+      "kontribusi_disetujui": "Contribution approved",
+      "produk_terdaftar": "Product registered",
+      "paket_dipublikasi": "Package published",
+      "profil_lengkap": "Profile complete",
+      "warga_perintis": "Pioneer citizen"
+    },
+    "syaratBadge": {
+      "poinMin": "Earn at least {poin} points in this village",
+      "aksi": "{jumlah}× {aksi}",
+      "khusus": "Special requirement"
+    }
+  },
+  "peran": {
+    "wisatawan": "Traveler",
+    "pokdarwis": "Pokdarwis",
+    "umkm": "Local Business (UMKM)",
+    "agen": "Local Agent",
+    "kontributor": "Contributor",
+    "organisasi": "Organization / Partner",
+    "perangkat_desa": "Village Officials",
+    "admin": "Admin / Steward",
+    "anggota": "Member"
+  },
+  "wishlist": {
+    "seo": {
+      "title": "My Wishlist",
+      "description": "Destinations, tour packages, local products, and regenerative missions you saved on Sigerciv."
+    },
+    "backToDashboard": "Dashboard",
+    "crossVillage": "Across Lampung villages",
+    "title": "My wishlist",
+    "subtitle": "Destinations, tour packages, local products, and regenerative missions you want to visit or complete.",
+    "totalSaved": "Total saved",
+    "loadError": "Failed to load your wishlist. Please try again.",
+    "retry": "Try again",
+    "tabWisata": "Tourism ({count})",
+    "tabMisi": "Missions ({count})",
+    "refresh": "Refresh",
+    "loading": "Loading wishlist…",
+    "emptyWisataTitle": "No saved tourism items yet",
+    "emptyMisiTitle": "No saved missions yet",
+    "emptyHint": "Tap the heart icon on destination, package, market product, or mission cards while exploring Sigerciv.",
+    "exploreCta": "Explore destinations",
+    "missionCta": "View regenerative missions",
+    "noteLabel": "Personal note",
+    "notePlaceholder": "E.g. visit during the fasting month…",
+    "noteSaving": "Saving…",
+    "openDetail": "Open details",
+    "remove": "Remove",
+    "tipe": {
+      "destinasi": "Destination",
+      "paket": "Tour package",
+      "misi": "Regenerative mission",
+      "produk": "Local product"
+    }
+  },
+  "akun": {
+    "seo": {
+      "title": "Account & Preferences",
+      "description": "Manage your profile, security, memberships, and personal preferences on Sigerciv."
+    },
+    "backToDashboard": "Dashboard",
+    "title": "Account & Preferences",
+    "navLabel": "Account sections",
+    "soon": "soon",
+    "prefsSaved": "Saved on this device. Account sync — coming soon.",
+    "grup": {
+      "akun": "Account",
+      "konfigurasi": "Settings"
+    },
+    "nav": {
+      "profil": "Personal information",
+      "minat": "Interests & personalization",
+      "keamanan": "Security",
+      "keanggotaan": "Membership & roles",
+      "notifikasi": "Notifications",
+      "tampilan": "Appearance",
+      "privasi": "Privacy & data",
+      "bantuan": "Guide & PWA"
+    },
+    "profil": {
+      "fotoTitle": "Profile photo",
+      "fotoDesc": "Shown in comments, leaderboards, and the user menu.",
+      "gantiFoto": "Change photo",
+      "mengunggah": "Uploading…",
+      "fotoHint": "JPG, PNG, or WebP. Max. 5 MB.",
+      "dataTitle": "Personal details",
+      "dataDesc": "Your name and phone number are saved to your Sigerciv account.",
+      "namaLabel": "Full name",
+      "teleponLabel": "Phone number",
+      "teleponHint": "Optional. For booking & mission coordination.",
+      "bioLabel": "Short bio",
+      "bioHint": "Stored temporarily on this device — account sync coming soon.",
+      "bioPlaceholder": "Tell us about your regenerative travel interests…",
+      "simpan": "Save changes",
+      "menyimpan": "Saving…",
+      "sukses": "Profile saved successfully.",
+      "avatarSukses": "Avatar updated.",
+      "emailTitle": "Email",
+      "emailDesc": "Your login address.",
+      "terverifikasi": "Verified",
+      "belumTerverifikasi": "Not verified",
+      "ubahEmailInfo": "Changing your email requires re-verification.",
+      "hubungiAdmin": "Contact village admin"
+    },
+    "minat": {
+      "title": "Interests & personalization",
+      "desc": "The basis for AI Guide recommendations — community-owned data, revocable anytime.",
+      "hint": "Pick your favorite activities. Account storage —",
+      "hintSuffix": "(currently on this device).",
+      "consentLabel": "Use my activity for personalization",
+      "consentDesc": "Package, mission, and curation recommendations are tailored to the interests you pick. Uncheck to disable.",
+      "pilihan": {
+        "alam": "Nature & beaches",
+        "budaya": "Local culture",
+        "kuliner": "Village cuisine",
+        "kerajinan": "UMKM crafts",
+        "misi": "Regenerative missions",
+        "petualangan": "Adventure",
+        "keluarga": "Family",
+        "fotografi": "Photography"
+      }
+    },
+    "keamanan": {
+      "sandiTitle": "Password",
+      "sandiInfo": "Changing your password while signed in is not yet available in the API.",
+      "resetViaEmail": "Reset via email",
+      "ubahLangsung": "Change password directly",
+      "sesiTitle": "Sessions & devices",
+      "sesiInfo": "Signing out of all devices will revoke refresh sessions. Active device list —",
+      "segarkanSesi": "Refresh session"
+    },
+    "keanggotaan": {
+      "title": "Your roles",
+      "desc": "Cross-village memberships in the Sigerciv network.",
+      "desaKeanggotaan": "Membership village",
+      "globalLabel": "Sigerciv (global)",
+      "status": {
+        "aktif": "Active",
+        "menunggu": "Pending",
+        "ditolak": "Rejected",
+        "revisi": "Needs revision",
+        "nonaktif": "Inactive"
+      },
+      "gabungTitle": "Join a village community",
+      "gabungWizardDesc": "Apply for a new role via the Join Community wizard — choose role, village (if needed), then submit.",
+      "bukaGabung": "Open Join Community form",
+      "sedangDitinjau": "Being reviewed by village stewards.",
+      "ditolakArahan": "Application needs revision or was previously rejected. Open Join Community to resubmit the same role and village.",
+      "ajukanBaru": "Revise & resubmit",
+      "ajuanInfo": "Applications are reviewed by Pokdarwis or village officials. Track status in the list above."
+    },
+    "notifikasi": {
+      "title": "Notification preferences",
+      "desc": "Push via PWA (Android/desktop; iOS 16.4+). Account sync — coming soon.",
+      "deviceInfo": "Stored on this device until the preferences endpoint is available.",
+      "email_misi": "Email — missions & contributions",
+      "email_pesanan": "Email — orders & bookings",
+      "email_kurasi": "Email — curation & news",
+      "push_misi": "Push — missions & contributions",
+      "push_pesanan": "Push — orders & bookings",
+      "push_kurasi": "Push — curation & news"
+    },
+    "tampilan": {
+      "title": "Appearance",
+      "desc": "Language and theme are stored on this device.",
+      "modeLabel": "Display mode",
+      "terang": "Light",
+      "gelap": "Dark",
+      "bahasaLabel": "Language"
+    },
+    "privasi": {
+      "title": "Personal data",
+      "desc": "Community-ownership principle — your data, your control.",
+      "unduhTitle": "Download personal data",
+      "unduhDesc": "Export your profile, contributions, and points history.",
+      "hapusTitle": "Delete account",
+      "hapusDesc": "Permanent — requires admin confirmation.",
+      "lokasiTitle": "Location permission",
+      "lokasiLabel": "Allow location access for maps & nearby missions"
+    },
+    "bantuan": {
+      "pwaTitle": "Install the app (PWA)",
+      "pwaDesc": "Quick access from your home screen — works offline with limitations.",
+      "pwaHint": "The button appears automatically when your browser supports installation. Offline cache is managed by the browser.",
+      "panduanTitle": "Guides & ethics",
+      "jelajah": "Explore Lampung tourism villages",
+      "berita": "Village news & announcements",
+      "kodeEtik": "Regenerative tourism code of ethics",
+      "kodeEtikSuffix": "— on the village page",
+      "kontak": "Contact the Sigerciv team"
+    }
+  },
+  "gabung": {
+    "seo": {
+      "title": "Join the Community",
+      "description": "Apply for Visitor, MSME, Local Agent, or Pokdarwis roles in Lampung village tourism."
+    },
+    "hero": {
+      "title": "Join the Sigerciv Community",
+      "subtitle": "Choose your role in Lampung's regenerative village tourism network — visitors activate instantly; village roles need steward approval.",
+      "progress": "Application progress"
+    },
+    "stepper": {
+      "ariaLabel": "Membership application steps",
+      "peran": "Role",
+      "desa": "Village",
+      "konfirmasi": "Confirm",
+      "hasil": "Result"
+    },
+    "nav": {
+      "kembali": "Back"
+    },
+    "peran": {
+      "title": "Choose your role",
+      "desc": "Four main entry points on Sigerciv. Labels come from the platform reference.",
+      "badgeAktif": "Instantly active",
+      "badgeMenunggu": "Needs approval",
+      "hintGlobal": "Cross-village role — no village selection needed.",
+      "hintScoped": "Tied to one village — pick a village in the next step.",
+      "sudahMenunggu": "Already submitted",
+      "perluRevisi": "Needs revision",
+      "sudahAktif": "Already active"
+    },
+    "desa": {
+      "title": "Choose a tourism village",
+      "desc": "Sigerciv connects villages across Lampung. Search or tap the map to select your membership village.",
+      "peranTerpilih": "Role: {peran}",
+      "cari": "Search villages…",
+      "cariTombol": "Search",
+      "memuat": "Loading…",
+      "petaKosong": "No villages on the map yet",
+      "kosong": "No villages found. Try another keyword.",
+      "terpilih": "Selected village",
+      "lanjut": "Continue to confirmation"
+    },
+    "konfirmasi": {
+      "title": "Confirm application",
+      "peran": "Role",
+      "desa": "Village",
+      "cakupan": "Scope",
+      "lintasDesa": "Cross-village (global)",
+      "hintMenunggu": "Your application will be reviewed by Pokdarwis or village officials. Management modules unlock after activation.",
+      "hintAktif": "The visitor role activates right after submission — you can start exploring.",
+      "ditolakPeringatan": "A previous application for this combination needs revision or was rejected. Submit will resubmit the same application for another review.",
+      "ajukan": "Submit application",
+      "mengirim": "Submitting…"
+    },
+    "hasil": {
+      "aktif": {
+        "title": "Membership active",
+        "desc": "Your {peran} role is now active. Welcome to Sigerciv!",
+        "cta": "Start exploring"
+      },
+      "sudah_aktif": {
+        "title": "You are already a visitor",
+        "desc": "The visitor role is already active on your account.",
+        "cta": "Start exploring"
+      },
+      "menunggu": {
+        "title": "Awaiting approval",
+        "desc": "Your {peran} application in {desa} is being reviewed by village stewards.",
+        "cta": "View membership status"
+      },
+      "konflik": {
+        "title": "Application already exists",
+        "desc": "You already have or are applying for {peran} in {desa}. If it needs revision, open membership status and resubmit through Join Community.",
+        "ctaBaru": "Revise application"
+      },
+      "ajukanLain": "Apply for another role"
+    },
+    "galat": {
+      "default": "Failed to submit membership. Please try again."
+    }
+  },
+  "dasbor": {
+    "seo": {
+      "hubTitle": "Sigerciv Dashboard",
+      "hubDescription": "Sigerciv user dashboard — across Lampung tourism villages.",
+      "wisatawanTitle": "Traveler Dashboard",
+      "wisatawanDescription": "Sigerciv traveler dashboard — explore and contribute across Lampung villages.",
+      "adminTitle": "Admin Dashboard",
+      "adminDescription": "Platform steward: tenants, moderation, and Nusantara configuration."
+    },
+    "guard": {
+      "loading": "Loading session…",
+      "title": "Sigerciv dashboard",
+      "desc": "Sign in to access the dashboard for your membership roles.",
+      "masuk": "Sign in",
+      "daftar": "Sign up",
+      "kembali": "Back to dashboard picker"
+    },
+    "membership": {
+      "menungguTitle": "Membership pending approval",
+      "ditolakTitle": "Membership needs revision",
+      "menungguDesc": "Your {peran} role in {desa} is under review. Management modules become available once your membership is active.",
+      "ditolakDesc": "The {peran} request in {desa} needs revision or was previously rejected. You can resubmit it through Join Community.",
+      "ctaAjukanBaru": "Revise & resubmit",
+      "ctaLihatStatus": "View membership status"
+    },
+    "hub": {
+      "halo": "Hello,",
+      "pilihPeran": "Choose your dashboard role",
+      "pilihKonteks": "Choose a dashboard context in {desa}",
+      "descLintas": "Sigerciv connects tourism villages across Lampung. Travelers get a cross-village dashboard; manager roles are tied to your membership village.",
+      "descDesa": "Each role has different navigation and widgets. Switch roles via the picker in the village role dashboard.",
+      "fase": "Phase {fase}",
+      "bukaDasbor": "Open dashboard",
+      "menunggu": "Awaiting approval",
+      "ditolak": "Membership rejected",
+      "belumAktif": "Role not activated yet",
+      "adminTitle": "Admin / Steward",
+      "adminDesc": "Cross-tenant dashboard for moderation, configuration, and village provisioning.",
+      "bukaAdmin": "Open admin dashboard",
+      "footerNote": "Need an additional role? Contact Pokdarwis or village officials to activate your membership.",
+      "revisi": "Needs revision"
+    },
+    "switcher": {
+      "lintasDesa": "Across villages",
+      "tutupPemilih": "Close context picker",
+      "desaAktif": "Active village",
+      "stewardPlatform": "Platform steward",
+      "desaMitraPilot": "Pilot partner village",
+      "gantiPeran": "Switch role",
+      "adminSteward": "Admin / Steward"
+    },
+    "peranInfo": {
+      "wisatawan": {
+        "tagline": "Sigerciv · Lampung",
+        "deskripsi": "Explore tourism villages across Lampung, manage your wishlist & Regenerative Passport, and contribute to regenerative tourism."
+      },
+      "pokdarwis": {
+        "tagline": "Tourism village manager",
+        "deskripsi": "Manage destinations, curate community content, monitor the showcase, and prepare the conservation fund."
+      },
+      "umkm": {
+        "tagline": "Local business owner",
+        "deskripsi": "List products & services, manage orders, and track performance in the Village Market."
+      },
+      "agen": {
+        "tagline": "Tour package composer",
+        "deskripsi": "Build itineraries, set quotas & schedules, and publish packages through the Pokdarwis curation flow."
+      },
+      "kontributor": {
+        "tagline": "Community data volunteer",
+        "deskripsi": "Contribute photos, tips, or destination data corrections — earn points and badges."
+      },
+      "organisasi": {
+        "tagline": "Conservation & research partner",
+        "deskripsi": "Conservation programs, ecological data, and reinvestment sponsorship together with Pokdarwis."
+      },
+      "perangkat_desa": {
+        "tagline": "Governance & legitimacy",
+        "deskripsi": "Verify memberships, legitimize village policies, and ensure fund transparency for the community."
+      },
+      "admin": {
+        "tagline": "Platform steward",
+        "deskripsi": "Cross-tenant moderation, system configuration, and new village provisioning (Nusantara module)."
+      }
+    },
+    "view": {
+      "fase": "Phase {fase}",
+      "fiturMenyusul": "Some features coming soon",
+      "ringkasan": "Overview",
+      "modulPeran": "Role modules",
+      "aksiCepat": "Quick actions",
+      "aktivitas": "Recent activity",
+      "aktivitasNote": "Sample activity — the real feed arrives with API integration.",
+      "modulTerkait": "Related modules",
+      "navigasi": "Navigation",
+      "navLabel": "{peran} navigation",
+      "bukaNav": "Open dashboard navigation",
+      "dasbor": "Dashboard",
+      "segera": "soon",
+      "badgeSegera": "Soon",
+      "placeholderData": "Verified data coming soon — no dummy numbers",
+      "lihatRencana": "View plan",
+      "buka": "Open"
+    },
+    "entry": {
+      "loading": "Loading dashboard…"
+    },
+    "placeholder": {
+      "desc": "This section will activate with the next API integration phase. The dashboard UI is ready for {peran} — no dummy numbers or fake transactional features.",
+      "segeraNote": "Marked \"soon\" until the {modul} module is ready in the roadmap phase.",
+      "kembali": "Back to overview"
+    },
+    "wisatawan": {
+      "tagline": "Sigerciv · Lampung",
+      "deskripsi": "Explore tourism villages across Lampung, manage your wishlist & Regenerative Passport, and contribute to regenerative tourism.",
+      "nav": {
+        "ringkasan": "Overview"
+      },
+      "stats": {
+        "wishlistLabel": "Saved items",
+        "wishlistHint": "Across villages",
+        "stempelLabel": "Passport stamps",
+        "kontribLabel": "Contributions",
+        "kontribHint": "Phase 1",
+        "poinLabel": "Points",
+        "poinHint": "Per village"
+      },
+      "aksi": {
+        "cari": "Explore tourism villages",
+        "wishlist": "My wishlist",
+        "paspor": "Regenerative Passport",
+        "akun": "Account & preferences"
+      },
+      "modul": {
+        "discovery": "Lampung Discovery",
+        "wishlist": "Wishlist",
+        "paspor": "Regenerative Passport"
+      },
+      "aktivitas": {
+        "a1": "Saved a snorkeling package from another village to the wishlist",
+        "a2": "Completed the regenerative tourism code-of-ethics micro-lesson",
+        "a3": "Collected mission stamps across several tourism villages"
+      },
+      "widgets": {
+        "wishlistTitle": "My wishlist",
+        "wishlistDesc": "Destinations, packages, and missions from any village in Lampung.",
+        "pasporTitle": "Regenerative Passport",
+        "pasporDesc": "Collect stamps from verified regenerative missions.",
+        "bookingTitle": "Orders & bookings",
+        "bookingDesc": "Your package and service booking history.",
+        "kontribTitle": "My contributions",
+        "kontribDesc": "Photos, tips, and data corrections — per village you visit.",
+        "poinTitle": "Points & badges",
+        "poinDesc": "Point balance and badges per tourism village."
+      }
+    },
+    "pokdarwis": {
+      "tagline": "Tourism village manager",
+      "deskripsi": "Manage destinations, curate community content, monitor the showcase, and prepare the conservation fund.",
+      "nav": {
+        "ringkasan": "Overview",
+        "destinasi": "Destinations",
+        "kurasi": "Curation queue",
+        "keanggotaan": "Membership",
+        "dana": "Conservation fund"
+      },
+      "stats": {
+        "publikLabel": "Published destinations",
+        "draftLabel": "Drafts",
+        "layananLabel": "Services",
+        "kontribLabel": "Pending contributions",
+        "kontribHint": "Curation queue"
+      },
+      "aksi": {
+        "kelola": "Manage destinations",
+        "validasi": "Validate action cards",
+        "kurasi": "Curate content",
+        "baru": "+ New spot",
+        "layanan": "Manage services",
+        "etalase": "View public showcase"
+      },
+      "modul": {
+        "crud": "Village management (CRUD)",
+        "anjungan": "Data Kiosk",
+        "dayaDukung": "Carrying capacity"
+      },
+      "aktivitas": {
+        "a1": "Published the village's featured spot",
+        "a2": "Approved traveler photo contributions"
+      },
+      "widgets": {
+        "destinasiTitle": "Manage destinations",
+        "destinasiDesc": "Spots, services, activity calendar — Phase 0 module active.",
+        "kurasiTitle": "Content Kitchen",
+        "kurasiDesc": "Curation queue for traveler contributions and agent packages.",
+        "naikKelasTitle": "Level-Up Validation",
+        "naikKelasDesc": "Approve action cards and UMKM certification tiers.",
+        "keanggotaanTitle": "Membership approval",
+        "keanggotaanDesc": "Activate new roles in the village.",
+        "danaTitle": "Conservation fund",
+        "danaDesc": "Visit summary and regenerative fund flows."
+      }
+    },
+    "umkm": {
+      "tagline": "Local business owner",
+      "deskripsi": "List products & services, manage orders, and track performance in the Village Market.",
+      "nav": {
+        "ringkasan": "Overview",
+        "produk": "Products & services",
+        "layanan": "Tourism services",
+        "pesanan": "Orders",
+        "performa": "Performance",
+        "sertifikasi": "Regenerative Level-Up"
+      },
+      "stats": {
+        "produkLabel": "Active products",
+        "produkHint": "Phase 1",
+        "pesananLabel": "Orders this month",
+        "pesananHint": "Phase 2",
+        "ratingLabel": "Rating",
+        "tingkatLabel": "Regenerative tier",
+        "tingkatHint": "Phase 1",
+        "tingkatValue": "Sprout"
+      },
+      "aksi": {
+        "pasar": "Open Village Market",
+        "produk": "Add product",
+        "layanan": "Add service",
+        "kartu": "Action cards",
+        "naik": "Level up"
+      },
+      "modul": {
+        "pasar": "Village Market",
+        "dermaga": "Dock (booking)",
+        "performa": "UMKM performance"
+      },
+      "aktivitas": {
+        "a1": "Submitted \"no single-use plastic\" action card",
+        "a2": "Updated snorkeling package pricing"
+      },
+      "widgets": {
+        "produkTitle": "Products & services",
+        "produkDesc": "Your UMKM catalog in the Village Market.",
+        "layananTitle": "Tourism services",
+        "layananDesc": "Transport, guides, equipment rental — your services on the village showcase.",
+        "pesananTitle": "Incoming orders",
+        "pesananDesc": "Manual thin-F2 bookings from travelers.",
+        "naikKelasTitle": "Regenerative Level-Up",
+        "naikKelasDesc": "Action cards and Sprout → Dolphin tier progress.",
+        "verifikasiTitle": "Verification status",
+        "verifikasiDesc": "UMKM profile and local provider legitimacy.",
+        "performaTitle": "Performance summary",
+        "performaDesc": "Sales metrics and regenerative impact."
+      }
+    },
+    "agen": {
+      "tagline": "Tour package composer",
+      "deskripsi": "Build itineraries, set quotas & schedules, and publish packages through the Pokdarwis curation flow.",
+      "nav": {
+        "ringkasan": "Overview",
+        "paket": "My packages",
+        "layanan": "Tourism services",
+        "jadwal": "Quotas & schedule",
+        "booking": "Incoming bookings"
+      },
+      "stats": {
+        "paketLabel": "Published packages",
+        "draftLabel": "In review",
+        "kuotaLabel": "Quota filled",
+        "kuotaHint": "Phase 2",
+        "pendapatanLabel": "Revenue",
+        "pendapatanHint": "Phase 2"
+      },
+      "aksi": {
+        "buat": "Create new package",
+        "layanan": "Add service",
+        "profil": "Agent profile",
+        "kalender": "Activity calendar"
+      },
+      "modul": {
+        "paket": "Tour packages",
+        "dapur": "Content Kitchen",
+        "dermaga": "Dock"
+      },
+      "aktivitas": {
+        "a1": "\"Morning Dolphin + Snorkeling\" package awaiting curation",
+        "a2": "Weekend quota 80% filled"
+      },
+      "widgets": {
+        "paketTitle": "Tour package editor",
+        "paketDesc": "Draft → review → publish state machine.",
+        "layananTitle": "Tourism services",
+        "layananDesc": "Boats, guides, transport — your agent services on the village showcase.",
+        "jadwalTitle": "Quotas & schedule",
+        "jadwalDesc": "Set package slots and capacity.",
+        "bookingTitle": "Package orders",
+        "bookingDesc": "Incoming bookings from travelers.",
+        "sertifikasiTitle": "Certification progress",
+        "sertifikasiDesc": "Local agent regenerative tier."
+      }
+    },
+    "kontributor": {
+      "tagline": "Community data volunteer",
+      "deskripsi": "Contribute photos, tips, or destination data corrections — earn points and badges.",
+      "nav": {
+        "ringkasan": "Overview",
+        "kontribusi": "My contributions",
+        "lencana": "Badges",
+        "leaderboard": "Leaderboard"
+      },
+      "stats": {
+        "totalLabel": "Contributions",
+        "diterimaLabel": "Accepted",
+        "poinLabel": "Points",
+        "peringkatLabel": "Village rank"
+      },
+      "aksi": {
+        "baru": "New contribution",
+        "lencana": "View badges",
+        "board": "Leaderboard"
+      },
+      "modul": {
+        "kontribusi": "Contributions",
+        "lencana": "Citizen Badges"
+      },
+      "aktivitas": {
+        "a1": "Uploaded Shark Tooth spot photo — awaiting curation",
+        "a2": "Earned Active Contributor badge"
+      },
+      "widgets": {
+        "kontribTitle": "My contributions",
+        "kontribDesc": "Photos, tips, corrections — with curation status.",
+        "poinTitle": "Points & badges",
+        "poinDesc": "Community contribution gamification.",
+        "leaderboardTitle": "Leaderboard",
+        "leaderboardDesc": "Active contributor rankings in the village.",
+        "misiTitle": "Contribution missions",
+        "misiDesc": "Field data quests for volunteers."
+      }
+    },
+    "organisasi": {
+      "tagline": "Conservation & research partner",
+      "deskripsi": "Conservation programs, ecological data, and reinvestment sponsorship together with Pokdarwis.",
+      "nav": {
+        "ringkasan": "Overview",
+        "program": "Programs",
+        "ekologi": "Ecological data",
+        "sponsor": "Sponsorship"
+      },
+      "stats": {
+        "programLabel": "Active programs",
+        "indikatorLabel": "Monitored indicators",
+        "indikatorHint": "Phase 3",
+        "sponsorLabel": "Sponsored funds",
+        "laporanLabel": "Reports"
+      },
+      "aksi": {
+        "monitor": "Ecological monitoring",
+        "dana": "Conservation fund",
+        "neraca": "Regenerative balance"
+      },
+      "modul": {
+        "monitoring": "Ecological Monitoring",
+        "jejak": "Regenerative Trail"
+      },
+      "aktivitas": {
+        "a1": "Uploaded Q2 coral index data",
+        "a2": "Sponsored mangrove program"
+      },
+      "widgets": {
+        "programTitle": "Conservation programs",
+        "programDesc": "Research collaboration and field action with Pokdarwis.",
+        "ekologiTitle": "Ecological data",
+        "ekologiDesc": "Coral index, mangrove, and biodiversity monitoring.",
+        "sponsorTitle": "Sponsor & reinvestment",
+        "sponsorDesc": "Partner fund allocation to regenerative programs.",
+        "kontakTitle": "Collaboration channel",
+        "kontakDesc": "Partner profile and village cooperation contacts."
+      }
+    },
+    "perangkat_desa": {
+      "tagline": "Governance & legitimacy",
+      "deskripsi": "Verify memberships, legitimize village policies, and ensure fund transparency for the community.",
+      "nav": {
+        "ringkasan": "Overview",
+        "verifikasi": "Verification",
+        "kebijakan": "Policies",
+        "transparansi": "Transparency",
+        "kelola": "Operational management"
+      },
+      "stats": {
+        "anggotaLabel": "Pending memberships",
+        "verifLabel": "Verifications this month",
+        "danaLabel": "Conservation fund",
+        "danaHint": "Phase 3",
+        "spotLabel": "Active spots"
+      },
+      "aksi": {
+        "kelola": "Management dashboard",
+        "dana": "Fund report",
+        "daya": "Carrying capacity",
+        "profil": "Village profile"
+      },
+      "modul": {
+        "kelola": "Manage village",
+        "dana": "Conservation fund",
+        "neraca": "Regenerative balance"
+      },
+      "aktivitas": {
+        "a1": "Approved new UMKM membership",
+        "a2": "Published Q1 fund transparency report"
+      },
+      "widgets": {
+        "verifikasiTitle": "Membership approval",
+        "verifikasiDesc": "Legitimize UMKM, agent, and contributor roles.",
+        "kelolaTitle": "Operational management",
+        "kelolaDesc": "Village management dashboard and policies.",
+        "danaTitle": "Fund transparency",
+        "danaDesc": "Village conservation fund flows.",
+        "dayaDukungTitle": "Spot carrying capacity",
+        "dayaDukungDesc": "Green/yellow/red light per destination.",
+        "laporanTitle": "Village report",
+        "laporanDesc": "Regenerative tourism performance summary."
+      }
+    },
+    "admin": {
+      "tagline": "Platform steward",
+      "deskripsi": "Cross-tenant moderation, system configuration, and new village provisioning (Nusantara module).",
+      "nav": {
+        "ringkasan": "Overview",
+        "tenant": "Village tenants",
+        "moderasi": "Moderation",
+        "sistem": "Configuration",
+        "nusantara": "Nusantara"
+      },
+      "stats": {
+        "desaLabel": "Active villages",
+        "penggunaLabel": "Users",
+        "moderasiLabel": "Moderation queue",
+        "kesehatanLabel": "System health",
+        "kesehatanValue": "OK"
+      },
+      "aksi": {
+        "tenant": "Village provisioning",
+        "discovery": "Global discovery",
+        "flagship": "Partner village dashboard"
+      },
+      "modul": {
+        "nusantara": "Nusantara (F4)",
+        "healthApi": "Health API"
+      },
+      "aktivitas": {
+        "a1": "New tenant in onboarding queue",
+        "a2": "Cross-village RBAC audit log"
+      },
+      "widgets": {
+        "moderasiTitle": "Cross-village moderation",
+        "moderasiDesc": "Content and user report queue.",
+        "keanggotaanTitle": "Manage roles & memberships",
+        "keanggotaanDesc": "RBAC and scope per tenant.",
+        "sistemTitle": "Platform configuration",
+        "sistemDesc": "System parameters and integrations.",
+        "nusantaraTitle": "Nusantara provisioning",
+        "nusantaraDesc": "White-label and partner village replication."
+      }
+    }
+  },
+  "weather": {
+    "sectionLabel": "BMKG weather information",
+    "maritime": {
+      "title": "Maritime Safety",
+      "unavailable": "Maritime data is temporarily unavailable. Check sea conditions directly with local fishermen.",
+      "wave": "Waves: {value}",
+      "wind": "Wind: {value}",
+      "disclaimer": "Safety advisory — not a guarantee of safe conditions. The decision to sail remains with the captain & local fishermen."
+    },
+    "land": {
+      "title": "Land Weather",
+      "unavailable": "Land weather data is not yet available.",
+      "temp": "Temperature",
+      "humidity": "Humidity",
+      "condition": "Condition"
+    },
+    "source": "Source: BMKG",
+    "updated": " · updated {date}"
+  },
+  "paspor": {
+    "seoTitle": "Regenerative Passport",
+    "seoDesc": "Your personal impact passport — verified mission stamps and regenerative journey summary.",
+    "subtitle": "Only verified stamps count toward your passport — recorded actions, not proven impact claims (ecological validation in Phase 3).",
+    "loading": "Loading passport…",
+    "loginRequired": "Sign in to view your Regenerative Passport.",
+    "signIn": "Sign in →",
+    "stamps": "{count} stamps",
+    "noImpact": "No recorded impact yet.",
+    "impactMangrove": "plant {count} mangroves",
+    "impactWaste": "collect {count} kg of waste",
+    "impactGeneric": "{key}: {value}",
+    "impactSummary": "You helped {parts}.",
+    "verifiedOnlyNote": "Figures above are from verified stamps only.",
+    "verifiedStamps": "Verified stamps",
+    "pendingStamps": "Awaiting verification",
+    "rejectedStamps": "Rejected",
+    "pendingNote": "Awaiting confirmation — not yet counted in impact summary.",
+    "rejectedNote": "Verifier rejected this evidence.",
+    "noStamps": "No stamps yet.",
+    "startMission": "Start a mission →",
+    "missionFallback": "Mission",
+    "status": {
+      "terverifikasi": "Verified",
+      "menunggu_verifikasi": "Pending",
+      "ditolak": "Rejected"
+    }
+  },
+  "simpanan": {
+    "saveToWishlist": "Save {nama} to wishlist",
+    "removeFromWishlist": "Remove from wishlist",
+    "addToWishlist": "Save to wishlist"
+  },
+  "map": {
+    "loading": "Loading map…",
+    "loadingPicker": "Loading map...",
+    "empty": "No locations to display on the map.",
+    "pickHint": "Tap the map or drag the marker — {lat}, {lng}",
+    "latLabel": "Latitude",
+    "lngLabel": "Longitude",
+    "applyCoords": "Apply coordinates",
+    "polygonStart": "Draw area",
+    "polygonDrawing": "Area mode active",
+    "polygonDone": "Finish area",
+    "polygonUndo": "Undo point",
+    "polygonClear": "Clear area",
+    "polygonVertices": "{count} area points",
+    "interactiveLabel": "Interactive Lampung map",
+    "keyboardHint": "Use the results list beside the map for keyboard navigation if the map is inaccessible.",
+    "viewDetail": "View details →"
+  },
+  "media": {
+    "unsupportedType": "Only photos or videos are supported.",
+    "maxSize": "Maximum size is 25 MB.",
+    "offline": "Connection required to start upload (presign). Try again when online.",
+    "uploadFailed": "Upload failed",
+    "uploading": "Uploading to MinIO…",
+    "dropHint": "Drag photo/video or click to upload",
+    "flowHint": "Presign → direct upload → confirm · max. 25 MB",
+    "success": "Successfully added",
+    "retry": "Try again"
+  },
+  "modul": {
+    "page": {
+      "backShowcase": "Back to showcase",
+      "backHome": "Back to home",
+      "soon": "Coming soon",
+      "phase": "Phase {fase}",
+      "comingTitle": "What's coming",
+      "availableTitle": "Already available",
+      "destinations": "Destination catalog",
+      "signIn": "Sign in / register",
+      "managerDashboard": "Manager dashboard",
+      "roadmapNote": "This module is on the sigerciv blueprint roadmap. Phase 0 focuses on showcase, auth, destinations & media — the {modulLabel} module is planned for Phase {fase}."
+    },
+    "items": {
+      "pasar": {
+        "judul": "Village Market",
+        "modulLabel": "Ecosystem Collaboration",
+        "deskripsi": "MSMEs register tourism products and services independently. Transactions go directly to local providers — without a central aggregator commission.",
+        "fiturRencana": [
+          "Verified MSME catalog per village",
+          "Products & services with local pricing",
+          "Ranking boost for Naik Kelas Lestari certified MSMEs",
+          "Performance dashboard for business owners"
+        ]
+      },
+      "paket": {
+        "judul": "Tour Packages",
+        "modulLabel": "Content & Package Curation",
+        "deskripsi": "Local agents compose itineraries, quotas, and tour package pricing with Pokdarwis curation flow (draft → review → publish).",
+        "fiturRencana": [
+          "Package editor with itinerary items",
+          "Package status state machine",
+          "Quotas & departure schedules",
+          "Booking integration in Phase 2 (Dock)"
+        ]
+      },
+      "agen": {
+        "judul": "Local Agents",
+        "modulLabel": "Village Market",
+        "deskripsi": "Directory of tour package composers and certified guides in the village.",
+        "fiturRencana": [
+          "Agent profile & package portfolio",
+          "Role verification by Pokdarwis",
+          "Direct contact with travelers"
+        ]
+      },
+      "kontribusi": {
+        "judul": "Data Contributions",
+        "modulLabel": "Contribution Gamification",
+        "deskripsi": "Residents and travelers contribute photos, tips, or destination data corrections. Content goes through a curation queue before going public.",
+        "fiturRencana": [
+          "Photo & correction contribution forms",
+          "Pokdarwis curation queue",
+          "Points & badges for contributors"
+        ]
+      },
+      "lencana": {
+        "judul": "Citizen Badges",
+        "modulLabel": "Contribution Gamification",
+        "deskripsi": "Three-tier badges and community participation progress on the sigerciv platform.",
+        "fiturRencana": [
+          "Badge collection per user",
+          "Automatic & idempotent point rules",
+          "\"Pioneer Citizen\" badge for PWA early adopters"
+        ]
+      },
+      "leaderboard": {
+        "judul": "Contributor Leaderboard",
+        "modulLabel": "Contribution Gamification",
+        "deskripsi": "Rankings for data contributors and regenerative participation per village.",
+        "fiturRencana": [
+          "Monthly & all-time rankings",
+          "Filter by contribution category"
+        ]
+      },
+      "peta": {
+        "judul": "Destination Map",
+        "modulLabel": "Gateway",
+        "deskripsi": "Interactive map of all public village spots. For now, use the map on the village showcase or multi-village discovery.",
+        "fiturRencana": [
+          "Full-screen map per village",
+          "Category filters & marker clusters",
+          "Geo radius \"near me\" integration"
+        ]
+      },
+      "kalender": {
+        "judul": "Activity Calendar",
+        "modulLabel": "Sigerciv Destinations",
+        "deskripsi": "Seasonal event schedules — e.g. morning dolphins, festivals, or specific wind seasons. Managers can configure the calendar in the dashboard.",
+        "fiturRencana": [
+          "Public calendar view",
+          "Destination-linked events",
+          "Sync with kelola/calendar data"
+        ]
+      },
+      "misi": {
+        "judul": "Regenerative Explorer",
+        "modulLabel": "Sigerciv Missions",
+        "deskripsi": "Traveler quests: marine ethics micro-lessons, then verified actions (plant mangroves, beach cleanup, dolphin monitoring).",
+        "fiturRencana": [
+          "Mission catalog per village",
+          "Required micro-lesson before quest",
+          "QR verification at Lestari Stations",
+          "Rewards to Regenerative Passport"
+        ]
+      },
+      "stasiun-lestari": {
+        "judul": "Lestari Stations",
+        "modulLabel": "Sigerciv Missions",
+        "deskripsi": "QR check-in points at dolphin docks, mangroves, and conservation spots — proof of regenerative action attendance.",
+        "fiturRencana": [
+          "Geotagged QR per station",
+          "Guide/Pokdarwis confirmation",
+          "Verification log linked to missions"
+        ]
+      },
+      "naik-kelas": {
+        "judul": "Regenerative Level-Up",
+        "modulLabel": "Sigerciv Missions",
+        "deskripsi": "Tiered MSME/agent owner certification: Tunas → Bahari → Lumba-Lumba through validated regenerative action cards.",
+        "fiturRencana": [
+          "Owner progress dashboard",
+          "Tier & badge on Village Market listings",
+          "Ranking boost for regenerative practice"
+        ]
+      },
+      "kartu-aksi": {
+        "judul": "Action Cards",
+        "modulLabel": "Sigerciv Missions",
+        "deskripsi": "Concrete practices with proof: no single-use plastic, local ingredients, waste management, allocate % to conservation fund.",
+        "fiturRencana": [
+          "Action card list by category",
+          "Application & proof verification",
+          "Education module \"why this matters\""
+        ]
+      },
+      "sertifikasi": {
+        "judul": "Certification Tiers",
+        "modulLabel": "Sigerciv Missions",
+        "deskripsi": "Summary of regenerative certification tiers held by providers in the village.",
+        "fiturRencana": [
+          "Public: badge on MSME profile",
+          "Transparency of validated cards"
+        ]
+      },
+      "dana-konservasi": {
+        "judul": "Conservation Fund",
+        "modulLabel": "Regenerative Trail",
+        "deskripsi": "Accumulation of reinvestment share from transactions and transparent usage reports for the community & village officials.",
+        "fiturRencana": [
+          "Balance & reinvestment share history",
+          "Public fund usage reports",
+          "Transaction hooks from Dock module (F2)"
+        ]
+      },
+      "neraca-regeneratif": {
+        "judul": "Regenerative Balance",
+        "modulLabel": "Regenerative Trail",
+        "deskripsi": "Combined eco-social-economic impact score — GMV-equivalent KPI for measurable regenerative tourism.",
+        "fiturRencana": [
+          "Ecological, social, economic indicators",
+          "Feed from citizen monitoring & transactions",
+          "Public transparency dashboard"
+        ]
+      },
+      "daya-dukung": {
+        "judul": "Spot Carrying Capacity",
+        "modulLabel": "Regenerative Trail",
+        "deskripsi": "Daily capacity per spot vs actual visits — over-capacity warnings for responsible ecotourism.",
+        "fiturRencana": [
+          "Green/yellow/red light per destination",
+          "Alert when approaching quota limit",
+          "daya_dukung_harian data from F0"
+        ]
+      },
+      "monitoring": {
+        "judul": "Ecological Monitoring",
+        "modulLabel": "Regenerative Trail",
+        "deskripsi": "Offline-first field forms: mangrove survival, coral health, collected waste — verified by residents & village officials.",
+        "fiturRencana": [
+          "PWA data entry without signal",
+          "Deferred sync",
+          "Impact claim validation (anti greenwashing)"
+        ]
+      },
+      "paspor": {
+        "judul": "Regenerative Passport",
+        "modulLabel": "Sigerciv Missions",
+        "deskripsi": "Personal traveler impact passport — mission stamps, impact summary (\"you helped plant 5 mangroves\"), badges & digital certificates.",
+        "fiturRencana": [
+          "Stamp collection per completed mission",
+          "Personal impact summary",
+          "Discounts from certified MSMEs",
+          "Requires traveler account sign-in"
+        ]
+      }
+    }
+  },
+  "errors": {
+    "validasi_gagal": "Invalid data. Please check your input.",
+    "belum_diverifikasi": "Account not yet verified. Check your email for a verification code.",
+    "kredensial_salah": "Incorrect email or password.",
+    "tidak_ditemukan": "Data not found.",
+    "tidak_diizinkan": "You do not have permission for this action.",
+    "tidak_terautentikasi": "Please sign in first.",
+    "konflik": "The request conflicts with existing data.",
+    "terlalu_banyak_permintaan": "Too many requests. Try again later.",
+    "kesalahan_server": "A server error occurred. Please try again later.",
+    "jaringan": "Unable to connect. Check your network.",
+    "di_luar_geofence": "You must be at the designated station (outside the geofence radius).",
+    "bukti_kurang": "Verification evidence is insufficient — check QR, location, or photo.",
+    "default": "Something went wrong. Please try again."
+  },
+  "referensi": {
+    "kategori": {
+      "pantai": "Beach",
+      "snorkeling": "Snorkeling",
+      "lumba-lumba": "Dolphins",
+      "mangrove": "Mangrove",
+      "budaya": "Culture",
+      "kuliner": "Culinary"
+    },
+    "tingkat": {
+      "tunas": "Tunas",
+      "bahari": "Bahari",
+      "lumba_lumba": "Dolphin"
+    },
+    "status": {
+      "draft": "Draft",
+      "publikasi": "Published",
+      "arsip": "Archived",
+      "review": "Awaiting curation",
+      "menunggu": "Pending",
+      "disetujui": "Approved",
+      "ditolak": "Rejected",
+      "revisi": "Needs revision",
+      "tervalidasi": "Validated",
+      "aktif": "Active",
+      "nonaktif": "Inactive",
+      "menunggu_pembayaran": "Awaiting payment",
+      "dibayar": "Paid",
+      "diproses": "Processing",
+      "selesai": "Completed",
+      "dibatalkan": "Cancelled",
+      "kedaluwarsa": "Expired",
+      "refund_diajukan": "Refund requested",
+      "diajukan": "Submitted",
+      "belum_dibaca": "Unread",
+      "dibaca": "Read"
+    },
+    "simpananTipe": {
+      "destinasi": "Destination",
+      "paket": "Tour package",
+      "misi": "Regenerative mission"
+    }
+  }
+}

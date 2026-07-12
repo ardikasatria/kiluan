@@ -11,6 +11,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { StarIcon as StarSolidIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 interface Props {
@@ -25,6 +26,7 @@ function urlGambar(item: MediaItem) {
 }
 
 export default function MediaGaleriKelola({ desaSlug, items, onChange, className }: Props) {
+  const t = useTranslations('kelola.destinasi.media')
   const [memuat, setMemuat] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -47,7 +49,7 @@ export default function MediaGaleriKelola({ desaSlug, items, onChange, className
         })),
       )
     } catch {
-      setError('Gagal mengatur sampul.')
+      setError(t('errorSampul'))
     } finally {
       setMemuat(null)
     }
@@ -76,7 +78,7 @@ export default function MediaGaleriKelola({ desaSlug, items, onChange, className
         }),
       )
     } catch {
-      setError('Gagal mengubah urutan.')
+      setError(t('errorUrutan'))
     } finally {
       setMemuat(null)
     }
@@ -84,14 +86,14 @@ export default function MediaGaleriKelola({ desaSlug, items, onChange, className
 
   const hapus = async (item: MediaItem) => {
     if (!item.lampiran_id) return
-    if (!confirm('Lepas media dari destinasi ini?')) return
+    if (!confirm(t('hapusKonfirmasi'))) return
     setMemuat(item.lampiran_id)
     setError(null)
     try {
       await hapusLampiran(desaSlug, item.lampiran_id)
       onChange(items.filter((m) => m.lampiran_id !== item.lampiran_id))
     } catch {
-      setError('Gagal menghapus lampiran.')
+      setError(t('errorHapus'))
     } finally {
       setMemuat(null)
     }
@@ -100,7 +102,7 @@ export default function MediaGaleriKelola({ desaSlug, items, onChange, className
   if (urut.length === 0) {
     return (
       <p className="rounded-xl border border-dashed border-neutral-300 bg-neutral-50/50 px-4 py-8 text-center text-sm text-neutral-500 dark:border-neutral-600 dark:bg-neutral-900/20 dark:text-neutral-400">
-        Belum ada foto. Unggah gambar pertama di atas.
+        {t('empty')}
       </p>
     )
   }
@@ -129,14 +131,14 @@ export default function MediaGaleriKelola({ desaSlug, items, onChange, className
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={urlGambar(item)}
-                  alt={item.alt ?? 'Media destinasi'}
+                  alt={item.alt ?? t('alt')}
                   className="size-full object-cover"
                   loading="lazy"
                 />
                 {item.utama && (
                   <span className="absolute top-2 left-2 inline-flex items-center gap-1 rounded-full bg-primary-700/95 px-2 py-0.5 text-[10px] font-semibold text-white uppercase shadow-sm dark:bg-primary-600/95">
                     <StarSolidIcon className="size-3" aria-hidden />
-                    Sampul
+                    {t('sampul')}
                   </span>
                 )}
                 {busy && (
@@ -148,7 +150,7 @@ export default function MediaGaleriKelola({ desaSlug, items, onChange, className
               <div className="flex items-center justify-between gap-0.5 border-t border-neutral-200 bg-white p-1 sm:gap-1 sm:p-1.5 dark:border-neutral-700 dark:bg-neutral-900/90">
                 <button
                   type="button"
-                  title="Jadikan sampul"
+                  title={t('jadikanSampul')}
                   disabled={busy || item.utama}
                   onClick={() => void setSampul(item)}
                   className="rounded-lg p-2 text-neutral-600 hover:bg-primary-50 hover:text-primary-700 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none disabled:opacity-40 sm:p-1.5 dark:text-neutral-300 dark:hover:bg-primary-900/40 dark:hover:text-primary-300"
@@ -162,7 +164,7 @@ export default function MediaGaleriKelola({ desaSlug, items, onChange, className
                 <div className="flex gap-0.5">
                   <button
                     type="button"
-                    title="Geser kiri"
+                    title={t('geserKiri')}
                     disabled={busy || idx === 0}
                     onClick={() => void geser(idx, -1)}
                     className="rounded-lg p-2 text-neutral-500 hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none disabled:opacity-30 sm:p-1.5 dark:text-neutral-400 dark:hover:bg-neutral-800"
@@ -171,7 +173,7 @@ export default function MediaGaleriKelola({ desaSlug, items, onChange, className
                   </button>
                   <button
                     type="button"
-                    title="Geser kanan"
+                    title={t('geserKanan')}
                     disabled={busy || idx === urut.length - 1}
                     onClick={() => void geser(idx, 1)}
                     className="rounded-lg p-2 text-neutral-500 hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none disabled:opacity-30 sm:p-1.5 dark:text-neutral-400 dark:hover:bg-neutral-800"
@@ -181,7 +183,7 @@ export default function MediaGaleriKelola({ desaSlug, items, onChange, className
                 </div>
                 <button
                   type="button"
-                  title="Hapus"
+                  title={t('hapus')}
                   disabled={busy}
                   onClick={() => void hapus(item)}
                   className="rounded-lg p-2 text-red-600 hover:bg-red-50 focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:outline-none sm:p-1.5 dark:text-red-400 dark:hover:bg-red-900/30"

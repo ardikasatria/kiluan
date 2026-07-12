@@ -1,16 +1,33 @@
 'use client'
 
+import DrafLokalBanner from '@/components/kiluan/DrafLokalBanner'
 import { buatBerita, hapusBerita, ubahBerita, ubahStatusBerita } from '@/lib/api/berita'
 import { kodeGalat, pesanGalat } from '@/lib/api/galat'
 import { konfirmasiMedia, presignMedia, unggahKeMinio } from '@/lib/api/media'
 import { getTagDesa } from '@/lib/api/desa'
 import type { BeritaDetail, KategoriBerita, StatusBerita, Tag } from '@/lib/api/types'
-import { KATEGORI_BERITA } from '@/lib/kiluan/berita'
+import { Link, useRouter } from '@/i18n/navigation'
+import { KODE_KATEGORI_BERITA, labelKategoriBerita } from '@/lib/kiluan/berita'
+import { kunciDrafLokal } from '@/lib/kiluan/draf-lokal'
 import { formatTanggal } from '@/lib/kiluan/lencana'
+import { useDrafFormLokal } from '@/hooks/useDrafFormLokal'
 import { ArrowLeftIcon, PhotoIcon, TrashIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+
+interface DrafBeritaForm {
+  judul: string
+  slug: string
+  slugManual: boolean
+  ringkasan: string
+  konten: string
+  kategori: KategoriBerita
+  sorotan: boolean
+  terbitPada: string
+  tagPilih: number[]
+  sampulMediaId: string | null
+  sampulUrl: string | null
+}
 
 interface Props {
   desaSlug: string
@@ -28,6 +45,9 @@ function slugify(text: string): string {
 
 export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
   const router = useRouter()
+  const t = useTranslations('kelola.berita')
+  const tBerita = useTranslations('berita')
+  const tr = tBerita as unknown as (key: string) => string
   const editMode = Boolean(awal?.id)
 
   const [judul, setJudul] = useState(awal?.judul ?? '')
@@ -42,7 +62,7 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
   )
   const [status, setStatus] = useState<StatusBerita>(awal?.status ?? 'draft')
   const [tagList, setTagList] = useState<Tag[]>([])
-  const [tagPilih, setTagPilih] = useState<number[]>(awal?.tag.map((t) => t.id) ?? [])
+  const [tagPilih, setTagPilih] = useState<number[]>(awal?.tag.map((tg) => tg.id) ?? [])
   const [sampulUrl, setSampulUrl] = useState<string | null>(awal?.sampul?.url ?? null)
   const [sampulMediaId, setSampulMediaId] = useState<string | null>(null)
   const [unggahPct, setUnggahPct] = useState<number | null>(null)
@@ -56,6 +76,54 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
   useEffect(() => {
     if (!slugManual && judul) setSlug(slugify(judul))
   }, [judul, slugManual])
+
+  const drafData = useMemo<DrafBeritaForm>(
+    () => ({
+      judul,
+      slug,
+      slugManual,
+      ringkasan,
+      konten,
+      kategori,
+      sorotan,
+      terbitPada,
+      tagPilih,
+      sampulMediaId,
+      sampulUrl,
+    }),
+    [
+      judul,
+      slug,
+      slugManual,
+      ringkasan,
+      konten,
+      kategori,
+      sorotan,
+      terbitPada,
+      tagPilih,
+      sampulMediaId,
+      sampulUrl,
+    ],
+  )
+
+  const draf = useDrafFormLokal({
+    kunci: kunciDrafLokal('berita', desaSlug, awal?.id ?? 'baru'),
+    data: drafData,
+  })
+
+  const terapkanDraf = (d: DrafBeritaForm) => {
+    setJudul(d.judul)
+    setSlug(d.slug)
+    setSlugManual(d.slugManual)
+    setRingkasan(d.ringkasan)
+    setKonten(d.konten)
+    setKategori(d.kategori)
+    setSorotan(d.sorotan)
+    setTerbitPada(d.terbitPada)
+    setTagPilih(d.tagPilih)
+    setSampulMediaId(d.sampulMediaId)
+    setSampulUrl(d.sampulUrl)
+  }
 
   const unggahSampul = useCallback(
     async (file: File) => {
@@ -95,15 +163,17 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
     try {
       if (editMode && awal) {
         await ubahBerita(desaSlug, awal.id, payload)
+        draf.hapusDraf()
         router.push(`/${desaSlug}/kelola/berita/${awal.id}`)
         router.refresh()
       } else {
         const baru = await buatBerita(desaSlug, payload)
+        draf.hapusDraf()
         router.push(`/${desaSlug}/kelola/berita/${baru.id}`)
       }
     } catch (e) {
       if (kodeGalat(e) === 'konflik') {
-        setGalat('Slug sudah dipakai artikel lain. Gunakan slug yang berbeda.')
+        setGalat(t('form.slugKonflik'))
       } else {
         setGalat(pesanGalat(e))
       }
@@ -132,7 +202,7 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
   const arsipkan = () => void ubahStatus('arsip')
 
   const hapus = async () => {
-    if (!awal || !confirm('Hapus artikel ini? (soft delete)')) return
+    if (!awal || !confirm(t('form.hapusKonfirmasi'))) return
     try {
       await hapusBerita(desaSlug, awal.id)
       router.push(`/${desaSlug}/kelola/berita`)
@@ -149,11 +219,11 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
           className="inline-flex items-center gap-2 text-sm text-primary-700 hover:underline dark:text-primary-300"
         >
           <ArrowLeftIcon className="size-4" aria-hidden />
-          Daftar Warta
+          {t('backToList')}
         </Link>
         {editMode && (
-          <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium capitalize dark:bg-neutral-800">
-            {status}
+          <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium dark:bg-neutral-800">
+            {t(`status.${status}` as 'status.draft')}
           </span>
         )}
       </div>
@@ -164,9 +234,20 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
         </p>
       )}
 
+      <DrafLokalBanner
+        menungguPulihkan={draf.menungguPulihkan}
+        status={draf.status}
+        diperbaruiPada={draf.diperbaruiPada}
+        onPulihkan={() => {
+          const data = draf.pulihkan()
+          if (data) terapkanDraf(data)
+        }}
+        onBuang={draf.buangDraf}
+      />
+
       <div className="space-y-4 rounded-2xl border border-neutral-200 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-900/40 sm:p-6">
         <div>
-          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Judul</label>
+          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{t('form.judul')}</label>
           <input
             value={judul}
             onChange={(e) => setJudul(e.target.value)}
@@ -175,7 +256,7 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
         </div>
 
         <div>
-          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Slug URL</label>
+          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{t('form.slug')}</label>
           <input
             value={slug}
             onChange={(e) => {
@@ -187,7 +268,7 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
         </div>
 
         <div>
-          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Ringkasan</label>
+          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{t('form.ringkasan')}</label>
           <textarea
             value={ringkasan}
             onChange={(e) => setRingkasan(e.target.value)}
@@ -197,40 +278,40 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
         </div>
 
         <div>
-          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Konten (Markdown)</label>
+          <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{t('form.konten')}</label>
           <textarea
             value={konten}
             onChange={(e) => setKonten(e.target.value)}
             rows={14}
-            placeholder="## Judul bagian&#10;&#10;Tulis dengan **markdown**…"
+            placeholder={t('form.kontenPlaceholder')}
             className="mt-1 w-full rounded-xl border border-neutral-300 px-3 py-2 font-mono text-sm dark:border-neutral-600 dark:bg-neutral-900"
           />
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Kategori</label>
+            <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{t('form.kategori')}</label>
             <select
               value={kategori}
               onChange={(e) => setKategori(e.target.value as KategoriBerita)}
               className="mt-1 w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
             >
-              {KATEGORI_BERITA.map((k) => (
-                <option key={k.kode} value={k.kode}>
-                  {k.label}
+              {KODE_KATEGORI_BERITA.map((k) => (
+                <option key={k} value={k}>
+                  {labelKategoriBerita(k, tr)}
                 </option>
               ))}
             </select>
           </div>
           <div>
-            <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Terbit pada</label>
+            <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{t('form.terbitPada')}</label>
             <input
               type="datetime-local"
               value={terbitPada}
               onChange={(e) => setTerbitPada(e.target.value)}
               className="mt-1 w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
             />
-            <p className="mt-1 text-xs text-neutral-500">Kosongkan = tayang segera setelah publikasi</p>
+            <p className="mt-1 text-xs text-neutral-500">{t('form.terbitHint')}</p>
           </div>
         </div>
 
@@ -241,26 +322,26 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
             onChange={(e) => setSorotan(e.target.checked)}
             className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500"
           />
-          Tampilkan sebagai sorotan (featured)
+          {t('form.sorotan')}
         </label>
 
         {tagList.length > 0 && (
           <div>
-            <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Tag</p>
+            <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{t('form.tag')}</p>
             <div className="mt-2 flex flex-wrap gap-2">
-              {tagList.map((t) => (
-                <label key={t.id} className="inline-flex cursor-pointer items-center gap-1.5 text-sm">
+              {tagList.map((tg) => (
+                <label key={tg.id} className="inline-flex cursor-pointer items-center gap-1.5 text-sm">
                   <input
                     type="checkbox"
-                    checked={tagPilih.includes(t.id)}
+                    checked={tagPilih.includes(tg.id)}
                     onChange={(e) =>
                       setTagPilih((prev) =>
-                        e.target.checked ? [...prev, t.id] : prev.filter((id) => id !== t.id),
+                        e.target.checked ? [...prev, tg.id] : prev.filter((id) => id !== tg.id),
                       )
                     }
                     className="rounded border-neutral-300 text-primary-600"
                   />
-                  {t.nama}
+                  {tg.nama}
                 </label>
               ))}
             </div>
@@ -268,18 +349,18 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
         )}
 
         <div>
-          <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Sampul</p>
+          <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{t('form.sampul')}</p>
           <div className="mt-2 flex flex-wrap items-center gap-4">
             {sampulUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={sampulUrl} alt="Sampul" className="h-24 w-40 rounded-lg object-cover" />
+              <img src={sampulUrl} alt={t('form.sampulAlt')} className="h-24 w-40 rounded-lg object-cover" />
             ) : (
               <div className="flex h-24 w-40 items-center justify-center rounded-lg bg-neutral-100 dark:bg-neutral-800">
                 <PhotoIcon className="size-8 text-neutral-400" />
               </div>
             )}
             <label className="cursor-pointer rounded-full border border-primary-300 px-4 py-2 text-sm font-medium text-primary-700 hover:bg-primary-50 dark:border-primary-600 dark:text-primary-300 dark:hover:bg-primary-950">
-              Unggah foto
+              {t('form.unggahFoto')}
               <input
                 type="file"
                 accept="image/*"
@@ -302,7 +383,7 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
           disabled={menyimpan || !judul || !slug}
           className="rounded-full bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-600 disabled:opacity-50"
         >
-          {menyimpan ? 'Menyimpan…' : editMode ? 'Simpan perubahan' : 'Simpan draft'}
+          {menyimpan ? t('form.menyimpan') : editMode ? t('form.simpanPerubahan') : t('form.simpanDraft')}
         </button>
 
         {editMode && status === 'draft' && (
@@ -311,7 +392,7 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
             onClick={() => void ubahStatus('publikasi')}
             className="rounded-full border border-primary-600 px-5 py-2.5 text-sm font-medium text-primary-700 dark:text-primary-300"
           >
-            Publikasikan
+            {t('form.publikasikan')}
           </button>
         )}
         {editMode && status === 'publikasi' && (
@@ -320,7 +401,7 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
             onClick={() => void arsipkan()}
             className="rounded-full border border-neutral-400 px-5 py-2.5 text-sm font-medium text-neutral-700 dark:text-neutral-300"
           >
-            Arsipkan
+            {t('form.arsipkan')}
           </button>
         )}
         {editMode && status === 'arsip' && (
@@ -329,7 +410,7 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
             onClick={() => void ubahStatus('draft')}
             className="rounded-full border border-neutral-400 px-5 py-2.5 text-sm font-medium"
           >
-            Kembalikan ke draft
+            {t('form.kembalikanDraft')}
           </button>
         )}
         {editMode && (
@@ -339,13 +420,15 @@ export default function BeritaKelolaClient({ desaSlug, awal }: Props) {
             className="inline-flex items-center gap-1 rounded-full border border-red-300 px-4 py-2.5 text-sm text-red-700 dark:border-red-800 dark:text-red-300"
           >
             <TrashIcon className="size-4" />
-            Hapus
+            {t('form.hapus')}
           </button>
         )}
       </div>
 
       {editMode && awal?.terbit_pada && (
-        <p className="text-xs text-neutral-500">Terjadwal / terbit: {formatTanggal(awal.terbit_pada)}</p>
+        <p className="text-xs text-neutral-500">
+          {t('form.terjadwal', { tanggal: formatTanggal(awal.terbit_pada) })}
+        </p>
       )}
     </div>
   )

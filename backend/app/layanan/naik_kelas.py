@@ -265,20 +265,53 @@ class NaikKelasLayanan:
 
     async def ambil_sertifikasi(
         self, desa_id: UUID, subjek_tipe: str, subjek_id: UUID,
-    ) -> dict | None:
+    ) -> dict:
         rows = await self.store.sertifikasi_owner.cari(
             desa_id=desa_id, subjek_tipe=subjek_tipe, subjek_id=subjek_id,
         )
-        if not rows:
-            return None
-        s = rows[0]
+        s = rows[0] if rows else None
+        tervalidasi = await self.store.pengajuan_kartu.cari(
+            desa_id=desa_id, subjek_tipe=subjek_tipe, subjek_id=subjek_id,
+            status=StatusPengajuanKartu.tervalidasi.value,
+        )
+        kartu_unik = sorted({p.kartu_id for p in tervalidasi})
+        if s:
+            skor = s.skor
+            tingkat = s.tingkat
+        else:
+            skor = 0
+            for kid in kartu_unik:
+                skor += await self._bobot_kartu(kid)
+            tingkat = tingkat_dari_skor(skor)
+
+        ambang_tingkat = [
+            {"tingkat": nama, "skor_min": batas}
+            for nama, batas in reversed(AMBANG)
+        ]
+        tingkat_berikut = None
+        skor_berikut = None
+        for nama, batas in reversed(AMBANG):
+            if skor < batas:
+                tingkat_berikut = nama
+                skor_berikut = batas
+
         return {
-            "subjek_tipe": s.subjek_tipe,
-            "subjek_id": str(s.subjek_id),
-            "tingkat": s.tingkat,
-            "skor": s.skor,
-            "diperbarui_pada": s.diperbarui_pada.isoformat() if s.diperbarui_pada else None,
+            "subjek_tipe": subjek_tipe,
+            "subjek_id": str(subjek_id),
+            "tingkat": tingkat,
+            "skor": skor,
+            "diperbarui_pada": s.diperbarui_pada.isoformat() if s and s.diperbarui_pada else None,
+            "progres": {
+                "kartu_tervalidasi": kartu_unik,
+                "ambang_tingkat": ambang_tingkat,
+                "tingkat_berikut": tingkat_berikut,
+                "skor_berikut": skor_berikut,
+            },
         }
+
+    async def _bobot_kartu(self, kartu_id: int) -> int:
+        k = await self.store.kartu_aksi.ambil(kartu_id)
+        return k.bobot if k else 0
 
     async def _ambil_pengajuan(self, desa_id: UUID, id_: UUID) -> E.PengajuanKartu:
         p = await self.store.pengajuan_kartu.ambil(id_)

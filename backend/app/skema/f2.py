@@ -317,6 +317,8 @@ def verifikasi_dto(v) -> dict[str, Any]:
         "verifikator_id": str(v.verifikator_id) if v.verifikator_id else None,
         "dibuat_pada": v.dibuat_pada.isoformat() if hasattr(v.dibuat_pada, "isoformat") else str(v.dibuat_pada),
         "diputuskan_pada": v.diputuskan_pada.isoformat() if v.diputuskan_pada else None,
+        "bukti": v.bukti or {},
+        "syarat": v.syarat or {},
     }
 
 

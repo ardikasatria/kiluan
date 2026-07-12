@@ -72,12 +72,30 @@ export function mockAntreanValidasi(status?: string): { item: PengajuanKartuItem
   }
 }
 
+const MOCK_AMBANG = [
+  { tingkat: 'tunas' as const, skor_min: 10 },
+  { tingkat: 'bahari' as const, skor_min: 30 },
+  { tingkat: 'lumba_lumba' as const, skor_min: 50 },
+]
+
 export function mockSertifikasi(subjekId: string): SertifikasiItem {
+  const skor = subjekId.includes('2') ? 35 : 15
+  const tingkat = subjekId.includes('2') ? 'bahari' : 'tunas'
+  const kartuTervalidasi = subjekId.includes('2') ? [1, 2] : [1]
+  const skorBerikut = skor < 30 ? 30 : skor < 50 ? 50 : null
+  const tingkatBerikut = skor < 30 ? 'bahari' : skor < 50 ? 'lumba_lumba' : null
+
   return {
     subjek_tipe: 'umkm',
     subjek_id: subjekId,
-    tingkat: subjekId.includes('2') ? 'bahari' : 'tunas',
-    skor: subjekId.includes('2') ? 35 : 15,
+    tingkat,
+    skor,
     diperbarui_pada: new Date().toISOString(),
+    progres: {
+      kartu_tervalidasi: kartuTervalidasi,
+      ambang_tingkat: MOCK_AMBANG,
+      tingkat_berikut: tingkatBerikut,
+      skor_berikut: skorBerikut,
+    },
   }
 }

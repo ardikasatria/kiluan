@@ -1,5 +1,6 @@
 import { ClockIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   fase?: string
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export default function DashboardPhaseBadge({ fase, className, compact }: Props) {
+  const t = useTranslations('dasbor.view')
   return (
     <span
       className={clsx(
@@ -17,7 +19,7 @@ export default function DashboardPhaseBadge({ fase, className, compact }: Props)
       )}
     >
       <ClockIcon className={compact ? 'size-3' : 'size-3.5'} aria-hidden />
-      {fase ? `Fase ${fase}` : 'Segera'}
+      {fase ? t('fase', { fase }) : t('badgeSegera')}
     </span>
   )
 }

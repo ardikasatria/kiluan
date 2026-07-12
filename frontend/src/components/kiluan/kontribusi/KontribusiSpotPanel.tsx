@@ -1,8 +1,9 @@
 'use client'
 
 import KontribusiForm from '@/components/kiluan/kontribusi/KontribusiForm'
+import { Link } from '@/i18n/navigation'
 import { useAuth } from '@/contexts/AuthProvider'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function KontribusiSpotPanel({ desaSlug, destinasiId, destinasiNama }: Props) {
+  const t = useTranslations('spot.kontribusi')
   const { isLoggedIn } = useAuth()
   const [buka, setBuka] = useState(false)
   const [selesai, setSelesai] = useState(false)
@@ -19,12 +21,12 @@ export default function KontribusiSpotPanel({ desaSlug, destinasiId, destinasiNa
   if (!isLoggedIn) {
     return (
       <div className="rounded-2xl border border-neutral-200 p-4 dark:border-neutral-700 dark:bg-neutral-800/40">
-        <h3 className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">Kontribusi komunitas</h3>
+        <h3 className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">{t('title')}</h3>
         <p className="mt-2 text-sm text-neutral-500">
           <Link href="/masuk" className="font-medium text-primary-600 hover:underline">
-            Masuk
+            {t('login')}
           </Link>{' '}
-          untuk mengirim foto, tips, atau koreksi data spot ini.
+          {t('loginPrompt')}
         </p>
       </div>
     )
@@ -33,9 +35,9 @@ export default function KontribusiSpotPanel({ desaSlug, destinasiId, destinasiNa
   if (selesai) {
     return (
       <div className="rounded-2xl border border-kiluan-mint/40 bg-kiluan-mint/10 p-4">
-        <p className="text-sm font-medium text-primary-800">Terima kasih! Kontribusi menunggu kurasi.</p>
+        <p className="text-sm font-medium text-primary-800">{t('thanks')}</p>
         <Link href={`/${desaSlug}/kontribusi`} className="mt-2 inline-block text-sm text-primary-600 hover:underline">
-          Lihat riwayat saya
+          {t('history')}
         </Link>
       </div>
     )
@@ -43,14 +45,14 @@ export default function KontribusiSpotPanel({ desaSlug, destinasiId, destinasiNa
 
   return (
     <div className="rounded-2xl border border-neutral-200 p-4 dark:border-neutral-700 dark:bg-neutral-800/40">
-      <h3 className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">Kontribusi untuk spot ini</h3>
+      <h3 className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">{t('panelTitle')}</h3>
       {!buka ? (
         <button
           type="button"
           onClick={() => setBuka(true)}
           className="mt-3 rounded-full bg-primary-700 px-4 py-2 text-sm font-medium text-white hover:bg-primary-600"
         >
-          Kirim foto / tips / koreksi
+          {t('cta')}
         </button>
       ) : (
         <KontribusiForm

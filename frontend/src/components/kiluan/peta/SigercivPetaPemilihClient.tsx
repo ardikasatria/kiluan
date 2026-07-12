@@ -4,10 +4,11 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 
+import { Link } from '@/i18n/navigation'
 import type { Lokasi } from '@/lib/api/types'
 import L from 'leaflet'
 import 'leaflet.markercluster'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useRef } from 'react'
 import { MapContainer, TileLayer, useMap } from 'react-leaflet'
 import type { MarkerPeta } from './SigercivPetaPemilih'
@@ -48,7 +49,10 @@ function ClusterMarkers({
   highlightedId,
   onMarkerClick,
   onMarkerHover,
-}: Pick<Props, 'markers' | 'highlightedId' | 'onMarkerClick' | 'onMarkerHover'>) {
+  viewDetailLabel,
+}: Pick<Props, 'markers' | 'highlightedId' | 'onMarkerClick' | 'onMarkerHover'> & {
+  viewDetailLabel: string
+}) {
   const map = useMap()
   const clusterRef = useRef<L.MarkerClusterGroup | null>(null)
 
@@ -85,7 +89,7 @@ function ClusterMarkers({
         <div style="min-width:140px">
           <p style="font-weight:600;margin:0 0 4px;color:#124170">${m.nama}</p>
           ${m.sublabel ? `<p style="font-size:12px;margin:0 0 6px;color:#6b7280">${m.sublabel}</p>` : ''}
-          ${m.href ? `<a href="${m.href}" style="font-size:13px;color:#215b63;font-weight:600">Lihat detail →</a>` : ''}
+          ${m.href ? `<a href="${m.href}" style="font-size:13px;color:#215b63;font-weight:600">${viewDetailLabel}</a>` : ''}
         </div>
       `
       marker.bindPopup(popupHtml)
@@ -94,7 +98,7 @@ function ClusterMarkers({
       marker.on('mouseout', () => onMarkerHover?.(null))
       cluster.addLayer(marker)
     })
-  }, [markers, highlightedId, onMarkerClick, onMarkerHover])
+  }, [markers, highlightedId, onMarkerClick, onMarkerHover, viewDetailLabel])
 
   return null
 }
@@ -108,6 +112,7 @@ export default function SigercivPetaPemilihClient({
   onMarkerClick,
   onMarkerHover,
 }: Props) {
+  const t = useTranslations('map')
   const defaultCenter = useMemo(
     () => center ?? markers[0]?.lokasi ?? { lat: -5.45, lng: 105.27 },
     [center, markers],
@@ -117,7 +122,7 @@ export default function SigercivPetaPemilihClient({
     <div
       className={`overflow-hidden rounded-2xl border border-neutral-200 shadow-sm dark:border-neutral-700 ${className ?? ''}`}
       role="application"
-      aria-label="Peta interaktif Lampung"
+      aria-label={t('interactiveLabel')}
     >
       <MapContainer
         center={[defaultCenter.lat, defaultCenter.lng]}
@@ -134,11 +139,10 @@ export default function SigercivPetaPemilihClient({
           highlightedId={highlightedId}
           onMarkerClick={onMarkerClick}
           onMarkerHover={onMarkerHover}
+          viewDetailLabel={t('viewDetail')}
         />
       </MapContainer>
-      <p className="sr-only">
-        Gunakan daftar hasil di samping untuk navigasi keyboard jika peta tidak dapat diakses.
-      </p>
+      <p className="sr-only">{t('keyboardHint')}</p>
       {markers.some((m) => m.href) ? (
         <ul className="sr-only">
           {markers.map((m) =>

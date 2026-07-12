@@ -4,8 +4,11 @@ import KiluanAvatar from '@/components/kiluan/KiluanAvatar'
 import { useDesaSlug } from '@/contexts/DesaKonteksProvider'
 import { useAuth } from '@/contexts/AuthProvider'
 import { adalahPengelola } from '@/lib/api/auth'
-import { RUTE_WISATAWAN, ruteSaya } from '@/lib/kiluan/rute-sigerciv'
+import { ruteWisatawan, ruteSaya } from '@/lib/kiluan/rute-sigerciv'
+import { withLocale } from '@/lib/i18n/locale-path'
+import type { Locale } from '@/i18n/routing'
 import { dasborUtamaHref, punyaPeran } from '@/lib/kiluan/peran'
+import { RUTE_GABUNG } from '@/lib/kiluan/rute-sigerciv'
 import ButtonCircle from '@/shared/ButtonCircle'
 import { Divider } from '@/shared/divider'
 import { Link } from '@/shared/link'
@@ -18,26 +21,29 @@ import {
   Settings02Icon,
   ShoppingBag01Icon,
   Task01Icon,
+  UserAdd01Icon,
   UserIcon,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
+import { useLocale, useTranslations } from 'next-intl'
 
 interface Props {
   className?: string
 }
 
 function BadgeSegera() {
+  const t = useTranslations('nav.userMenu')
   return (
     <span className="ms-auto rounded bg-neutral-100 px-1.5 py-0.5 text-[10px] font-medium text-neutral-500 dark:bg-neutral-700 dark:text-neutral-400">
-      segera
+      {t('soon')}
     </span>
   )
 }
 
 interface ItemMenu {
   href?: string
-  label: string
+  labelKey: 'dasbor' | 'paspor' | 'wishlist' | 'booking' | 'kontribusi' | 'poin' | 'akun' | 'panduan' | 'kelola' | 'gabung'
   icon: typeof UserIcon
   segera?: boolean
   onClick?: () => void
@@ -47,6 +53,9 @@ interface ItemMenu {
 export default function AvatarDropdown({ className }: Props) {
   const { user, logout, isLoggedIn } = useAuth()
   const desaSlug = useDesaSlug()
+  const locale = useLocale() as Locale
+  const t = useTranslations('nav.userMenu')
+  const rute = ruteWisatawan(locale)
   const dasborHref = dasborUtamaHref(user?.profil ?? null, desaSlug)
 
   if (!isLoggedIn || !user) return null
@@ -59,57 +68,16 @@ export default function AvatarDropdown({ className }: Props) {
     '-m-2 flex w-full items-center gap-x-3 rounded-lg px-2 py-2.5 text-start text-sm transition duration-150 ease-in-out hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none dark:hover:bg-neutral-700'
 
   const menuItems: ItemMenu[] = [
-    { href: dasborHref, label: 'Dasbor saya', icon: UserIcon, tampil: true },
-    {
-      href: RUTE_WISATAWAN.paspor,
-      label: 'Paspor Lestari',
-      icon: PassportIcon,
-      tampil: wisatawan,
-    },
-    {
-      href: RUTE_WISATAWAN.wishlist,
-      label: 'Wishlist saya',
-      icon: HeartAddIcon,
-      tampil: wisatawan,
-    },
-    {
-      href: '#',
-      label: 'Pesanan / Booking saya',
-      icon: ShoppingBag01Icon,
-      segera: true,
-      tampil: wisatawan || punyaPeran(profil, 'agen'),
-    },
-    {
-      href: RUTE_WISATAWAN.discovery,
-      label: 'Kontribusi saya',
-      icon: Task01Icon,
-      tampil: wisatawan || punyaPeran(profil, 'kontributor'),
-    },
-    {
-      href: ruteSaya('lencana'),
-      label: 'Poin & Lencana',
-      icon: Task01Icon,
-      segera: true,
-      tampil: wisatawan,
-    },
-    {
-      href: RUTE_WISATAWAN.akun,
-      label: 'Akun & Preferensi',
-      icon: Settings02Icon,
-      tampil: true,
-    },
-    {
-      href: `${RUTE_WISATAWAN.akun}#bantuan`,
-      label: 'Panduan & Bantuan',
-      icon: BookOpen01Icon,
-      tampil: true,
-    },
-    {
-      href: `/${desaSlug}/kelola`,
-      label: 'Kelola desa',
-      icon: Task01Icon,
-      tampil: pengelola,
-    },
+    { href: withLocale(dasborHref, locale), labelKey: 'dasbor', icon: UserIcon, tampil: true },
+    { href: withLocale(RUTE_GABUNG, locale), labelKey: 'gabung', icon: UserAdd01Icon, tampil: true },
+    { href: rute.paspor, labelKey: 'paspor', icon: PassportIcon, tampil: wisatawan },
+    { href: rute.wishlist, labelKey: 'wishlist', icon: HeartAddIcon, tampil: wisatawan },
+    { href: '#', labelKey: 'booking', icon: ShoppingBag01Icon, segera: true, tampil: wisatawan || punyaPeran(profil, 'agen') },
+    { href: rute.discovery, labelKey: 'kontribusi', icon: Task01Icon, tampil: wisatawan || punyaPeran(profil, 'kontributor') },
+    { href: ruteSaya('lencana', locale), labelKey: 'poin', icon: Task01Icon, segera: true, tampil: wisatawan },
+    { href: rute.akun, labelKey: 'akun', icon: Settings02Icon, tampil: true },
+    { href: `${rute.akun}#bantuan`, labelKey: 'panduan', icon: BookOpen01Icon, tampil: true },
+    { href: withLocale(`/${desaSlug}/kelola`, locale), labelKey: 'kelola', icon: Task01Icon, tampil: pengelola },
   ]
 
   return (
@@ -121,7 +89,7 @@ export default function AvatarDropdown({ className }: Props) {
               as={ButtonCircle}
               className="relative"
               plain
-              aria-label="Menu pengguna"
+              aria-label={t('menuLabel')}
               aria-haspopup="menu"
             >
               <KiluanAvatar nama={user.name} src={user.avatar} width={32} height={32} className="size-8" />
@@ -134,13 +102,12 @@ export default function AvatarDropdown({ className }: Props) {
             >
               <div
                 role="menu"
-                aria-label="Menu akun"
+                aria-label={t('accountMenuLabel')}
                 className="flex flex-col gap-y-1 bg-white px-4 py-5 dark:bg-neutral-900"
                 onKeyDown={(e) => {
                   if (e.key === 'Escape') close()
                 }}
               >
-                {/* Identitas */}
                 <div className="flex items-center gap-x-3 px-1 pb-3">
                   <KiluanAvatar nama={user.name} src={user.avatar} width={48} height={48} className="size-12" />
                   <div className="min-w-0 flex-1">
@@ -148,11 +115,11 @@ export default function AvatarDropdown({ className }: Props) {
                     <p className="truncate text-xs text-neutral-500 dark:text-neutral-400">{user.email}</p>
                     {wisatawan && (
                       <Link
-                        href={RUTE_WISATAWAN.wishlist}
+                        href={rute.wishlist}
                         className="mt-0.5 inline-block text-xs font-medium text-primary-600 hover:underline dark:text-primary-400"
                         onClick={() => close()}
                       >
-                        Wishlist saya →
+                        {t('wishlistLink')}
                       </Link>
                     )}
                   </div>
@@ -165,7 +132,7 @@ export default function AvatarDropdown({ className }: Props) {
                   .map((item) =>
                     item.href ? (
                       <Link
-                        key={item.label}
+                        key={item.labelKey}
                         href={item.segera ? '#' : item.href}
                         role="menuitem"
                         onClick={(e) => {
@@ -176,7 +143,7 @@ export default function AvatarDropdown({ className }: Props) {
                         aria-disabled={item.segera}
                       >
                         <HugeiconsIcon icon={item.icon} size={20} strokeWidth={1.5} className="shrink-0 text-neutral-600 dark:text-neutral-400" />
-                        <span className="font-medium text-neutral-800 dark:text-neutral-200">{item.label}</span>
+                        <span className="font-medium text-neutral-800 dark:text-neutral-200">{t(item.labelKey)}</span>
                         {item.segera ? <BadgeSegera /> : null}
                       </Link>
                     ) : null,
@@ -194,7 +161,7 @@ export default function AvatarDropdown({ className }: Props) {
                   className={itemClass}
                 >
                   <HugeiconsIcon icon={Logout01Icon} size={20} strokeWidth={1.5} className="shrink-0 text-neutral-600 dark:text-neutral-400" />
-                  <span className="font-medium text-neutral-800 dark:text-neutral-200">Keluar</span>
+                  <span className="font-medium text-neutral-800 dark:text-neutral-200">{t('keluar')}</span>
                 </button>
               </div>
             </PopoverPanel>

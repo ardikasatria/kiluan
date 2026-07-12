@@ -5,8 +5,9 @@ import DashboardSidebar from '@/components/kiluan/dashboard/DashboardSidebar'
 import DashboardTopbar from '@/components/kiluan/dashboard/DashboardTopbar'
 import type { DashboardPeranConfig } from '@/lib/kiluan/dashboard-peran'
 import { labelPeran, slugPeran } from '@/lib/kiluan/peran'
+import { Link } from '@/i18n/navigation'
 import { ClockIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 interface Props {
@@ -18,6 +19,8 @@ interface Props {
 
 export default function DashboardSectionPlaceholder({ desaSlug, desaNama, config, sectionLabel }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const t = useTranslations('dasbor.placeholder')
+  const tPeran = useTranslations('peran')
   const navItem = config.nav.find((n) => n.label === sectionLabel || n.id === sectionLabel)
 
   return (
@@ -45,19 +48,18 @@ export default function DashboardSectionPlaceholder({ desaSlug, desaNama, config
           {navItem?.label ?? sectionLabel}
         </h1>
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-          Bagian ini akan aktif pada integrasi API fase berikutnya. UI dasbor sudah disiapkan untuk{' '}
-          {labelPeran(config.kode)} — tanpa angka dummy atau fungsi transaksional palsu.
+          {t('desc', { peran: labelPeran(config.kode, tPeran) })}
         </p>
         {navItem?.segera && (
           <p className="mx-auto mt-3 max-w-sm text-xs font-medium text-amber-800 dark:text-amber-300">
-            Ditandai &quot;segera&quot; sampai modul {navItem.label.toLowerCase()} siap di fase roadmap.
+            {t('segeraNote', { modul: (navItem.label ?? sectionLabel).toLowerCase() })}
           </p>
         )}
         <Link
           href={`/${desaSlug}/dasbor/${slugPeran(config.kode)}`}
           className="mt-6 inline-block text-sm font-semibold text-primary-700 hover:text-primary-600 dark:text-primary-300"
         >
-          Kembali ke ringkasan
+          {t('kembali')}
         </Link>
       </div>
     </DashboardShell>

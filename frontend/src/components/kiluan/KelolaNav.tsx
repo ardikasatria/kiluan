@@ -1,21 +1,24 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { Link, usePathname } from '@/i18n/navigation'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 
 const ITEMS = [
-  { href: '', label: 'Ringkasan' },
-  { href: '/destinasi', label: 'Destinasi' },
-  { href: '/layanan', label: 'Layanan' },
-  { href: '/kalender', label: 'Kalender' },
-  { href: '/berita', label: 'Warta' },
-  { href: '/bendahara', label: 'Bendahara' },
-  { href: '/pendapatan', label: 'Pendapatan' },
-  { href: '/refund', label: 'Refund' },
-  { href: '/hadiah', label: 'Hadiah' },
-  { href: '/checkin', label: 'Check-in' },
-]
+  { href: '', key: 'ringkasan' },
+  { href: '/destinasi', key: 'destinasi' },
+  { href: '/layanan', key: 'layanan' },
+  { href: '/kalender', key: 'kalender' },
+  { href: '/berita', key: 'berita' },
+  { href: '/bendahara', key: 'bendahara' },
+  { href: '/pendapatan', key: 'pendapatan' },
+  { href: '/refund', key: 'refund' },
+  { href: '/hadiah', key: 'hadiah' },
+  { href: '/checkin', key: 'checkin' },
+  { href: '/kurasi', key: 'kurasi' },
+  { href: '/validasi-kartu', key: 'validasiKartu' },
+  { href: '/verifikasi', key: 'verifikasi' },
+] as const
 
 interface Props {
   desaSlug: string
@@ -23,6 +26,7 @@ interface Props {
 
 export default function KelolaNav({ desaSlug }: Props) {
   const pathname = usePathname()
+  const t = useTranslations('kelola.nav')
   const base = `/${desaSlug}/kelola`
 
   return (
@@ -41,7 +45,7 @@ export default function KelolaNav({ desaSlug }: Props) {
                 : 'text-neutral-600 hover:text-primary-700 dark:text-neutral-400 dark:hover:text-primary-300',
             )}
           >
-            {item.label}
+            {t(item.key)}
           </Link>
         )
       })}

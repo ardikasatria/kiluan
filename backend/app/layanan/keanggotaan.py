@@ -7,7 +7,7 @@ from ..domain import konteks as ctx
 from ..domain import rbac
 from ..domain.entitas import Keanggotaan
 from ..domain.enums import KodePeran, StatusKeanggotaan
-from ..domain.errors import KesalahanValidasi, TidakDitemukan
+from ..domain.errors import Konflik, KesalahanValidasi, TidakDitemukan
 
 _AUTO_AKTIF = {KodePeran.wisatawan, KodePeran.kontributor}
 
@@ -21,6 +21,12 @@ class KeanggotaanLayanan:
         if peran == KodePeran.admin:
             raise KesalahanValidasi("peran admin tidak dapat diajukan sendiri")
         status = StatusKeanggotaan.aktif if peran in _AUTO_AKTIF else StatusKeanggotaan.menunggu
+        for ada in await self.store.keanggotaan.daftar_pengguna(konteks.pengguna_id):
+            if ada.desa_id == desa_id and ada.peran == peran:
+                if ada.status in (StatusKeanggotaan.ditolak, StatusKeanggotaan.revisi):
+                    ada.status = status
+                    return ada
+                raise Konflik("keanggotaan (pengguna, desa, peran) sudah ada")
         k = Keanggotaan(pengguna_id=konteks.pengguna_id, peran=peran, desa_id=desa_id, status=status)
         return await self.store.keanggotaan.tambah(k)
 

@@ -1,4 +1,7 @@
+'use client'
+
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   nama: string
@@ -27,6 +30,8 @@ export default function BadgeChip({
   size = 'md',
   className,
 }: Props) {
+  const t = useTranslations('lencana')
+
   return (
     <span
       className={clsx(
@@ -37,7 +42,7 @@ export default function BadgeChip({
           : 'bg-neutral-100 text-neutral-500 ring-neutral-200 dark:bg-neutral-800 dark:text-neutral-400 dark:ring-neutral-700',
         className,
       )}
-      title={dimiliki ? nama : `${nama} — belum diperoleh`}
+      title={dimiliki ? nama : t('belumDiperoleh', { nama })}
     >
       {ikon ? <span aria-hidden>{ikon}</span> : null}
       <span>{nama}</span>

@@ -1,0 +1,3333 @@
+{
+  "common": {
+    "platform": "Sigerciv",
+    "platformRegion": "Sigerciv · Lampung",
+    "locale": {
+      "id": "Bahasa Indonesia",
+      "en": "English",
+      "switchLabel": "Bahasa",
+      "shortId": "ID",
+      "shortEn": "EN"
+    },
+    "ugcLanguageNotice": "Ditulis dalam Bahasa Indonesia",
+    "soon": "Segera",
+    "loading": "Memuat…",
+    "close": "Tutup"
+  },
+  "auth": {
+    "masuk": "Masuk",
+    "daftar": "Daftar",
+    "fields": {
+      "email": "Email",
+      "password": "Kata sandi",
+      "fullName": "Nama lengkap",
+      "confirmPassword": "Konfirmasi kata sandi",
+      "verifyCode": "Kode verifikasi",
+      "registeredEmail": "Email terdaftar",
+      "namePlaceholder": "Nama Anda",
+      "emailPlaceholder": "email@example.com",
+      "codePlaceholder": "000000"
+    },
+    "masukPage": {
+      "seo": {
+        "title": "Masuk",
+        "description": "Masuk ke akun sigerciv untuk mengakses dasbor, paspor lestari, dan fitur komunitas."
+      },
+      "title": "Masuk ke sigerciv",
+      "subtitle": "Gunakan akun yang sudah terdaftar dan diverifikasi.",
+      "forgotPassword": "Lupa sandi?",
+      "submit": "Masuk",
+      "submitting": "Memproses…",
+      "noAccount": "Belum punya akun?",
+      "registerNow": "Daftar sekarang",
+      "verifyPending": "Akun belum diverifikasi. Kode baru telah dikirim ke email Anda."
+    },
+    "daftarPage": {
+      "seo": {
+        "title": "Daftar",
+        "description": "Gabung sigerciv sebagai wisatawan, UMKM, agen, atau pengelola desa wisata."
+      },
+      "title": "Daftar sigerciv",
+      "subtitle": "Bergabung sebagai wisatawan, kontributor, atau pelaku UMKM lokal.",
+      "passwordHint": "Minimal 8 karakter",
+      "submit": "Buat akun",
+      "submitting": "Mendaftar…",
+      "hasAccount": "Sudah punya akun?",
+      "verifyDescription": "Masukkan kode 6 digit yang baru dikirim ke email Anda.",
+      "verifyLater": "Verifikasi nanti?",
+      "verifyLaterLink": "Masuk — kode akan dikirim ulang"
+    },
+    "lupaSandiPage": {
+      "seo": {
+        "title": "Lupa Kata Sandi",
+        "description": "Atur ulang kata sandi akun sigerciv Anda."
+      },
+      "title": "Lupa kata sandi",
+      "submit": "Kirim tautan reset",
+      "submitting": "Mengirim…",
+      "backToLogin": "Kembali masuk",
+      "successMessage": "Jika email terdaftar, tautan reset telah dikirim. Periksa kotak masuk Anda."
+    },
+    "verifikasiEmailPage": {
+      "seo": {
+        "title": "Verifikasi Email",
+        "description": "Verifikasi alamat email akun sigerciv Anda."
+      },
+      "title": "Verifikasi Email",
+      "subtitle": "Masukkan kode 6 digit yang dikirim ke email Anda.",
+      "continue": "Lanjut ke kode verifikasi",
+      "backToLogin": "Kembali ke halaman masuk"
+    },
+    "verifyForm": {
+      "title": "Verifikasi email",
+      "description": "Masukkan kode 6 digit yang dikirim ke email Anda.",
+      "submit": "Verifikasi",
+      "submitting": "Memverifikasi…",
+      "noCode": "Tidak menerima kode?",
+      "resend": "Kirim ulang",
+      "resending": "Mengirim…",
+      "resendSuccess": "Kode verifikasi baru telah dikirim ke email Anda."
+    },
+    "errors": {
+      "passwordMismatch": "Konfirmasi kata sandi tidak sama.",
+      "profileLoadFailed": "Gagal memuat profil setelah masuk"
+    }
+  },
+  "nav": {
+    "badge": {
+      "featured": "Unggulan",
+      "package": "Paket",
+      "certified": "Sertifikat",
+      "community": "Komunitas"
+    },
+    "menu": {
+      "jelajah": {
+        "name": "Jelajah"
+      },
+      "pengalaman": {
+        "name": "Pengalaman"
+      },
+      "pasar-desa": {
+        "name": "Pasar Desa"
+      },
+      "cerita-dampak": {
+        "name": "Cerita & Dampak"
+      }
+    },
+    "section": {
+      "jelajah-kategori": {
+        "name": "Kategori"
+      },
+      "jelajah-cara": {
+        "name": "Cara jelajah"
+      },
+      "jelajah-info": {
+        "name": "Informasi"
+      },
+      "pengalaman-paket": {
+        "name": "Paket wisata"
+      },
+      "pengalaman-layanan": {
+        "name": "Layanan"
+      },
+      "pengalaman-misi": {
+        "name": "Misi lestari"
+      },
+      "pasar-kategori": {
+        "name": "Belanja"
+      },
+      "pasar-sertifikasi": {
+        "name": "Naik kelas"
+      },
+      "pasar-produk": {
+        "name": "Temukan"
+      },
+      "cerita-tentang": {
+        "name": "Tentang"
+      },
+      "cerita-regeneratif": {
+        "name": "Regeneratif"
+      },
+      "cerita-jejak": {
+        "name": "Transparansi"
+      },
+      "cerita-gabung": {
+        "name": "Gabung"
+      }
+    },
+    "featured": {
+      "jelajah": {
+        "title": "Laguna Kiluan",
+        "description": "Spot unggulan snorkeling dari jaringan desa wisata Sigerciv."
+      },
+      "pengalaman": {
+        "title": "Paket wisata kurasi",
+        "description": "Trip bahari dan pengalaman lokal — disusun agen & komunitas desa."
+      },
+      "pasar-desa": {
+        "title": "UMKM bersertifikat",
+        "description": "Dukung penyedia lokal bertingkat Tunas, Bahari, atau Lumba-Lumba."
+      },
+      "cerita-dampak": {
+        "title": "Gabung komunitas",
+        "description": "Daftar sebagai wisatawan, UMKM, agen, atau pengelola Pokdarwis."
+      }
+    },
+    "item": {
+      "j-k-1": {
+        "name": "Pantai",
+        "description": "Pesisir & sunset"
+      },
+      "j-k-2": {
+        "name": "Snorkeling",
+        "description": "Terumbu & laguna"
+      },
+      "j-k-3": {
+        "name": "Lumba-lumba",
+        "description": "Trip pagi etis"
+      },
+      "j-k-4": {
+        "name": "Mangrove",
+        "description": "Hutan bakau"
+      },
+      "j-k-5": {
+        "name": "Budaya",
+        "description": "Tradisi nelayan"
+      },
+      "j-k-6": {
+        "name": "Kuliner",
+        "description": "Cita rasa lokal"
+      },
+      "j-c-1": {
+        "name": "Peta interaktif",
+        "description": "Lokasi & rute"
+      },
+      "j-c-2": {
+        "name": "Spot unggulan",
+        "description": "Kurasi komunitas"
+      },
+      "j-c-3": {
+        "name": "Destinasi terdekat",
+        "description": "Berdasarkan lokasi"
+      },
+      "j-l-1": {
+        "name": "Panduan berkunjung",
+        "description": "Kode etik & tips"
+      },
+      "j-l-2": {
+        "name": "Jadwal lumba-lumba",
+        "description": "Pagi terbaik"
+      },
+      "j-l-3": {
+        "name": "Warta desa",
+        "description": "Pengumuman terbaru"
+      },
+      "p-p-1": {
+        "name": "Semua paket",
+        "description": "Itinerary lengkap"
+      },
+      "p-p-2": {
+        "name": "Paket sehari",
+        "description": "Trip singkat"
+      },
+      "p-p-3": {
+        "name": "Paket keluarga",
+        "description": "Ramah anak"
+      },
+      "p-l-1": {
+        "name": "Pemandu lokal",
+        "description": "Bersertifikat"
+      },
+      "p-l-2": {
+        "name": "Penginapan",
+        "description": "Homestay desa"
+      },
+      "p-l-3": {
+        "name": "Sewa peralatan",
+        "description": "Snorkel & lainnya"
+      },
+      "p-l-4": {
+        "name": "Transport lokal",
+        "description": "Antar-jemput"
+      },
+      "p-m-1": {
+        "name": "Penjelajah Lestari",
+        "description": "Misi edukasi & aksi"
+      },
+      "p-m-2": {
+        "name": "Paspor Lestari",
+        "description": "Jejak dampak Anda"
+      },
+      "p-m-3": {
+        "name": "Stasiun check-in",
+        "description": "QR geofence"
+      },
+      "pd-k-1": {
+        "name": "Semua UMKM",
+        "description": "Direktori lengkap"
+      },
+      "pd-k-2": {
+        "name": "Kuliner lokal",
+        "description": "Makanan & minuman"
+      },
+      "pd-k-3": {
+        "name": "Kerajinan",
+        "description": "Souvenir autentik"
+      },
+      "pd-k-4": {
+        "name": "Jasa wisata",
+        "description": "Layanan komunitas"
+      },
+      "pd-s-1": {
+        "name": "Tingkat Tunas",
+        "description": "Pemula lestari"
+      },
+      "pd-s-2": {
+        "name": "Tingkat Bahari",
+        "description": "Praktik baik"
+      },
+      "pd-s-3": {
+        "name": "Lumba-Lumba",
+        "description": "Unggulan desa"
+      },
+      "pd-p-1": {
+        "name": "Penyedia bersertifikat",
+        "description": "Filter kualitas"
+      },
+      "pd-p-2": {
+        "name": "Program naik kelas",
+        "description": "Peningkatan UMKM"
+      },
+      "pd-p-3": {
+        "name": "Agen lokal",
+        "description": "Kurasi paket"
+      },
+      "cd-t-1": {
+        "name": "Kisah desa",
+        "description": "Profil & sejarah"
+      },
+      "cd-w-1": {
+        "name": "Warta & berita",
+        "description": "Cerita komunitas"
+      },
+      "cd-t-3": {
+        "name": "Gerbang multi-desa",
+        "description": "Jelajah nusantara"
+      },
+      "cd-r-1": {
+        "name": "Apa & mengapa",
+        "description": "Prinsip wisata"
+      },
+      "cd-r-2": {
+        "name": "Etik lumba-lumba",
+        "description": "Jarak & perilaku"
+      },
+      "cd-r-3": {
+        "name": "Etik terumbu karang",
+        "description": "Lindungi ekosistem"
+      },
+      "cd-j-3": {
+        "name": "Komitmen desa",
+        "description": "Dampak terbuka"
+      },
+      "cd-j-1": {
+        "name": "Dana konservasi",
+        "description": "Alokasi dana"
+      },
+      "cd-j-2": {
+        "name": "Neraca regeneratif",
+        "description": "Laporan dampak"
+      },
+      "cd-g-1": {
+        "name": "Wisatawan",
+        "description": "Jelajah & kontribusi"
+      },
+      "cd-g-2": {
+        "name": "UMKM",
+        "description": "Jual produk & jasa"
+      },
+      "cd-g-3": {
+        "name": "Agen lokal",
+        "description": "Kurasi paket"
+      },
+      "cd-g-4": {
+        "name": "Pokdarwis",
+        "description": "Kelola desa"
+      }
+    },
+    "userMenu": {
+      "dasbor": "Dasbor saya",
+      "gabung": "Gabung komunitas",
+      "paspor": "Paspor Lestari",
+      "wishlist": "Wishlist saya",
+      "booking": "Pesanan / Booking saya",
+      "kontribusi": "Kontribusi saya",
+      "poin": "Poin & Lencana",
+      "akun": "Akun & Preferensi",
+      "panduan": "Panduan & Bantuan",
+      "kelola": "Kelola desa",
+      "keluar": "Keluar",
+      "wishlistLink": "Wishlist saya →",
+      "menuLabel": "Menu pengguna",
+      "accountMenuLabel": "Menu akun",
+      "soon": "segera"
+    },
+    "search": {
+      "trigger": "Cari destinasi…",
+      "placeholder": "Cari spot wisata, pantai, lumba-lumba…",
+      "modalLabel": "Cari destinasi",
+      "close": "Tutup",
+      "hint": "Tekan Enter untuk membuka halaman Jelajah dengan kata kunci Anda.",
+      "ariaSearch": "Cari destinasi"
+    },
+    "pwa": {
+      "install": "Pasang aplikasi"
+    },
+    "notifications": {
+      "title": "Genta",
+      "viewAll": "Lihat semua",
+      "loading": "Memuat…",
+      "empty": "Belum ada notifikasi.",
+      "ariaLabel": "Notifikasi",
+      "unreadSuffix": ", {count} belum dibaca"
+    },
+    "offline": {
+      "syncPending": "{count} perubahan menunggu sinkron",
+      "offlineMode": "Offline — perubahan disimpan lokal"
+    },
+    "sidebar": {
+      "tagline": "Platform desa wisata regeneratif berbasis komunitas — jelajahi destinasi, dukung UMKM lokal, dan ikut misi lestari.",
+      "searchPlaceholder": "Ketik lalu tekan Enter",
+      "masuk": "Masuk",
+      "daftar": "Daftar"
+    },
+    "footerLinks": {
+      "news": "Warta & Berita",
+      "aboutVillage": "Tentang desa",
+      "visitGuide": "Panduan berkunjung",
+      "villageMarket": "Pasar Desa"
+    }
+  },
+  "footer": {
+    "tagline": "Sigerciv — platform pariwisata regeneratif lintas desa di Lampung. Data destinasi dimiliki komunitas; nilai ekonomi kembali ke warga; ekspor data tersedia bagi pengelola yang berwenang.",
+    "columns": {
+      "jelajah": "Jelajah",
+      "pengalaman": "Pengalaman",
+      "pasar": "Pasar Desa",
+      "komunitas": "Komunitas"
+    },
+    "links": {
+      "home": "Beranda Sigerciv",
+      "explore": "Jelajah Lampung",
+      "featuredSpots": "Spot unggulan",
+      "findDestinations": "Cari destinasi",
+      "packages": "Paket wisata",
+      "explorer": "Penjelajah Lestari",
+      "paspor": "Paspor Lestari",
+      "guideEthics": "Panduan & etik",
+      "localUmkm": "UMKM lokal",
+      "certificationTiers": "Tingkat sertifikasi",
+      "registerUmkm": "Daftar sebagai UMKM",
+      "signIn": "Masuk",
+      "register": "Daftar akun",
+      "villagesInNetwork": "Desa di jaringan",
+      "regenerativeTrail": "Jejak regeneratif"
+    },
+    "copyright": "© {year} sigerciv · Kelompok Keilmuan CIV, Program Studi Sains Data ITERA.",
+    "domainNote": "sigerciv.com · PWA offline-first"
+  },
+  "landing": {
+    "seo": {
+      "title": "sigerciv — Platform Pariwisata Regeneratif Lampung",
+      "description": "Sigerciv menghubungkan desa wisata regeneratif di Lampung — temukan destinasi lintas desa, dukung UMKM lokal, dan ikut misi lestari."
+    },
+    "hero": {
+      "badge": "Platform Sigerciv · Lampung",
+      "tagline": "Berwisata yang meninggalkan dampak positif di Lampung",
+      "imageAlt": "Destinasi wisata bahari Lampung — snorkeling di perairan tenang",
+      "subtitle": "Sigerciv menatalayan teknologi agar data destinasi dimiliki komunitas, nilai ekonomi mengalir ke warga lokal, dan dana konservasi dapat diawasi secara transparan.",
+      "explore": "Jelajah",
+      "join": "Gabung",
+      "pwaNote": "PWA offline-first",
+      "searchLabel": "Cari destinasi atau kategori",
+      "searchPlaceholder": "Cari destinasi, pantai, snorkeling…",
+      "searchButton": "Cari"
+    },
+    "categoryChips": {
+      "eyebrow": "Jelajah cepat",
+      "title": "Kategori destinasi"
+    },
+    "featuredSpots": {
+      "eyebrow": "Etalase publik",
+      "title": "Spot unggulan",
+      "subtitle": "Destinasi aktif dari desa mitra — dikurasi komunitas, siap dijelajahi.",
+      "viewAll": "Lihat semua"
+    },
+    "valuePillars": {
+      "title": "Kenapa sigerciv",
+      "subtitle": "Tiga pilar wisata regeneratif: kepemilikan data komunitas, aliran nilai lokal, dan transparansi konservasi.",
+      "pillars": {
+        "dataOwnership": {
+          "title": "Data milik desa",
+          "body": "Inventori spot, layanan, dan media dikurasi komunitas. Platform hanya penatalayan — data tetap milik desa & Pokdarwis."
+        },
+        "localValue": {
+          "title": "Nilai kembali ke warga",
+          "body": "Transaksi mengalir ke penyedia UMKM dan agen lokal. Porsi reinvestment dialokasikan untuk dana konservasi desa."
+        },
+        "conservation": {
+          "title": "Dana konservasi transparan",
+          "body": "Komitmen mempublikasikan aliran dana lestari setelah data terverifikasi — tanpa klaim angka sebelum siap."
+        }
+      }
+    },
+    "misiLestari": {
+      "eyebrow": "Misi Lestari",
+      "title": "Penjelajah Lestari & Paspor Lestari",
+      "subtitle": "Belajar etika wisata bahari, lakukan aksi terverifikasi, dan kumpulkan stempel di Paspor Lestari. Fitur quest penuh dan Stasiun Lestari menyusul di fase berikutnya.",
+      "exploreVillages": "Jelajah desa wisata",
+      "viewPaspor": "Lihat Paspor Lestari",
+      "steps": {
+        "learn": {
+          "title": "Belajar",
+          "body": "Kenali etika bahari, kode etik lumba-lumba, dan praktik lestari sebelum berkunjung."
+        },
+        "act": {
+          "title": "Beraksi",
+          "body": "Ikuti misi terverifikasi — dari pengamatan hingga kontribusi data konservasi."
+        },
+        "stamp": {
+          "title": "Stempel Paspor",
+          "body": "Kumpulkan stempel Paspor Lestari sebagai jejak perjalanan regeneratif Anda."
+        }
+      }
+    },
+    "pasarDesa": {
+      "eyebrow": "Pasar Desa",
+      "title": "UMKM bersertifikat & produk lokal",
+      "subtitle": "Nilai ekonomi wisata mengalir ke penyedia lokal. Tingkat sertifikasi menandai komitmen lestari dari Tunas hingga Lumba-Lumba.",
+      "tiers": {
+        "tunas": {
+          "title": "Tunas",
+          "body": "Langkah awal praktik lestari — komitmen dasar keberlanjutan usaha."
+        },
+        "bahari": {
+          "title": "Bahari",
+          "body": "Praktik bahari terukur — etika wisata laut dan kontribusi komunitas."
+        },
+        "lumba": {
+          "title": "Lumba-Lumba",
+          "body": "Tingkat tertinggi — standar regeneratif dan transparansi dampak."
+        }
+      },
+      "emptyCatalog": "Katalog UMKM bersertifikat segera hadir — daftar sebagai penyedia lokal untuk ikut Pasar Desa.",
+      "exploreNetwork": "Jelajahi desa di jaringan"
+    },
+    "paketPilihan": {
+      "eyebrow": "Pengalaman",
+      "title": "Paket & pengalaman pilihan",
+      "subtitle": "Paket wisata kurasi komunitas — agen lokal, jadwal fleksibel, nilai kembali ke desa.",
+      "explorePackages": "Jelajah paket",
+      "emptyTitle": "Paket wisata — segera",
+      "emptyBody": "Kurasi paket bahari dan pengalaman lokal sedang disiapkan bersama agen & Pokdarwis di jaringan desa wisata Sigerciv.",
+      "exploreCta": "Jelajah paket di Lampung"
+    },
+    "jejakRegeneratif": {
+      "eyebrow": "Jejak Regeneratif",
+      "title": "Transparansi dampak konservasi",
+      "subtitle": "sigerciv berkomitmen menampilkan jejak konservasi yang terverifikasi — dari dana konservasi hingga indikator daya dukung. Angka dampak hanya akan ditampilkan setelah data monitoring terverifikasi tersedia, bukan sebagai klaim aspirasional.",
+      "commitmentTitle": "Komitmen terbuka",
+      "commitmentBody": "Dana konservasi dan neraca regeneratif akan dipublikasikan saat pipeline data F3 aktif.",
+      "targetLabel": "Target transparansi",
+      "targetBody": "Transparansi menyusul saat data konservasi terverifikasi — tanpa angka hard-code di halaman ini."
+    },
+    "jelajahCta": {
+      "eyebrow": "Lintas desa · Lampung",
+      "title": "Jelajah desa wisata di seluruh Lampung",
+      "subtitle": "Peta interaktif, filter kategori, pencarian, dan jarak dari lokasi Anda — temukan destinasi regeneratif dari desa ke desa.",
+      "cta": "Buka halaman Jelajah"
+    },
+    "communityCta": {
+      "eyebrow": "Gabung komunitas",
+      "title": "Pilih peran Anda di sigerciv",
+      "subtitle": "Daftar sesuai peran keanggotaan — wisatawan, pelaku UMKM, agen lokal, atau pengelola Pokdarwis. Pasang aplikasi sebagai PWA untuk akses offline di lapangan.",
+      "register": "Daftar",
+      "roles": {
+        "wisatawan": {
+          "label": "Warga / Wisatawan",
+          "desc": "Jelajahi destinasi, ikut misi lestari, dan kumpulkan stempel Paspor."
+        },
+        "umkm": {
+          "label": "UMKM",
+          "desc": "Tampilkan produk & jasa di Pasar Desa dengan tingkat sertifikasi lestari."
+        },
+        "agen": {
+          "label": "Agen",
+          "desc": "Kurasi paket wisata dan layanan bahari bersama komunitas lokal."
+        },
+        "pokdarwis": {
+          "label": "Pokdarwis",
+          "desc": "Kelola data destinasi, kurasi konten, dan awasi dampak regeneratif desa."
+        }
+      }
+    },
+    "weather": {
+      "eyebrow": "Cuaca & keselamatan",
+      "title": "Kondisi bahari & darat",
+      "subtitle": "Periksa prakiraan sebelum berlayar. Kartu hilang otomatis bila layanan cuaca tidak tersedia."
+    },
+    "featuredDesa": {
+      "eyebrow": "Tenant multi-desa",
+      "title": "Desa wisata di jaringan sigerciv",
+      "subtitle": "Sigerciv menghubungkan desa wisata regeneratif di Lampung — dari pesisir hingga pedalaman, siap berkembang bersama modul lintas desa.",
+      "viewMap": "Lihat semua di peta"
+    },
+    "modules": {
+      "title": "Modul Fase 0 — fondasi platform hidup",
+      "subtitle": "Tiga ruang inti yang sudah aktif: etalase publik, keanggotaan multi-peran, dan data destinasi terstruktur.",
+      "learnMore": "Pelajari →",
+      "items": {
+        "gerbang": {
+          "name": "Gerbang",
+          "tag": "Etalase & Discovery",
+          "desc": "Katalog destinasi lintas desa, peta interaktif, filter kategori, dan halaman spot publik."
+        },
+        "balai": {
+          "name": "Balai Warga",
+          "tag": "Identitas & Keanggotaan",
+          "desc": "Auth multi-peran, RBAC per tenant, masuk & daftar untuk wisatawan hingga pengelola Pokdarwis."
+        },
+        "destinasi": {
+          "name": "Destinasi sigerciv",
+          "tag": "Basis Data Wisata",
+          "desc": "Spot terstruktur dengan geo PostGIS, layanan, kalender aktivitas, dan galeri media MinIO."
+        }
+      }
+    }
+  },
+  "jelajah": {
+    "seo": {
+      "defaultTitle": "Jelajah Desa Wisata Lampung",
+      "defaultDescription": "Temukan desa wisata regeneratif di Lampung — peta interaktif, filter kategori, dan destinasi lintas desa di Sigerciv.",
+      "villageTitle": "Jelajah {villageName}",
+      "villageDescription": "Destinasi dan wisata di {villageName}, Lampung — etalase publik Sigerciv.",
+      "searchTitle": "Cari \"{query}\" — Jelajah Lampung",
+      "searchDescription": "Hasil pencarian destinasi dan desa wisata untuk \"{query}\" di Sigerciv."
+    },
+    "hero": {
+      "badge": "Sigerciv · Lampung",
+      "title": "Jelajah desa wisata",
+      "subtitle": "Pilih desa di peta Lampung atau cari destinasi lintas desa — pariwisata regeneratif yang dimiliki komunitas."
+    },
+    "explorer": {
+      "region": "Wilayah",
+      "allLampung": "Semua Lampung",
+      "openShowcase": "Buka etalase",
+      "clearDesaFilter": "Hapus filter desa",
+      "filter": "Filter",
+      "search": "Cari",
+      "searchPlaceholder": "Nama destinasi atau desa…",
+      "category": "Kategori",
+      "allCategories": "Semua kategori",
+      "tag": "Tag (desa ini)",
+      "allTags": "Semua tag",
+      "apply": "Terapkan",
+      "resetLocation": "Reset lokasi",
+      "nearMe": "Dekat saya",
+      "activeFilters": "Filter aktif",
+      "resetAll": "Reset semua",
+      "lensDesa": "Pilih desa",
+      "lensWisata": "Cari wisata",
+      "loading": "Memuat hasil…",
+      "emptyDesa": "Belum ada desa wisata aktif yang cocok.",
+      "emptyDestinasi": "Belum ada destinasi publik yang cocok dengan filter.",
+      "loadMore": "Muat lebih banyak",
+      "mapDesa": "Peta desa wisata Lampung",
+      "mapDestinasi": "Peta destinasi",
+      "mapEmpty": "Tidak ada marker untuk filter ini. Coba ubah kriteria atau jelajah Semua Lampung.",
+      "mapHint": "Klik marker desa untuk memfilter wisata di desa tersebut. Hover kartu atau marker untuk menyorot.",
+      "geoUnsupported": "Peramban tidak mendukung geolokasi.",
+      "geoDenied": "Izin lokasi ditolak — menampilkan pusat Lampung tanpa jarak.",
+      "categoryFallback": "Kategori",
+      "tagPrefix": "Tag: {tag}",
+      "nearMeChip": "Dekat saya",
+      "distanceKm": "± {distance} km dari Anda"
+    },
+    "card": {
+      "villageLabel": "Desa wisata · Lampung",
+      "pickVillage": "Pilih desa ini →",
+      "exploreShowcase": "Jelajahi etalase →"
+    }
+  },
+  "cari": {
+    "seo": {
+      "title": "Cari Destinasi",
+      "description": "Jelajahi destinasi wisata regeneratif di seluruh desa sigerciv."
+    }
+  },
+  "etalase": {
+    "seoFallback": "Etalase wisata {desa}",
+    "destinasi": {
+      "badge": "Modul Destinasi sigerciv",
+      "title": "Katalog spot wisata",
+      "desc": "Destinasi terstruktur dengan geo, layanan, dan galeri — dikurasi pengelola desa."
+    },
+    "hero": {
+      "back": "Kembali ke sigerciv",
+      "badge": "Etalase Desa Wisata Regeneratif",
+      "exploreCta": "Jelajahi destinasi",
+      "dasborCta": "Dasbor saya",
+      "kelolaCta": "Kelola desa",
+      "spotPublik": "Spot publik",
+      "tenant": "Tenant"
+    },
+    "quickLinks": {
+      "title": "Jelajahi lebih lanjut",
+      "soon": "Segera hadir",
+      "open": "Buka →",
+      "panduan": {
+        "title": "Panduan berkunjung",
+        "desc": "Etika bahari, cuaca, dan tips PWA offline."
+      },
+      "tentang": {
+        "title": "Profil desa",
+        "desc": "Cerita komunitas & visi regeneratif."
+      },
+      "pasar": {
+        "title": "Pasar Desa",
+        "desc": "UMKM & layanan lokal (Fase 1)."
+      },
+      "kalender": {
+        "title": "Kalender aktivitas",
+        "desc": "Jadwal lumba-lumba & event musiman."
+      }
+    },
+    "explorer": {
+      "searchLabel": "Cari destinasi",
+      "searchPlaceholder": "Cari spot wisata…",
+      "filterLabel": "Filter kategori",
+      "allCategories": "Semua kategori",
+      "search": "Cari",
+      "empty": "Belum ada destinasi publik yang cocok.",
+      "loadMore": "Muat lebih banyak"
+    }
+  },
+  "kelola": {
+    "seoTitle": "Pengelola Desa",
+    "layoutTitle": "Pengelola Desa",
+    "layoutSubtitle": "Konsol operasional untuk {desa}",
+    "drafLokal": {
+      "bannerJudul": "Draf lokal ditemukan",
+      "bannerDesc": "Perubahan belum tersimpan ke server ada di peramban ini (terakhir {waktu}).",
+      "pulihkan": "Pulihkan draf",
+      "buang": "Buang draf",
+      "menyimpan": "Menyimpan draf lokal…",
+      "tersimpan": "Draf lokal tersimpan · {waktu}"
+    },
+    "shell": {
+      "breadcrumbLabel": "Navigasi Pengelola Desa",
+      "breadcrumbHome": "Beranda",
+      "breadcrumbKelola": "Pengelola Desa",
+      "backEtalase": "Etalase publik",
+      "backDasbor": "Dasbor pengelola"
+    },
+    "guard": {
+      "loading": "Memuat sesi…",
+      "title": "Area Pengelola Desa",
+      "desc": "Masuk dengan akun yang memiliki peran pengelola desa (pokdarwis, perangkat desa, atau admin).",
+      "masuk": "Masuk"
+    },
+    "nav": {
+      "ringkasan": "Ringkasan",
+      "destinasi": "Destinasi",
+      "layanan": "Layanan",
+      "kalender": "Kalender",
+      "berita": "Warta",
+      "bendahara": "Bendahara",
+      "pendapatan": "Pendapatan",
+      "refund": "Refund",
+      "hadiah": "Hadiah",
+      "checkin": "Check-in",
+      "kurasi": "Dapur Konten",
+      "validasiKartu": "Validasi Kartu",
+      "verifikasi": "Verifikasi"
+    },
+    "ringkasan": {
+      "intro": "Kelola destinasi, layanan, dan jadwal untuk {desa}. Perubahan dapat disimpan offline dan disinkronkan otomatis.",
+      "publik": "Destinasi publik",
+      "draft": "Draft",
+      "layanan": "Layanan",
+      "kalender": "Kalender",
+      "dasborPokdarwis": "Dasbor Pokdarwis",
+      "tambahDestinasi": "+ Tambah destinasi baru"
+    },
+    "bendahara": {
+      "seoTitle": "Panel Bendahara",
+      "seoTitleDesa": "Panel Bendahara — {desa}",
+      "eyebrow": "Escrow & settlement",
+      "title": "Panel Bendahara",
+      "subtitleDesa": "Operasional keuangan desa {desa} — konfirmasi pembayaran, escrow, dan payout penyedia.",
+      "loading": "Memuat panel bendahara…",
+      "memproses": "Memproses…",
+      "refundLink": "Pengajuan refund wisatawan ditangani terpisah.",
+      "refundCta": "Buka kelola refund →",
+      "escrow": {
+        "menunggu": "Menunggu konfirmasi",
+        "menungguHint": "{count} pembayaran manual",
+        "ditahan": "Dana ditahan (escrow)",
+        "ditahanHint": "Belum dirilis ke penyedia",
+        "dirilis": "Siap dicairkan",
+        "dirilisHint": "Transaksi dirilis, belum payout"
+      },
+      "penyediaTipe": {
+        "umkm": "UMKM",
+        "agen": "Agen wisata",
+        "pokdarwis": "Pengelola desa"
+      },
+      "statusPayout": {
+        "draft": "Draf",
+        "diproses": "Diproses",
+        "berhasil": "Berhasil",
+        "gagal": "Gagal",
+        "tandai_berhasil": "Selesai"
+      },
+      "konfirmasi": {
+        "title": "Konfirmasi pembayaran manual",
+        "desc": "Verifikasi bukti transfer — pembeli tidak bisa mengonfirmasi sendiri.",
+        "empty": "Tidak ada pembayaran menunggu verifikasi.",
+        "confirm": "Konfirmasi lunas",
+        "konfirmasiDialog": "Konfirmasi pembayaran ini sudah lunas?",
+        "sukses": "Pembayaran dikonfirmasi.",
+        "bukti": "bukti",
+        "terunggah": "terunggah",
+        "belumAda": "belum ada"
+      },
+      "payout": {
+        "title": "Payout penyedia",
+        "desc": "Cairkan transaksi dirilis ke rekening terverifikasi (transfer manual).",
+        "empty": "Belum ada dana dirilis untuk dicairkan.",
+        "loadRekening": "Muat rekening penyedia",
+        "belumVerifikasi": "(belum verifikasi)",
+        "verifikasiRekening": "Verifikasi rekening",
+        "rekeningTerverifikasi": "Rekening terverifikasi.",
+        "konfirmasiDialog": "Jalankan payout manual ke rekening ini?",
+        "sukses": "Payout berhasil dicatat.",
+        "riwayat": "Riwayat payout",
+        "neto": "neto"
+      },
+      "errors": {
+        "konfirmasi": "Konfirmasi gagal.",
+        "payout": "Payout gagal — pastikan rekening terverifikasi."
+      }
+    },
+    "berita": {
+      "seoTitle": "Kelola Warta",
+      "seoTitleDesa": "Kelola Warta — {desa}",
+      "eyebrow": "Konten desa",
+      "title": "Kelola Warta",
+      "subtitle": "Draft, publikasi, arsip, dan penjadwalan tayang.",
+      "subtitleDesa": "Kurasi berita & pengumuman untuk {desa}.",
+      "newArticle": "+ Artikel baru",
+      "editTitle": "Ubah artikel",
+      "newTitle": "Artikel baru",
+      "backToList": "Daftar Warta",
+      "empty": "Belum ada artikel. Buat artikel pertama.",
+      "sorotan": "sorotan",
+      "edit": "Ubah",
+      "table": {
+        "judul": "Judul",
+        "kategori": "Kategori",
+        "status": "Status",
+        "terbit": "Terbit",
+        "aksi": "Aksi"
+      },
+      "status": {
+        "draft": "Draft",
+        "publikasi": "Publikasi",
+        "arsip": "Arsip"
+      },
+      "form": {
+        "judul": "Judul",
+        "slug": "Slug URL",
+        "ringkasan": "Ringkasan",
+        "konten": "Konten (Markdown)",
+        "kontenPlaceholder": "## Judul bagian\n\nTulis dengan **markdown**…",
+        "kategori": "Kategori",
+        "terbitPada": "Terbit pada",
+        "terbitHint": "Kosongkan = tayang segera setelah publikasi",
+        "sorotan": "Tampilkan sebagai sorotan (featured)",
+        "tag": "Tag",
+        "sampul": "Sampul",
+        "sampulAlt": "Sampul",
+        "unggahFoto": "Unggah foto",
+        "simpanDraft": "Simpan draft",
+        "simpanPerubahan": "Simpan perubahan",
+        "menyimpan": "Menyimpan…",
+        "publikasikan": "Publikasikan",
+        "arsipkan": "Arsipkan",
+        "kembalikanDraft": "Kembalikan ke draft",
+        "hapus": "Hapus",
+        "hapusKonfirmasi": "Hapus artikel ini? (soft delete)",
+        "terjadwal": "Terjadwal / terbit: {tanggal}",
+        "slugKonflik": "Slug sudah dipakai artikel lain. Gunakan slug yang berbeda."
+      }
+    },
+    "checkin": {
+      "seoTitle": "Check-in booking",
+      "seoTitleDesa": "Check-in booking — {desa}",
+      "eyebrow": "Dermaga · tiket",
+      "title": "Scanner check-in",
+      "subtitle": "Masukkan atau pindai kode QR tiket wisatawan. Hanya petugas/agen berwenang.",
+      "subtitleDesa": "Validasi kedatangan wisatawan di {desa} — masukkan kode check-in atau ID booking.",
+      "desc": "Pastikan booking sudah terkonfirmasi sebelum check-in. Kode tidak valid atau booking batal akan ditolak.",
+      "formLabel": "Kode tiket",
+      "placeholder": "CI-XXXXXX atau booking ID",
+      "submit": "Check-in",
+      "memproses": "Memproses…",
+      "sukses": "Check-in berhasil: {kode} → {status}",
+      "error": "Check-in gagal. Pastikan kode valid & booking terkonfirmasi.",
+      "status": {
+        "terkonfirmasi": "Terkonfirmasi",
+        "checkin": "Sudah check-in",
+        "selesai": "Selesai",
+        "batal": "Batal"
+      }
+    },
+    "destinasi": {
+      "seoTitle": "Kelola Destinasi",
+      "listTitle": "Daftar Destinasi",
+      "new": "+ Baru",
+      "createTitle": "Buat Destinasi",
+      "editTitle": "Ubah: {nama}",
+      "table": {
+        "nama": "Nama",
+        "slug": "Slug",
+        "status": "Status",
+        "aksi": "Aksi"
+      },
+      "edit": "Ubah",
+      "status": {
+        "draft": "Draft",
+        "publikasi": "Publikasi",
+        "arsip": "Arsip"
+      },
+      "form": {
+        "nama": "Nama destinasi",
+        "slug": "Slug URL",
+        "kategori": "Kategori",
+        "kategoriSnorkeling": "Snorkeling",
+        "kategoriPantai": "Pantai",
+        "alamat": "Alamat",
+        "deskripsi": "Deskripsi",
+        "jamOperasional": "Jam operasional",
+        "jamHint": "Format per hari, mis. 06:00-18:00. Kosongkan hari libur.",
+        "jamPlaceholder": "06:00-18:00",
+        "hari": {
+          "sen": "Sen",
+          "sel": "Sel",
+          "rab": "Rab",
+          "kam": "Kam",
+          "jum": "Jum",
+          "sab": "Sab",
+          "min": "Min"
+        },
+        "lokasi": "Lokasi (titik & area)",
+        "tag": "Tag",
+        "status": "Status",
+        "galeriTitle": "Galeri foto",
+        "galeriDesc": "Unggah langsung ke MinIO (presigned). Foto sampul tampil di halaman spot publik.",
+        "simpan": "Buat destinasi",
+        "simpanPerubahan": "Simpan perubahan",
+        "menyimpan": "Menyimpan…",
+        "publikasikan": "Publikasikan",
+        "hapus": "Hapus destinasi",
+        "hapusKonfirmasi": "Hapus destinasi ini? Data tidak tampil di etalase publik.",
+        "slugKonflik": "Slug sudah dipakai di desa ini. Pilih slug lain.",
+        "offlineSaved": "Disimpan offline — akan disinkronkan saat online.",
+        "apiOffline": "API tidak tersedia — disimpan ke antrean offline.",
+        "published": "Destinasi dipublikasikan.",
+        "publishFailed": "Gagal mempublikasikan — coba lagi saat online."
+      },
+      "filterSemuaStatus": "Semua status",
+      "filterSemuaKategori": "Semua kategori",
+      "empty": "Belum ada destinasi yang cocok dengan filter.",
+      "media": {
+        "empty": "Belum ada foto. Unggah gambar pertama di atas.",
+        "sampul": "Sampul",
+        "alt": "Media destinasi",
+        "jadikanSampul": "Jadikan sampul",
+        "geserKiri": "Geser kiri",
+        "geserKanan": "Geser kanan",
+        "hapus": "Hapus",
+        "hapusKonfirmasi": "Lepas media dari destinasi ini?",
+        "errorSampul": "Gagal mengatur sampul.",
+        "errorUrutan": "Gagal mengubah urutan.",
+        "errorHapus": "Gagal menghapus lampiran."
+      }
+    },
+    "hadiah": {
+      "seoTitle": "Kelola Hadiah & Kupon",
+      "seoTitleDesa": "Kelola Hadiah & Kupon — {desa}",
+      "eyebrow": "Kupon & poin",
+      "title": "Kelola Hadiah & Kupon",
+      "subtitle": "Katalog hadiah penukaran poin dan kupon kampanye desa.",
+      "subtitleDesa": "Program loyalitas {desa} — hadiah Paspor Lestari & kupon diskon.",
+      "loading": "Memuat katalog…",
+      "menyimpan": "Menyimpan…",
+      "katalog": "Katalog hadiah",
+      "emptyHadiah": "Belum ada hadiah. Tambahkan hadiah pertama di bawah.",
+      "poinSuffix": "poin",
+      "stok": "stok {count}",
+      "tambahHadiah": "Tambah hadiah",
+      "kuponKampanye": "Kupon kampanye",
+      "kuponHint": "Kupon kampanye desa — wisatawan dapat menukarnya via poin atau promo.",
+      "buatKupon": "Buat kupon kampanye",
+      "placeholder": {
+        "nama": "Nama hadiah",
+        "biaya": "Biaya poin",
+        "stok": "Stok (opsional)",
+        "deskripsi": "Deskripsi singkat (opsional)",
+        "kode": "Kode kupon",
+        "nilai": "Nilai diskon (Rp)",
+        "min": "Min belanja (opsional)"
+      },
+      "jenis": {
+        "merchandise": "Merchandise",
+        "kupon_diskon": "Kupon diskon",
+        "tiket": "Tiket"
+      },
+      "sukses": {
+        "hadiah": "Hadiah ditambahkan ke katalog.",
+        "kupon": "Kupon kampanye dibuat."
+      },
+      "errors": {
+        "hadiah": "Gagal menambah hadiah.",
+        "kupon": "Gagal membuat kupon."
+      }
+    },
+    "kalender": {
+      "seoTitle": "Kalender Aktivitas",
+      "title": "Kalender Aktivitas",
+      "tambah": "Tambah aktivitas kalender",
+      "ubah": "Ubah aktivitas",
+      "judul": "Judul",
+      "tipe": "Tipe",
+      "destinasi": "Destinasi terkait",
+      "destinasiOpsional": "— Tanpa destinasi —",
+      "pengulangan": "Pengulangan (RRULE)",
+      "interval": "Interval",
+      "mulai": "Jam mulai",
+      "selesai": "Jam selesai",
+      "berlakuMulai": "Berlaku mulai",
+      "berlakuSampai": "Berlaku sampai (opsional)",
+      "simpan": "Simpan aktivitas",
+      "simpanUbah": "Simpan perubahan",
+      "menyimpan": "Menyimpan…",
+      "batal": "Batal",
+      "nonaktifkan": "Nonaktifkan",
+      "nonaktifkanKonfirmasi": "Nonaktifkan aktivitas ini?",
+      "nonaktifkanSukses": "Aktivitas dinonaktifkan.",
+      "hapus": "Hapus permanen",
+      "hapusKonfirmasi": "Hapus aktivitas ini secara permanen?",
+      "deleted": "Aktivitas dihapus.",
+      "updated": "Aktivitas diperbarui.",
+      "statusNonaktif": "nonaktif",
+      "empty": "Belum ada aktivitas kalender.",
+      "previewTitle": "Pratinjau tanggal (klien)",
+      "previewDisclaimer": "Perkiraan dari aturan RRULE — server hanya menyimpan pola, bukan tanggal materialisasi.",
+      "previewEmpty": "Isi berlaku mulai dan pola pengulangan untuk melihat pratinjau.",
+      "tipeOpsi": {
+        "harian": "Harian",
+        "musiman": "Musiman",
+        "event": "Event"
+      },
+      "freq": {
+        "DAILY": "Setiap hari",
+        "WEEKLY": "Mingguan"
+      },
+      "byday": "Hari dalam minggu (BYDAY)",
+      "bydayKosong": "Pilih minimal satu hari.",
+      "bydayWajib": "Pengulangan mingguan membutuhkan minimal satu hari (BYDAY).",
+      "previewBydayKosong": "Pilih hari dalam minggu untuk melihat pratinjau pengulangan mingguan.",
+      "hari": {
+        "MO": "Sen",
+        "TU": "Sel",
+        "WE": "Rab",
+        "TH": "Kam",
+        "FR": "Jum",
+        "SA": "Sab",
+        "SU": "Min"
+      },
+      "offlineSaved": "Disimpan ke antrean offline.",
+      "added": "Aktivitas ditambahkan."
+    },
+    "kurasi": {
+      "seoTitle": "Dapur Konten",
+      "seoTitleDesa": "Dapur Konten — {desa}",
+      "title": "Dapur Konten",
+      "subtitle": "Antrean kurasi kontribusi wisatawan, review paket agen, dan log audit transparan.",
+      "subtitleDesa": "Pengelola {desa} — tinjau, setujui, atau minta revisi sebelum konten tampil publik.",
+      "tabLabel": "Tab dapur konten",
+      "tabs": {
+        "kontribusi": "Kontribusi",
+        "paket": "Paket",
+        "log": "Log kurasi"
+      },
+      "subKontrib": {
+        "menunggu": "Menunggu",
+        "belumDiterapkan": "Belum diterapkan"
+      },
+      "filterTipe": "Filter tipe kontribusi",
+      "filterTarget": "Filter target",
+      "filterSemuaTipe": "Semua tipe",
+      "filterSemuaTarget": "Semua target",
+      "filterLogEntitas": "Filter entitas log",
+      "filterSemuaEntitas": "Semua entitas",
+      "loading": "Memuat…",
+      "loadMore": "Muat lebih banyak",
+      "emptyKontribMenunggu": "Tidak ada kontribusi menunggu.",
+      "emptyBelumDiterapkan": "Tidak ada usulan disetujui yang menunggu penerapan manual.",
+      "emptyPaket": "Tidak ada paket menunggu kurasi.",
+      "emptyLog": "Belum ada entri log kurasi.",
+      "pilihKontrib": "Pilih kontribusi dari antrean untuk melihat detail dan mengambil keputusan.",
+      "pilihPaket": "Pilih paket dari antrean untuk meninjau metadata dan itinerary.",
+      "antreanKontribusi": "Antrean kontribusi",
+      "antreanPaket": "Antrean paket review",
+      "setujuiPublikasi": "Setujui & publikasi",
+      "paketDurasi": "Durasi",
+      "paketHarga": "Harga",
+      "paketKuota": "Kuota default",
+      "jam": "jam",
+      "menit": "menit",
+      "hari": "Hari {hari}",
+      "itinerary": "Itinerary",
+      "footnote": "Koreksi data dan usulan spot baru yang disetujui tidak otomatis mengubah destinasi — terapkan manual lewat editor Kelola.",
+      "entitas": {
+        "kontribusi": "Kontribusi",
+        "paket_wisata": "Paket wisata"
+      },
+      "logKolom": {
+        "waktu": "Waktu",
+        "entitas": "Entitas",
+        "transisi": "Transisi",
+        "keputusan": "Keputusan",
+        "catatan": "Catatan"
+      },
+      "sukses": {
+        "kontribusi": {
+          "setuju": "Kontribusi disetujui.",
+          "tolak": "Kontribusi ditolak.",
+          "minta_revisi": "Permintaan revisi dikirim ke penyumbang."
+        },
+        "paket": {
+          "setuju": "Paket disetujui dan dipublikasikan.",
+          "tolak": "Paket ditolak.",
+          "minta_revisi": "Permintaan revisi dikirim ke agen."
+        }
+      },
+      "panel": {
+        "title": "Keputusan kurator",
+        "catatanLabel": "Catatan",
+        "catatanPlaceholder": "Catatan untuk penyumbang/agen (wajib untuk tolak & minta revisi)",
+        "catatanHint": "Opsional untuk setujui. Wajib diisi untuk tolak atau minta revisi.",
+        "catatanWajib": "Catatan wajib diisi untuk tolak atau minta revisi.",
+        "setujui": "Setujui",
+        "mintaRevisi": "Minta revisi",
+        "tolak": "Tolak",
+        "tolakKonfirm": "Ya, tolak",
+        "batal": "Batal",
+        "konfirmasiTolak": "Yakin menolak? Tindakan ini tidak dapat dibatalkan.",
+        "memproses": "Memproses…"
+      },
+      "kontribusiDetail": {
+        "tipe": "Tipe",
+        "target": "Target",
+        "field": "Field",
+        "nilaiSaatIni": "Nilai saat ini",
+        "usulan": "Usulan",
+        "alasan": "Alasan",
+        "namaSpot": "Nama spot",
+        "deskripsi": "Deskripsi",
+        "fotoMedia": "Media #{id}…",
+        "bannerBelumDiterapkan": "Disetujui — belum diterapkan",
+        "bannerDesc": "Usulan ini tidak otomatis mengubah data destinasi. Terapkan manual lewat editor Kelola.",
+        "bukaEditor": "Buka editor destinasi"
+      }
+    },
+    "kurasiKonten": {
+      "seoTitle": "Kurasi Konten",
+      "seoTitleDesa": "Kurasi Konten — {desa}",
+      "title": "Antrean Kurasi Konten",
+      "subtitle": "Tinjau kontribusi wisatawan — foto, tips, koreksi data, dan usulan spot baru.",
+      "subtitleDesa": "Dapur konten {desa} — antrean kurasi dan saran terapkan.",
+      "tabMenunggu": "Menunggu kurasi",
+      "tabTerapkan": "Saran terapkan",
+      "filterTipe": "Filter tipe kontribusi",
+      "filterSemuaTipe": "Semua tipe",
+      "loading": "Memuat…",
+      "memproses": "Memproses…",
+      "emptyMenunggu": "Tidak ada kontribusi menunggu.",
+      "emptyTerapkan": "Tidak ada saran menunggu penerapan.",
+      "catatanPlaceholder": "Catatan kurator",
+      "setujui": "Setujui",
+      "mintaRevisi": "Minta revisi",
+      "tolak": "Tolak",
+      "terapkan": "Terapkan di editor destinasi →",
+      "footnote": "Koreksi & spot baru yang disetujui tidak otomatis mengubah destinasi — gunakan Terapkan untuk membuka editor destinasi.",
+      "sukses": {
+        "setuju": "Kontribusi disetujui.",
+        "tolak": "Kontribusi ditolak.",
+        "minta_revisi": "Permintaan revisi dikirim."
+      }
+    },
+    "kurasiPaket": {
+      "seoTitle": "Kurasi Paket",
+      "seoTitleDesa": "Kurasi Paket — {desa}",
+      "title": "Kurasi Paket Wisata",
+      "subtitle": "Setujui, minta revisi, atau tolak paket wisata yang diajukan agen.",
+      "subtitleDesa": "Antrean kurasi paket {desa}.",
+      "loading": "Memuat antrean…",
+      "memproses": "Memproses…",
+      "empty": "Tidak ada paket menunggu kurasi.",
+      "jam": "jam",
+      "lihatDetail": "Lihat detail paket →",
+      "logTitle": "Log kurasi terbaru",
+      "catatanPlaceholder": "Catatan kurator (opsional)",
+      "setujui": "Setujui & publikasi",
+      "mintaRevisi": "Minta revisi",
+      "tolak": "Tolak",
+      "sukses": {
+        "setuju": "Paket disetujui dan dipublikasikan.",
+        "tolak": "Paket ditolak.",
+        "minta_revisi": "Permintaan revisi dikirim ke agen."
+      },
+      "statusPaket": {
+        "draft": "Draf",
+        "review": "Menunggu kurasi",
+        "publikasi": "Publikasi",
+        "ditolak": "Ditolak",
+        "arsip": "Arsip"
+      }
+    },
+    "layanan": {
+      "seoTitle": "Layanan Wisata",
+      "title": "Layanan Wisata",
+      "tambah": "Tambah layanan",
+      "ubah": "Ubah layanan",
+      "nama": "Nama",
+      "jenis": "Jenis",
+      "deskripsi": "Deskripsi",
+      "harga": "Harga (Rp)",
+      "satuan": "Satuan harga",
+      "destinasi": "Tautkan ke spot",
+      "destinasiOpsional": "— Tanpa spot —",
+      "kuota": "Kuota harian",
+      "statusLabel": "Status",
+      "simpan": "Simpan layanan",
+      "simpanUbah": "Simpan perubahan",
+      "menyimpan": "Menyimpan…",
+      "batal": "Batal",
+      "hapus": "Hapus",
+      "hapusKonfirmasi": "Hapus layanan ini?",
+      "deleted": "Layanan dihapus.",
+      "updated": "Layanan diperbarui.",
+      "forbidden": "Anda tidak berwenang mengubah layanan milik penyedia lain.",
+      "readOnly": "Milik penyedia lain",
+      "pemilikIntro": "Kelola layanan wisata yang Anda tawarkan — transportasi, pemandu, sewa alat, dan lainnya. Hanya layanan milik akun Anda yang dapat diubah.",
+      "pemilikIntroAgen": "Kelola layanan pendukung paket wisata — perahu, pemandu, transportasi, dan tiket. Hanya layanan milik akun agen Anda yang dapat diubah.",
+      "emptyPemilik": "Belum ada layanan milik Anda. Tambahkan layanan pertama di formulir di atas.",
+      "memuatSesi": "Memuat sesi…",
+      "butuhMasuk": "Masuk untuk mengelola layanan.",
+      "empty": "Belum ada layanan.",
+      "filterSemuaJenis": "Semua jenis",
+      "filterSemuaStatus": "Semua status",
+      "status": {
+        "draft": "Draft",
+        "publikasi": "Publikasi",
+        "arsip": "Arsip"
+      },
+      "jenisOpsi": {
+        "transportasi": "Transportasi",
+        "pemandu": "Pemandu",
+        "penginapan": "Penginapan",
+        "sewa_alat": "Sewa alat",
+        "kuliner": "Kuliner",
+        "tiket_masuk": "Tiket masuk",
+        "lainnya": "Lainnya"
+      },
+      "satuanOpsi": {
+        "per_orang": "Per orang",
+        "per_paket": "Per paket",
+        "per_hari": "Per hari",
+        "per_unit": "Per unit"
+      },
+      "offlineSaved": "Disimpan ke antrean offline.",
+      "added": "Layanan ditambahkan."
+    },
+    "pendapatan": {
+      "seoTitle": "Pendapatan & Rekening",
+      "seoTitleDesa": "Pendapatan & Rekening — {desa}",
+      "eyebrow": "Penyedia",
+      "title": "Pendapatan & Rekening",
+      "subtitleDesa": "Ringkasan pendapatan UMKM di {desa} — ledger transaksi dan rekening payout.",
+      "loading": "Memuat data pendapatan…",
+      "menyimpan": "Menyimpan…",
+      "pilihUmkm": "Pilih UMKM",
+      "noUmkm": "Belum ada UMKM terdaftar di desa ini.",
+      "titleUmkm": "Pendapatan — {nama}",
+      "statBruto": "Bruto",
+      "statNeto": "Neto penyedia",
+      "statReinvest": "Reinvestasi",
+      "ringkasan": "Neto {neto} · reinvestasi {reinvest}",
+      "ledger": "Ledger transaksi",
+      "emptyTransaksi": "Belum ada transaksi.",
+      "bruto": "bruto",
+      "fee": "fee",
+      "reinvestasi": "reinvestasi",
+      "rekening": "Rekening payout",
+      "rekeningHint": "Rekening diverifikasi bendahara sebelum payout dicairkan.",
+      "rekeningSukses": "Rekening ditambahkan.",
+      "terverifikasi": "terverifikasi",
+      "menungguVerifikasi": "menunggu verifikasi bendahara",
+      "placeholderNomor": "Nomor rekening",
+      "placeholderNama": "Nama pemilik",
+      "tambahRekening": "Tambah rekening",
+      "errorRekening": "Gagal menyimpan rekening.",
+      "statusTransaksi": {
+        "ditahan": "Ditahan",
+        "dirilis": "Dirilis",
+        "dicairkan": "Dicairkan",
+        "refund": "Refund"
+      }
+    },
+    "refund": {
+      "seoTitle": "Kelola Refund",
+      "seoTitleDesa": "Kelola Refund — {desa}",
+      "eyebrow": "Escrow",
+      "title": "Kelola Refund",
+      "subtitleDesa": "Pengajuan refund wisatawan untuk {desa}.",
+      "loading": "Memuat refund…",
+      "memproses": "Memproses…",
+      "desc": "Refund setelah pesanan selesai ditolak otomatis — jalur manual bendahara.",
+      "bendaharaLink": "Konfirmasi pembayaran & payout ada di panel bendahara.",
+      "bendaharaCta": "Buka panel bendahara →",
+      "filterStatus": "Filter status",
+      "filterSemua": "Semua status",
+      "empty": "Tidak ada pengajuan.",
+      "pesanan": "Pesanan {id}…",
+      "konfirmasiSetuju": "Setujui pengajuan refund ini?",
+      "konfirmasiTolak": "Tolak pengajuan refund ini?",
+      "sukses": {
+        "setuju": "Refund disetujui.",
+        "tolak": "Refund ditolak.",
+        "proses": "Refund diproses.",
+        "selesai": "Refund selesai."
+      },
+      "aksi": {
+        "setuju": "Setujui",
+        "tolak": "Tolak",
+        "proses": "Proses",
+        "selesai": "Selesai"
+      },
+      "status": {
+        "diajukan": "Diajukan",
+        "disetujui": "Disetujui",
+        "diproses": "Diproses",
+        "selesai": "Selesai",
+        "ditolak": "Ditolak"
+      }
+    },
+    "validasiKartu": {
+      "seoTitle": "Validasi Kartu",
+      "seoTitleDesa": "Validasi Kartu — {desa}",
+      "title": "Validasi Kartu Aksi",
+      "subtitle": "Tinjau pengajuan kartu aksi regeneratif dari UMKM, agen, dan pengelola desa.",
+      "subtitleDesa": "Antrean validasi Naik Kelas Lestari — {desa}.",
+      "loading": "Memuat antrean…",
+      "memproses": "Memproses…",
+      "empty": "Tidak ada pengajuan menunggu.",
+      "antreanLabel": "Antrean pengajuan menunggu",
+      "detailTitle": "Detail pengajuan",
+      "tingkatSubjek": "Tingkat subjek saat ini",
+      "catatanPlaceholder": "Catatan validator",
+      "validasi": "Validasi",
+      "mintaRevisi": "Minta revisi",
+      "tolak": "Tolak",
+      "footnote": "Validasi menaikkan skor & tingkat sertifikasi owner — memengaruhi urutan di Pasar Desa.",
+      "errors": {
+        "load": "Gagal memuat antrean validasi."
+      },
+      "subjek": {
+        "umkm": "UMKM",
+        "agen": "Agen",
+        "pokdarwis": "Pengelola desa"
+      },
+      "sukses": {
+        "setuju": "Kartu aksi divalidasi.",
+        "tolak": "Pengajuan ditolak.",
+        "minta_revisi": "Permintaan revisi dikirim."
+      }
+    },
+    "verifikasi": {
+      "seoTitle": "Antrean verifikasi",
+      "seoTitleDesa": "Verifikasi Penjelajah — {desa}",
+      "eyebrow": "Penjelajah · stempel misi",
+      "title": "Verifikasi Penjelajah",
+      "subtitle": "Konfirmasi stempel misi dengan metode pemandu — {desa}",
+      "subtitleDesa": "Antrean validasi stempel misi di {desa} — hanya verifikator berwenang.",
+      "desc": "Tinjau bukti stempel dari pemandu. Tolak jika bukti tidak valid atau tidak sesuai misi.",
+      "loading": "Memuat antrean…",
+      "memproses": "Memproses…",
+      "empty": "Tidak ada verifikasi menunggu.",
+      "antreanLabel": "Antrean verifikasi stempel",
+      "detailTitle": "Detail stempel",
+      "metode": "Metode",
+      "entitas": "ID stempel",
+      "dampakKlaim": "Dampak diklaim",
+      "fotoBukti": "Foto bukti (media {id}…)",
+      "lokasiBukti": "Lokasi bukti",
+      "stempel": "Stempel",
+      "tolak": "Tolak",
+      "valid": "Valid",
+      "konfirmasiTolak": "Tolak verifikasi ini? Tindakan tidak dapat dibatalkan.",
+      "sukses": {
+        "valid": "Stempel divalidasi.",
+        "invalid": "Verifikasi ditolak."
+      },
+      "errors": {
+        "load": "Tidak dapat memuat antrean — pastikan Anda berperan verifikator.",
+        "putuskan": "Gagal memutuskan verifikasi."
+      }
+    }
+  },
+  "pasar": {
+    "seoTitle": "Pasar Desa",
+    "loading": "Memuat…",
+    "title": "Pasar Desa",
+    "subtitle": "UMKM terverifikasi, produk lokal, dan paket wisata kurasi — urut berdasarkan sertifikasi & kebaruan.",
+    "searchPlaceholder": "Cari produk atau UMKM…",
+    "tab": {
+      "produk": "Produk",
+      "umkm": "UMKM"
+    },
+    "all": "Semua",
+    "loadingCatalog": "Memuat katalog…",
+    "emptyProduk": "Belum ada produk publik.",
+    "emptyUmkm": "Belum ada UMKM terverifikasi.",
+    "distanceM": "{distance} m",
+    "nearMe": "Terdekat",
+    "loadMore": "Muat lebih banyak",
+    "geoUnsupported": "Perangkat tidak mendukung lokasi.",
+    "geoDenied": "Izin lokasi ditolak. Aktifkan untuk melihat UMKM terdekat.",
+    "sortNearNote": "Diurutkan berdasarkan jarak dari lokasi Anda.",
+    "card": {
+      "cart": "Keranjang",
+      "viewUmkm": "Lihat UMKM",
+      "checkout": "Checkout",
+      "detail": "Detail",
+      "stock": "Stok {count}"
+    },
+    "umkmDetail": {
+      "seoFallback": "Detail UMKM",
+      "seoDesc": "Profil UMKM di {desa}.",
+      "loading": "Memuat UMKM…",
+      "notFound": "UMKM tidak ditemukan.",
+      "back": "Kembali ke Pasar",
+      "about": "Tentang",
+      "gallery": "Galeri",
+      "products": "Produk & Jasa",
+      "noProducts": "Belum ada produk publik dari UMKM ini.",
+      "contact": "Kontak",
+      "whatsapp": "Hubungi via WhatsApp"
+    },
+    "produkDetail": {
+      "seoFallback": "Detail Produk",
+      "seoDesc": "Produk lokal di {desa}.",
+      "loading": "Memuat produk…",
+      "notFound": "Produk tidak ditemukan.",
+      "back": "Kembali ke Pasar",
+      "stock": "Stok tersedia: {count}",
+      "soldBy": "Dijual oleh",
+      "addCheckout": "Beli sekarang",
+      "addCart": "+ Keranjang",
+      "added": "Ditambahkan ke keranjang.",
+      "viewCheckout": "Lihat checkout"
+    },
+    "umkmDaftar": {
+      "title": "Daftarkan UMKM",
+      "subtitle": "Lengkapi profil usaha Anda di {desa}. Setelah didaftarkan, pengelola desa akan meninjau untuk verifikasi.",
+      "back": "Kembali",
+      "verifNotice": "UMKM baru berstatus menunggu verifikasi. Produk bisa dibuat sebagai draf, tapi baru bisa dipublikasikan setelah UMKM terverifikasi pengelola desa.",
+      "bidang": "Bidang usaha",
+      "bidangPilih": "Pilih bidang usaha…",
+      "nama": "Nama usaha",
+      "namaPlaceholder": "mis. Warung Kopi Kiluan",
+      "deskripsi": "Deskripsi",
+      "deskripsiPlaceholder": "Ceritakan tentang usaha Anda…",
+      "telepon": "Telepon",
+      "whatsapp": "WhatsApp",
+      "alamat": "Alamat",
+      "alamatPlaceholder": "Alamat usaha",
+      "lokasiToggle": "Tandai lokasi di peta (opsional)",
+      "lokasiHint": "Koordinat: {lat}, {lng}",
+      "daftar": "Daftarkan UMKM",
+      "mengirim": "Mengirim…",
+      "batal": "Batal",
+      "errorWajib": "Bidang usaha dan nama wajib diisi."
+    },
+    "umkmKelola": {
+      "loading": "Memuat…",
+      "backDashboard": "Dasbor UMKM",
+      "title": "Produk & Jasa",
+      "subnavLabel": "Navigasi katalog UMKM",
+      "tabProduk": "Produk Pasar",
+      "tabLayanan": "Layanan wisata",
+      "noUmkm": "Belum ada UMKM terdaftar.",
+      "registerUmkm": "Daftarkan UMKM",
+      "unverifiedNotice": "produk hanya bisa disimpan sebagai draf hingga diverifikasi pengelola.",
+      "productList": "Daftar produk",
+      "emptyKelola": "Belum ada produk. Tambahkan produk pertama Anda.",
+      "add": "Tambah",
+      "productName": "Nama produk",
+      "priceIdr": "Harga (IDR)",
+      "jenis": "Jenis",
+      "jenisProduk": "Produk",
+      "jenisJasa": "Jasa",
+      "satuan": "Satuan harga",
+      "satuanOpsi": {
+        "per_unit": "per unit",
+        "per_orang": "per orang",
+        "per_paket": "per paket",
+        "per_malam": "per malam",
+        "per_jam": "per jam"
+      },
+      "stok": "Stok",
+      "deskripsi": "Deskripsi",
+      "save": "Simpan",
+      "menyimpan": "Menyimpan…",
+      "cancel": "Batal",
+      "publish": "Publikasi",
+      "publishTitle": "Publikasikan produk",
+      "archive": "Arsipkan",
+      "toDraft": "Jadikan draf",
+      "edit": "Ubah",
+      "delete": "Hapus",
+      "hapusKonfirmasi": "Hapus produk \"{nama}\"?",
+      "unverifiedTitle": "UMKM belum terverifikasi",
+      "errorWajib": "Nama dan harga wajib diisi.",
+      "errorSave": "Gagal menyimpan produk.",
+      "errorPublish": "Gagal mempublikasikan produk.",
+      "statusProduk": {
+        "draft": "Draf",
+        "publikasi": "Publikasi",
+        "arsip": "Arsip"
+      },
+      "verifikasi": {
+        "menunggu": "Menunggu verifikasi",
+        "terverifikasi": "Terverifikasi",
+        "ditolak": "Ditolak"
+      }
+    },
+    "umkmLayanan": {
+      "loading": "Memuat…",
+      "backDashboard": "Dasbor UMKM",
+      "title": "Layanan Wisata",
+      "subtitle": "Transportasi, pemandu, sewa alat, dan layanan wisata lain — terhubung ke spot desa. Kepemilikan mengikuti akun Anda.",
+      "subnavLabel": "Navigasi katalog UMKM",
+      "tabProduk": "Produk Pasar",
+      "tabLayanan": "Layanan wisata",
+      "butuhMasuk": "Masuk untuk mengelola layanan wisata."
+    },
+    "paketKelola": {
+      "loading": "Memuat…",
+      "backDashboard": "Dasbor Agen",
+      "title": "Paket Wisata",
+      "subnavLabel": "Navigasi katalog agen",
+      "tabPaket": "Paket wisata",
+      "tabLayanan": "Layanan wisata",
+      "myPackages": "Paket saya",
+      "new": "Baru",
+      "formNew": "Paket baru",
+      "slugPlaceholder": "slug-paket",
+      "packageName": "Nama paket",
+      "description": "Deskripsi paket",
+      "price": "Harga (IDR)",
+      "durationHours": "Durasi (jam)",
+      "kuotaDefault": "Kuota default (orang)",
+      "satuanHarga": "Satuan harga",
+      "satuan": {
+        "per_paket": "Per paket",
+        "per_orang": "Per orang"
+      },
+      "create": "Buat paket",
+      "saving": "Menyimpan…",
+      "saved": "Perubahan disimpan.",
+      "created": "Paket berhasil dibuat.",
+      "saveMetadata": "Simpan metadata",
+      "submitCuration": "Ajukan kurasi",
+      "archive": "Arsipkan",
+      "viewPublic": "Lihat halaman publik",
+      "itinerary": "Itinerary",
+      "gallery": "Galeri foto",
+      "metadata": "Metadata paket",
+      "selectPackage": "Pilih paket untuk mengedit, atau buat paket baru.",
+      "emptyList": "Belum ada paket untuk filter ini.",
+      "filterStatus": "Filter status",
+      "filter": {
+        "semua": "Semua",
+        "draft": "Draf",
+        "review": "Review",
+        "publikasi": "Publikasi",
+        "ditolak": "Ditolak",
+        "arsip": "Arsip"
+      },
+      "waitingReview": "Paket sedang menunggu tinjauan pengelola desa. Metadata dan itinerary terkunci sementara.",
+      "curatorNote": "Catatan kurator",
+      "transisi": {
+        "ajukan": "Paket diajukan ke antrean kurasi.",
+        "arsip": "Paket diarsipkan."
+      },
+      "errors": {
+        "slugConflict": "Slug sudah dipakai di desa ini. Pilih slug lain."
+      },
+      "statusPaket": {
+        "draft": "Draf",
+        "review": "Menunggu kurasi",
+        "publikasi": "Publikasi",
+        "ditolak": "Ditolak",
+        "arsip": "Arsip"
+      },
+      "itineraryEditor": {
+        "empty": "Belum ada aktivitas. Tambahkan hari dan aktivitas pertama.",
+        "dayGroup": "Hari {hari}",
+        "dayLabel": "Hari {hari}",
+        "addActivity": "Aktivitas",
+        "newDay": "Nomor hari baru",
+        "addDay": "Tambah hari",
+        "defaultJudul": "Aktivitas {urutan}",
+        "titlePlaceholder": "Judul aktivitas",
+        "durationPlaceholder": "Durasi (menit)",
+        "descPlaceholder": "Deskripsi singkat",
+        "refNone": "Tanpa referensi",
+        "refDestinasi": "Destinasi",
+        "refLayanan": "Layanan",
+        "refProduk": "Produk/jasa",
+        "refPick": "Pilih referensi…",
+        "validation": "Isi judul atau pilih referensi.",
+        "moveUp": "Naikkan urutan",
+        "moveDown": "Turunkan urutan",
+        "delete": "Hapus aktivitas",
+        "minutes": "{count} menit"
+      }
+    },
+    "agenLayanan": {
+      "loading": "Memuat…",
+      "backDashboard": "Dasbor Agen",
+      "title": "Layanan Wisata",
+      "subtitle": "Perahu, pemandu, transportasi, dan layanan pendukung paket — terhubung ke spot desa. Kepemilikan mengikuti akun agen Anda.",
+      "subnavLabel": "Navigasi katalog agen",
+      "tabPaket": "Paket wisata",
+      "tabLayanan": "Layanan wisata",
+      "butuhMasuk": "Masuk untuk mengelola layanan wisata."
+    }
+  },
+  "paket": {
+    "seoTitle": "Paket Wisata",
+    "loading": "Memuat…",
+    "title": "Paket Wisata",
+    "subtitle": "Paket kurasi agen lokal — jelajahi itinerary dan simpan favorit Anda.",
+    "durasi": {
+      "semua": "Semua Paket",
+      "sehari": "Paket Sehari",
+      "keluarga": "Paket Keluarga"
+    },
+    "showing": "Menampilkan:",
+    "paketCount": "· {count} paket",
+    "loadingList": "Memuat paket…",
+    "emptyFiltered": "Tidak ada paket untuk filter ini. Coba kategori lain atau lihat semua paket.",
+    "emptyAll": "Belum ada paket dipublikasi.",
+    "card": {
+      "duration": "{jam} jam · kuota default {kuota} orang",
+      "ctaDetail": "Lihat detail"
+    },
+    "detail": {
+      "seoFallback": "Detail Paket",
+      "seoDesc": "Paket wisata di {desa}.",
+      "loading": "Memuat paket…",
+      "notFound": "Paket tidak ditemukan atau belum dipublikasi.",
+      "back": "← Semua paket",
+      "itinerary": "Itinerary",
+      "hari": "Hari {hari}",
+      "duration": "{jam} jam",
+      "kuota": "Kuota default {count} orang",
+      "minutes": "{count} menit",
+      "priceNote": "Harga indikatif per paket. Penjadwalan & pemesanan akan tersedia di fase berikutnya.",
+      "contactTitle": "Tertarik paket ini?",
+      "contactDesc": "Hubungi {agen} untuk informasi jadwal dan ketersediaan."
+    },
+    "slot": {
+      "loading": "Memuat ketersediaan jadwal…",
+      "empty": "Belum ada slot jadwal untuk paket ini. Hubungi agen lokal.",
+      "title": "Pilih tanggal berangkat",
+      "hint": "30 hari ke depan · kuota real-time dari Dermaga",
+      "depart": "Berangkat {waktu}",
+      "full": "Penuh",
+      "seats": "Sisa {count} kursi",
+      "allFull": "Semua tanggal dalam rentang ini penuh. Coba tanggal lain atau hubungi agen."
+    }
+  },
+  "misi": {
+    "seoTitle": "Misi Lestari",
+    "title": "Misi sigerciv",
+    "subtitle": "Belajar kode etik → aksi di lapangan. Hanya stempel terverifikasi masuk Paspor Lestari.",
+    "pasporLink": "Buka Paspor Lestari →",
+    "stasiunLink": "Stasiun Lestari →",
+    "filter": {
+      "semuaJenis": "Semua jenis"
+    },
+    "kategori": {
+      "semua": "Semua",
+      "mangrove": "Mangrove",
+      "karang": "Karang",
+      "sampah": "Sampah",
+      "lumba": "Lumba-lumba",
+      "budaya": "Budaya"
+    },
+    "loading": "Memuat misi…",
+    "empty": "Belum ada misi aktif di desa ini.",
+    "poin": "{count} poin",
+    "belajarDulu": "Selesaikan misi belajar dulu",
+    "belajarDuluKategori": "Selesaikan misi belajar kategori {kategori} terlebih dahulu.",
+    "jenis": {
+      "belajar": "belajar",
+      "aksi": "aksi"
+    },
+    "lesson": {
+      "title": "Micro-lesson",
+      "sectionFallback": "Bagian {n}",
+      "confirm": "Saya memahami kode etik di atas dan siap melanjutkan.",
+      "complete": "Tandai selesai"
+    },
+    "qr": {
+      "tabScan": "Pindai QR",
+      "tabManual": "Input manual",
+      "scanHint": "Arahkan kamera ke QR di stasiun",
+      "cameraDenied": "Izin kamera ditolak — gunakan input manual token dari papan stasiun.",
+      "manualLabel": "Token QR stasiun",
+      "manualPlaceholder": "STN-…",
+      "manualHint": "Geofence tetap divalidasi via lokasi perangkat Anda.",
+      "tokenDetected": "Token: {token}"
+    },
+    "detail": {
+      "back": "← Kembali ke katalog",
+      "completeTitle": "Selesaikan misi",
+      "syaratTitle": "Syarat verifikasi",
+      "fotoWajib": "Foto bukti wajib diunggah.",
+      "radius": "Radius geofence {radius} m",
+      "jarak": "± {jarak} m dari lokasi Anda",
+      "mapCaption": "Lokasi {nama}",
+      "rewardTitle": "Reward dampak",
+      "rewardNote": "Hanya stempel terverifikasi yang masuk ringkasan Paspor.",
+      "pemanduHint": "Setelah dikirim, stempel menunggu konfirmasi pemandu — belum masuk dampak Paspor.",
+      "metode": {
+        "otomatis": "Verifikasi otomatis (micro-lesson)",
+        "qr_checkin": "Check-in QR + geofence di stasiun",
+        "foto_geotag": "Unggah foto + geolokasi",
+        "konfirmasi_pemandu": "Konfirmasi pemandu/Pokdarwis"
+      }
+    },
+    "modal": {
+      "microLesson": "Micro-lesson",
+      "aksiLapangan": "Aksi lapangan",
+      "kodeEtik": "Kode etik",
+      "qrLabel": "Token QR stasiun",
+      "qrPlaceholder": "STN-…",
+      "qrHint": "Lokasi GPS akan diambil otomatis untuk cek geofence.",
+      "fotoBukti": "Foto bukti",
+      "tutup": "Tutup",
+      "memproses": "Memproses…",
+      "tandaiSelesai": "Tandai selesai",
+      "selesaikan": "Selesaikan misi"
+    },
+    "errors": {
+      "load": "Gagal memuat misi.",
+      "qrRequired": "Masukkan atau pindai token QR stasiun.",
+      "lokasiRequired": "Izinkan akses lokasi untuk verifikasi geofence.",
+      "fotoRequired": "Unggah foto bukti aksi.",
+      "diLuarGeofence": "Anda harus berada di {stasiun} (radius {radius} m).",
+      "buktiKurang": "Bukti verifikasi tidak memenuhi syarat — periksa QR, lokasi, atau foto.",
+      "gagal": "Gagal menyelesaikan misi — cek QR, lokasi, atau bukti."
+    },
+    "sukses": {
+      "terverifikasi": "Misi selesai! Stempel terverifikasi masuk paspor Anda.",
+      "menunggu": "Misi dicatat — menunggu konfirmasi pemandu."
+    }
+  },
+  "kontribusi": {
+    "seoTitle": "Kontribusi",
+    "title": "Kontribusi Saya",
+    "backDasbor": "Dasbor",
+    "new": "Kontribusi baru",
+    "loading": "Memuat riwayat…",
+    "empty": "Belum ada kontribusi.",
+    "revisi": "Revisi & kirim ulang",
+    "tipe": {
+      "foto": "Foto",
+      "tips": "Tips",
+      "koreksi_data": "Koreksi data",
+      "spot_baru": "Usul spot baru",
+      "ulasan": "Ulasan"
+    },
+    "status": {
+      "menunggu": "Menunggu kurasi",
+      "disetujui": "Disetujui",
+      "ditolak": "Ditolak",
+      "revisi": "Perlu revisi"
+    },
+    "target": {
+      "destinasi": "Destinasi",
+      "layanan": "Layanan",
+      "umkm": "UMKM",
+      "paket_wisata": "Paket wisata",
+      "desa": "Desa"
+    },
+    "muatan": {
+      "spotBaru": "Usulan spot baru",
+      "foto": "Foto kontribusi"
+    },
+    "form": {
+      "revisiTitle": "Revisi kontribusi",
+      "newTitle": "Kontribusi baru",
+      "untuk": "Untuk: {label}",
+      "tipe": {
+        "foto": "Foto",
+        "tips": "Tips",
+        "ulasan": "Ulasan",
+        "koreksi_data": "Koreksi",
+        "spot_baru": "Spot baru"
+      },
+      "placeholder": {
+        "foto": "Keterangan foto (opsional)",
+        "default": "Tulis di sini…",
+        "field": "Field (mis. jam_operasional)",
+        "usulan": "Nilai usulan",
+        "alasan": "Alasan koreksi",
+        "namaSpot": "Nama spot usulan",
+        "deskripsiSpot": "Deskripsi & lokasi"
+      },
+      "fotoTerunggah": "Foto terunggah",
+      "mengunggah": "Mengunggah…",
+      "pilihFoto": "Pilih foto",
+      "errorUpload": "Gagal mengunggah foto.",
+      "errorKirim": "Gagal mengirim kontribusi.",
+      "mengirim": "Mengirim…",
+      "kirimUlang": "Kirim ulang",
+      "kirim": "Kirim kontribusi"
+    }
+  },
+  "tentang": {
+    "seoTitle": "Tentang Desa",
+    "back": "Kembali ke etalase",
+    "title": "Tentang {nama}",
+    "communityTitle": "Wisata milik komunitas",
+    "communityBody": "{nama} adalah bagian dari jaringan sigerciv — platform desa wisata regeneratif di mana data destinasi dan layanan dimiliki komunitas lokal (Pokdarwis & perangkat desa), bukan agregator komersial. Setiap kunjungan idealnya meninggalkan destinasi lebih baik melalui pemantauan daya dukung, reinvestment ke dana konservasi, dan partisipasi warga.",
+    "rolesTitle": "Peran di ekosistem",
+    "roles": {
+      "pokdarwis": {
+        "title": "Pokdarwis & warga",
+        "body": "Mengkurasi spot, layanan, dan konten; memverifikasi data lapangan."
+      },
+      "umkm": {
+        "title": "UMKM & agen lokal",
+        "body": "Menyediakan paket dan jasa langsung ke wisatawan tanpa perantara pusat."
+      },
+      "platform": {
+        "title": "Platform sigerciv",
+        "body": "Penatalayan teknologi multi-tenant — siap direplikasi ke desa mitra lain."
+      }
+    },
+    "locationTitle": "Lokasi administratif",
+    "location": {
+      "pekon": "Pekon",
+      "kecamatan": "Kecamatan",
+      "kabupaten": "Kabupaten",
+      "provinsi": "Provinsi"
+    },
+    "locationEmpty": "Belum diisi.",
+    "panduanCta": "Baca panduan berkunjung →"
+  },
+  "panduan": {
+    "seoTitle": "Panduan Berkunjung",
+    "back": "Kembali ke etalase",
+    "title": "Panduan berkunjung {nama}",
+    "subtitle": "Etika bahari, kesiapan offline, dan cara memasang sigerciv di perangkat Anda.",
+    "tips": {
+      "lumba": {
+        "title": "Waktu terbaik lumba-lumba",
+        "body": "Aktivitas lumba-lumba pagi biasanya 05:30–07:00. Datang lebih awal ke dermaga dan hormati jarak aman — jangan mengejar atau menyentuh."
+      },
+      "offline": {
+        "title": "Siapkan mode offline",
+        "body": "Sinyal di beberapa desa wisata terpencil terbatas. Pasang Sigerciv sebagai PWA dan buka halaman destinasi saat masih online agar konten tersimpan untuk dibaca tanpa jaringan."
+      },
+      "pwa": {
+        "title": "Pasang PWA di HP",
+        "body": "Android: tombol Install / Tambah ke Layar Utama di Chrome. iOS: Share → Add to Home Screen di Safari. Aplikasi terbuka layar penuh tanpa Play Store."
+      }
+    },
+    "ethicsTitle": "Kode etik regeneratif",
+    "ethics": {
+      "karang": "Jangan sentuh atau injak terumbu karang; gunakan sunscreen ramah laut.",
+      "sampah": "Bawa pulang sampah plastik — tidak ada trash bin di banyak spot bahari.",
+      "kuota": "Patuhi kuota & jadwal spot; hormati daya dukung yang ditetapkan pengelola.",
+      "lokal": "Transaksi langsung ke penyedia lokal mendukung ekonomi komunitas."
+    }
+  },
+  "berita": {
+    "seoTitle": "Warta & Berita",
+    "seoDesc": "Berita, pengumuman, dan cerita desa wisata.",
+    "loading": "Memuat…",
+    "title": "Warta",
+    "subtitle": "Pengumuman, cerita desa, update konservasi, dan rekap acara — kurasi Pokdarwis & perangkat desa.",
+    "searchPlaceholder": "Cari artikel…",
+    "allCategories": "Semua kategori",
+    "tagFilter": "Filter tag…",
+    "loadingArticles": "Memuat artikel…",
+    "empty": "Belum ada artikel yang cocok.",
+    "featured": "Sorotan",
+    "others": "Artikel lainnya",
+    "back": "Kembali ke Warta",
+    "notFound": "Artikel tidak ditemukan",
+    "kategori": {
+      "pengumuman": "Pengumuman",
+      "cerita": "Cerita",
+      "konservasi": "Konservasi",
+      "acara": "Acara",
+      "panduan": "Panduan",
+      "lainnya": "Lainnya"
+    }
+  },
+  "spot": {
+    "seoFallback": "Destinasi",
+    "back": "Kembali ke etalase",
+    "about": "Tentang spot",
+    "location": "Lokasi",
+    "services": "Layanan",
+    "schedule": "Jadwal aktivitas",
+    "tags": "Tag",
+    "kontribusi": {
+      "title": "Kontribusi komunitas",
+      "loginPrompt": "untuk mengirim foto, tips, atau koreksi data spot ini.",
+      "login": "Masuk",
+      "thanks": "Terima kasih! Kontribusi menunggu kurasi.",
+      "history": "Lihat riwayat saya",
+      "panelTitle": "Kontribusi untuk spot ini",
+      "cta": "Kirim foto / tips / koreksi"
+    },
+    "gallery": {
+      "empty": "Galeri foto menyusul",
+      "carouselLabel": "Galeri {nama}",
+      "photoAlt": "{nama} — foto {n}",
+      "prev": "Foto sebelumnya",
+      "next": "Foto berikutnya",
+      "counter": "Foto {current} dari {total}",
+      "viewPhoto": "Lihat foto {n}"
+    },
+    "map": {
+      "location": "Lokasi: {nama}"
+    },
+    "wishlist": {
+      "save": "Simpan {nama} ke wishlist"
+    },
+    "distance": "± {distance} m dari Anda"
+  },
+  "checkout": {
+    "seoTitle": "Checkout",
+    "seoDesc": "Selesaikan pembayaran pesanan wisata Anda.",
+    "seoTitleDesa": "Checkout — {desa}",
+    "loading": "Memuat…",
+    "title": "Checkout",
+    "subtitle": "Pembayaran online-only · kuota slot ditahan sampai batas waktu.",
+    "empty": "Keranjang kosong.",
+    "linkPaket": "Paket wisata",
+    "linkPasar": "Pasar desa",
+    "items": "Item pesanan",
+    "contact": "Kontak",
+    "placeholder": {
+      "nama": "Nama *",
+      "telepon": "Telepon / WhatsApp",
+      "email": "Email"
+    },
+    "metode": {
+      "ambil_ditempat": "Ambil di tempat",
+      "kirim": "Kirim"
+    },
+    "kupon": "Kupon",
+    "kuponPlaceholder": "Kode kupon",
+    "cekKupon": "Cek",
+    "ringkasan": "Ringkasan",
+    "subtotal": "Subtotal",
+    "diskon": "Diskon",
+    "total": "Total",
+    "errors": {
+      "kupon": "Kupon tidak berlaku.",
+      "nama": "Nama kontak wajib diisi.",
+      "gagal": "Checkout gagal. Coba lagi."
+    },
+    "memproses": "Memproses…",
+    "bayar": "Buat pesanan & lanjut bayar",
+    "note": "Status lunas hanya berubah setelah verifikasi bendahara.",
+    "orang": "{count} orang"
+  },
+  "pesanan": {
+    "seo": {
+      "title": "Pesanan",
+      "titleDesa": "Pesanan — {desa}",
+      "description": "Detail pesanan wisata Anda."
+    },
+    "loading": "Memuat pesanan…",
+    "label": "Pesanan {code}",
+    "status": {
+      "menunggu_pembayaran": "Menunggu pembayaran",
+      "dibayar": "Dibayar",
+      "diproses": "Diproses",
+      "selesai": "Selesai",
+      "dibatalkan": "Dibatalkan",
+      "kedaluwarsa": "Kedaluwarsa",
+      "refund_diajukan": "Refund diajukan"
+    },
+    "payWithin": "Bayar dalam {time}",
+    "payExpired": "Batas waktu pembayaran habis",
+    "manualTransfer": "Transfer manual",
+    "uploadProof": "Unggah bukti transfer",
+    "uploadError": "Gagal mengunggah bukti.",
+    "treasurerNote": "Konfirmasi lunas hanya oleh bendahara Pokdarwis — bukan otomatis setelah upload.",
+    "refund": {
+      "title": "Ajukan refund",
+      "note": "Refund setelah kunjungan selesai memerlukan persetujuan manual bendahara.",
+      "success": "Pengajuan terkirim — menunggu keputusan pengelola.",
+      "placeholder": "Alasan pembatalan…",
+      "submit": "Ajukan refund",
+      "error": "Pengajuan refund gagal."
+    },
+    "checkIn": {
+      "title": "Tiket check-in",
+      "qrAlt": "QR tiket"
+    }
+  },
+  "kupon": {
+    "seo": {
+      "title": "Kupon Saya",
+      "titleDesa": "Kupon Saya — {desa}",
+      "description": "Dompet kupon diskon Anda."
+    },
+    "title": "Dompet Kupon",
+    "subtitle": "Pakai kode saat checkout.",
+    "tukarPoinLink": "Tukar poin →",
+    "loading": "Memuat…",
+    "empty": "Belum ada kupon aktif.",
+    "sumber": {
+      "tukar_poin": "Dari tukar poin",
+      "promo_owner": "Diskon UMKM bersertifikat",
+      "kampanye": "Kampanye desa"
+    },
+    "diskonPersen": "{nilai}% off",
+    "diskonRupiah": "Rp {nilai} off",
+    "minBelanja": "Min. belanja Rp {nilai}"
+  },
+  "tukarPoin": {
+    "seo": {
+      "title": "Tukar Poin",
+      "titleDesa": "Tukar Poin — {desa}",
+      "description": "Penukaran poin hadiah."
+    },
+    "title": "Tukar Poin",
+    "riwayatPoin": "Riwayat poin",
+    "loading": "Memuat katalog…",
+    "error": "Tukar gagal — cek saldo, stok, atau syarat tingkat.",
+    "suksesKupon": "Berhasil! Kupon {kode} ditambahkan ke dompet Anda.",
+    "sukses": "Penukaran berhasil.",
+    "lihatDompet": "Lihat dompet kupon",
+    "syaratTingkat": "Butuh sertifikasi {tingkat}",
+    "stok": "Stok: {count}",
+    "poin": "{count} poin",
+    "tukar": "Tukar"
+  },
+  "leaderboard": {
+    "seoTitle": "Leaderboard",
+    "title": "Leaderboard",
+    "subtitle": "Peringkat partisipasi regeneratif — nama & avatar saja, tanpa data pribadi.",
+    "periodeAria": "Periode leaderboard",
+    "periode": {
+      "all": "Sepanjang masa",
+      "30h": "30 hari",
+      "7h": "7 hari"
+    },
+    "loading": "Memuat peringkat…",
+    "empty": "Belum ada peringkat untuk periode ini.",
+    "signInPrompt": "Masuk untuk melihat lencana Anda.",
+    "myBadges": "Buka lencana saya"
+  },
+  "sertifikasi": {
+    "seoTitle": "Tingkat Sertifikasi",
+    "title": "Tingkat Sertifikasi",
+    "subtitle": "Transparansi tingkat Naik Kelas Lestari penyedia di desa — Tunas, Bahari, Lumba-Lumba.",
+    "searchPlaceholder": "Cari UMKM…",
+    "loading": "Memuat…",
+    "skorPraktik": "Skor praktik: {skor}",
+    "belumSertifikasi": "Belum memiliki sertifikasi."
+  },
+  "stasiunLestari": {
+    "seoTitle": "Stasiun Lestari",
+    "seoTitleDesa": "Stasiun Lestari — {desa}",
+    "title": "Stasiun Lestari",
+    "subtitle": "Titik check-in QR + geofence untuk misi aksi.",
+    "loading": "Memuat stasiun…",
+    "empty": "Belum ada stasiun terdaftar.",
+    "radius": "{tipe} · radius {radius} m",
+    "jarak": "± {jarak} m dari Anda",
+    "geoDenied": "Izin lokasi ditolak — jarak ke stasiun tidak ditampilkan.",
+    "backToMisi": "← Kembali ke Misi sigerciv"
+  },
+  "pemandu": {
+    "seoTitle": "Pemandu Wisata",
+    "title": "Pemandu Wisata",
+    "subtitle": "Perencana otomatis berbasis data lokal. Model rule-based aktif secara default; model terlatih sendiri dapat dinyalakan via konfigurasi backend (bukan OpenAI).",
+    "planTitle": "Rencanakan perjalanan",
+    "durasi": "Durasi (hari)",
+    "jumlahOrang": "Jumlah orang",
+    "budget": "Budget (Rp)",
+    "minat": "Minat",
+    "minatOpsi": {
+      "lumba": "Lumba-lumba",
+      "mangrove": "Mangrove",
+      "snorkeling": "Snorkeling",
+      "budaya": "Budaya",
+      "kuliner": "Kuliner"
+    },
+    "menyusun": "Menyusun…",
+    "susunItinerary": "Susun itinerary",
+    "error": "Gagal menyusun itinerary — coba lagi.",
+    "mesin": "Mesin: {info}",
+    "perkiraanTotal": "Perkiraan total: {total}",
+    "slotPaket": "Slot paket",
+    "paketWisata": "Paket wisata",
+    "keranjang": "+ Keranjang",
+    "ditambahkanKeranjang": "{nama} ditambahkan ke keranjang.",
+    "checkout": "Checkout →",
+    "chatTitle": "Tanya destinasi",
+    "chatNote": "Jawaban rule-based dari konten destinasi lokal. Boleh tanpa login.",
+    "chatEmpty": "Belum ada percakapan.",
+    "chatAnda": "Anda: …",
+    "sumber": "Sumber: {nama}",
+    "chatPlaceholder": "Tanya tentang destinasi…",
+    "kirim": "Kirim"
+  },
+  "naikKelas": {
+    "seoTitle": "Naik Kelas Lestari",
+    "title": "Naik Kelas Lestari",
+    "backDashboard": "Dasbor",
+    "skorPraktik": "Skor {skor} poin praktik",
+    "loading": "Memuat katalog…",
+    "errors": {
+      "load": "Gagal memuat data Naik Kelas.",
+      "noSubjek": "Anda belum memiliki UMKM terdaftar di desa ini. Daftar UMKM dulu untuk mengajukan kartu aksi.",
+      "daftarUmkm": "Daftar UMKM →"
+    },
+    "progres": {
+      "title": "Progres tingkat lestari",
+      "subtitle": "Tingkat naik dari kartu aksi tervalidasi — syarat dibaca dari desa, bukan tebakan.",
+      "skorSaatIni": "Skor {skor}",
+      "menuju": "Menuju {tingkat} · {skor} poin",
+      "tingkatMaks": "Anda sudah di tingkat Lumba-Lumba — pertahankan praktik lestari.",
+      "mulai": "Ajukan kartu aksi pertama untuk mulai naik tingkat.",
+      "insentif": "Tingkat lebih tinggi menampilkan badge di Pasar Desa dan peluang rotasi eksposur — bukan jaminan urutan."
+    },
+    "buktiPreview": {
+      "title": "Bukti pengajuan",
+      "empty": "Belum ada bukti terlampir.",
+      "foto": "Foto bukti (media {id}…)",
+      "dokumen": "Dokumen (media {id}…)"
+    },
+    "kartuAksi": {
+      "title": "Kartu aksi",
+      "subtitle": "Pelajari dulu, lalu ajukan bukti praktik regeneratif Anda.",
+      "kenapaPenting": "Kenapa penting: ",
+      "kenapaPentingJudul": "Kenapa penting?",
+      "belumDiajukan": "Belum diajukan",
+      "bobot": "Bobot {bobot} · {bukti}",
+      "ajukan": "Ajukan",
+      "ajukanUlang": "Ajukan ulang"
+    },
+    "pengajuan": {
+      "title": "Pengajuan saya",
+      "empty": "Belum ada pengajuan.",
+      "catatan": "Catatan validator: {catatan}",
+      "perbaiki": "Perbaiki & kirim ulang →"
+    },
+    "status": {
+      "menunggu": "Menunggu validasi",
+      "tervalidasi": "Tervalidasi",
+      "ditolak": "Ditolak",
+      "revisi": "Perlu revisi"
+    },
+    "bukti": {
+      "foto": "Foto bukti",
+      "dokumen": "Dokumen",
+      "pernyataan": "Pernyataan teks"
+    },
+    "form": {
+      "ajukanTitle": "Ajukan bukti kartu",
+      "revisiTitle": "Perbaiki bukti & kirim ulang",
+      "buktiLabel": "Bukti: {bukti}",
+      "unggah": "Unggah foto bukti",
+      "unggahDokumen": "Unggah dokumen",
+      "mengunggah": "Mengunggah…",
+      "fotoTerunggah": "Foto terunggah ✓",
+      "dokumenTerunggah": "Dokumen terunggah ✓",
+      "placeholder": "Jelaskan praktik yang Anda lakukan…",
+      "uploadError": "Gagal mengunggah berkas.",
+      "submitError": "Gagal mengirim pengajuan.",
+      "mengirim": "Mengirim…",
+      "kirimUlang": "Kirim ulang",
+      "ajukanKartu": "Ajukan kartu",
+      "batal": "Batal",
+      "errors": {
+        "foto_wajib": "Foto bukti wajib diunggah.",
+        "dokumen_wajib": "Dokumen wajib diunggah.",
+        "pernyataan_wajib": "Pernyataan teks wajib diisi.",
+        "buktiKurang": "Bukti belum lengkap sesuai kartu aksi."
+      }
+    }
+  },
+  "genta": {
+    "seo": {
+      "title": "Genta",
+      "titleDesa": "Genta — {desa}",
+      "description": "Kotak masuk notifikasi aktivitas transaksi."
+    },
+    "title": "Genta",
+    "subtitle": "Notifikasi aktivitas transaksi — pesanan, booking, payout, dan misi lestari.",
+    "markAllRead": "Tandai semua dibaca",
+    "filter": {
+      "semua": "Semua",
+      "belum_dibaca": "Belum dibaca",
+      "dibaca": "Dibaca"
+    },
+    "loading": "Memuat notifikasi…",
+    "empty": "Tidak ada notifikasi.",
+    "loadMore": "Muat lebih banyak",
+    "memuat": "Memuat…",
+    "backHome": "Kembali ke beranda desa",
+    "waktu": {
+      "baru": "Baru saja",
+      "menit": "{count} menit lalu",
+      "jam": "{count} jam lalu",
+      "hari": "{count} hari lalu"
+    }
+  },
+  "lencana": {
+    "seo": {
+      "title": "Lencana Warga",
+      "titleDesa": "Lencana Warga — {desa}",
+      "description": "Saldo poin dan koleksi lencana."
+    },
+    "loading": "Memuat lencana…",
+    "backDashboard": "Dasbor",
+    "title": "Lencana Warga",
+    "subtitle": "Poin dan badge dari kontribusi, produk, dan partisipasi regeneratif di desa ini.",
+    "saldoPoin": "Saldo poin",
+    "koleksiBadge": "Koleksi badge",
+    "leaderboard": "Leaderboard",
+    "diperoleh": "Diperoleh",
+    "syarat": "Syarat: {syarat}",
+    "terkunci": "Terkunci",
+    "belumDiperoleh": "{nama} — belum diperoleh",
+    "riwayatPoin": "Riwayat poin",
+    "riwayatEmpty": "Belum ada transaksi poin. Kontribusi data atau daftarkan produk untuk mulai mengumpulkan poin.",
+    "error": "Gagal memuat data lencana. Coba lagi.",
+    "retry": "Coba lagi",
+    "muatLagi": "Muat lagi",
+    "memuat": "Memuat…",
+    "poin": "poin",
+    "aksi": {
+      "kontribusi_disetujui": "Kontribusi disetujui",
+      "produk_terdaftar": "Produk terdaftar",
+      "paket_dipublikasi": "Paket dipublikasi",
+      "profil_lengkap": "Profil lengkap",
+      "warga_perintis": "Warga perintis"
+    },
+    "syaratBadge": {
+      "poinMin": "Kumpulkan minimal {poin} poin di desa ini",
+      "aksi": "{jumlah}× {aksi}",
+      "khusus": "Syarat khusus"
+    }
+  },
+  "peran": {
+    "wisatawan": "Wisatawan",
+    "pokdarwis": "Pokdarwis",
+    "umkm": "UMKM",
+    "agen": "Agen Lokal",
+    "kontributor": "Kontributor",
+    "organisasi": "Organisasi / Mitra",
+    "perangkat_desa": "Perangkat Desa",
+    "admin": "Admin / Steward",
+    "anggota": "Anggota"
+  },
+  "wishlist": {
+    "seo": {
+      "title": "Wishlist saya",
+      "description": "Destinasi, paket wisata, dan misi lestari yang Anda simpan di Sigerciv."
+    },
+    "backToDashboard": "Dasbor",
+    "crossVillage": "Lintas desa Lampung",
+    "title": "Wishlist saya",
+    "subtitle": "Destinasi, paket wisata, produk lokal, dan misi regeneratif yang ingin Anda kunjungi atau selesaikan.",
+    "totalSaved": "Total tersimpan",
+    "loadError": "Gagal memuat wishlist. Coba lagi.",
+    "retry": "Coba lagi",
+    "tabWisata": "Wisata ({count})",
+    "tabMisi": "Misi ({count})",
+    "refresh": "Segarkan",
+    "loading": "Memuat wishlist…",
+    "emptyWisataTitle": "Belum ada wisata tersimpan",
+    "emptyMisiTitle": "Belum ada misi tersimpan",
+    "emptyHint": "Ketuk ikon hati di kartu destinasi, paket, produk pasar, atau misi saat Anda menjelajah Sigerciv.",
+    "exploreCta": "Jelajah destinasi",
+    "missionCta": "Lihat misi lestari",
+    "noteLabel": "Catatan pribadi",
+    "notePlaceholder": "Mis. kunjungi saat bulan puasa…",
+    "noteSaving": "Menyimpan…",
+    "openDetail": "Buka detail",
+    "remove": "Hapus",
+    "tipe": {
+      "destinasi": "Destinasi",
+      "paket": "Paket wisata",
+      "misi": "Misi lestari",
+      "produk": "Produk lokal"
+    }
+  },
+  "akun": {
+    "seo": {
+      "title": "Akun & Preferensi",
+      "description": "Kelola profil, keamanan, keanggotaan, dan preferensi pribadi Anda di Sigerciv."
+    },
+    "backToDashboard": "Dasbor",
+    "title": "Akun & Preferensi",
+    "navLabel": "Bagian akun",
+    "soon": "segera",
+    "prefsSaved": "Disimpan di perangkat ini. Sinkron ke akun — segera.",
+    "grup": {
+      "akun": "Akun",
+      "konfigurasi": "Konfigurasi"
+    },
+    "nav": {
+      "profil": "Informasi personal",
+      "minat": "Minat & personalisasi",
+      "keamanan": "Keamanan",
+      "keanggotaan": "Keanggotaan & peran",
+      "notifikasi": "Notifikasi",
+      "tampilan": "Tampilan",
+      "privasi": "Privasi & data",
+      "bantuan": "Panduan & PWA"
+    },
+    "profil": {
+      "fotoTitle": "Foto profil",
+      "fotoDesc": "Tampil di komentar, leaderboard, dan menu pengguna.",
+      "gantiFoto": "Ganti foto",
+      "mengunggah": "Mengunggah…",
+      "fotoHint": "JPG, PNG, atau WebP. Maks. 5 MB.",
+      "dataTitle": "Data diri",
+      "dataDesc": "Nama dan telepon disimpan ke akun Sigerciv Anda.",
+      "namaLabel": "Nama lengkap",
+      "teleponLabel": "Nomor telepon",
+      "teleponHint": "Opsional. Untuk koordinasi booking & misi.",
+      "bioLabel": "Bio singkat",
+      "bioHint": "Disimpan sementara di perangkat — sinkron akun segera.",
+      "bioPlaceholder": "Ceritakan minat wisata regeneratif Anda…",
+      "simpan": "Simpan perubahan",
+      "menyimpan": "Menyimpan…",
+      "sukses": "Profil berhasil disimpan.",
+      "avatarSukses": "Avatar diperbarui.",
+      "emailTitle": "Email",
+      "emailDesc": "Alamat login Anda.",
+      "terverifikasi": "Terverifikasi",
+      "belumTerverifikasi": "Belum terverifikasi",
+      "ubahEmailInfo": "Ubah email membutuhkan verifikasi ulang.",
+      "hubungiAdmin": "Hubungi admin desa"
+    },
+    "minat": {
+      "title": "Minat & personalisasi",
+      "desc": "Dasar rekomendasi Pemandu AI — data milik komunitas, bisa dicabut kapan saja.",
+      "hint": "Pilih aktivitas favorit. Penyimpanan ke akun —",
+      "hintSuffix": "(sementara di perangkat ini).",
+      "consentLabel": "Gunakan aktivitas saya untuk personalisasi",
+      "consentDesc": "Rekomendasi paket, misi, dan kurasi disesuaikan dari minat yang Anda pilih. Cabut centang untuk menonaktifkan.",
+      "pilihan": {
+        "alam": "Alam & pantai",
+        "budaya": "Budaya lokal",
+        "kuliner": "Kuliner desa",
+        "kerajinan": "Kerajinan UMKM",
+        "misi": "Misi lestari",
+        "petualangan": "Petualangan",
+        "keluarga": "Keluarga",
+        "fotografi": "Fotografi"
+      }
+    },
+    "keamanan": {
+      "sandiTitle": "Kata sandi",
+      "sandiInfo": "Ubah sandi saat sudah masuk belum tersedia di API.",
+      "resetViaEmail": "Atur ulang via email",
+      "ubahLangsung": "Ubah sandi langsung",
+      "sesiTitle": "Sesi & perangkat",
+      "sesiInfo": "Keluar dari semua perangkat akan mencabut sesi refresh. Daftar perangkat aktif —",
+      "segarkanSesi": "Segarkan sesi"
+    },
+    "keanggotaan": {
+      "title": "Peran Anda",
+      "desc": "Keanggotaan lintas desa di jaringan Sigerciv.",
+      "desaKeanggotaan": "Desa keanggotaan",
+      "globalLabel": "Sigerciv (global)",
+      "status": {
+        "aktif": "Aktif",
+        "menunggu": "Menunggu",
+        "ditolak": "Ditolak",
+        "revisi": "Perlu revisi",
+        "nonaktif": "Nonaktif"
+      },
+      "gabungTitle": "Gabung komunitas desa",
+      "gabungWizardDesc": "Ajukan peran baru lewat wizard Gabung Komunitas — pilih peran, desa (bila perlu), lalu kirim pengajuan.",
+      "bukaGabung": "Buka form Gabung Komunitas",
+      "sedangDitinjau": "Sedang ditinjau pengelola desa.",
+      "ditolakArahan": "Pengajuan perlu revisi atau sebelumnya ditolak. Buka Gabung Komunitas untuk submit ulang kombinasi peran dan desa yang sama.",
+      "ajukanBaru": "Revisi & submit ulang",
+      "ajuanInfo": "Pengajuan ditinjau Pokdarwis atau perangkat desa. Pantau status di daftar di atas."
+    },
+    "notifikasi": {
+      "title": "Preferensi notifikasi",
+      "desc": "Push via PWA (Android/desktop; iOS 16.4+). Sinkron ke akun — segera.",
+      "deviceInfo": "Disimpan di perangkat ini sampai endpoint preferensi tersedia.",
+      "email_misi": "Email — misi & kontribusi",
+      "email_pesanan": "Email — pesanan & booking",
+      "email_kurasi": "Email — kurasi & berita",
+      "push_misi": "Push — misi & kontribusi",
+      "push_pesanan": "Push — pesanan & booking",
+      "push_kurasi": "Push — kurasi & berita"
+    },
+    "tampilan": {
+      "title": "Tampilan",
+      "desc": "Bahasa dan tema disimpan di perangkat ini.",
+      "modeLabel": "Mode tampilan",
+      "terang": "Terang",
+      "gelap": "Gelap",
+      "bahasaLabel": "Bahasa"
+    },
+    "privasi": {
+      "title": "Data pribadi",
+      "desc": "Prinsip kepemilikan komunitas — data Anda, kendali Anda.",
+      "unduhTitle": "Unduh data pribadi",
+      "unduhDesc": "Ekspor profil, kontribusi, dan riwayat poin.",
+      "hapusTitle": "Hapus akun",
+      "hapusDesc": "Permanen — membutuhkan konfirmasi admin.",
+      "lokasiTitle": "Izin lokasi",
+      "lokasiLabel": "Izinkan akses lokasi untuk peta & misi terdekat"
+    },
+    "bantuan": {
+      "pwaTitle": "Pasang aplikasi (PWA)",
+      "pwaDesc": "Akses cepat dari layar utama — berfungsi offline terbatas.",
+      "pwaHint": "Tombol muncul otomatis bila browser mendukung instalasi. Cache offline dikelola browser.",
+      "panduanTitle": "Panduan & etik",
+      "jelajah": "Jelajah desa wisata Lampung",
+      "berita": "Berita & pengumuman desa",
+      "kodeEtik": "Kode etik wisata regeneratif",
+      "kodeEtikSuffix": "— di halaman desa",
+      "kontak": "Hubungi tim Sigerciv"
+    }
+  },
+  "gabung": {
+    "seo": {
+      "title": "Gabung Komunitas",
+      "description": "Ajukan peran Wisatawan, UMKM, Agen Lokal, atau Pokdarwis di desa wisata Lampung."
+    },
+    "hero": {
+      "title": "Gabung Komunitas Sigerciv",
+      "subtitle": "Pilih peran Anda di jaringan desa wisata regeneratif Lampung — wisatawan langsung aktif, peran desa ditinjau pengelola.",
+      "progress": "Kemajuan pengajuan"
+    },
+    "stepper": {
+      "ariaLabel": "Langkah pengajuan keanggotaan",
+      "peran": "Peran",
+      "desa": "Desa",
+      "konfirmasi": "Konfirmasi",
+      "hasil": "Hasil"
+    },
+    "nav": {
+      "kembali": "Kembali"
+    },
+    "peran": {
+      "title": "Pilih peran Anda",
+      "desc": "Empat pintu masuk utama Sigerciv. Label diambil dari referensi platform.",
+      "badgeAktif": "Langsung aktif",
+      "badgeMenunggu": "Perlu persetujuan",
+      "hintGlobal": "Peran lintas desa — tidak perlu memilih desa wisata.",
+      "hintScoped": "Terikat satu desa — pilih desa pada langkah berikutnya.",
+      "sudahMenunggu": "Sudah diajukan",
+      "perluRevisi": "Perlu revisi",
+      "sudahAktif": "Sudah aktif"
+    },
+    "desa": {
+      "title": "Pilih desa wisata",
+      "desc": "Sigerciv menghubungkan desa-desa Lampung. Cari atau ketuk peta untuk memilih desa keanggotaan Anda.",
+      "peranTerpilih": "Peran: {peran}",
+      "cari": "Cari desa…",
+      "cariTombol": "Cari",
+      "memuat": "Memuat…",
+      "petaKosong": "Belum ada desa di peta",
+      "kosong": "Tidak ada desa ditemukan. Coba kata kunci lain.",
+      "terpilih": "Desa terpilih",
+      "lanjut": "Lanjut ke konfirmasi"
+    },
+    "konfirmasi": {
+      "title": "Konfirmasi pengajuan",
+      "peran": "Peran",
+      "desa": "Desa",
+      "cakupan": "Cakupan",
+      "lintasDesa": "Lintas desa (global)",
+      "hintMenunggu": "Pengajuan Anda akan ditinjau Pokdarwis atau perangkat desa. Modul kelola terbuka setelah keanggotaan aktif.",
+      "hintAktif": "Peran wisatawan aktif segera setelah diajukan — Anda bisa mulai menjelajah.",
+      "ditolakPeringatan": "Pengajuan sebelumnya untuk kombinasi ini perlu revisi atau ditolak. Tombol Ajukan akan mengirim ulang pengajuan yang sama untuk ditinjau kembali.",
+      "ajukan": "Ajukan keanggotaan",
+      "mengirim": "Mengirim…"
+    },
+    "hasil": {
+      "aktif": {
+        "title": "Keanggotaan aktif",
+        "desc": "Peran {peran} Anda sudah aktif. Selamat bergabung di Sigerciv!",
+        "cta": "Mulai jelajah"
+      },
+      "sudah_aktif": {
+        "title": "Anda sudah wisatawan",
+        "desc": "Peran wisatawan sudah aktif di akun Anda.",
+        "cta": "Mulai jelajah"
+      },
+      "menunggu": {
+        "title": "Menunggu persetujuan",
+        "desc": "Pengajuan peran {peran} di {desa} sedang ditinjau pengelola desa.",
+        "cta": "Lihat status keanggotaan"
+      },
+      "konflik": {
+        "title": "Pengajuan sudah ada",
+        "desc": "Anda sudah memiliki atau sedang mengajukan peran {peran} di {desa}. Jika statusnya perlu revisi, buka status keanggotaan lalu submit ulang dari form Gabung Komunitas.",
+        "ctaBaru": "Revisi pengajuan"
+      },
+      "ajukanLain": "Ajukan peran lain"
+    },
+    "galat": {
+      "default": "Gagal mengajukan keanggotaan. Coba lagi."
+    }
+  },
+  "dasbor": {
+    "seo": {
+      "hubTitle": "Dasbor Sigerciv",
+      "hubDescription": "Dasbor pengguna Sigerciv — lintas desa wisata Lampung.",
+      "wisatawanTitle": "Dasbor Wisatawan",
+      "wisatawanDescription": "Dasbor wisatawan Sigerciv — jelajah dan kontribusi lintas desa Lampung.",
+      "adminTitle": "Dasbor Admin",
+      "adminDescription": "Steward platform: tenant, moderasi, dan konfigurasi Nusantara."
+    },
+    "guard": {
+      "loading": "Memuat sesi…",
+      "title": "Dasbor sigerciv",
+      "desc": "Masuk untuk mengakses dasbor sesuai peran keanggotaan Anda.",
+      "masuk": "Masuk",
+      "daftar": "Daftar",
+      "kembali": "Kembali ke pemilih dasbor"
+    },
+    "membership": {
+      "menungguTitle": "Keanggotaan menunggu persetujuan",
+      "ditolakTitle": "Keanggotaan perlu revisi",
+      "menungguDesc": "Peran {peran} di {desa} sedang ditinjau. Modul kelola akan tersedia setelah keanggotaan aktif.",
+      "ditolakDesc": "Permintaan peran {peran} di {desa} perlu revisi atau sebelumnya tidak disetujui. Anda bisa submit ulang lewat form Gabung Komunitas.",
+      "ctaAjukanBaru": "Revisi & submit ulang",
+      "ctaLihatStatus": "Lihat status keanggotaan"
+    },
+    "hub": {
+      "halo": "Halo,",
+      "pilihPeran": "Pilih peran dasbor Anda",
+      "pilihKonteks": "Pilih konteks dasbor di {desa}",
+      "descLintas": "Sigerciv menghubungkan desa wisata di Lampung. Wisatawan punya dasbor lintas desa; peran pengelola terikat desa keanggotaan Anda.",
+      "descDesa": "Setiap peran memiliki navigasi dan widget berbeda. Ganti peran lewat pemilih di dasbor peran desa.",
+      "fase": "Fase {fase}",
+      "bukaDasbor": "Buka dasbor",
+      "menunggu": "Menunggu persetujuan",
+      "ditolak": "Keanggotaan ditolak",
+      "belumAktif": "Peran belum diaktifkan",
+      "adminTitle": "Admin / Steward",
+      "adminDesc": "Dasbor lintas-tenant untuk moderasi, konfigurasi, dan provisioning desa.",
+      "bukaAdmin": "Buka dasbor admin",
+      "footerNote": "Perlu peran tambahan? Hubungi Pokdarwis atau perangkat desa untuk aktivasi keanggotaan.",
+      "revisi": "Perlu revisi"
+    },
+    "switcher": {
+      "lintasDesa": "Lintas desa",
+      "tutupPemilih": "Tutup pemilih konteks",
+      "desaAktif": "Desa aktif",
+      "stewardPlatform": "Steward platform",
+      "desaMitraPilot": "Desa mitra pilot",
+      "gantiPeran": "Ganti peran",
+      "adminSteward": "Admin / Steward"
+    },
+    "peranInfo": {
+      "wisatawan": {
+        "tagline": "Sigerciv · Lampung",
+        "deskripsi": "Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata regeneratif."
+      },
+      "pokdarwis": {
+        "tagline": "Pengelola desa wisata",
+        "deskripsi": "Kelola destinasi, kurasi konten komunitas, pantau etalase, dan siapkan dana konservasi."
+      },
+      "umkm": {
+        "tagline": "Pelaku usaha lokal",
+        "deskripsi": "Daftar produk & jasa, kelola pesanan, dan pantau performa di Pasar Desa."
+      },
+      "agen": {
+        "tagline": "Penyusun paket wisata",
+        "deskripsi": "Buat itinerary, atur kuota & jadwal, publikasikan paket melalui alur kurasi Pokdarwis."
+      },
+      "kontributor": {
+        "tagline": "Relawan data komunitas",
+        "deskripsi": "Sumbang foto, tips, atau koreksi data destinasi — dapat poin dan lencana."
+      },
+      "organisasi": {
+        "tagline": "Mitra konservasi & riset",
+        "deskripsi": "Program konservasi, data ekologi, dan sponsor reinvestment bersama Pokdarwis."
+      },
+      "perangkat_desa": {
+        "tagline": "Tata kelola & legitimasi",
+        "deskripsi": "Verifikasi keanggotaan, legitimasi kebijakan desa, dan transparansi dana untuk pekon."
+      },
+      "admin": {
+        "tagline": "Steward platform",
+        "deskripsi": "Moderasi lintas-tenant, konfigurasi sistem, provisioning desa baru (modul Nusantara)."
+      }
+    },
+    "view": {
+      "fase": "Fase {fase}",
+      "fiturMenyusul": "Beberapa fitur menyusul",
+      "ringkasan": "Ringkasan",
+      "modulPeran": "Modul peran",
+      "aksiCepat": "Aksi cepat",
+      "aktivitas": "Aktivitas terbaru",
+      "aktivitasNote": "Contoh aktivitas — feed nyata menyusul integrasi API.",
+      "modulTerkait": "Modul terkait",
+      "navigasi": "Navigasi",
+      "navLabel": "Navigasi {peran}",
+      "bukaNav": "Buka navigasi dasbor",
+      "dasbor": "Dasbor",
+      "segera": "segera",
+      "badgeSegera": "Segera",
+      "placeholderData": "Data terverifikasi menyusul — tanpa angka dummy",
+      "lihatRencana": "Lihat rencana",
+      "buka": "Buka"
+    },
+    "entry": {
+      "loading": "Memuat dasbor…"
+    },
+    "placeholder": {
+      "desc": "Bagian ini akan aktif pada integrasi API fase berikutnya. UI dasbor sudah disiapkan untuk {peran} — tanpa angka dummy atau fungsi transaksional palsu.",
+      "segeraNote": "Ditandai \"segera\" sampai modul {modul} siap di fase roadmap.",
+      "kembali": "Kembali ke ringkasan"
+    },
+    "wisatawan": {
+      "tagline": "Sigerciv · Lampung",
+      "deskripsi": "Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata regeneratif.",
+      "nav": {
+        "ringkasan": "Ringkasan"
+      },
+      "stats": {
+        "wishlistLabel": "Item tersimpan",
+        "wishlistHint": "Lintas desa",
+        "stempelLabel": "Stempel paspor",
+        "kontribLabel": "Kontribusi",
+        "kontribHint": "Fase 1",
+        "poinLabel": "Poin",
+        "poinHint": "Per desa"
+      },
+      "aksi": {
+        "cari": "Jelajah desa wisata",
+        "wishlist": "Wishlist saya",
+        "paspor": "Paspor Lestari",
+        "akun": "Akun & preferensi"
+      },
+      "modul": {
+        "discovery": "Discovery Lampung",
+        "wishlist": "Wishlist",
+        "paspor": "Paspor Lestari"
+      },
+      "aktivitas": {
+        "a1": "Menyimpan paket snorkeling dari desa lain ke wishlist",
+        "a2": "Menyelesaikan micro-lesson kode etik wisata regeneratif",
+        "a3": "Mengumpulkan stempel misi di beberapa desa wisata"
+      },
+      "widgets": {
+        "wishlistTitle": "Wishlist saya",
+        "wishlistDesc": "Destinasi, paket, dan misi dari desa mana pun di Lampung.",
+        "pasporTitle": "Paspor Lestari",
+        "pasporDesc": "Kumpulkan stempel dari misi lestari yang terverifikasi.",
+        "bookingTitle": "Pesanan & booking",
+        "bookingDesc": "Riwayat pemesanan paket dan layanan.",
+        "kontribTitle": "Kontribusi saya",
+        "kontribDesc": "Foto, tips, dan koreksi data — per desa yang Anda kunjungi.",
+        "poinTitle": "Poin & lencana",
+        "poinDesc": "Saldo poin dan badge per desa wisata."
+      }
+    },
+    "pokdarwis": {
+      "tagline": "Pengelola desa wisata",
+      "deskripsi": "Kelola destinasi, kurasi konten komunitas, pantau etalase, dan siapkan dana konservasi.",
+      "nav": {
+        "ringkasan": "Ringkasan",
+        "destinasi": "Destinasi",
+        "kurasi": "Antrian kurasi",
+        "keanggotaan": "Keanggotaan",
+        "dana": "Dana konservasi"
+      },
+      "stats": {
+        "publikLabel": "Destinasi publik",
+        "draftLabel": "Draft",
+        "layananLabel": "Layanan",
+        "kontribLabel": "Kontribusi menunggu",
+        "kontribHint": "Antrian kurasi"
+      },
+      "aksi": {
+        "kelola": "Kelola destinasi",
+        "validasi": "Validasi kartu",
+        "kurasi": "Kurasi konten",
+        "baru": "+ Spot baru",
+        "layanan": "Kelola layanan",
+        "etalase": "Lihat etalase publik"
+      },
+      "modul": {
+        "crud": "Kelola desa (CRUD)",
+        "anjungan": "Anjungan Data",
+        "dayaDukung": "Daya dukung"
+      },
+      "aktivitas": {
+        "a1": "Mempublikasikan spot unggulan desa",
+        "a2": "Menyetujui kontribusi foto dari wisatawan"
+      },
+      "widgets": {
+        "destinasiTitle": "Kelola destinasi",
+        "destinasiDesc": "Spot, layanan, kalender aktivitas — modul F0 aktif.",
+        "kurasiTitle": "Dapur Konten",
+        "kurasiDesc": "Antrian kurasi kontribusi wisatawan dan paket agen.",
+        "naikKelasTitle": "Validasi Naik Kelas",
+        "naikKelasDesc": "Setujui kartu aksi dan tingkat sertifikasi UMKM.",
+        "keanggotaanTitle": "Persetujuan keanggotaan",
+        "keanggotaanDesc": "Aktivasi peran baru di desa.",
+        "danaTitle": "Dana konservasi",
+        "danaDesc": "Ringkasan kunjungan dan aliran dana lestari."
+      }
+    },
+    "umkm": {
+      "tagline": "Pelaku usaha lokal",
+      "deskripsi": "Daftar produk & jasa, kelola pesanan, dan pantau performa di Pasar Desa.",
+      "nav": {
+        "ringkasan": "Ringkasan",
+        "produk": "Produk & jasa",
+        "layanan": "Layanan wisata",
+        "pesanan": "Pesanan",
+        "performa": "Performa",
+        "sertifikasi": "Naik Kelas Lestari"
+      },
+      "stats": {
+        "produkLabel": "Produk aktif",
+        "produkHint": "Fase 1",
+        "pesananLabel": "Pesanan bulan ini",
+        "pesananHint": "Fase 2",
+        "ratingLabel": "Rating",
+        "tingkatLabel": "Tingkat lestari",
+        "tingkatHint": "Fase 1",
+        "tingkatValue": "Tunas"
+      },
+      "aksi": {
+        "pasar": "Buka Pasar Desa",
+        "produk": "Tambah produk",
+        "layanan": "Tambah layanan",
+        "kartu": "Kartu aksi",
+        "naik": "Naik kelas"
+      },
+      "modul": {
+        "pasar": "Pasar Desa",
+        "dermaga": "Dermaga (booking)",
+        "performa": "Performa UMKM"
+      },
+      "aktivitas": {
+        "a1": "Mengajukan kartu aksi \"tanpa plastik sekali pakai\"",
+        "a2": "Memperbarui harga paket snorkeling"
+      },
+      "widgets": {
+        "produkTitle": "Produk & jasa",
+        "produkDesc": "Katalog Pasar Desa milik UMKM Anda.",
+        "layananTitle": "Layanan wisata",
+        "layananDesc": "Transportasi, pemandu, sewa alat — milik UMKM Anda di etalase desa.",
+        "pesananTitle": "Pesanan masuk",
+        "pesananDesc": "Booking manual thin-F2 dari wisatawan.",
+        "naikKelasTitle": "Naik Kelas Lestari",
+        "naikKelasDesc": "Kartu aksi dan progres tingkat Tunas → Lumba-Lumba.",
+        "verifikasiTitle": "Status verifikasi",
+        "verifikasiDesc": "Profil UMKM dan legitimasi penyedia lokal.",
+        "performaTitle": "Performa ringkas",
+        "performaDesc": "Metrik penjualan dan dampak lestari."
+      }
+    },
+    "agen": {
+      "tagline": "Penyusun paket wisata",
+      "deskripsi": "Buat itinerary, atur kuota & jadwal, publikasikan paket melalui alur kurasi Pokdarwis.",
+      "nav": {
+        "ringkasan": "Ringkasan",
+        "paket": "Paket saya",
+        "layanan": "Layanan wisata",
+        "jadwal": "Kuota & jadwal",
+        "booking": "Booking masuk"
+      },
+      "stats": {
+        "paketLabel": "Paket publik",
+        "draftLabel": "Dalam review",
+        "kuotaLabel": "Kuota terisi",
+        "kuotaHint": "Fase 2",
+        "pendapatanLabel": "Pendapatan",
+        "pendapatanHint": "Fase 2"
+      },
+      "aksi": {
+        "buat": "Buat paket baru",
+        "layanan": "Tambah layanan",
+        "profil": "Profil agen",
+        "kalender": "Kalender aktivitas"
+      },
+      "modul": {
+        "paket": "Paket wisata",
+        "dapur": "Dapur Konten",
+        "dermaga": "Dermaga"
+      },
+      "aktivitas": {
+        "a1": "Paket \"Lumba Pagi + Snorkeling\" menunggu kurasi",
+        "a2": "Kuota weekend 80% terisi"
+      },
+      "widgets": {
+        "paketTitle": "Editor paket wisata",
+        "paketDesc": "State machine draft → review → publikasi.",
+        "layananTitle": "Layanan wisata",
+        "layananDesc": "Perahu, pemandu, transportasi — milik akun agen Anda di etalase desa.",
+        "jadwalTitle": "Kuota & jadwal",
+        "jadwalDesc": "Atur slot dan kapasitas paket.",
+        "bookingTitle": "Pesanan paket",
+        "bookingDesc": "Booking masuk dari wisatawan.",
+        "sertifikasiTitle": "Progres sertifikasi",
+        "sertifikasiDesc": "Tingkat lestari agen lokal."
+      }
+    },
+    "kontributor": {
+      "tagline": "Relawan data komunitas",
+      "deskripsi": "Sumbang foto, tips, atau koreksi data destinasi — dapat poin dan lencana.",
+      "nav": {
+        "ringkasan": "Ringkasan",
+        "kontribusi": "Kontribusi saya",
+        "lencana": "Lencana",
+        "leaderboard": "Leaderboard"
+      },
+      "stats": {
+        "totalLabel": "Kontribusi",
+        "diterimaLabel": "Diterima",
+        "poinLabel": "Poin",
+        "peringkatLabel": "Peringkat desa"
+      },
+      "aksi": {
+        "baru": "Kontribusi baru",
+        "lencana": "Lihat lencana",
+        "board": "Leaderboard"
+      },
+      "modul": {
+        "kontribusi": "Kontribusi",
+        "lencana": "Lencana Warga"
+      },
+      "aktivitas": {
+        "a1": "Mengunggah foto spot Gigi Hiu — menunggu kurasi",
+        "a2": "Mendapat lencana Kontributor Aktif"
+      },
+      "widgets": {
+        "kontribTitle": "Kontribusi saya",
+        "kontribDesc": "Foto, tips, koreksi — dengan status kurasi.",
+        "poinTitle": "Poin & lencana",
+        "poinDesc": "Gamifikasi kontribusi komunitas.",
+        "leaderboardTitle": "Leaderboard",
+        "leaderboardDesc": "Peringkat kontributor aktif di desa.",
+        "misiTitle": "Misi kontribusi",
+        "misiDesc": "Quest data lapangan untuk relawan."
+      }
+    },
+    "organisasi": {
+      "tagline": "Mitra konservasi & riset",
+      "deskripsi": "Program konservasi, data ekologi, dan sponsor reinvestment bersama Pokdarwis.",
+      "nav": {
+        "ringkasan": "Ringkasan",
+        "program": "Program",
+        "ekologi": "Data ekologi",
+        "sponsor": "Sponsor"
+      },
+      "stats": {
+        "programLabel": "Program aktif",
+        "indikatorLabel": "Indikator terpantau",
+        "indikatorHint": "Fase 3",
+        "sponsorLabel": "Dana disponsori",
+        "laporanLabel": "Laporan"
+      },
+      "aksi": {
+        "monitor": "Monitoring ekologi",
+        "dana": "Dana konservasi",
+        "neraca": "Neraca regeneratif"
+      },
+      "modul": {
+        "monitoring": "Monitoring Ekologi",
+        "jejak": "Jejak Lestari"
+      },
+      "aktivitas": {
+        "a1": "Mengunggah data indeks karang Q2",
+        "a2": "Menyponsori program mangrove"
+      },
+      "widgets": {
+        "programTitle": "Program konservasi",
+        "programDesc": "Kolaborasi riset dan aksi lapangan bersama Pokdarwis.",
+        "ekologiTitle": "Data ekologi",
+        "ekologiDesc": "Monitoring indeks karang, mangrove, dan biodiversitas.",
+        "sponsorTitle": "Sponsor & reinvestment",
+        "sponsorDesc": "Alokasi dana mitra ke program lestari.",
+        "kontakTitle": "Kanal kolaborasi",
+        "kontakDesc": "Profil mitra dan kontak kerja sama desa."
+      }
+    },
+    "perangkat_desa": {
+      "tagline": "Tata kelola & legitimasi",
+      "deskripsi": "Verifikasi keanggotaan, legitimasi kebijakan desa, dan transparansi dana untuk pekon.",
+      "nav": {
+        "ringkasan": "Ringkasan",
+        "verifikasi": "Verifikasi",
+        "kebijakan": "Kebijakan",
+        "transparansi": "Transparansi",
+        "kelola": "Kelola operasional"
+      },
+      "stats": {
+        "anggotaLabel": "Keanggotaan pending",
+        "verifLabel": "Verifikasi bulan ini",
+        "danaLabel": "Dana konservasi",
+        "danaHint": "Fase 3",
+        "spotLabel": "Spot aktif"
+      },
+      "aksi": {
+        "kelola": "Dashboard kelola",
+        "dana": "Laporan dana",
+        "daya": "Daya dukung",
+        "profil": "Profil desa"
+      },
+      "modul": {
+        "kelola": "Kelola desa",
+        "dana": "Dana konservasi",
+        "neraca": "Neraca regeneratif"
+      },
+      "aktivitas": {
+        "a1": "Menyetujui keanggotaan UMKM baru",
+        "a2": "Menerbitkan laporan transparansi dana Q1"
+      },
+      "widgets": {
+        "verifikasiTitle": "Persetujuan keanggotaan",
+        "verifikasiDesc": "Legitimasi peran UMKM, agen, dan kontributor.",
+        "kelolaTitle": "Kelola operasional",
+        "kelolaDesc": "Dashboard pengelolaan desa dan kebijakan.",
+        "danaTitle": "Transparansi dana",
+        "danaDesc": "Aliran dana konservasi desa.",
+        "dayaDukungTitle": "Daya dukung spot",
+        "dayaDukungDesc": "Lampu hijau/kuning/merah per destinasi.",
+        "laporanTitle": "Laporan desa",
+        "laporanDesc": "Ringkasan kinerja wisata regeneratif."
+      }
+    },
+    "admin": {
+      "tagline": "Steward platform",
+      "deskripsi": "Moderasi lintas-tenant, konfigurasi sistem, provisioning desa baru (modul Nusantara).",
+      "nav": {
+        "ringkasan": "Ringkasan",
+        "tenant": "Tenant desa",
+        "moderasi": "Moderasi",
+        "sistem": "Konfigurasi",
+        "nusantara": "Nusantara"
+      },
+      "stats": {
+        "desaLabel": "Desa aktif",
+        "penggunaLabel": "Pengguna",
+        "moderasiLabel": "Antrian moderasi",
+        "kesehatanLabel": "Kesehatan sistem",
+        "kesehatanValue": "OK"
+      },
+      "aksi": {
+        "tenant": "Provisioning desa",
+        "discovery": "Discovery global",
+        "flagship": "Dasbor desa mitra"
+      },
+      "modul": {
+        "nusantara": "Nusantara (F4)",
+        "healthApi": "Health API"
+      },
+      "aktivitas": {
+        "a1": "Tenant baru dalam antrian onboarding",
+        "a2": "Audit log RBAC lintas desa"
+      },
+      "widgets": {
+        "moderasiTitle": "Moderasi lintas-desa",
+        "moderasiDesc": "Antrian konten dan laporan pengguna.",
+        "keanggotaanTitle": "Kelola peran & keanggotaan",
+        "keanggotaanDesc": "RBAC dan scope per tenant.",
+        "sistemTitle": "Konfigurasi platform",
+        "sistemDesc": "Parameter sistem dan integrasi.",
+        "nusantaraTitle": "Provisioning Nusantara",
+        "nusantaraDesc": "White-label dan replikasi desa mitra."
+      }
+    }
+  },
+  "weather": {
+    "sectionLabel": "Informasi cuaca BMKG",
+    "maritime": {
+      "title": "Keselamatan Bahari",
+      "unavailable": "Data maritim sementara tidak tersedia. Periksa kondisi laut langsung dengan nelayan setempat.",
+      "wave": "Gelombang: {value}",
+      "wind": "Angin: {value}",
+      "disclaimer": "Advisori keselamatan — bukan jaminan kondisi aman. Keputusan berlayar tetap pada kapten & nelayan setempat."
+    },
+    "land": {
+      "title": "Cuaca Darat",
+      "unavailable": "Data cuaca darat belum tersedia.",
+      "temp": "Suhu",
+      "humidity": "Kelembapan",
+      "condition": "Kondisi"
+    },
+    "source": "Sumber: BMKG",
+    "updated": " · diperbarui {date}"
+  },
+  "paspor": {
+    "seoTitle": "Paspor Lestari",
+    "seoDesc": "Paspor dampak pribadi — stempel misi terverifikasi dan ringkasan perjalanan regeneratif.",
+    "subtitle": "Hanya stempel terverifikasi yang masuk paspor — aksi tercatat, bukan klaim dampak terbukti (validasi ekologis di Fase 3).",
+    "loading": "Memuat paspor…",
+    "loginRequired": "Masuk untuk melihat Paspor Lestari Anda.",
+    "signIn": "Masuk →",
+    "stamps": "{count} stempel",
+    "noImpact": "Belum ada dampak tercatat.",
+    "impactMangrove": "tanam {count} mangrove",
+    "impactWaste": "kumpul {count} kg sampah",
+    "impactGeneric": "{key}: {value}",
+    "impactSummary": "Kamu bantu {parts}.",
+    "verifiedOnlyNote": "Angka di atas hanya dari stempel terverifikasi.",
+    "verifiedStamps": "Stempel terverifikasi",
+    "pendingStamps": "Menunggu verifikasi",
+    "rejectedStamps": "Ditolak",
+    "pendingNote": "Menunggu konfirmasi — belum masuk ringkasan dampak.",
+    "rejectedNote": "Verifikator menolak bukti ini.",
+    "noStamps": "Belum ada stempel.",
+    "startMission": "Mulai misi →",
+    "missionFallback": "Misi",
+    "status": {
+      "terverifikasi": "Terverifikasi",
+      "menunggu_verifikasi": "Menunggu",
+      "ditolak": "Ditolak"
+    }
+  },
+  "simpanan": {
+    "saveToWishlist": "Simpan {nama} ke wishlist",
+    "removeFromWishlist": "Hapus dari wishlist",
+    "addToWishlist": "Simpan ke wishlist"
+  },
+  "map": {
+    "loading": "Memuat peta…",
+    "loadingPicker": "Memuat peta...",
+    "empty": "Tidak ada lokasi untuk ditampilkan di peta.",
+    "pickHint": "Ketuk peta atau seret marker — {lat}, {lng}",
+    "latLabel": "Lintang",
+    "lngLabel": "Bujur",
+    "applyCoords": "Terapkan koordinat",
+    "polygonStart": "Gambar area",
+    "polygonDrawing": "Mode area aktif",
+    "polygonDone": "Selesai area",
+    "polygonUndo": "Urung titik",
+    "polygonClear": "Hapus area",
+    "polygonVertices": "{count} titik area",
+    "interactiveLabel": "Peta interaktif Lampung",
+    "keyboardHint": "Gunakan daftar hasil di samping untuk navigasi keyboard jika peta tidak dapat diakses.",
+    "viewDetail": "Lihat detail →"
+  },
+  "media": {
+    "unsupportedType": "Hanya foto atau video yang didukung.",
+    "maxSize": "Ukuran maksimal 25 MB.",
+    "offline": "Perlu koneksi untuk memulai unggah (presign). Coba lagi saat online.",
+    "uploadFailed": "Unggah gagal",
+    "uploading": "Mengunggah ke MinIO…",
+    "dropHint": "Seret foto/video atau klik untuk unggah",
+    "flowHint": "Presign → unggah langsung → konfirmasi · maks. 25 MB",
+    "success": "Berhasil ditambahkan",
+    "retry": "Coba lagi"
+  },
+  "modul": {
+    "page": {
+      "backShowcase": "Kembali ke etalase",
+      "backHome": "Kembali ke beranda",
+      "soon": "Segera hadir",
+      "phase": "Fase {fase}",
+      "comingTitle": "Yang akan hadir",
+      "availableTitle": "Sudah tersedia",
+      "destinations": "Katalog destinasi",
+      "signIn": "Masuk / daftar",
+      "managerDashboard": "Dashboard pengelola",
+      "roadmapNote": "Modul ini masuk roadmap blueprint sigerciv. Fase 0 fokus etalase, auth, destinasi & media — modul {modulLabel} direncanakan Fase {fase}."
+    },
+    "items": {
+      "pasar": {
+        "judul": "Pasar Desa",
+        "modulLabel": "Kolaborasi Ekosistem",
+        "deskripsi": "UMKM mendaftarkan produk dan jasa wisata secara mandiri. Transaksi langsung ke penyedia lokal — tanpa komisi agregator pusat.",
+        "fiturRencana": [
+          "Katalog UMKM terverifikasi per desa",
+          "Produk & jasa dengan harga lokal",
+          "Boost ranking untuk UMKM bersertifikat Naik Kelas Lestari",
+          "Dashboard performa untuk pelaku usaha"
+        ]
+      },
+      "paket": {
+        "judul": "Paket Wisata",
+        "modulLabel": "Kurasi Konten & Paket",
+        "deskripsi": "Agen lokal menyusun itinerary, kuota, dan harga paket wisata dengan alur kurasi Pokdarwis (draft → review → publikasi).",
+        "fiturRencana": [
+          "Editor paket dengan item itinerary",
+          "State machine status paket",
+          "Kuota & jadwal keberangkatan",
+          "Integrasi booking di Fase 2 (Dermaga)"
+        ]
+      },
+      "agen": {
+        "judul": "Agen Lokal",
+        "modulLabel": "Pasar Desa",
+        "deskripsi": "Direktori penyusun paket wisata dan pemandu bersertifikat di desa.",
+        "fiturRencana": [
+          "Profil agen & portofolio paket",
+          "Verifikasi peran oleh Pokdarwis",
+          "Kontak langsung ke wisatawan"
+        ]
+      },
+      "kontribusi": {
+        "judul": "Kontribusi Data",
+        "modulLabel": "Gamifikasi Kontribusi",
+        "deskripsi": "Warga dan wisatawan menyumbang foto, tips, atau koreksi data destinasi. Konten melalui antrian kurasi sebelum tampil publik.",
+        "fiturRencana": [
+          "Form kontribusi foto & koreksi",
+          "Antrian kurasi Pokdarwis",
+          "Poin & badge untuk kontributor"
+        ]
+      },
+      "lencana": {
+        "judul": "Lencana Warga",
+        "modulLabel": "Gamifikasi Kontribusi",
+        "deskripsi": "Badge tiga tingkat dan progres partisipasi komunitas di platform sigerciv.",
+        "fiturRencana": [
+          "Koleksi lencana per pengguna",
+          "Aturan poin otomatis & idempoten",
+          "Badge \"Warga Perintis\" untuk early adopter PWA"
+        ]
+      },
+      "leaderboard": {
+        "judul": "Leaderboard Kontributor",
+        "modulLabel": "Gamifikasi Kontribusi",
+        "deskripsi": "Peringkat kontributor data dan partisipasi regeneratif per desa.",
+        "fiturRencana": [
+          "Peringkat bulanan & sepanjang masa",
+          "Filter per kategori kontribusi"
+        ]
+      },
+      "peta": {
+        "judul": "Peta Destinasi",
+        "modulLabel": "Gerbang",
+        "deskripsi": "Peta interaktif seluruh spot publik desa. Sementara gunakan peta di etalase desa atau discovery multi-desa.",
+        "fiturRencana": [
+          "Peta full-screen per desa",
+          "Filter kategori & cluster marker",
+          "Integrasi geo radius \"dekat saya\""
+        ]
+      },
+      "kalender": {
+        "judul": "Kalender Aktivitas",
+        "modulLabel": "Destinasi sigerciv",
+        "deskripsi": "Jadwal event musiman — misalnya lumba-lumba pagi, festival, atau musim angin tertentu. Pengelola dapat mengatur kalender di dashboard.",
+        "fiturRencana": [
+          "Tampilan kalender publik",
+          "Event terkait destinasi",
+          "Sinkronisasi dengan data kelola/kalender"
+        ]
+      },
+      "misi": {
+        "judul": "Penjelajah Lestari",
+        "modulLabel": "Misi sigerciv",
+        "deskripsi": "Quest wisatawan: micro-lesson kode etik bahari, lalu aksi terverifikasi (tanam mangrove, bersih pantai, monitoring lumba-lumba).",
+        "fiturRencana": [
+          "Katalog misi per desa",
+          "Micro-lesson wajib sebelum quest",
+          "Verifikasi QR di Stasiun Lestari",
+          "Reward ke Paspor Lestari"
+        ]
+      },
+      "stasiun-lestari": {
+        "judul": "Stasiun Lestari",
+        "modulLabel": "Misi sigerciv",
+        "deskripsi": "Titik check-in QR di dermaga lumba-lumba, mangrove, dan spot konservasi — bukti kehadiran aksi regeneratif.",
+        "fiturRencana": [
+          "QR geotag per stasiun",
+          "Konfirmasi pemandu/Pokdarwis",
+          "Log verifikasi terhubung ke misi"
+        ]
+      },
+      "naik-kelas": {
+        "judul": "Naik Kelas Lestari",
+        "modulLabel": "Misi sigerciv",
+        "deskripsi": "Sertifikasi bertingkat owner UMKM/agen: Tunas → Bahari → Lumba-Lumba melalui kartu aksi regeneratif tervalidasi.",
+        "fiturRencana": [
+          "Dashboard progres owner",
+          "Tingkat & badge di listing Pasar Desa",
+          "Boost ranking untuk praktik lestari"
+        ]
+      },
+      "kartu-aksi": {
+        "judul": "Kartu Aksi",
+        "modulLabel": "Misi sigerciv",
+        "deskripsi": "Praktik konkret dengan bukti: tanpa plastik sekali pakai, bahan lokal, kelola limbah, sisihkan % ke dana konservasi.",
+        "fiturRencana": [
+          "Daftar kartu aksi per kategori",
+          "Pengajuan & verifikasi bukti",
+          "Modul edukasi \"kenapa ini penting\""
+        ]
+      },
+      "sertifikasi": {
+        "judul": "Tingkat Sertifikasi",
+        "modulLabel": "Misi sigerciv",
+        "deskripsi": "Ringkasan tingkat sertifikasi regeneratif yang dimiliki penyedia di desa.",
+        "fiturRencana": [
+          "Publik: badge di profil UMKM",
+          "Transparansi kartu tervalidasi"
+        ]
+      },
+      "dana-konservasi": {
+        "judul": "Dana Konservasi",
+        "modulLabel": "Jejak Lestari",
+        "deskripsi": "Akumulasi porsi reinvestment dari transaksi dan laporan penggunaan transparan untuk komunitas & perangkat desa.",
+        "fiturRencana": [
+          "Saldo & riwayat porsi reinvestment",
+          "Laporan penggunaan dana publik",
+          "Hook transaksi dari modul Dermaga (F2)"
+        ]
+      },
+      "neraca-regeneratif": {
+        "judul": "Neraca Regeneratif",
+        "modulLabel": "Jejak Lestari",
+        "deskripsi": "Skor gabungan dampak ekologi-sosial-ekonomi — KPI setara GMV untuk pariwisata regeneratif yang terukur.",
+        "fiturRencana": [
+          "Indikator ekologi, sosial, ekonomi",
+          "Feed dari monitoring warga & transaksi",
+          "Dashboard publik transparansi"
+        ]
+      },
+      "daya-dukung": {
+        "judul": "Daya Dukung Spot",
+        "modulLabel": "Jejak Lestari",
+        "deskripsi": "Kapasitas harian per spot vs kunjungan aktual — peringatan over-capacity untuk ekowisata bertanggung jawab.",
+        "fiturRencana": [
+          "Lampu hijau/kuning/merah per destinasi",
+          "Alarm saat mendekati batas kuota",
+          "Data daya_dukung_harian dari F0"
+        ]
+      },
+      "monitoring": {
+        "judul": "Monitoring Ekologi",
+        "modulLabel": "Jejak Lestari",
+        "deskripsi": "Form lapangan offline-first: survival mangrove, kesehatan karang, sampah terkumpul — diverifikasi warga & perangkat desa.",
+        "fiturRencana": [
+          "Entri data PWA tanpa sinyal",
+          "Sinkronisasi tertunda",
+          "Validasi klaim dampak (anti greenwashing)"
+        ]
+      },
+      "paspor": {
+        "judul": "Paspor Lestari",
+        "modulLabel": "Misi sigerciv",
+        "deskripsi": "Impact passport pribadi wisatawan — stempel misi, ringkasan dampak (\"kamu bantu tanam 5 mangrove\"), badge & sertifikat digital.",
+        "fiturRencana": [
+          "Koleksi stempel per misi selesai",
+          "Ringkasan dampak pribadi",
+          "Diskon dari UMKM bersertifikat",
+          "Perlu masuk akun wisatawan"
+        ]
+      }
+    }
+  },
+  "errors": {
+    "validasi_gagal": "Data tidak valid. Periksa kembali isian Anda.",
+    "belum_diverifikasi": "Akun belum diverifikasi. Periksa email Anda untuk kode verifikasi.",
+    "kredensial_salah": "Email atau kata sandi salah.",
+    "tidak_ditemukan": "Data tidak ditemukan.",
+    "tidak_diizinkan": "Anda tidak memiliki izin untuk tindakan ini.",
+    "tidak_terautentikasi": "Silakan masuk terlebih dahulu.",
+    "konflik": "Permintaan bentrok dengan data yang ada.",
+    "terlalu_banyak_permintaan": "Terlalu banyak permintaan. Coba lagi nanti.",
+    "kesalahan_server": "Terjadi kesalahan pada server. Coba lagi nanti.",
+    "jaringan": "Tidak dapat terhubung. Periksa koneksi Anda.",
+    "di_luar_geofence": "Anda harus berada di stasiun yang ditentukan (di luar radius geofence).",
+    "bukti_kurang": "Bukti verifikasi tidak memenuhi syarat — periksa QR, lokasi, atau foto.",
+    "default": "Terjadi kesalahan. Coba lagi."
+  },
+  "referensi": {
+    "kategori": {
+      "pantai": "Pantai",
+      "snorkeling": "Snorkeling",
+      "lumba-lumba": "Lumba-lumba",
+      "mangrove": "Mangrove",
+      "budaya": "Budaya",
+      "kuliner": "Kuliner"
+    },
+    "tingkat": {
+      "tunas": "Tunas",
+      "bahari": "Bahari",
+      "lumba_lumba": "Lumba-lumba"
+    },
+    "status": {
+      "draft": "Draft",
+      "publikasi": "Publikasi",
+      "arsip": "Arsip",
+      "review": "Menunggu kurasi",
+      "menunggu": "Menunggu",
+      "disetujui": "Disetujui",
+      "ditolak": "Ditolak",
+      "revisi": "Perlu revisi",
+      "tervalidasi": "Tervalidasi",
+      "aktif": "Aktif",
+      "nonaktif": "Nonaktif",
+      "menunggu_pembayaran": "Menunggu pembayaran",
+      "dibayar": "Dibayar",
+      "diproses": "Diproses",
+      "selesai": "Selesai",
+      "dibatalkan": "Dibatalkan",
+      "kedaluwarsa": "Kedaluwarsa",
+      "refund_diajukan": "Refund diajukan",
+      "diajukan": "Diajukan",
+      "belum_dibaca": "Belum dibaca",
+      "dibaca": "Dibaca"
+    },
+    "simpananTipe": {
+      "destinasi": "Destinasi",
+      "paket": "Paket wisata",
+      "misi": "Misi lestari"
+    }
+  }
+}

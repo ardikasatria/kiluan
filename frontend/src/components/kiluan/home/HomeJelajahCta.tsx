@@ -1,7 +1,10 @@
 import { ArrowRightIcon, GlobeAltIcon, MapIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
 
-export default function HomeJelajahCta() {
+export default async function HomeJelajahCta() {
+  const t = await getTranslations('landing.jelajahCta')
+
   return (
     <section className="border-t border-neutral-200/70 py-16 dark:border-neutral-800/70 sm:py-20">
       <div className="container">
@@ -10,20 +13,15 @@ export default function HomeJelajahCta() {
             <div className="p-8 sm:p-10 lg:p-12">
               <p className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-primary-400">
                 <GlobeAltIcon className="size-4" aria-hidden />
-                Lintas desa · Lampung
+                {t('eyebrow')}
               </p>
-              <h2 className="mt-2 text-2xl font-bold text-primary-800 sm:text-3xl dark:text-primary-100">
-                Jelajah desa wisata di seluruh Lampung
-              </h2>
-              <p className="mt-3 max-w-lg text-neutral-600 dark:text-neutral-400">
-                Peta interaktif, filter kategori, pencarian, dan jarak dari lokasi Anda — temukan destinasi
-                regeneratif dari desa ke desa.
-              </p>
+              <h2 className="mt-2 text-2xl font-bold text-primary-800 sm:text-3xl dark:text-primary-100">{t('title')}</h2>
+              <p className="mt-3 max-w-lg text-neutral-600 dark:text-neutral-400">{t('subtitle')}</p>
               <Link
                 href="/jelajah"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary-700 px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:bg-primary-600 focus-visible:ring-2 focus-visible:ring-kiluan-mint focus-visible:outline-none dark:bg-primary-600"
               >
-                Buka halaman Jelajah
+                {t('cta')}
                 <ArrowRightIcon className="size-4" aria-hidden />
               </Link>
             </div>

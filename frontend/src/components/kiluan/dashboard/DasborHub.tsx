@@ -10,6 +10,7 @@ import {
 } from '@/lib/kiluan/peran'
 import { konfigDasborPeran } from '@/lib/kiluan/dashboard-peran'
 import DashboardPhaseBadge from '@/components/kiluan/dashboard/DashboardPhaseBadge'
+import { Link } from '@/i18n/navigation'
 import {
   BuildingStorefrontIcon,
   GlobeAltIcon,
@@ -20,7 +21,7 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import type { ComponentType } from 'react'
 
 const IKON: Record<PeranKode, ComponentType<{ className?: string }>> = {
@@ -43,6 +44,9 @@ interface Props {
 
 export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, lintasDesa }: Props) {
   const { user } = useAuth()
+  const t = useTranslations('dasbor.hub')
+  const tInfo = useTranslations('dasbor.peranInfo')
+  const tPeran = useTranslations('peran')
   const peranSaya = daftarPeranPengguna(user?.profil ?? null)
   const configs = konfigDasborPeran(desaSlug)
 
@@ -50,15 +54,13 @@ export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, linta
     <div className="space-y-8">
       <div className="rounded-2xl border border-primary-200/60 bg-gradient-to-br from-kiluan-mint/15 via-white to-primary-50/50 p-6 dark:border-primary-800/40 dark:from-primary-950/40 dark:via-neutral-900/60 dark:to-kiluan-navy/20">
         <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          Halo, <strong className="text-neutral-900 dark:text-neutral-100">{user?.name}</strong>
+          {t('halo')} <strong className="text-neutral-900 dark:text-neutral-100">{user?.name}</strong>
         </p>
         <h2 className="mt-2 text-xl font-bold text-primary-800 dark:text-primary-100">
-          {lintasDesa ? 'Pilih peran dasbor Anda' : `Pilih konteks dasbor di ${profilNama}`}
+          {lintasDesa ? t('pilihPeran') : t('pilihKonteks', { desa: profilNama ?? desaSlug })}
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-neutral-600 dark:text-neutral-400">
-          {lintasDesa
-            ? 'Sigerciv menghubungkan desa wisata di Lampung. Wisatawan punya dasbor lintas desa; peran pengelola terikat desa keanggotaan Anda.'
-            : 'Setiap peran memiliki navigasi dan widget berbeda. Ganti peran lewat pemilih di dasbor peran desa.'}
+          {lintasDesa ? t('descLintas') : t('descDesa')}
         </p>
       </div>
 
@@ -71,6 +73,7 @@ export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, linta
             const punya = membership === 'aktif'
             const menunggu = membership === 'menunggu'
             const ditolak = membership === 'ditolak'
+            const revisi = membership === 'revisi'
             const Icon = IKON[k]
             const href = dasborHref(desaSlug, k)
 
@@ -83,7 +86,7 @@ export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, linta
                     'flex h-full flex-col rounded-2xl border p-5 transition',
                     punya
                       ? 'border-neutral-200 bg-white hover:border-kiluan-sea/50 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-800/60 dark:hover:border-primary-600'
-                      : menunggu || ditolak
+                      : menunggu || ditolak || revisi
                         ? 'border-amber-200 bg-amber-50/50 hover:border-amber-300 dark:border-amber-800/50 dark:bg-amber-950/20'
                         : 'cursor-not-allowed border-dashed border-neutral-300 bg-neutral-50/50 opacity-60 dark:border-neutral-600 dark:bg-neutral-900/20',
                   )}
@@ -94,29 +97,33 @@ export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, linta
                       <Icon className="size-6" aria-hidden />
                     </div>
                     <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] font-semibold text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400">
-                      Fase {cfg.fase}
+                      {t('fase', { fase: cfg.fase })}
                     </span>
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-primary-800 dark:text-primary-100">
-                    {labelPeran(k)}
+                    {labelPeran(k, tPeran)}
                   </h3>
-                  <p className="mt-1 text-xs font-medium text-primary-600 dark:text-primary-400">{cfg.tagline}</p>
-                  <p className="mt-2 flex-1 text-sm text-neutral-600 dark:text-neutral-400">{cfg.deskripsi}</p>
+                  <p className="mt-1 text-xs font-medium text-primary-600 dark:text-primary-400">
+                    {tInfo(`${k}.tagline`)}
+                  </p>
+                  <p className="mt-2 flex-1 text-sm text-neutral-600 dark:text-neutral-400">
+                    {tInfo(`${k}.deskripsi`)}
+                  </p>
                   {punya ? (
                     <span className="mt-4 text-sm font-semibold text-primary-700 dark:text-primary-300">
-                      Buka dasbor
+                      {t('bukaDasbor')}
                     </span>
                   ) : menunggu ? (
                     <span className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-amber-800 dark:text-amber-300">
                       <DashboardPhaseBadge compact />
-                      Menunggu persetujuan
+                      {t('menunggu')}
                     </span>
-                  ) : ditolak ? (
+                  ) : ditolak || revisi ? (
                     <span className="mt-4 text-xs font-medium text-red-700 dark:text-red-400">
-                      Keanggotaan ditolak
+                      {revisi ? t('revisi') : t('ditolak')}
                     </span>
                   ) : (
-                    <span className="mt-4 text-xs text-neutral-500">Peran belum diaktifkan</span>
+                    <span className="mt-4 text-xs text-neutral-500">{t('belumAktif')}</span>
                   )}
                 </Link>
               </li>
@@ -131,15 +138,15 @@ export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, linta
               <UserIcon className="size-5" aria-hidden />
             </div>
             <div>
-              <h3 className="font-semibold text-primary-800 dark:text-primary-100">Admin / Steward</h3>
+              <h3 className="font-semibold text-primary-800 dark:text-primary-100">{t('adminTitle')}</h3>
               <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                Dasbor lintas-tenant untuk moderasi, konfigurasi, dan provisioning desa.
+                {t('adminDesc')}
               </p>
               <Link
                 href="/admin/dasbor"
                 className="mt-3 inline-flex text-sm font-semibold text-primary-700 dark:text-primary-300"
               >
-                Buka dasbor admin
+                {t('bukaAdmin')}
               </Link>
             </div>
           </div>
@@ -147,7 +154,7 @@ export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, linta
       )}
 
       <p className="text-xs text-neutral-500 dark:text-neutral-400">
-        Perlu peran tambahan? Hubungi Pokdarwis atau perangkat desa untuk aktivasi keanggotaan.
+        {t('footerNote')}
       </p>
     </div>
   )

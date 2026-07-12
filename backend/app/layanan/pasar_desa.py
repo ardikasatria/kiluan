@@ -7,6 +7,7 @@ from uuid import UUID
 
 from app.domain import mesin_status
 from app.domain.enums import (
+    EntitasLampiran,
     JenisProduk,
     KodePeran,
     SatuanHarga,
@@ -21,6 +22,7 @@ from app.domain.paginasi import keyset
 from app.domain import entitas as E
 from app.domain.ranking_pasar import skor_ranking
 from app.layanan.lencana_warga import LencanaLayanan
+from app.layanan.media import MediaLayanan
 
 TINGKAT_RANK = {"lumba_lumba": 3, "bahari": 2, "tunas": 1}
 
@@ -275,6 +277,29 @@ class PasarDesaLayanan:
     async def _ambil_produk(self, desa_id: UUID, produk_id: UUID) -> E.ProdukJasa:
         return _hidup(await self.store.produk_jasa.ambil(produk_id), desa_id)
 
+    async def detail_produk(self, desa_id: UUID, produk_id: UUID, *, kelola: bool = False) -> dict:
+        produk = await self.store.produk_jasa.ambil(produk_id)
+        if kelola:
+            _hidup(produk, desa_id)
+        else:
+            if produk is None or produk.desa_id != desa_id or produk.dihapus_pada is not None:
+                raise TidakDitemukan("Resource tak ditemukan.")
+            if produk.status != "publikasi":
+                raise TidakDitemukan("Resource tak ditemukan.")
+            umkm = await self.store.umkm.ambil(produk.umkm_id)
+            if (
+                umkm is None
+                or umkm.dihapus_pada is not None
+                or umkm.status_verifikasi != "terverifikasi"
+            ):
+                raise TidakDitemukan("Resource tak ditemukan.")
+        umkm = await self.store.umkm.ambil(produk.umkm_id)
+        dto = self._produk_dto(produk, umkm)
+        dto["media"] = await MediaLayanan(self.store).daftar_entitas_publik(
+            EntitasLampiran.produk_jasa, produk.id,
+        )
+        return dto
+
     async def ubah_produk(
         self, konteks: Konteks, desa_id: UUID, produk_id: UUID, data: dict,
     ) -> E.ProdukJasa:
@@ -519,6 +544,21 @@ class PasarDesaLayanan:
         for field in ("hari", "urutan", "judul", "deskripsi", "durasi_menit"):
             if field in data and data[field] is not None:
                 setattr(item, field, data[field])
+        for field in ("destinasi_id", "layanan_id", "produk_jasa_id"):
+            if field in data:
+                setattr(item, field, data[field])
+        ref = item.destinasi_id or item.layanan_id or item.produk_jasa_id
+        if not ref and not item.judul:
+            raise KesalahanValidasi(
+                "Item harus punya minimal satu referensi atau judul.",
+                rincian=[{"field": "judul", "pesan": "referensi_atau_judul_wajib"}],
+            )
+        if ref:
+            await self._validasi_referensi_item(desa_id, {
+                "destinasi_id": item.destinasi_id,
+                "layanan_id": item.layanan_id,
+                "produk_jasa_id": item.produk_jasa_id,
+            })
         return await self.store.paket_item.simpan(item)
 
     async def hapus_item_paket(
@@ -569,14 +609,22 @@ class PasarDesaLayanan:
         paket = await self.ambil_paket_id_atau_slug(desa_id, id_atau_slug, kelola=kelola)
         items = await self.store.paket_item.daftar_paket(paket.id)
         ringkas = await self._paket_ringkas(paket)
+        media = await MediaLayanan(self.store).daftar_entitas_publik(
+            EntitasLampiran.paket_wisata, paket.id,
+        )
         return {
             **ringkas,
             "deskripsi": paket.deskripsi,
-            "item": [self._item_dto(i) for i in items],
+            "media": media,
+            "item": [await self._item_dto(i) for i in items],
         }
 
     async def _paket_ringkas(self, p: E.PaketWisata) -> dict:
         agen = await self.store.pengguna.ambil(p.agen_id)
+        media = await MediaLayanan(self.store).daftar_entitas_publik(
+            EntitasLampiran.paket_wisata, p.id,
+        )
+        media_utama = next((m for m in media if m.get("utama")), media[0] if media else None)
         return {
             "id": str(p.id),
             "slug": p.slug,
@@ -587,19 +635,31 @@ class PasarDesaLayanan:
             "satuan_harga": p.satuan_harga,
             "kuota_default": p.kuota_default,
             "status": p.status,
-            "media_utama": None,
+            "media_utama": media_utama,
         }
 
-    def _item_dto(self, i: E.PaketItem) -> dict:
+    async def _item_dto(self, i: E.PaketItem) -> dict:
+        destinasi = None
+        if i.destinasi_id:
+            d = await self.store.destinasi.ambil(i.destinasi_id)
+            destinasi = {"id": str(i.destinasi_id), "nama": d.nama if d else None}
+        layanan = None
+        if i.layanan_id:
+            l = await self.store.layanan.ambil(i.layanan_id)
+            layanan = {"id": str(i.layanan_id), "nama": l.nama if l else None}
+        produk_jasa = None
+        if i.produk_jasa_id:
+            p = await self.store.produk_jasa.ambil(i.produk_jasa_id)
+            produk_jasa = {"id": str(i.produk_jasa_id), "nama": p.nama if p else None}
         return {
             "id": str(i.id),
             "hari": i.hari,
             "urutan": i.urutan,
             "judul": i.judul,
             "deskripsi": i.deskripsi,
-            "destinasi": {"id": str(i.destinasi_id)} if i.destinasi_id else None,
-            "layanan": {"id": str(i.layanan_id)} if i.layanan_id else None,
-            "produk_jasa": {"id": str(i.produk_jasa_id)} if i.produk_jasa_id else None,
+            "destinasi": destinasi,
+            "layanan": layanan,
+            "produk_jasa": produk_jasa,
             "durasi_menit": i.durasi_menit,
         }
 

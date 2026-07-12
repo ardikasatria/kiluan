@@ -1,6 +1,9 @@
+'use client'
+
 import { SparklesIcon } from '@heroicons/react/24/outline'
+import { Link } from '@/i18n/navigation'
 import clsx from 'clsx'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   saldo: number
@@ -10,6 +13,8 @@ interface Props {
 }
 
 export default function PoinRingkas({ saldo, desaSlug, compact, className }: Props) {
+  const t = useTranslations('lencana')
+
   const inner = (
     <span
       className={clsx(
@@ -21,7 +26,7 @@ export default function PoinRingkas({ saldo, desaSlug, compact, className }: Pro
     >
       <SparklesIcon className={clsx(compact ? 'size-4' : 'size-5', 'text-kiluan-sea')} aria-hidden />
       <span>{saldo.toLocaleString('id-ID')}</span>
-      {!compact && <span className="font-normal text-neutral-500 dark:text-neutral-400">poin</span>}
+      {!compact && <span className="font-normal text-neutral-500 dark:text-neutral-400">{t('poin')}</span>}
     </span>
   )
 

@@ -3,6 +3,7 @@
 import 'leaflet/dist/leaflet.css'
 import type { Lokasi } from '@/lib/api/types'
 import L from 'leaflet'
+import { useTranslations } from 'next-intl'
 import { MapContainer, Marker, TileLayer } from 'react-leaflet'
 
 const icon = L.icon({
@@ -20,6 +21,8 @@ interface Props {
 }
 
 export default function SpotMapClient({ lokasi, nama, className }: Props) {
+  const t = useTranslations('spot.map')
+
   if (!lokasi) return null
 
   return (
@@ -33,7 +36,7 @@ export default function SpotMapClient({ lokasi, nama, className }: Props) {
         <TileLayer attribution="&copy; OpenStreetMap" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <Marker position={[lokasi.lat, lokasi.lng]} icon={icon} />
       </MapContainer>
-      <p className="px-4 py-2 text-sm text-neutral-600 dark:text-neutral-400">Lokasi: {nama}</p>
+      <p className="px-4 py-2 text-sm text-neutral-600 dark:text-neutral-400">{t('location', { nama })}</p>
     </div>
   )
 }

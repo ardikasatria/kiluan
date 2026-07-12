@@ -6,6 +6,7 @@ from .errors import TransisiIlegal
 TABEL = {
     "paket_wisata": {
         ("draft", "ajukan"): "review",
+        ("ditolak", "ajukan"): "review",
         ("review", "setuju"): "publikasi",
         ("review", "tolak"): "ditolak",
         ("review", "minta_revisi"): "draft",

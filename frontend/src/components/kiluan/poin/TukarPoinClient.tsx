@@ -5,8 +5,9 @@ import { getPoinSaya } from '@/lib/api/lencana'
 import type { HadiahDto } from '@/lib/api/types'
 import { kunciIdempotensi, hapusKunciIdempotensi } from '@/lib/kiluan/cart'
 import PoinRingkas from '@/components/kiluan/lencana/PoinRingkas'
+import { Link } from '@/i18n/navigation'
 import { GiftIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 
 interface Props {
@@ -14,18 +15,21 @@ interface Props {
   desaNama: string
 }
 
-function labelSyarat(syarat: Record<string, unknown>) {
-  const t = syarat.tingkat_min
-  if (typeof t === 'string') return `Butuh sertifikasi ${t.replace('_', ' ')}`
-  return null
-}
-
 export default function TukarPoinClient({ desaSlug, desaNama }: Props) {
+  const t = useTranslations('tukarPoin')
   const [saldo, setSaldo] = useState(0)
   const [hadiah, setHadiah] = useState<HadiahDto[]>([])
   const [loading, setLoading] = useState(true)
   const [galat, setGalat] = useState<string | null>(null)
   const [sukses, setSukses] = useState<string | null>(null)
+
+  function labelSyarat(syarat: Record<string, unknown>) {
+    const tingkat = syarat.tingkat_min
+    if (typeof tingkat === 'string') {
+      return t('syaratTingkat', { tingkat: tingkat.replace('_', ' ') })
+    }
+    return null
+  }
 
   const muat = useCallback(async () => {
     setLoading(true)
@@ -51,12 +55,12 @@ export default function TukarPoinClient({ desaSlug, desaNama }: Props) {
       hapusKunciIdempotensi(`tukar-${h.id}`)
       setSukses(
         res.kupon
-          ? `Berhasil! Kupon ${res.kupon.kode} ditambahkan ke dompet Anda.`
-          : 'Penukaran berhasil.',
+          ? t('suksesKupon', { kode: res.kupon.kode })
+          : t('sukses'),
       )
       await muat()
     } catch {
-      setGalat('Tukar gagal — cek saldo, stok, atau syarat tingkat.')
+      setGalat(t('error'))
     }
   }
 
@@ -65,11 +69,11 @@ export default function TukarPoinClient({ desaSlug, desaNama }: Props) {
       <div className="border-b border-neutral-200 bg-gradient-to-br from-kiluan-mint/25 to-white dark:from-primary-950 dark:to-neutral-950">
         <div className="container py-10">
           <p className="text-sm text-primary-600">{desaNama}</p>
-          <h1 className="mt-1 text-3xl font-bold text-primary-800 dark:text-primary-100">Tukar Poin</h1>
+          <h1 className="mt-1 text-3xl font-bold text-primary-800 dark:text-primary-100">{t('title')}</h1>
           <div className="mt-4 flex items-center gap-3">
             <PoinRingkas saldo={saldo} />
             <Link href={`/${desaSlug}/saya/lencana`} className="text-sm text-primary-600 hover:underline">
-              Riwayat poin
+              {t('riwayatPoin')}
             </Link>
           </div>
         </div>
@@ -77,7 +81,7 @@ export default function TukarPoinClient({ desaSlug, desaNama }: Props) {
 
       <div className="container py-10">
         {loading ? (
-          <p className="text-sm text-neutral-500">Memuat katalog…</p>
+          <p className="text-sm text-neutral-500">{t('loading')}</p>
         ) : (
           <>
             {galat && <p className="mb-4 text-sm text-red-600">{galat}</p>}
@@ -85,7 +89,7 @@ export default function TukarPoinClient({ desaSlug, desaNama }: Props) {
               <p className="mb-4 text-sm text-green-700 dark:text-green-400">
                 {sukses}{' '}
                 <Link href={`/${desaSlug}/kupon`} className="underline">
-                  Lihat dompet kupon
+                  {t('lihatDompet')}
                 </Link>
               </p>
             )}
@@ -105,11 +109,11 @@ export default function TukarPoinClient({ desaSlug, desaNama }: Props) {
                       <p className="mt-1 text-sm text-neutral-500">{h.deskripsi}</p>
                     )}
                     <p className="mt-3 font-bold text-kiluan-sea dark:text-kiluan-mint">
-                      {h.biaya_poin} poin
+                      {t('poin', { count: h.biaya_poin })}
                     </p>
                     {syarat && <p className="mt-1 text-xs text-amber-700">{syarat}</p>}
                     {h.stok !== null && (
-                      <p className="mt-1 text-xs text-neutral-500">Stok: {h.stok}</p>
+                      <p className="mt-1 text-xs text-neutral-500">{t('stok', { count: h.stok })}</p>
                     )}
                     <button
                       type="button"
@@ -117,7 +121,7 @@ export default function TukarPoinClient({ desaSlug, desaNama }: Props) {
                       onClick={() => void tukar(h)}
                       className="mt-4 rounded-full bg-primary-700 py-2.5 text-sm font-semibold text-white disabled:opacity-40 hover:bg-primary-800"
                     >
-                      Tukar
+                      {t('tukar')}
                     </button>
                   </article>
                 )

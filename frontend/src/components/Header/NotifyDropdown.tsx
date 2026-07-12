@@ -8,6 +8,7 @@ import {
 } from '@/lib/api/notifikasi'
 import type { NotifikasiItem } from '@/lib/api/types'
 import { formatWaktuRelatif, urlEntitasNotifikasi } from '@/lib/kiluan/notifikasi'
+import { Link, useRouter } from '@/i18n/navigation'
 import ButtonCircle from '@/shared/ButtonCircle'
 import {
   BanknotesIcon,
@@ -18,8 +19,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { CloseButton, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import clsx from 'clsx'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
 
 const POLL_MS = 60_000
@@ -42,6 +42,12 @@ const NotifyDropdown: FC<Props> = ({ className = '', desaSlug: desaProp }) => {
   const desaKonteks = useDesaSlug()
   const desaSlug = desaProp ?? desaKonteks
   const router = useRouter()
+  const locale = useLocale()
+  const t = useTranslations('nav.notifications')
+  const tWaktu = useTranslations('genta') as unknown as (
+    key: string,
+    values?: Record<string, string | number>,
+  ) => string
 
   const [belumDibaca, setBelumDibaca] = useState(0)
   const [item, setItem] = useState<NotifikasiItem[]>([])
@@ -109,7 +115,9 @@ const NotifyDropdown: FC<Props> = ({ className = '', desaSlug: desaProp }) => {
           color="light"
           plain
           onClick={bukaDropdown}
-          aria-label={`Notifikasi${belumDibaca ? `, ${belumDibaca} belum dibaca` : ''}`}
+          aria-label={
+            belumDibaca > 0 ? `${t('ariaLabel')}${t('unreadSuffix', { count: belumDibaca })}` : t('ariaLabel')
+          }
         >
               {belumDibaca > 0 && (
                 <span className="absolute -end-0.5 -top-0.5 flex min-w-[1.125rem] items-center justify-center rounded-full bg-primary-600 px-1 py-0.5 text-[10px] font-bold leading-none text-white ring-2 ring-white dark:ring-neutral-900">
@@ -126,19 +134,19 @@ const NotifyDropdown: FC<Props> = ({ className = '', desaSlug: desaProp }) => {
             >
               <div className="relative grid gap-1 bg-white p-4 dark:bg-neutral-800">
                 <div className="mb-2 flex items-center justify-between px-2">
-                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Genta</h3>
+                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">{t('title')}</h3>
                   <Link
                     href={`/${desaSlug}/notifikasi`}
                     className="text-xs font-medium text-primary-600 hover:underline dark:text-primary-400"
                   >
-                    Lihat semua
+                    {t('viewAll')}
                   </Link>
                 </div>
 
                 {memuat && item.length === 0 ? (
-                  <p className="px-3 py-6 text-center text-sm text-neutral-500">Memuat…</p>
+                  <p className="px-3 py-6 text-center text-sm text-neutral-500">{t('loading')}</p>
                 ) : item.length === 0 ? (
-                  <p className="px-3 py-6 text-center text-sm text-neutral-500">Belum ada notifikasi.</p>
+                  <p className="px-3 py-6 text-center text-sm text-neutral-500">{t('empty')}</p>
                 ) : (
                   item.map((n) => {
                     const Icon = ikonNotifikasi(n.tipe)
@@ -177,7 +185,9 @@ const NotifyDropdown: FC<Props> = ({ className = '', desaSlug: desaProp }) => {
                           <p className="mt-0.5 line-clamp-2 text-xs text-neutral-500 dark:text-neutral-400">
                             {n.isi}
                           </p>
-                          <p className="mt-1 text-xs text-neutral-400">{formatWaktuRelatif(n.dibuat_pada)}</p>
+                          <p className="mt-1 text-xs text-neutral-400">
+                            {formatWaktuRelatif(n.dibuat_pada, { t: tWaktu, locale })}
+                          </p>
                         </div>
                         {n.status === 'belum_dibaca' && (
                           <span className="absolute end-3 top-1/2 size-2 -translate-y-1/2 rounded-full bg-primary-500" />

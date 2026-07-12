@@ -2,6 +2,7 @@
 
 import { checkout, cekKupon, buatPembayaran } from '@/lib/api/dermaga'
 import { ApiError } from '@/lib/api/client'
+import { Link, useRouter } from '@/i18n/navigation'
 import {
   bacaKeranjang,
   hapusKunciIdempotensi,
@@ -11,9 +12,8 @@ import {
   type ItemKeranjang,
 } from '@/lib/kiluan/cart'
 import { formatHarga } from '@/lib/kiluan/pasar'
-import { ShoppingBagIcon, TrashIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { ShoppingBagIcon } from '@heroicons/react/24/outline'
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 interface Props {
@@ -22,6 +22,7 @@ interface Props {
 }
 
 export default function CheckoutClient({ desaSlug, desaNama }: Props) {
+  const t = useTranslations('checkout')
   const router = useRouter()
   const [item, setItem] = useState<ItemKeranjang[]>([])
   const [nama, setNama] = useState('')
@@ -53,14 +54,14 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
       setDiskon(r.diskon)
     } catch {
       setDiskon(0)
-      setGalat('Kupon tidak berlaku.')
+      setGalat(t('errors.kupon'))
     }
   }
 
   async function bayar() {
     if (!item.length) return
     if (!nama.trim()) {
-      setGalat('Nama kontak wajib diisi.')
+      setGalat(t('errors.nama'))
       return
     }
     setLoading(true)
@@ -93,7 +94,7 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
       const msg =
         e instanceof ApiError && e.body && typeof e.body === 'object' && 'galat' in (e.body as object)
           ? String((e.body as { galat?: { pesan?: string } }).galat?.pesan)
-          : 'Checkout gagal. Coba lagi.'
+          : t('errors.gagal')
       setGalat(msg)
     } finally {
       setLoading(false)
@@ -104,13 +105,13 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
     return (
       <div className="container py-16 text-center">
         <ShoppingBagIcon className="mx-auto size-12 text-neutral-300" />
-        <p className="mt-4 text-neutral-600 dark:text-neutral-400">Keranjang kosong.</p>
+        <p className="mt-4 text-neutral-600 dark:text-neutral-400">{t('empty')}</p>
         <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm">
           <Link href={`/${desaSlug}/paket`} className="font-medium text-primary-600 hover:underline">
-            Paket wisata
+            {t('linkPaket')}
           </Link>
           <Link href={`/${desaSlug}/pasar`} className="font-medium text-primary-600 hover:underline">
-            Pasar desa
+            {t('linkPasar')}
           </Link>
         </div>
       </div>
@@ -122,17 +123,15 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
       <div className="border-b border-neutral-200 bg-gradient-to-br from-primary-50 to-white dark:from-primary-950 dark:to-neutral-950">
         <div className="container py-10">
           <p className="text-sm text-primary-600 dark:text-primary-400">{desaNama}</p>
-          <h1 className="mt-1 text-3xl font-bold text-primary-800 dark:text-primary-100">Checkout</h1>
-          <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-            Pembayaran online-only · kuota slot ditahan sampai batas waktu.
-          </p>
+          <h1 className="mt-1 text-3xl font-bold text-primary-800 dark:text-primary-100">{t('title')}</h1>
+          <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{t('subtitle')}</p>
         </div>
       </div>
 
       <div className="container grid gap-8 py-10 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-6">
           <section className="rounded-2xl border border-neutral-200 p-6 dark:border-neutral-700">
-            <h2 className="font-semibold text-primary-800 dark:text-primary-100">Item pesanan</h2>
+            <h2 className="font-semibold text-primary-800 dark:text-primary-100">{t('items')}</h2>
             <ul className="mt-4 divide-y divide-neutral-100 dark:divide-neutral-800">
               {item.map((it) => (
                 <li key={`${it.item_id}-${it.slot_jadwal_id ?? ''}`} className="flex justify-between gap-4 py-3">
@@ -142,7 +141,7 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
                       {it.item_tipe.replace('_', ' ')} × {it.jumlah}
                       {it.tanggal_slot && ` · ${it.tanggal_slot}`}
                       {typeof it.metadata?.jumlah_orang === 'number' &&
-                        ` · ${it.metadata.jumlah_orang} orang`}
+                        ` · ${t('orang', { count: it.metadata.jumlah_orang })}`}
                     </p>
                   </div>
                   <p className="shrink-0 font-semibold">{formatHarga(it.harga * it.jumlah, 'per_paket')}</p>
@@ -152,22 +151,22 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
           </section>
 
           <section className="rounded-2xl border border-neutral-200 p-6 dark:border-neutral-700">
-            <h2 className="font-semibold text-primary-800 dark:text-primary-100">Kontak</h2>
+            <h2 className="font-semibold text-primary-800 dark:text-primary-100">{t('contact')}</h2>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               <input
-                placeholder="Nama *"
+                placeholder={t('placeholder.nama')}
                 value={nama}
                 onChange={(e) => setNama(e.target.value)}
                 className="rounded-xl border border-neutral-300 px-4 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-900"
               />
               <input
-                placeholder="Telepon / WhatsApp"
+                placeholder={t('placeholder.telepon')}
                 value={telepon}
                 onChange={(e) => setTelepon(e.target.value)}
                 className="rounded-xl border border-neutral-300 px-4 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-900"
               />
               <input
-                placeholder="Email"
+                placeholder={t('placeholder.email')}
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -186,17 +185,17 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
                       : 'bg-neutral-100 text-neutral-600 dark:bg-neutral-800'
                   }`}
                 >
-                  {m === 'ambil_ditempat' ? 'Ambil di tempat' : 'Kirim'}
+                  {t(`metode.${m}`)}
                 </button>
               ))}
             </div>
           </section>
 
           <section className="rounded-2xl border border-neutral-200 p-6 dark:border-neutral-700">
-            <h2 className="font-semibold text-primary-800 dark:text-primary-100">Kupon</h2>
+            <h2 className="font-semibold text-primary-800 dark:text-primary-100">{t('kupon')}</h2>
             <div className="mt-3 flex gap-2">
               <input
-                placeholder="Kode kupon"
+                placeholder={t('kuponPlaceholder')}
                 value={kuponKode}
                 onChange={(e) => setKuponKode(e.target.value)}
                 className="flex-1 rounded-xl border border-neutral-300 px-4 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-900"
@@ -206,27 +205,27 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
                 onClick={() => void pratinjauKupon()}
                 className="rounded-xl border border-primary-300 px-4 py-2.5 text-sm font-medium text-primary-700"
               >
-                Cek
+                {t('cekKupon')}
               </button>
             </div>
           </section>
         </div>
 
         <aside className="h-fit rounded-2xl border border-neutral-200 p-6 dark:border-neutral-700">
-          <h2 className="font-semibold">Ringkasan</h2>
+          <h2 className="font-semibold">{t('ringkasan')}</h2>
           <dl className="mt-4 space-y-2 text-sm">
             <div className="flex justify-between">
-              <dt>Subtotal</dt>
+              <dt>{t('subtotal')}</dt>
               <dd>{formatHarga(subtotal, 'per_paket')}</dd>
             </div>
             {diskon > 0 && (
               <div className="flex justify-between text-kiluan-sea">
-                <dt>Diskon</dt>
+                <dt>{t('diskon')}</dt>
                 <dd>−{formatHarga(diskon, 'per_paket')}</dd>
               </div>
             )}
             <div className="flex justify-between border-t border-neutral-200 pt-2 text-base font-bold dark:border-neutral-700">
-              <dt>Total</dt>
+              <dt>{t('total')}</dt>
               <dd>{formatHarga(total, 'per_paket')}</dd>
             </div>
           </dl>
@@ -237,11 +236,9 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
             onClick={() => void bayar()}
             className="mt-6 w-full rounded-full bg-primary-700 py-3 text-sm font-semibold text-white hover:bg-primary-800 disabled:opacity-50"
           >
-            {loading ? 'Memproses…' : 'Buat pesanan & lanjut bayar'}
+            {loading ? t('memproses') : t('bayar')}
           </button>
-          <p className="mt-3 text-center text-xs text-neutral-500">
-            Status lunas hanya berubah setelah verifikasi bendahara.
-          </p>
+          <p className="mt-3 text-center text-xs text-neutral-500">{t('note')}</p>
         </aside>
       </div>
     </div>

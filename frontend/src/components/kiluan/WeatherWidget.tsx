@@ -3,6 +3,7 @@
 import type { CuacaResponse } from '@/lib/api/types'
 import { CloudIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { useLocale, useTranslations } from 'next-intl'
 import { WaveIcon, WindIcon } from './icons/WeatherIcons'
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 }
 
 function KartuKeselamatan({ cuaca }: { cuaca: CuacaResponse }) {
+  const t = useTranslations('weather.maritime')
   const maritim = cuaca.maritim
   const takTersedia = !maritim || maritim.status === 'tak_tersedia'
   const data = maritim?.perairan as Record<string, string> | undefined
@@ -41,19 +43,17 @@ function KartuKeselamatan({ cuaca }: { cuaca: CuacaResponse }) {
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-xs font-semibold tracking-wide text-primary-700 uppercase dark:text-primary-300">
-            Keselamatan Bahari
+            {t('title')}
           </p>
           {takTersedia ? (
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-              Data maritim sementara tidak tersedia. Periksa kondisi laut langsung dengan nelayan setempat.
-            </p>
+            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{t('unavailable')}</p>
           ) : (
             <div className="mt-2 space-y-1.5 text-sm text-primary-900 dark:text-primary-100">
               {data?.tinggi_gelombang && (
                 <p className="flex items-center gap-2">
                   <WaveIcon className="text-primary-600 dark:text-primary-400" />
                   <span>
-                    Gelombang: <strong>{data.tinggi_gelombang}</strong>
+                    {t('wave', { value: data.tinggi_gelombang })}
                   </span>
                 </p>
               )}
@@ -61,7 +61,7 @@ function KartuKeselamatan({ cuaca }: { cuaca: CuacaResponse }) {
                 <p className="flex items-center gap-2">
                   <WindIcon className="text-primary-600 dark:text-primary-400" />
                   <span>
-                    Angin: <strong>{data.angin}</strong>
+                    {t('wind', { value: data.angin })}
                   </span>
                 </p>
               )}
@@ -72,9 +72,7 @@ function KartuKeselamatan({ cuaca }: { cuaca: CuacaResponse }) {
           )}
         </div>
       </div>
-      <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-500">
-        Advisori keselamatan — bukan jaminan kondisi aman. Keputusan berlayar tetap pada kapten & nelayan setempat.
-      </p>
+      <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-500">{t('disclaimer')}</p>
     </div>
   )
 }
@@ -97,6 +95,7 @@ function slotDaratPertama(prakiraan: unknown): Record<string, unknown> | null {
 }
 
 function KartuDarat({ cuaca }: { cuaca: CuacaResponse }) {
+  const t = useTranslations('weather.land')
   const darat = cuaca.darat
   const takTersedia = darat.status === 'tak_tersedia'
   const item = slotDaratPertama(darat.prakiraan)
@@ -105,27 +104,27 @@ function KartuDarat({ cuaca }: { cuaca: CuacaResponse }) {
     <div className="rounded-2xl border border-neutral-200 bg-white p-4 sm:p-5 dark:border-neutral-700 dark:bg-neutral-800/60">
       <div className="flex items-center gap-2">
         <CloudIcon className="size-5 text-neutral-500 dark:text-neutral-400" aria-hidden />
-        <p className="text-sm font-medium text-neutral-800 dark:text-neutral-200">Cuaca Darat</p>
+        <p className="text-sm font-medium text-neutral-800 dark:text-neutral-200">{t('title')}</p>
       </div>
       {takTersedia || !item ? (
-        <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Data cuaca darat belum tersedia.</p>
+        <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">{t('unavailable')}</p>
       ) : (
         <dl className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
           {item.t != null && (
             <div>
-              <dt className="text-neutral-500 dark:text-neutral-400">Suhu</dt>
+              <dt className="text-neutral-500 dark:text-neutral-400">{t('temp')}</dt>
               <dd className="font-semibold text-neutral-900 dark:text-neutral-100">{String(item.t)}°C</dd>
             </div>
           )}
           {item.hu != null && (
             <div>
-              <dt className="text-neutral-500 dark:text-neutral-400">Kelembapan</dt>
+              <dt className="text-neutral-500 dark:text-neutral-400">{t('humidity')}</dt>
               <dd className="font-semibold text-neutral-900 dark:text-neutral-100">{String(item.hu)}%</dd>
             </div>
           )}
           {item.weather_desc != null && (
             <div className="col-span-2 sm:col-span-1">
-              <dt className="text-neutral-500 dark:text-neutral-400">Kondisi</dt>
+              <dt className="text-neutral-500 dark:text-neutral-400">{t('condition')}</dt>
               <dd className="font-semibold text-neutral-900 dark:text-neutral-100">{String(item.weather_desc)}</dd>
             </div>
           )}
@@ -136,15 +135,21 @@ function KartuDarat({ cuaca }: { cuaca: CuacaResponse }) {
 }
 
 export default function WeatherWidget({ cuaca, className }: Props) {
+  const t = useTranslations('weather')
+  const locale = useLocale()
+  const localeTag = locale === 'en' ? 'en-US' : 'id-ID'
+
   if (!cuaca) return null
 
   return (
-    <section className={clsx('space-y-3', className)} aria-label="Informasi cuaca BMKG">
+    <section className={clsx('space-y-3', className)} aria-label={t('sectionLabel')}>
       <KartuKeselamatan cuaca={cuaca} />
       <KartuDarat cuaca={cuaca} />
       <p className="text-center text-xs text-neutral-500 dark:text-neutral-500">
-        Sumber: BMKG
-        {cuaca.diperbarui ? ` · diperbarui ${new Date(cuaca.diperbarui).toLocaleString('id-ID')}` : ''}
+        {t('source')}
+        {cuaca.diperbarui
+          ? t('updated', { date: new Date(cuaca.diperbarui).toLocaleString(localeTag) })
+          : ''}
       </p>
     </section>
   )

@@ -10,8 +10,9 @@ import {
   type MasukPayload,
   type ProfilSaya,
 } from '@/lib/api/auth'
-import { pesanGalat } from '@/lib/api/galat'
+import { labelPeran, type PeranKode } from '@/lib/kiluan/peran'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 export interface AuthUser {
@@ -40,32 +41,37 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
-function labelPeran(profil: ProfilSaya): string {
+function labelPeranProfil(profil: ProfilSaya, tPeran: (key: PeranKode | 'anggota') => string): string {
   const aktif = profil.keanggotaan.filter((k) => k.status === 'aktif')
   const pengelola = aktif.find((k) => ['pokdarwis', 'perangkat_desa', 'admin'].includes(k.peran))
-  if (pengelola) return pengelola.peran.replace('_', ' ')
+  if (pengelola) return labelPeran(pengelola.peran as PeranKode, tPeran)
   const wis = aktif.find((k) => k.peran === 'wisatawan')
-  return wis ? 'Wisatawan' : 'Anggota'
+  if (wis) return labelPeran('wisatawan', tPeran)
+  return tPeran('anggota')
 }
 
-function profilKeUser(profil: ProfilSaya): AuthUser {
+function profilKeUser(profil: ProfilSaya, tPeran: (key: PeranKode | 'anggota') => string): AuthUser {
   return {
     id: profil.id,
     name: profil.nama,
     email: profil.email,
     avatar: profil.avatar_url ?? null,
-    role: labelPeran(profil),
+    role: labelPeranProfil(profil, tPeran),
     profil,
   }
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter()
-  const [user, setUser] = useState<AuthUser | null>(null)
+  const tAuth = useTranslations('auth.errors')
+  const tPeran = useTranslations('peran') as unknown as (key: PeranKode | 'anggota') => string
+  const [profil, setProfil] = useState<ProfilSaya | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const applyProfil = useCallback((profil: ProfilSaya | null) => {
-    setUser(profil ? profilKeUser(profil) : null)
+  const user = profil ? profilKeUser(profil, tPeran) : null
+
+  const applyProfil = useCallback((next: ProfilSaya | null) => {
+    setProfil(next)
   }, [])
 
   useEffect(() => {
@@ -76,10 +82,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const masuk = useCallback(async (payload: MasukPayload) => {
     await apiMasuk(payload)
-    const profil = await bootstrapSesi()
-    if (!profil) throw new Error('Gagal memuat profil setelah masuk')
-    applyProfil(profil)
-  }, [applyProfil])
+    const loaded = await bootstrapSesi()
+    if (!loaded) throw new Error(tAuth('profileLoadFailed'))
+    applyProfil(loaded)
+  }, [applyProfil, tAuth])
 
   const daftar = useCallback(async (payload: DaftarPayload) => {
     const res = await apiDaftar(payload)
@@ -93,8 +99,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [applyProfil, router])
 
   const refreshProfil = useCallback(async () => {
-    const profil = await bootstrapSesi()
-    applyProfil(profil)
+    const loaded = await bootstrapSesi()
+    applyProfil(loaded)
   }, [applyProfil])
 
   return (
@@ -132,5 +138,3 @@ export const MockAuthProvider = AuthProvider
 export function useMockAuth() {
   return useAuth()
 }
-
-export { pesanGalat }

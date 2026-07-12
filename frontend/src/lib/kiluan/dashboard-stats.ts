@@ -1,4 +1,6 @@
-import { cariDestinasiKelola, getKalenderDesa, getLayananDesa } from '@/lib/api/destinasi'
+import { cariDestinasiKelola } from '@/lib/api/destinasi'
+import { getKalenderDesa } from '@/lib/api/kalender'
+import { getLayananDesa } from '@/lib/api/layanan'
 import { getAntreanKurasi, getKontribusiSaya } from '@/lib/api/kontribusi'
 import { getDaftarPaket, getDaftarUmkm, getProdukKelola, getUmkmKelola } from '@/lib/api/pasar'
 import type { PeranKode } from './peran'

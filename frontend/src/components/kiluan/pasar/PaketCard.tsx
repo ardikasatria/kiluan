@@ -1,7 +1,10 @@
+'use client'
+
 import SimpanTombol from '@/components/kiluan/simpanan/SimpanTombol'
+import { Link } from '@/i18n/navigation'
 import { formatHarga } from '@/lib/kiluan/pasar'
 import type { PaketRingkas } from '@/lib/api/types'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   paket: PaketRingkas
@@ -9,6 +12,7 @@ interface Props {
 }
 
 export default function PaketCard({ paket, desaSlug }: Props) {
+  const t = useTranslations('paket.card')
   const href = `/${desaSlug}/paket/${paket.slug || paket.id}`
 
   return (
@@ -24,7 +28,7 @@ export default function PaketCard({ paket, desaSlug }: Props) {
       <p className="text-xs font-medium text-primary-600 dark:text-primary-400">{paket.agen.nama}</p>
       <h3 className="mt-1 font-semibold text-primary-800 dark:text-primary-100">{paket.nama}</h3>
       <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-        {paket.durasi_jam} jam · kuota default {paket.kuota_default} orang
+        {t('duration', { jam: paket.durasi_jam, kuota: paket.kuota_default })}
       </p>
       <p className="mt-4 text-lg font-bold text-kiluan-sea dark:text-kiluan-mint">
         {formatHarga(paket.harga, paket.satuan_harga)}
@@ -33,7 +37,7 @@ export default function PaketCard({ paket, desaSlug }: Props) {
         href={href}
         className="mt-4 inline-flex justify-center rounded-full bg-primary-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-800"
       >
-        Pilih jadwal & pesan
+        {t('ctaDetail')}
       </Link>
     </article>
   )

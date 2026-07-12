@@ -34,6 +34,7 @@ class StatusKeanggotaan(str, Enum):
     aktif = "aktif"
     menunggu = "menunggu"
     ditolak = "ditolak"
+    revisi = "revisi"
     nonaktif = "nonaktif"
 
 

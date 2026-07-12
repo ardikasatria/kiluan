@@ -4,7 +4,8 @@ import {
   ChartBarIcon,
   CubeTransparentIcon,
 } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 import DashboardPhaseBadge from './DashboardPhaseBadge'
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function DashboardWidgetGrid({ widgets }: Props) {
+  const t = useTranslations('dasbor.view')
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       {widgets.map((w) => (
@@ -27,7 +29,7 @@ export default function DashboardWidgetGrid({ widgets }: Props) {
               <DashboardPhaseBadge fase={w.fase} compact />
             ) : (
               <span className="rounded-full bg-kiluan-mint/25 px-2 py-0.5 text-[10px] font-semibold text-primary-800 dark:bg-primary-900/50 dark:text-kiluan-mint">
-                Fase {w.fase}
+                {t('fase', { fase: w.fase })}
               </span>
             )}
           </div>
@@ -38,14 +40,14 @@ export default function DashboardWidgetGrid({ widgets }: Props) {
           {w.placeholder ? (
             <div className="mt-4 flex items-center gap-2 rounded-xl border border-dashed border-neutral-300 bg-neutral-50 px-3 py-2.5 text-xs text-neutral-500 dark:border-neutral-600 dark:bg-neutral-900/40 dark:text-neutral-400">
               <ChartBarIcon className="size-4 shrink-0" aria-hidden />
-              Data terverifikasi menyusul — tanpa angka dummy
+              {t('placeholderData')}
             </div>
           ) : w.href ? (
             <Link
               href={w.href}
               className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary-700 hover:text-primary-600 dark:text-primary-300"
             >
-              {w.segera ? 'Lihat rencana' : 'Buka'}
+              {w.segera ? t('lihatRencana') : t('buka')}
               <ArrowRightIcon className="size-4" aria-hidden />
             </Link>
           ) : null}

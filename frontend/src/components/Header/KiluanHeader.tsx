@@ -1,4 +1,5 @@
 import { getNavigation } from '@/data/navigation'
+import LocaleSwitcher from '@/components/kiluan/LocaleSwitcher'
 import PwaInstallButton from '@/components/kiluan/PwaInstallButton'
 import Logo from '@/shared/Logo'
 import clsx from 'clsx'
@@ -56,6 +57,7 @@ const KiluanHeader: FC<Props> = async ({ bottomBorder, className, variant = 'def
         </div>
 
         <div className="ms-auto flex shrink-0 items-center justify-end gap-x-1 lg:ms-0">
+          <LocaleSwitcher className="hidden sm:inline-flex" />
           <PwaInstallButton variant="header" />
           <div className="flex lg:hidden">
             <KiluanSearchModal type="icon" />

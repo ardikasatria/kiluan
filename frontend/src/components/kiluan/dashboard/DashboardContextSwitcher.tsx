@@ -6,6 +6,7 @@ import { BuildingOffice2Icon, ChevronDownIcon } from '@heroicons/react/24/outlin
 import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 interface Props {
@@ -19,6 +20,8 @@ export default function DashboardContextSwitcher({ desaSlug, desaNama, peranAkti
   const { user } = useAuth()
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const t = useTranslations('dasbor.switcher')
+  const tPeran = useTranslations('peran')
   const peran = daftarPeranPengguna(user?.profil ?? null).filter((p) =>
     peranAktif === 'admin' ? true : p !== 'admin',
   )
@@ -37,10 +40,10 @@ export default function DashboardContextSwitcher({ desaSlug, desaNama, peranAkti
         <BuildingOffice2Icon className="size-5 shrink-0 text-primary-600 dark:text-primary-400" aria-hidden />
         <span className="min-w-0 flex-1">
           <span className="block truncate font-semibold text-primary-800 dark:text-primary-100">
-            {isAdmin ? 'Lintas desa' : desaNama}
+            {isAdmin ? t('lintasDesa') : desaNama}
           </span>
           <span className="block truncate text-xs text-neutral-500 dark:text-neutral-400">
-            {labelPeran(peranAktif)}
+            {labelPeran(peranAktif, tPeran)}
           </span>
         </span>
         <ChevronDownIcon className={clsx('size-4 shrink-0 text-neutral-400 transition', open && 'rotate-180')} />
@@ -51,7 +54,7 @@ export default function DashboardContextSwitcher({ desaSlug, desaNama, peranAkti
           <button
             type="button"
             className="fixed inset-0 z-30"
-            aria-label="Tutup pemilih konteks"
+            aria-label={t('tutupPemilih')}
             onClick={() => setOpen(false)}
           />
           <div
@@ -59,7 +62,7 @@ export default function DashboardContextSwitcher({ desaSlug, desaNama, peranAkti
             className="absolute top-full right-0 left-0 z-40 mt-1 rounded-xl border border-neutral-200 bg-white py-1 shadow-lg dark:border-neutral-700 dark:bg-neutral-900"
           >
             {!isAdmin && (
-              <p className="px-3 py-2 text-xs font-medium tracking-wide text-neutral-500 uppercase">Desa aktif</p>
+              <p className="px-3 py-2 text-xs font-medium tracking-wide text-neutral-500 uppercase">{t('desaAktif')}</p>
             )}
             {!isAdmin && (
               <div className="px-3 pb-2 text-sm font-medium text-primary-800 dark:text-primary-100">{desaNama}</div>
@@ -70,7 +73,7 @@ export default function DashboardContextSwitcher({ desaSlug, desaNama, peranAkti
                 onClick={() => setOpen(false)}
                 className="block px-3 py-2 text-sm font-medium text-primary-800 hover:bg-neutral-50 dark:text-primary-100 dark:hover:bg-neutral-800"
               >
-                Steward platform
+                {t('stewardPlatform')}
               </Link>
             )}
             {isAdmin && (
@@ -79,13 +82,13 @@ export default function DashboardContextSwitcher({ desaSlug, desaNama, peranAkti
                 onClick={() => setOpen(false)}
                 className="block px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800"
               >
-                Desa mitra pilot
+                {t('desaMitraPilot')}
               </Link>
             )}
             {peran.length > 1 && (
               <>
                 <p className="mt-1 border-t border-neutral-100 px-3 py-2 text-xs font-medium tracking-wide text-neutral-500 uppercase dark:border-neutral-800">
-                  Ganti peran
+                  {t('gantiPeran')}
                 </p>
                 {peran.map((k) => {
                   const href = dasborHref(desaSlug, k)
@@ -104,7 +107,7 @@ export default function DashboardContextSwitcher({ desaSlug, desaNama, peranAkti
                           : 'text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800',
                       )}
                     >
-                      {labelPeran(k)}
+                      {labelPeran(k, tPeran)}
                     </Link>
                   )
                 })}
@@ -116,7 +119,7 @@ export default function DashboardContextSwitcher({ desaSlug, desaNama, peranAkti
                 onClick={() => setOpen(false)}
                 className="block border-t border-neutral-100 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 dark:border-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-800"
               >
-                Admin / Steward
+                {t('adminSteward')}
               </Link>
             )}
           </div>

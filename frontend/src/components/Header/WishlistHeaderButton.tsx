@@ -1,11 +1,12 @@
 'use client'
 
-import { RUTE_WISATAWAN } from '@/lib/kiluan/rute-sigerciv'
+import { Link, usePathname } from '@/i18n/navigation'
+import { ruteWisatawan } from '@/lib/kiluan/rute-sigerciv'
+import type { Locale } from '@/i18n/routing'
 import { HeartIcon } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 
 interface Props {
   className?: string
@@ -13,14 +14,16 @@ interface Props {
 
 export default function WishlistHeaderButton({ className }: Props) {
   const pathname = usePathname()
-  const href = RUTE_WISATAWAN.wishlist
-  const aktif = pathname.startsWith(href)
+  const locale = useLocale() as Locale
+  const t = useTranslations('nav.userMenu')
+  const href = ruteWisatawan(locale).wishlist
+  const aktif = pathname.startsWith('/saya/wishlist')
 
   return (
     <Link
       href={href}
-      aria-label="Wishlist saya"
-      title="Wishlist saya"
+      aria-label={t('wishlist')}
+      title={t('wishlist')}
       className={clsx(
         'relative inline-flex size-10 items-center justify-center rounded-full transition hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none md:size-11 dark:hover:bg-neutral-800',
         aktif && 'bg-primary-50 dark:bg-primary-900/40',

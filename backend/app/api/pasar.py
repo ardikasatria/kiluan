@@ -117,6 +117,9 @@ class ItemUbah(BaseModel):
     judul: str | None = None
     deskripsi: str | None = None
     durasi_menit: int | None = None
+    destinasi_id: UUID | None = None
+    layanan_id: UUID | None = None
+    produk_jasa_id: UUID | None = None
 
 
 # --- UMKM ---
@@ -242,6 +245,16 @@ async def daftar_produk(
         kelola=kelola,
         status=status,
     )
+
+
+@router.get("/produk/{produk_id}")
+async def detail_produk(
+    produk_id: UUID,
+    desa_id: UUID = Depends(resolusi_desa),
+    kelola: bool = False,
+    svc: PasarDesaLayanan = Depends(_svc),
+):
+    return await svc.detail_produk(desa_id, produk_id, kelola=kelola)
 
 
 @router.post("/produk", status_code=201)
@@ -399,7 +412,7 @@ async def tambah_item(
 ):
     konteks = await bangun_konteks(store, pengguna_id)
     item = await svc.tambah_item_paket(konteks, desa_id, paket_id, req.model_dump())
-    return svc._item_dto(item)
+    return await svc._item_dto(item)
 
 
 @router.patch("/paket/{paket_id}/item/{item_id}")
@@ -416,7 +429,7 @@ async def ubah_item(
     item = await svc.ubah_item_paket(
         konteks, desa_id, paket_id, item_id, req.model_dump(exclude_unset=True),
     )
-    return svc._item_dto(item)
+    return await svc._item_dto(item)
 
 
 @router.delete("/paket/{paket_id}/item/{item_id}", status_code=204)

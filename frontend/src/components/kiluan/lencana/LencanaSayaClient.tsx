@@ -9,6 +9,7 @@ import {
 } from '@/lib/api/lencana'
 import type { BadgeItem, TransaksiPoinItem } from '@/lib/api/types'
 import { deskripsiSyaratBadge, formatTanggal, labelAksiPoin } from '@/lib/kiluan/lencana'
+import { Link } from '@/i18n/navigation'
 import {
   ArrowLeftIcon,
   ArrowPathIcon,
@@ -16,7 +17,7 @@ import {
   TrophyIcon,
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import Link from 'next/link'
+import { useLocale, useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 
 interface Props {
@@ -25,6 +26,9 @@ interface Props {
 }
 
 export default function LencanaSayaClient({ desaSlug, desaNama }: Props) {
+  const t = useTranslations('lencana')
+  const locale = useLocale()
+  const tLib = t as unknown as (key: string, values?: Record<string, string | number>) => string
   const [saldo, setSaldo] = useState(0)
   const [riwayat, setRiwayat] = useState<TransaksiPoinItem[]>([])
   const [katalog, setKatalog] = useState<BadgeItem[]>([])
@@ -51,11 +55,11 @@ export default function LencanaSayaClient({ desaSlug, desaNama }: Props) {
       setKatalog(badgeKatalog)
       setMilikIds(new Set(badgeMilik.map((b) => b.id)))
     } catch {
-      setError('Gagal memuat data lencana. Coba lagi.')
+      setError(t('error'))
     } finally {
       setLoading(false)
     }
-  }, [desaSlug])
+  }, [desaSlug, t])
 
   useEffect(() => {
     void muatAwal()
@@ -77,7 +81,7 @@ export default function LencanaSayaClient({ desaSlug, desaNama }: Props) {
   if (loading) {
     return (
       <div className="py-16 text-center text-sm text-neutral-500 dark:text-neutral-400">
-        Memuat lencana…
+        {t('loading')}
       </div>
     )
   }
@@ -91,18 +95,16 @@ export default function LencanaSayaClient({ desaSlug, desaNama }: Props) {
             className="inline-flex items-center gap-2 text-sm font-medium text-primary-100 hover:text-white"
           >
             <ArrowLeftIcon className="size-4" aria-hidden />
-            Dasbor
+            {t('backDashboard')}
           </Link>
           <div className="mt-6 flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="text-sm font-medium text-primary-100/90">{desaNama}</p>
-              <h1 className="mt-1 text-3xl font-bold tracking-tight">Lencana Warga</h1>
-              <p className="mt-2 max-w-lg text-sm text-primary-50/90">
-                Poin dan badge dari kontribusi, produk, dan partisipasi regeneratif di desa ini.
-              </p>
+              <h1 className="mt-1 text-3xl font-bold tracking-tight">{t('title')}</h1>
+              <p className="mt-2 max-w-lg text-sm text-primary-50/90">{t('subtitle')}</p>
             </div>
             <div className="rounded-2xl bg-white/10 px-6 py-4 ring-1 ring-white/20 backdrop-blur-sm">
-              <p className="text-xs font-medium tracking-wide text-primary-100 uppercase">Saldo poin</p>
+              <p className="text-xs font-medium tracking-wide text-primary-100 uppercase">{t('saldoPoin')}</p>
               <p className="mt-1 text-3xl font-bold text-white">{saldo.toLocaleString('id-ID')}</p>
             </div>
           </div>
@@ -114,20 +116,20 @@ export default function LencanaSayaClient({ desaSlug, desaNama }: Props) {
           <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200">
             {error}
             <button type="button" onClick={() => void muatAwal()} className="ml-2 font-semibold underline">
-              Coba lagi
+              {t('retry')}
             </button>
           </div>
         )}
 
         <section>
           <div className="flex items-center justify-between gap-4">
-            <h2 className="text-lg font-semibold text-primary-800 dark:text-primary-100">Koleksi badge</h2>
+            <h2 className="text-lg font-semibold text-primary-800 dark:text-primary-100">{t('koleksiBadge')}</h2>
             <Link
               href={`/${desaSlug}/leaderboard`}
               className="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400"
             >
               <TrophyIcon className="size-4" aria-hidden />
-              Leaderboard
+              {t('leaderboard')}
             </Link>
           </div>
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -148,7 +150,7 @@ export default function LencanaSayaClient({ desaSlug, desaNama }: Props) {
                       {badge.ikon ?? '🏅'}
                     </span>
                     {!dimiliki && (
-                      <LockClosedIcon className="size-5 shrink-0 text-neutral-400" aria-label="Terkunci" />
+                      <LockClosedIcon className="size-5 shrink-0 text-neutral-400" aria-label={t('terkunci')} />
                     )}
                   </div>
                   <div className="mt-3">
@@ -163,7 +165,9 @@ export default function LencanaSayaClient({ desaSlug, desaNama }: Props) {
                       <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{badge.deskripsi}</p>
                     )}
                     <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-500">
-                      {dimiliki ? 'Diperoleh' : `Syarat: ${deskripsiSyaratBadge(badge.syarat)}`}
+                      {dimiliki
+                        ? t('diperoleh')
+                        : t('syarat', { syarat: deskripsiSyaratBadge(badge.syarat, tLib) })}
                     </p>
                   </div>
                 </div>
@@ -173,11 +177,9 @@ export default function LencanaSayaClient({ desaSlug, desaNama }: Props) {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-lg font-semibold text-primary-800 dark:text-primary-100">Riwayat poin</h2>
+          <h2 className="text-lg font-semibold text-primary-800 dark:text-primary-100">{t('riwayatPoin')}</h2>
           {riwayat.length === 0 ? (
-            <p className="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
-              Belum ada transaksi poin. Kontribusi data atau daftarkan produk untuk mulai mengumpulkan poin.
-            </p>
+            <p className="mt-4 text-sm text-neutral-500 dark:text-neutral-400">{t('riwayatEmpty')}</p>
           ) : (
             <ul className="mt-4 divide-y divide-neutral-200 rounded-2xl border border-neutral-200 dark:divide-neutral-700 dark:border-neutral-700">
               {riwayat.map((item, i) => (
@@ -187,10 +189,10 @@ export default function LencanaSayaClient({ desaSlug, desaNama }: Props) {
                 >
                   <div className="min-w-0">
                     <p className="font-medium text-primary-800 dark:text-primary-100">
-                      {labelAksiPoin(item.kode_aksi)}
+                      {labelAksiPoin(item.kode_aksi, tLib)}
                     </p>
                     <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                      {formatTanggal(item.dibuat_pada)}
+                      {formatTanggal(item.dibuat_pada, locale)}
                     </p>
                   </div>
                   <PoinRingkas saldo={item.poin} compact className="shrink-0 text-kiluan-sea" />
@@ -207,7 +209,7 @@ export default function LencanaSayaClient({ desaSlug, desaNama }: Props) {
                 className="inline-flex items-center gap-2 rounded-full border border-neutral-300 px-5 py-2.5 text-sm font-medium transition hover:bg-neutral-50 disabled:opacity-60 dark:border-neutral-600 dark:hover:bg-neutral-800"
               >
                 <ArrowPathIcon className={clsx('size-4', loadingMore && 'animate-spin')} aria-hidden />
-                {loadingMore ? 'Memuat…' : 'Muat lagi'}
+                {loadingMore ? t('memuat') : t('muatLagi')}
               </button>
             </div>
           )}

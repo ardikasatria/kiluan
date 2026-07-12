@@ -96,6 +96,19 @@ async def test_paket_transisi_review_ke_publikasi(pasar, store, desa):
 
 
 @pytest.mark.asyncio
+async def test_paket_ditolak_bisa_ajukan_ulang(pasar, store, desa):
+    _, k_pok, k_agen, _, _ = await _buat_umkm_terverifikasi(pasar, store, desa)
+    paket = await pasar.buat_paket(k_agen, desa.id, {
+        "slug": "trip-lumba", "nama": "Trip Lumba", "durasi_jam": 30,
+        "harga": 750000, "satuan_harga": "per_paket",
+    })
+    await pasar.transisi_paket(k_agen, desa.id, paket.id, "ajukan")
+    await pasar.transisi_paket(k_pok, desa.id, paket.id, "tolak", "Perlu perbaikan")
+    hasil = await pasar.transisi_paket(k_agen, desa.id, paket.id, "ajukan")
+    assert hasil.status == "review"
+
+
+@pytest.mark.asyncio
 async def test_paket_transisi_ilegal_langung_publikasi(pasar, store, desa):
     _, k_pok, k_agen, _, _ = await _buat_umkm_terverifikasi(pasar, store, desa)
     paket = await pasar.buat_paket(k_agen, desa.id, {
@@ -234,3 +247,30 @@ async def test_umkm_soft_delete_menyembunyikan_dari_publik(pasar, store, desa):
     await pasar.hapus_umkm(k_umkm, desa.id, umkm.id)
     hal = await pasar.daftar_umkm_publik(desa.id)
     assert len(hal["item"]) == 0
+
+
+@pytest.mark.asyncio
+async def test_detail_produk_publik(pasar, store, desa):
+    k_umkm, _, _, _, umkm = await _buat_umkm_terverifikasi(pasar, store, desa)
+    produk = await pasar.buat_produk(k_umkm, desa.id, {
+        "umkm_id": umkm.id, "nama": "Kopi", "jenis": "produk",
+        "harga": 45000, "satuan_harga": "per_unit", "stok": 10,
+    })
+    await pasar.ubah_status_produk(k_umkm, desa.id, produk.id, "publikasi")
+    detail = await pasar.detail_produk(desa.id, produk.id)
+    assert detail["nama"] == "Kopi"
+    assert detail["umkm"]["nama"] == "Kopi Kiluan"
+    assert detail["status"] == "publikasi"
+    assert isinstance(detail["media"], list)
+
+
+@pytest.mark.asyncio
+async def test_detail_produk_draft_tidak_publik(pasar, store, desa):
+    k_umkm, _, _, _, umkm = await _buat_umkm_terverifikasi(pasar, store, desa)
+    produk = await pasar.buat_produk(k_umkm, desa.id, {
+        "umkm_id": umkm.id, "nama": "Draft Kopi", "jenis": "produk",
+        "harga": 45000, "satuan_harga": "per_unit", "stok": 10,
+    })
+    with pytest.raises(TidakDitemukan):
+        await pasar.detail_produk(desa.id, produk.id)
+

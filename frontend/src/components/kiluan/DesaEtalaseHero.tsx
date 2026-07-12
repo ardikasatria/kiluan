@@ -1,5 +1,8 @@
+'use client'
+
 import WeatherWidget from '@/components/kiluan/WeatherWidget'
 import type { CuacaResponse, ProfilDesa } from '@/lib/api/types'
+import { Link } from '@/i18n/navigation'
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -8,7 +11,7 @@ import {
   SparklesIcon,
 } from '@heroicons/react/24/outline'
 import Image from 'next/image'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 const DESA_COVER: Record<string, { src: string; alt: string }> = {
   'teluk-kiluan': { src: '/gallery/laguna.jpg', alt: 'Laguna Teluk Kiluan' },
@@ -24,6 +27,7 @@ interface Props {
 }
 
 export default function DesaEtalaseHero({ profil, desaSlug, cuaca, jumlahDestinasi = 0 }: Props) {
+  const t = useTranslations('etalase.hero')
   const lokasi = [profil.pekon, profil.kecamatan, profil.kabupaten, profil.provinsi].filter(Boolean).join(', ')
   const cover = DESA_COVER[desaSlug] ?? { ...FALLBACK_COVER, alt: profil.nama }
 
@@ -47,14 +51,14 @@ export default function DesaEtalaseHero({ profil, desaSlug, cuaca, jumlahDestina
           className="inline-flex items-center gap-2 text-sm font-medium text-primary-100/90 hover:text-white"
         >
           <ArrowLeftIcon className="size-4" aria-hidden />
-          Kembali ke sigerciv
+          {t('back')}
         </Link>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:items-start">
           <div className="max-w-xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm font-medium text-primary-100 backdrop-blur-sm">
               <SparklesIcon className="size-4" aria-hidden />
-              Etalase Desa Wisata Regeneratif
+              {t('badge')}
             </p>
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
               {profil.nama}
@@ -74,27 +78,27 @@ export default function DesaEtalaseHero({ profil, desaSlug, cuaca, jumlahDestina
                 href="#destinasi"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-primary-800 shadow-lg hover:bg-primary-50"
               >
-                Jelajahi destinasi
+                {t('exploreCta')}
                 <ArrowRightIcon className="size-4" aria-hidden />
               </a>
               <Link
                 href={`/${desaSlug}/dasbor`}
                 className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-sm hover:bg-white/15"
               >
-                Dasbor saya
+                {t('dasborCta')}
               </Link>
               <Link
                 href={`/${desaSlug}/kelola`}
                 className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-sm hover:bg-white/15"
               >
                 <Cog6ToothIcon className="size-4" aria-hidden />
-                Kelola desa
+                {t('kelolaCta')}
               </Link>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <StatPill label="Spot publik" value={String(jumlahDestinasi)} />
-              <StatPill label="Tenant" value={profil.slug} />
+              <StatPill label={t('spotPublik')} value={String(jumlahDestinasi)} />
+              <StatPill label={t('tenant')} value={profil.slug} />
             </div>
           </div>
 

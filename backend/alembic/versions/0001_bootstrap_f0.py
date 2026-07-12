@@ -119,7 +119,7 @@ def upgrade() -> None:
         _diperbarui(),
         sa.UniqueConstraint("pengguna_id", "desa_id", "peran_id", name="uq_keanggotaan"),
         sa.CheckConstraint(
-            "status IN ('aktif','menunggu','ditolak','nonaktif')", name="ck_keanggotaan_status"
+            "status IN ('aktif','menunggu','ditolak','revisi','nonaktif')", name="ck_keanggotaan_status"
         ),
     )
     op.create_index("ix_keanggotaan_desa_peran_status", "keanggotaan", ["desa_id", "peran_id", "status"])

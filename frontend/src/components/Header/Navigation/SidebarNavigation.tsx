@@ -1,7 +1,10 @@
 'use client'
 
 import { TNavigationItem } from '@/data/navigation'
+import { useRouter } from '@/i18n/navigation'
 import { ikonNavigasi } from '@/lib/kiluan/navigation-icons'
+import type { Locale } from '@/i18n/routing'
+import { withLocale } from '@/lib/i18n/locale-path'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Divider } from '@/shared/divider'
 import { Link } from '@/shared/link'
@@ -12,7 +15,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import { Search01Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
-import { redirect } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import React from 'react'
 
 interface Props {
@@ -21,6 +24,9 @@ interface Props {
 
 const SidebarNavigation: React.FC<Props> = ({ data }) => {
   const handleClose = useClose()
+  const router = useRouter()
+  const locale = useLocale() as Locale
+  const t = useTranslations('nav.sidebar')
 
   const _renderMenuChild = (
     item: TNavigationItem,
@@ -101,14 +107,14 @@ const SidebarNavigation: React.FC<Props> = ({ data }) => {
         onSubmit={(e) => {
           e.preventDefault()
           handleClose()
-          redirect('/search')
+          router.push('/jelajah')
         }}
       >
         <div className="flex h-full items-center gap-x-2.5 rounded-xl bg-neutral-50 px-3 py-3 dark:bg-neutral-800">
           <HugeiconsIcon icon={Search01Icon} size={24} color="currentColor" strokeWidth={1.5} />
           <input
             type="search"
-            placeholder="Type and press enter"
+            placeholder={t('searchPlaceholder')}
             className="w-full border-none bg-transparent focus:ring-0 focus:outline-hidden sm:text-sm"
           />
         </div>
@@ -119,9 +125,7 @@ const SidebarNavigation: React.FC<Props> = ({ data }) => {
 
   return (
     <div>
-      <p className="text-sm/relaxed">
-        Platform desa wisata regeneratif berbasis komunitas — jelajahi destinasi, dukung UMKM lokal, dan ikut misi lestari.
-      </p>
+      <p className="text-sm/relaxed">{t('tagline')}</p>
       <div className="mt-5 flex items-center justify-between">
         <SocialsList />
       </div>
@@ -132,9 +136,9 @@ const SidebarNavigation: React.FC<Props> = ({ data }) => {
       {/* FOR OUR DEMO */}
       <div className="flex items-center justify-between gap-x-2.5 py-6">
         <div className="flex gap-2">
-          <ButtonPrimary href="/masuk">Masuk</ButtonPrimary>
-          <ButtonPrimary href="/daftar" className="bg-primary-700!">
-            Daftar
+          <ButtonPrimary href={withLocale('/masuk', locale)}>{t('masuk')}</ButtonPrimary>
+          <ButtonPrimary href={withLocale('/daftar', locale)} className="bg-primary-700!">
+            {t('daftar')}
           </ButtonPrimary>
         </div>
 

@@ -10,6 +10,7 @@ import {
   SignalSlashIcon,
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 import { useCallback, useRef, useState } from 'react'
 
 interface Props {
@@ -31,6 +32,7 @@ export default function MediaUploader({
   onBerhasil,
   className,
 }: Props) {
+  const t = useTranslations('media')
   const inputRef = useRef<HTMLInputElement>(null)
   const [tahap, setTahap] = useState<Tahap>('idle')
   const [progress, setProgress] = useState(0)
@@ -41,17 +43,17 @@ export default function MediaUploader({
   const prosesFile = useCallback(
     async (file: File) => {
       if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
-        setPesan('Hanya foto atau video yang didukung.')
+        setPesan(t('unsupportedType'))
         setTahap('gagal')
         return
       }
       if (file.size > 25 * 1024 * 1024) {
-        setPesan('Ukuran maksimal 25 MB.')
+        setPesan(t('maxSize'))
         setTahap('gagal')
         return
       }
       if (!navigator.onLine) {
-        setPesan('Perlu koneksi untuk memulai unggah (presign). Coba lagi saat online.')
+        setPesan(t('offline'))
         setTahap('gagal')
         return
       }
@@ -82,7 +84,7 @@ export default function MediaUploader({
         }, 1500)
       } catch (err) {
         setTahap('gagal')
-        const msg = err instanceof Error ? err.message : 'Unggah gagal'
+        const msg = err instanceof Error ? err.message : t('uploadFailed')
         setPesan(msg)
         try {
           await tambahAntrean({
@@ -99,7 +101,7 @@ export default function MediaUploader({
         }
       }
     },
-    [desaSlug, entitasId, entitasTipe, onBerhasil, urutanAwal],
+    [desaSlug, entitasId, entitasTipe, onBerhasil, t, urutanAwal],
   )
 
   const onPilih = (files: FileList | null) => {
@@ -149,11 +151,9 @@ export default function MediaUploader({
         </div>
 
         <p className="mt-3 text-sm font-semibold text-neutral-800 dark:text-neutral-100">
-          {tahap === 'unggah' ? 'Mengunggah ke MinIO…' : 'Seret foto/video atau klik untuk unggah'}
+          {tahap === 'unggah' ? t('uploading') : t('dropHint')}
         </p>
-        <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-          Presign → unggah langsung → konfirmasi · maks. 25 MB
-        </p>
+        <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{t('flowHint')}</p>
 
         {tahap === 'unggah' && (
           <div className="mx-auto mt-4 max-w-xs">
@@ -171,7 +171,7 @@ export default function MediaUploader({
         )}
 
         {tahap === 'selesai' && (
-          <p className="mt-2 text-sm font-medium text-primary-700 dark:text-primary-300">Berhasil ditambahkan</p>
+          <p className="mt-2 text-sm font-medium text-primary-700 dark:text-primary-300">{t('success')}</p>
         )}
       </div>
 
@@ -184,7 +184,7 @@ export default function MediaUploader({
               : 'bg-primary-50 text-primary-800 dark:bg-primary-900/30 dark:text-primary-200',
           )}
         >
-          {pesan.includes('online') ? (
+          {pesan.includes('online') || pesan.includes('koneksi') || pesan.includes('Connection') ? (
             <SignalSlashIcon className="mt-0.5 size-4 shrink-0" aria-hidden />
           ) : (
             <PhotoIcon className="mt-0.5 size-4 shrink-0" aria-hidden />
@@ -196,7 +196,7 @@ export default function MediaUploader({
               className="ms-auto shrink-0 font-semibold underline"
               onClick={() => fileAktif && void prosesFile(fileAktif)}
             >
-              Coba lagi
+              {t('retry')}
             </button>
           )}
         </p>

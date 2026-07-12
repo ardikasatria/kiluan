@@ -2,6 +2,7 @@
 
 import KontribusiForm from '@/components/kiluan/kontribusi/KontribusiForm'
 import PoinRingkas from '@/components/kiluan/lencana/PoinRingkas'
+import { Link } from '@/i18n/navigation'
 import { getKontribusiSaya } from '@/lib/api/kontribusi'
 import { getPoinSaya } from '@/lib/api/lencana'
 import type { KontribusiItem } from '@/lib/api/types'
@@ -13,7 +14,7 @@ import {
 } from '@/lib/kiluan/kontribusi'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 
 interface Props {
@@ -22,6 +23,8 @@ interface Props {
 }
 
 export default function KontribusiSayaClient({ desaSlug, desaNama }: Props) {
+  const t = useTranslations('kontribusi')
+  const tr = t as unknown as (key: string) => string
   const [item, setItem] = useState<KontribusiItem[]>([])
   const [saldo, setSaldo] = useState(0)
   const [revisi, setRevisi] = useState<KontribusiItem | null>(null)
@@ -51,9 +54,9 @@ export default function KontribusiSayaClient({ desaSlug, desaNama }: Props) {
       <div className="border-b border-neutral-200 bg-gradient-to-br from-primary-800 via-primary-700 to-kiluan-teal text-white">
         <div className="container py-10 sm:py-12">
           <Link href={`/${desaSlug}/dasbor`} className="inline-flex items-center gap-2 text-sm text-primary-100 hover:text-white">
-            <ArrowLeftIcon className="size-4" /> Dasbor
+            <ArrowLeftIcon className="size-4" /> {t('backDasbor')}
           </Link>
-          <h1 className="mt-4 text-3xl font-bold">Kontribusi Saya</h1>
+          <h1 className="mt-4 text-3xl font-bold">{t('title')}</h1>
           <p className="mt-2 text-sm text-primary-100/90">{desaNama}</p>
           <div className="mt-4">
             <PoinRingkas saldo={saldo} desaSlug={desaSlug} className="!text-white" />
@@ -68,7 +71,7 @@ export default function KontribusiSayaClient({ desaSlug, desaNama }: Props) {
             onClick={() => setFormBuka(true)}
             className="mb-6 rounded-full bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-600"
           >
-            Kontribusi baru
+            {t('new')}
           </button>
         )}
 
@@ -86,9 +89,9 @@ export default function KontribusiSayaClient({ desaSlug, desaNama }: Props) {
         )}
 
         {loading ? (
-          <p className="text-sm text-neutral-500">Memuat riwayat…</p>
+          <p className="text-sm text-neutral-500">{t('loading')}</p>
         ) : item.length === 0 ? (
-          <p className="text-sm text-neutral-500">Belum ada kontribusi.</p>
+          <p className="text-sm text-neutral-500">{t('empty')}</p>
         ) : (
           <ul className="space-y-3">
             {item.map((k) => (
@@ -96,12 +99,14 @@ export default function KontribusiSayaClient({ desaSlug, desaNama }: Props) {
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div>
                     <p className="font-medium text-primary-800 dark:text-primary-100">
-                      {labelTipeKontribusi(k.tipe)}
+                      {labelTipeKontribusi(k.tipe, tr)}
                     </p>
-                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{ringkasanMuatan(k)}</p>
+                    <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      {ringkasanMuatan(k, tr)}
+                    </p>
                   </div>
                   <span className={clsx('rounded-full px-2 py-0.5 text-xs ring-1', warnaStatusKontribusi(k.status))}>
-                    {labelStatusKontribusi(k.status)}
+                    {labelStatusKontribusi(k.status, tr)}
                   </span>
                 </div>
                 {k.status === 'revisi' && (
@@ -113,7 +118,7 @@ export default function KontribusiSayaClient({ desaSlug, desaNama }: Props) {
                     }}
                     className="mt-3 text-sm font-medium text-primary-600 hover:underline"
                   >
-                    Revisi & kirim ulang
+                    {t('revisi')}
                   </button>
                 )}
               </li>

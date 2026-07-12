@@ -53,7 +53,12 @@ export function slugPeran(kode: PeranKode): string {
   return KODE_TO_SLUG[kode]
 }
 
-export function labelPeran(kode: PeranKode): string {
+/**
+ * Label peran. Beri `t` (namespace `peran`) untuk label sesuai locale;
+ * tanpa `t` jatuh ke label Bahasa Indonesia.
+ */
+export function labelPeran(kode: PeranKode, t?: (key: PeranKode) => string): string {
+  if (t) return t(kode)
   const labels: Record<PeranKode, string> = {
     wisatawan: 'Wisatawan',
     pokdarwis: 'Pokdarwis',
@@ -112,12 +117,13 @@ export function dasborUtamaHref(profil: ProfilSaya | null, desaSlug: string): st
 export function statusKeanggotaan(
   profil: ProfilSaya | null,
   kode: PeranKode,
-): 'aktif' | 'menunggu' | 'ditolak' | null {
+): 'aktif' | 'menunggu' | 'ditolak' | 'revisi' | null {
   if (!profil) return null
   const cocok = profil.keanggotaan.filter((k) => k.peran === kode)
   if (cocok.length === 0) return null
   if (cocok.some((k) => k.status === 'aktif')) return 'aktif'
   if (cocok.some((k) => k.status === 'menunggu')) return 'menunggu'
+  if (cocok.some((k) => k.status === 'revisi')) return 'revisi'
   if (cocok.some((k) => k.status === 'ditolak')) return 'ditolak'
   return null
 }

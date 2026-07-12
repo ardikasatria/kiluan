@@ -1,5 +1,7 @@
 'use client'
 
+import { locales } from '@/i18n/routing'
+import { stripLocale } from '@/lib/i18n/locale-path'
 import { createContext, useContext, useMemo, type ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
 
@@ -22,7 +24,8 @@ const RUTE_GLOBAL = new Set([
 const DesaKonteks = createContext<string>(DEFAULT_DESA_SLUG)
 
 export function ekstrakDesaSlug(pathname: string): string {
-  const seg = pathname.split('/').filter(Boolean)[0]
+  const path = stripLocale(pathname, locales)
+  const seg = path.split('/').filter(Boolean)[0]
   if (!seg || RUTE_GLOBAL.has(seg)) return DEFAULT_DESA_SLUG
   return seg
 }

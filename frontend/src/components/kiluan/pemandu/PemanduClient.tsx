@@ -3,9 +3,10 @@
 import { chatPemandu, susunItinerary } from '@/lib/api/pemandu'
 import type { ItineraryItem, PemanduChatRes } from '@/lib/api/types'
 import { tambahKeKeranjang, type ItemKeranjang } from '@/lib/kiluan/cart'
+import { Link } from '@/i18n/navigation'
 import { MapIcon, SparklesIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
-import { useState } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import { useMemo, useState } from 'react'
 
 interface Props {
   desaSlug: string
@@ -14,11 +15,14 @@ interface Props {
 
 const MINAT_OPSI = ['lumba', 'mangrove', 'snorkeling', 'budaya', 'kuliner'] as const
 
-function formatRupiah(n: number) {
-  return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n)
-}
-
 export default function PemanduClient({ desaSlug, desaNama }: Props) {
+  const t = useTranslations('pemandu')
+  const locale = useLocale()
+  const formatRupiah = useMemo(
+    () => (n: number) =>
+      new Intl.NumberFormat(locale, { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(n),
+    [locale],
+  )
   const [durasi, setDurasi] = useState(1)
   const [budget, setBudget] = useState(500000)
   const [jumlahOrang, setJumlahOrang] = useState(2)
@@ -40,6 +44,15 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
     setMinat((prev) => (prev.includes(m) ? prev.filter((x) => x !== m) : [...prev, m]))
   }
 
+  const tMinat = t as unknown as (key: string) => string
+  function labelMinat(m: string) {
+    try {
+      return tMinat(`minatOpsi.${m}`)
+    } catch {
+      return m
+    }
+  }
+
   async function rencanakan() {
     setLoading(true)
     setGalat(null)
@@ -56,7 +69,7 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
       setModelInfo(`${res.model_dipakai} (konfig: ${res.mesin_konfig})`)
       setLabel(res.label)
     } catch {
-      setGalat('Gagal menyusun itinerary — coba lagi.')
+      setGalat(t('error'))
     } finally {
       setLoading(false)
     }
@@ -67,14 +80,14 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
     const item: ItemKeranjang = {
       item_tipe: 'paket_wisata',
       item_id: it.subjek_id,
-      nama: it.nama || 'Paket wisata',
+      nama: it.nama || t('paketWisata'),
       harga: it.harga,
       jumlah: 1,
       slot_jadwal_id: it.slot_id,
       tanggal_slot: it.tanggal,
     }
     tambahKeKeranjang(desaSlug, item)
-    setSuksesKeranjang(`${it.nama || 'Paket'} ditambahkan ke keranjang.`)
+    setSuksesKeranjang(t('ditambahkanKeranjang', { nama: it.nama || t('paketWisata') }))
   }
 
   async function kirimChat() {
@@ -97,21 +110,18 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
           <p className="text-sm text-primary-600">{desaNama}</p>
           <h1 className="mt-1 flex items-center gap-2 text-3xl font-bold text-primary-800 dark:text-primary-100">
             <SparklesIcon className="size-8" />
-            Pemandu Wisata
+            {t('title')}
           </h1>
-          <p className="mt-2 max-w-2xl text-sm text-neutral-600 dark:text-neutral-400">
-            Perencana otomatis berbasis data lokal. Model rule-based aktif secara default; model
-            terlatih sendiri dapat dinyalakan via konfigurasi backend (bukan OpenAI).
-          </p>
+          <p className="mt-2 max-w-2xl text-sm text-neutral-600 dark:text-neutral-400">{t('subtitle')}</p>
         </div>
       </div>
 
       <div className="container grid gap-10 py-10 lg:grid-cols-2">
         <section className="space-y-6">
-          <h2 className="text-lg font-semibold">Rencanakan perjalanan</h2>
+          <h2 className="text-lg font-semibold">{t('planTitle')}</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="text-sm">
-              Durasi (hari)
+              {t('durasi')}
               <input
                 type="number"
                 min={1}
@@ -121,7 +131,7 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
               />
             </label>
             <label className="text-sm">
-              Jumlah orang
+              {t('jumlahOrang')}
               <input
                 type="number"
                 min={1}
@@ -131,7 +141,7 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
               />
             </label>
             <label className="text-sm sm:col-span-2">
-              Budget (Rp)
+              {t('budget')}
               <input
                 type="number"
                 min={0}
@@ -144,20 +154,20 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
           </div>
 
           <div>
-            <p className="text-sm font-medium">Minat</p>
+            <p className="text-sm font-medium">{t('minat')}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {MINAT_OPSI.map((m) => (
                 <button
                   key={m}
                   type="button"
                   onClick={() => toggleMinat(m)}
-                  className={`rounded-full px-3 py-1 text-sm capitalize ${
+                  className={`rounded-full px-3 py-1 text-sm ${
                     minat.includes(m)
                       ? 'bg-primary-600 text-white'
                       : 'bg-neutral-100 dark:bg-neutral-800'
                   }`}
                 >
-                  {m}
+                  {labelMinat(m)}
                 </button>
               ))}
             </div>
@@ -169,18 +179,16 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
             onClick={() => void rencanakan()}
             className="rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white disabled:opacity-50"
           >
-            {loading ? 'Menyusun…' : 'Susun itinerary'}
+            {loading ? t('menyusun') : t('susunItinerary')}
           </button>
 
           {galat && <p className="text-sm text-red-600">{galat}</p>}
           {label && <p className="text-xs text-neutral-500">{label}</p>}
-          {modelInfo && <p className="text-xs text-neutral-400">Mesin: {modelInfo}</p>}
+          {modelInfo && <p className="text-xs text-neutral-400">{t('mesin', { info: modelInfo })}</p>}
 
           {itinerary.length > 0 && (
             <div className="space-y-3">
-              <p className="font-medium">
-                Perkiraan total: {formatRupiah(perkiraan)}
-              </p>
+              <p className="font-medium">{t('perkiraanTotal', { total: formatRupiah(perkiraan) })}</p>
               <ul className="space-y-2">
                 {itinerary.map((it) => (
                   <li
@@ -188,7 +196,7 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
                     className="flex items-center justify-between gap-3 rounded-xl border p-4 dark:border-neutral-700"
                   >
                     <div>
-                      <p className="font-medium">{it.nama || 'Slot paket'}</p>
+                      <p className="font-medium">{it.nama || t('slotPaket')}</p>
                       <p className="text-xs text-neutral-500">
                         {it.tanggal} · {formatRupiah(it.harga)}
                       </p>
@@ -199,7 +207,7 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
                         onClick={() => tambahItem(it)}
                         className="shrink-0 rounded-lg border border-primary-500 px-3 py-1 text-xs text-primary-700"
                       >
-                        + Keranjang
+                        {t('keranjang')}
                       </button>
                     )}
                   </li>
@@ -209,7 +217,7 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
                 <p className="text-sm text-emerald-700">
                   {suksesKeranjang}{' '}
                   <Link href={`/${desaSlug}/checkout`} className="underline">
-                    Checkout →
+                    {t('checkout')}
                   </Link>
                 </p>
               )}
@@ -220,22 +228,20 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
         <section className="space-y-4">
           <h2 className="flex items-center gap-2 text-lg font-semibold">
             <MapIcon className="size-5" />
-            Tanya destinasi
+            {t('chatTitle')}
           </h2>
-          <p className="text-xs text-neutral-500">
-            Jawaban rule-based dari konten destinasi lokal. Boleh tanpa login.
-          </p>
+          <p className="text-xs text-neutral-500">{t('chatNote')}</p>
           <div className="max-h-64 space-y-3 overflow-y-auto rounded-xl border p-4 dark:border-neutral-700">
             {chatRiwayat.length === 0 ? (
-              <p className="text-sm text-neutral-400">Belum ada percakapan.</p>
+              <p className="text-sm text-neutral-400">{t('chatEmpty')}</p>
             ) : (
               chatRiwayat.map((c, i) => (
                 <div key={i} className="space-y-2 text-sm">
-                  <p className="text-neutral-500">Anda: …</p>
+                  <p className="text-neutral-500">{t('chatAnda')}</p>
                   <p>{c.jawaban}</p>
                   {c.sumber.length > 0 && (
                     <p className="text-xs text-neutral-400">
-                      Sumber: {c.sumber.map((s) => s.nama).join(', ')}
+                      {t('sumber', { nama: c.sumber.map((s) => s.nama).join(', ') })}
                     </p>
                   )}
                 </div>
@@ -247,7 +253,7 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
               value={chatInput}
               onChange={(e) => setChatInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && void kirimChat()}
-              placeholder="Tanya tentang destinasi…"
+              placeholder={t('chatPlaceholder')}
               className="flex-1 rounded-lg border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-800"
             />
             <button
@@ -256,7 +262,7 @@ export default function PemanduClient({ desaSlug, desaNama }: Props) {
               onClick={() => void kirimChat()}
               className="rounded-lg bg-neutral-800 px-4 py-2 text-sm text-white dark:bg-neutral-200 dark:text-neutral-900"
             >
-              Kirim
+              {t('kirim')}
             </button>
           </div>
         </section>

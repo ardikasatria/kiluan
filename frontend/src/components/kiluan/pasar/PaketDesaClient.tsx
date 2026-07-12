@@ -1,6 +1,7 @@
 'use client'
 
 import PaketCard from '@/components/kiluan/pasar/PaketCard'
+import { Link } from '@/i18n/navigation'
 import { getDaftarPaket } from '@/lib/api/pasar'
 import type { PaketRingkas } from '@/lib/api/types'
 import {
@@ -11,7 +12,7 @@ import {
   type DurasiFilter,
 } from '@/lib/kiluan/paket'
 import clsx from 'clsx'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export default function PaketDesaClient({ desaSlug, desaNama }: Props) {
+  const t = useTranslations('paket')
   const searchParams = useSearchParams()
   const durasi = parseDurasiFilter(searchParams.get('durasi'))
   const [semua, setSemua] = useState<PaketRingkas[]>([])
@@ -41,7 +43,8 @@ export default function PaketDesaClient({ desaSlug, desaNama }: Props) {
   }, [muat])
 
   const paket = useMemo(() => filterPaketDurasi(semua, durasi), [semua, durasi])
-  const labelAktif = labelDurasiFilter(durasi)
+  const tr = t as unknown as (key: string) => string
+  const labelAktif = labelDurasiFilter(durasi, tr)
 
   function hrefDurasi(param: DurasiFilter | null) {
     const base = `/${desaSlug}/paket`
@@ -54,11 +57,9 @@ export default function PaketDesaClient({ desaSlug, desaNama }: Props) {
         <div className="container py-10 sm:py-12">
           <p className="text-sm font-medium text-primary-600 dark:text-primary-400">{desaNama}</p>
           <h1 className="mt-1 text-3xl font-bold tracking-tight text-primary-800 dark:text-primary-100">
-            Paket Wisata
+            {t('title')}
           </h1>
-          <p className="mt-2 max-w-xl text-sm text-neutral-600 dark:text-neutral-400">
-            Paket kurasi agen lokal — pilih tanggal & kuota langsung sebelum checkout.
-          </p>
+          <p className="mt-2 max-w-xl text-sm text-neutral-600 dark:text-neutral-400">{t('subtitle')}</p>
         </div>
       </div>
 
@@ -68,7 +69,7 @@ export default function PaketDesaClient({ desaSlug, desaNama }: Props) {
             const aktif = durasi === o.param
             return (
               <Link
-                key={o.label}
+                key={o.kode}
                 href={hrefDurasi(o.param)}
                 className={clsx(
                   'rounded-full px-4 py-1.5 text-sm font-medium transition',
@@ -77,7 +78,7 @@ export default function PaketDesaClient({ desaSlug, desaNama }: Props) {
                     : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300',
                 )}
               >
-                {o.label}
+                {t(`durasi.${o.kode}`)}
               </Link>
             )
           })}
@@ -85,18 +86,17 @@ export default function PaketDesaClient({ desaSlug, desaNama }: Props) {
 
         {labelAktif && (
           <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">
-            Menampilkan: <span className="font-medium text-primary-800 dark:text-primary-100">{labelAktif}</span>
-            {paket.length > 0 && ` · ${paket.length} paket`}
+            {t('showing')}{' '}
+            <span className="font-medium text-primary-800 dark:text-primary-100">{labelAktif}</span>
+            {paket.length > 0 && ` ${t('paketCount', { count: paket.length })}`}
           </p>
         )}
 
         {loading ? (
-          <p className="mt-8 text-sm text-neutral-500">Memuat paket…</p>
+          <p className="mt-8 text-sm text-neutral-500">{t('loadingList')}</p>
         ) : paket.length === 0 ? (
           <p className="mt-8 text-sm text-neutral-500">
-            {durasi
-              ? 'Tidak ada paket untuk filter ini. Coba kategori lain atau lihat semua paket.'
-              : 'Belum ada paket dipublikasi.'}
+            {durasi ? t('emptyFiltered') : t('emptyAll')}
           </p>
         ) : (
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

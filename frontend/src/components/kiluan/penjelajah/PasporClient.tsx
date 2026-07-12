@@ -1,9 +1,12 @@
 'use client'
 
+import StempelCard from '@/components/kiluan/penjelajah/StempelCard'
+import { Link } from '@/i18n/navigation'
 import { getPasporSaya } from '@/lib/api/penjelajah'
 import type { PasporDto } from '@/lib/api/types'
-import { CheckBadgeIcon, SparklesIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { kelompokStempel } from '@/lib/kiluan/penjelajah'
+import { SparklesIcon } from '@heroicons/react/24/outline'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 
 interface Props {
@@ -11,20 +14,21 @@ interface Props {
   desaNama: string
 }
 
-function teksDampak(ringkas: Record<string, number>) {
-  const parts = Object.entries(ringkas).map(([k, v]) => {
-    if (k === 'mangrove') return `tanam ${v} mangrove`
-    if (k === 'sampah') return `kumpul ${v} kg sampah`
-    return `${k}: ${v}`
-  })
-  if (!parts.length) return 'Belum ada dampak tercatat.'
-  return `Kamu bantu ${parts.join(', ')}.`
-}
-
 export default function PasporClient({ desaSlug, desaNama }: Props) {
+  const t = useTranslations('paspor')
   const [paspor, setPaspor] = useState<PasporDto | null>(null)
   const [loading, setLoading] = useState(true)
   const [galat, setGalat] = useState<string | null>(null)
+
+  function teksDampak(ringkas: Record<string, number>) {
+    const parts = Object.entries(ringkas).map(([k, v]) => {
+      if (k === 'mangrove') return t('impactMangrove', { count: v })
+      if (k === 'sampah') return t('impactWaste', { count: v })
+      return t('impactGeneric', { key: k, value: v })
+    })
+    if (!parts.length) return t('noImpact')
+    return t('impactSummary', { parts: parts.join(', ') })
+  }
 
   const muat = useCallback(async () => {
     setLoading(true)
@@ -33,85 +37,93 @@ export default function PasporClient({ desaSlug, desaNama }: Props) {
       const p = await getPasporSaya(desaSlug)
       setPaspor(p)
     } catch {
-      setGalat('Masuk untuk melihat Paspor Lestari Anda.')
+      setGalat(t('loginRequired'))
     } finally {
       setLoading(false)
     }
-  }, [desaSlug])
+  }, [desaSlug, t])
 
   useEffect(() => {
     void muat()
   }, [muat])
 
+  const grup = paspor ? kelompokStempel(paspor.stempel) : null
+
   return (
     <div className="pb-16">
       <div className="border-b border-neutral-200 bg-gradient-to-br from-teal-50 to-white dark:from-primary-950 dark:to-neutral-950">
         <div className="container py-10">
-          <p className="text-sm text-primary-600">{desaNama}</p>
-          <h1 className="mt-1 text-3xl font-bold text-primary-800 dark:text-primary-100">
-            Paspor Lestari
-          </h1>
-          <p className="mt-2 max-w-xl text-sm text-neutral-600 dark:text-neutral-400">
-            Hanya stempel terverifikasi yang masuk paspor — aksi tercatat, bukan klaim dampak
-            terbukti (validasi ekologis di Fase 3).
-          </p>
+          <p className="text-sm text-primary-600 dark:text-primary-400">{desaNama}</p>
+          <h1 className="mt-1 text-3xl font-bold text-primary-800 dark:text-primary-100">{t('seoTitle')}</h1>
+          <p className="mt-2 max-w-xl text-sm text-neutral-600 dark:text-neutral-400">{t('subtitle')}</p>
         </div>
       </div>
 
       <div className="container py-10">
         {loading ? (
-          <p className="text-sm text-neutral-500">Memuat paspor…</p>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">{t('loading')}</p>
         ) : galat ? (
           <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-sm dark:border-amber-900 dark:bg-amber-950/30">
-            <p>{galat}</p>
-            <Link href="/masuk" className="mt-2 inline-block text-primary-600 hover:underline">
-              Masuk →
+            <p className="text-amber-900 dark:text-amber-100">{galat}</p>
+            <Link href="/masuk" className="mt-2 inline-block text-primary-600 hover:underline dark:text-primary-400">
+              {t('signIn')}
             </Link>
           </div>
-        ) : paspor ? (
+        ) : paspor && grup ? (
           <>
             <div className="rounded-2xl border border-primary-200 bg-white p-6 shadow-sm dark:border-primary-800 dark:bg-neutral-900">
               <div className="flex items-center gap-3">
-                <SparklesIcon className="size-8 text-primary-500" />
+                <SparklesIcon className="size-8 text-primary-500 dark:text-primary-400" />
                 <div>
-                  <p className="text-2xl font-bold">{paspor.total_stempel} stempel</p>
+                  <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                    {t('stamps', { count: paspor.total_stempel })}
+                  </p>
                   <p className="text-sm text-neutral-600 dark:text-neutral-400">
                     {teksDampak(paspor.ringkasan_dampak)}
                   </p>
+                  <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{t('verifiedOnlyNote')}</p>
                 </div>
               </div>
             </div>
 
-            <h2 className="mb-4 mt-10 text-lg font-semibold">Stempel terverifikasi</h2>
-            {paspor.stempel.length === 0 ? (
-              <p className="text-sm text-neutral-500">
-                Belum ada stempel.{' '}
-                <Link href={`/${desaSlug}/misi`} className="text-primary-600 hover:underline">
-                  Mulai misi →
-                </Link>
-              </p>
-            ) : (
-              <ul className="space-y-3">
-                {paspor.stempel.map((s) => (
-                  <li
-                    key={s.id}
-                    className="flex items-start gap-3 rounded-xl border border-neutral-200 p-4 dark:border-neutral-700"
-                  >
-                    <CheckBadgeIcon className="mt-0.5 size-5 shrink-0 text-emerald-600" />
-                    <div>
-                      <p className="font-medium">{s.misi?.judul ?? 'Misi'}</p>
-                      <p className="text-xs text-neutral-500">
-                        {new Date(s.dibuat_pada).toLocaleDateString('id-ID')}
-                      </p>
-                      {Object.keys(s.dampak).length > 0 && (
-                        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
-                          {teksDampak(s.dampak)}
-                        </p>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
+            <section className="mt-10">
+              <h2 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">{t('verifiedStamps')}</h2>
+              {grup.terverifikasi.length === 0 ? (
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  {t('noStamps')}{' '}
+                  <Link href={`/${desaSlug}/misi`} className="text-primary-600 hover:underline dark:text-primary-400">
+                    {t('startMission')}
+                  </Link>
+                </p>
+              ) : (
+                <ul className="space-y-3">
+                  {grup.terverifikasi.map((s) => (
+                    <StempelCard key={s.id} stempel={s} teksDampak={teksDampak} />
+                  ))}
+                </ul>
+              )}
+            </section>
+
+            {grup.menunggu.length > 0 && (
+              <section className="mt-10">
+                <h2 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">{t('pendingStamps')}</h2>
+                <ul className="space-y-3">
+                  {grup.menunggu.map((s) => (
+                    <StempelCard key={s.id} stempel={s} teksDampak={teksDampak} />
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {grup.ditolak.length > 0 && (
+              <section className="mt-10">
+                <h2 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">{t('rejectedStamps')}</h2>
+                <ul className="space-y-3">
+                  {grup.ditolak.map((s) => (
+                    <StempelCard key={s.id} stempel={s} teksDampak={teksDampak} />
+                  ))}
+                </ul>
+              </section>
             )}
           </>
         ) : null}

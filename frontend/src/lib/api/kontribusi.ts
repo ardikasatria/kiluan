@@ -28,17 +28,24 @@ export async function getKontribusiSaya(
 
 export async function getAntreanKurasi(
   desaSlug: string,
-  opts?: { status?: string; tipe?: string },
+  opts?: { status?: string; tipe?: string; target_tipe?: string; kursor?: string; batas?: number },
 ): Promise<{ item: KontribusiItem[]; meta: MetaPaginasi }> {
   const q = new URLSearchParams()
   if (opts?.status) q.set('status', opts.status)
   if (opts?.tipe) q.set('tipe', opts.tipe)
+  if (opts?.target_tipe) q.set('target_tipe', opts.target_tipe)
+  if (opts?.kursor) q.set('kursor', opts.kursor)
+  if (opts?.batas) q.set('batas', String(opts.batas))
   const qs = q.toString()
   try {
     return await apiFetch(`/api/v1/desa/${desaSlug}/kontribusi${qs ? `?${qs}` : ''}`)
   } catch {
     return mockAntreanKurasi(opts?.status)
   }
+}
+
+export async function getDetailKontribusi(desaSlug: string, id: string): Promise<KontribusiItem> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/kontribusi/${id}`)
 }
 
 export async function revisiKontribusi(

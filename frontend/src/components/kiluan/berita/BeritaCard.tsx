@@ -1,10 +1,13 @@
+'use client'
+
 import type { BeritaRingkas } from '@/lib/api/types'
 import { labelKategoriBerita } from '@/lib/kiluan/berita'
 import { formatTanggal } from '@/lib/kiluan/lencana'
+import { Link } from '@/i18n/navigation'
 import { NewspaperIcon, StarIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import Image from 'next/image'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 const PLACEHOLDER =
   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop'
@@ -16,6 +19,8 @@ interface Props {
 }
 
 export default function BeritaCard({ berita, desaSlug, featured }: Props) {
+  const t = useTranslations('berita')
+  const tr = t as unknown as (key: string) => string
   const href = `/${desaSlug}/berita/${berita.slug}`
   const sampul = berita.sampul?.url
   const punyaFoto = Boolean(sampul)
@@ -52,12 +57,12 @@ export default function BeritaCard({ berita, desaSlug, featured }: Props) {
           />
         )}
         <span className="absolute top-3 left-3 rounded-full bg-primary-800/90 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm dark:bg-primary-900/90">
-          {labelKategoriBerita(berita.kategori)}
+          {labelKategoriBerita(berita.kategori, tr)}
         </span>
         {berita.sorotan && (
           <span className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-amber-500/90 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
             <StarIcon className="size-3.5" aria-hidden />
-            Sorotan
+            {t('featured')}
           </span>
         )}
         <div className="absolute right-3 bottom-3 flex size-8 items-center justify-center rounded-lg bg-black/30 text-white backdrop-blur-sm">
@@ -82,12 +87,12 @@ export default function BeritaCard({ berita, desaSlug, featured }: Props) {
         </div>
         {berita.tag.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1.5">
-            {berita.tag.map((t) => (
+            {berita.tag.map((tag) => (
               <span
-                key={t.id}
+                key={tag.id}
                 className="rounded-full bg-primary-50 px-2 py-0.5 text-xs text-primary-700 dark:bg-primary-900/40 dark:text-primary-200"
               >
-                #{t.nama}
+                #{tag.nama}
               </span>
             ))}
           </div>

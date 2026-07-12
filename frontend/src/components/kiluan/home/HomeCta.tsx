@@ -5,36 +5,21 @@ import {
   ShoppingBagIcon,
   UserGroupIcon,
 } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
 
-const roles = [
-  {
-    icon: UserGroupIcon,
-    label: 'Warga / Wisatawan',
-    href: '/daftar?peran=wisatawan',
-    desc: 'Jelajahi destinasi, ikut misi lestari, dan kumpulkan stempel Paspor.',
-  },
-  {
-    icon: ShoppingBagIcon,
-    label: 'UMKM',
-    href: '/daftar?peran=umkm',
-    desc: 'Tampilkan produk & jasa di Pasar Desa dengan tingkat sertifikasi lestari.',
-  },
-  {
-    icon: BuildingOffice2Icon,
-    label: 'Agen',
-    href: '/daftar?peran=agen',
-    desc: 'Kurasi paket wisata dan layanan bahari bersama komunitas lokal.',
-  },
-  {
-    icon: UserGroupIcon,
-    label: 'Pokdarwis',
-    href: '/daftar?peran=pokdarwis',
-    desc: 'Kelola data destinasi, kurasi konten, dan awasi dampak regeneratif desa.',
-  },
-]
+const ROLE_KEYS = ['wisatawan', 'umkm', 'agen', 'pokdarwis'] as const
+const ROLE_ICONS = [UserGroupIcon, ShoppingBagIcon, BuildingOffice2Icon, UserGroupIcon] as const
+const ROLE_HREFS = [
+  '/daftar?peran=wisatawan',
+  '/daftar?peran=umkm',
+  '/daftar?peran=agen',
+  '/daftar?peran=pokdarwis',
+] as const
 
-export default function HomeCta() {
+export default async function HomeCta() {
+  const t = await getTranslations('landing.communityCta')
+
   return (
     <section className="py-16 sm:py-20">
       <div className="container">
@@ -43,35 +28,35 @@ export default function HomeCta() {
           <div className="relative">
             <p className="inline-flex items-center gap-2 text-sm font-medium text-primary-100">
               <DevicePhoneMobileIcon className="size-4" aria-hidden />
-              Gabung komunitas
+              {t('eyebrow')}
             </p>
-            <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">Pilih peran Anda di sigerciv</h2>
-            <p className="mt-3 max-w-2xl text-primary-50/90">
-              Daftar sesuai peran keanggotaan — wisatawan, pelaku UMKM, agen lokal, atau pengelola Pokdarwis.
-              Pasang aplikasi sebagai PWA untuk akses offline di lapangan.
-            </p>
+            <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">{t('title')}</h2>
+            <p className="mt-3 max-w-2xl text-primary-50/90">{t('subtitle')}</p>
 
             <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-              {roles.map(({ icon: Icon, label, href, desc }) => (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    className="group flex h-full flex-col rounded-2xl border border-white/15 bg-white/8 p-5 backdrop-blur-sm transition hover:border-kiluan-mint/40 hover:bg-white/12 focus-visible:ring-2 focus-visible:ring-kiluan-mint focus-visible:outline-none"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="flex size-10 items-center justify-center rounded-xl bg-kiluan-mint/20 text-kiluan-mint">
-                        <Icon className="size-5" aria-hidden />
+              {ROLE_KEYS.map((key, i) => {
+                const Icon = ROLE_ICONS[i]!
+                return (
+                  <li key={key}>
+                    <Link
+                      href={ROLE_HREFS[i]!}
+                      className="group flex h-full flex-col rounded-2xl border border-white/15 bg-white/8 p-5 backdrop-blur-sm transition hover:border-kiluan-mint/40 hover:bg-white/12 focus-visible:ring-2 focus-visible:ring-kiluan-mint focus-visible:outline-none"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="flex size-10 items-center justify-center rounded-xl bg-kiluan-mint/20 text-kiluan-mint">
+                          <Icon className="size-5" aria-hidden />
+                        </div>
+                        <span className="font-semibold text-white">{t(`roles.${key}.label`)}</span>
                       </div>
-                      <span className="font-semibold text-white">{label}</span>
-                    </div>
-                    <p className="mt-3 flex-1 text-sm text-primary-100/85">{desc}</p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-kiluan-mint group-hover:gap-2">
-                      Daftar
-                      <ArrowRightIcon className="size-4" aria-hidden />
-                    </span>
-                  </Link>
-                </li>
-              ))}
+                      <p className="mt-3 flex-1 text-sm text-primary-100/85">{t(`roles.${key}.desc`)}</p>
+                      <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-kiluan-mint group-hover:gap-2">
+                        {t('register')}
+                        <ArrowRightIcon className="size-4" aria-hidden />
+                      </span>
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </div>

@@ -1,10 +1,12 @@
 'use client'
 
-import { pesanGalat } from '@/contexts/AuthProvider'
+import { usePesanGalat } from '@/hooks/usePesanGalat'
 import { kirimUlangVerifikasi, verifikasiEmail } from '@/lib/api/auth'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Field, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
+import { useLocale, useTranslations } from 'next-intl'
+import type { Locale } from '@/i18n/routing'
 import { FormEvent, useState } from 'react'
 
 interface Props {
@@ -14,12 +16,11 @@ interface Props {
   deskripsi?: string
 }
 
-export default function VerifikasiKodeForm({
-  email,
-  onBerhasil,
-  judul = 'Verifikasi email',
-  deskripsi = 'Masukkan kode 6 digit yang dikirim ke email Anda.',
-}: Props) {
+export default function VerifikasiKodeForm({ email, onBerhasil, judul, deskripsi }: Props) {
+  const locale = useLocale() as Locale
+  const pesanGalat = usePesanGalat()
+  const t = useTranslations('auth.verifyForm')
+  const tFields = useTranslations('auth.fields')
   const [kode, setKode] = useState('')
   const [galat, setGalat] = useState<string | null>(null)
   const [info, setInfo] = useState<string | null>(null)
@@ -49,7 +50,7 @@ export default function VerifikasiKodeForm({
     setKirimUlang(true)
     try {
       const res = await kirimUlangVerifikasi(email)
-      setInfo(res.pesan)
+      setInfo(locale === 'en' ? t('resendSuccess') : res.pesan)
     } catch (err) {
       setGalat(pesanGalat(err))
     } finally {
@@ -60,14 +61,14 @@ export default function VerifikasiKodeForm({
   return (
     <div className="space-y-4">
       <div className="text-center">
-        <h2 className="text-lg font-semibold text-primary-900 dark:text-primary-100">{judul}</h2>
-        <p className="mt-1 text-sm text-primary-800/80 dark:text-primary-200/80">{deskripsi}</p>
+        <h2 className="text-lg font-semibold text-primary-900 dark:text-primary-100">{judul ?? t('title')}</h2>
+        <p className="mt-1 text-sm text-primary-800/80 dark:text-primary-200/80">{deskripsi ?? t('description')}</p>
         <p className="mt-2 text-sm font-medium text-primary-900 dark:text-primary-100">{email}</p>
       </div>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
         <Field className="block">
-          <Label className="text-neutral-800 dark:text-neutral-200">Kode verifikasi</Label>
+          <Label className="text-neutral-800 dark:text-neutral-200">{tFields('verifyCode')}</Label>
           <Input
             type="text"
             inputMode="numeric"
@@ -75,7 +76,7 @@ export default function VerifikasiKodeForm({
             maxLength={6}
             value={kode}
             onChange={(e) => setKode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-            placeholder="000000"
+            placeholder={tFields('codePlaceholder')}
             className="mt-1 text-center text-lg tracking-[0.35em]"
             autoComplete="one-time-code"
             required
@@ -94,19 +95,19 @@ export default function VerifikasiKodeForm({
         )}
 
         <ButtonPrimary type="submit" disabled={memuat || kode.length !== 6} className="w-full">
-          {memuat ? 'Memverifikasi…' : 'Verifikasi'}
+          {memuat ? t('submitting') : t('submit')}
         </ButtonPrimary>
       </form>
 
       <p className="text-center text-sm text-neutral-600 dark:text-neutral-400">
-        Tidak menerima kode?{' '}
+        {t('noCode')}{' '}
         <button
           type="button"
           onClick={handleKirimUlang}
           disabled={kirimUlang}
           className="font-medium text-primary-700 underline disabled:opacity-60 dark:text-primary-300"
         >
-          {kirimUlang ? 'Mengirim…' : 'Kirim ulang'}
+          {kirimUlang ? t('resending') : t('resend')}
         </button>
       </p>
     </div>

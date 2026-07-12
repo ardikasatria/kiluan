@@ -5,6 +5,7 @@ import type { SlotJadwal } from '@/lib/api/types'
 import { formatHarga } from '@/lib/kiluan/pasar'
 import { CalendarDaysIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { useLocale, useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 interface Props {
@@ -48,12 +49,9 @@ function mockSlotPaket(paketId: string, harga: number): SlotJadwal[] {
   return out
 }
 
-function labelTanggal(iso: string) {
-  const d = new Date(iso + 'T12:00:00')
-  return d.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' })
-}
-
 export default function SlotPicker({ desaSlug, paketId, hargaDefault, satuanHarga, value, onChange }: Props) {
+  const t = useTranslations('paket.slot')
+  const locale = useLocale()
   const [slots, setSlots] = useState<SlotJadwal[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -83,14 +81,23 @@ export default function SlotPicker({ desaSlug, paketId, hargaDefault, satuanHarg
 
   const tersedia = useMemo(() => slots.filter((s) => s.sisa > 0 && s.status !== 'tutup'), [slots])
 
+  function labelTanggal(iso: string) {
+    const d = new Date(iso + 'T12:00:00')
+    return d.toLocaleDateString(locale === 'en' ? 'en-US' : 'id-ID', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+    })
+  }
+
   if (loading) {
-    return <p className="text-sm text-neutral-500">Memuat ketersediaan jadwal…</p>
+    return <p className="text-sm text-neutral-500">{t('loading')}</p>
   }
 
   if (!slots.length) {
     return (
       <p className="rounded-xl border border-dashed border-neutral-300 p-4 text-sm text-neutral-500 dark:border-neutral-600">
-        Belum ada slot jadwal untuk paket ini. Hubungi agen lokal.
+        {t('empty')}
       </p>
     )
   }
@@ -99,9 +106,9 @@ export default function SlotPicker({ desaSlug, paketId, hargaDefault, satuanHarg
     <div>
       <div className="flex items-center gap-2">
         <CalendarDaysIcon className="size-5 text-primary-600" />
-        <h3 className="font-semibold text-primary-800 dark:text-primary-100">Pilih tanggal berangkat</h3>
+        <h3 className="font-semibold text-primary-800 dark:text-primary-100">{t('title')}</h3>
       </div>
-      <p className="mt-1 text-xs text-neutral-500">30 hari ke depan · kuota real-time dari Dermaga</p>
+      <p className="mt-1 text-xs text-neutral-500">{t('hint')}</p>
 
       <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
         {slots.map((slot) => {
@@ -126,13 +133,15 @@ export default function SlotPicker({ desaSlug, paketId, hargaDefault, satuanHarg
             >
               <p className="font-medium text-primary-800 dark:text-primary-100">{labelTanggal(slot.tanggal)}</p>
               {slot.waktu_mulai && (
-                <p className="mt-0.5 text-xs text-neutral-500">Berangkat {slot.waktu_mulai.slice(0, 5)}</p>
+                <p className="mt-0.5 text-xs text-neutral-500">
+                  {t('depart', { waktu: slot.waktu_mulai.slice(0, 5) })}
+                </p>
               )}
               <p className="mt-1 text-xs font-semibold text-kiluan-sea dark:text-kiluan-mint">
                 {formatHarga(harga, satuanHarga)}
               </p>
               <p className={clsx('mt-1 text-xs', penuh ? 'text-red-600' : 'text-neutral-500')}>
-                {penuh ? 'Penuh' : `Sisa ${slot.sisa} kursi`}
+                {penuh ? t('full') : t('seats', { count: slot.sisa })}
               </p>
             </button>
           )
@@ -140,9 +149,7 @@ export default function SlotPicker({ desaSlug, paketId, hargaDefault, satuanHarg
       </div>
 
       {!tersedia.length && (
-        <p className="mt-3 text-sm text-amber-700 dark:text-amber-400">
-          Semua tanggal dalam rentang ini penuh. Coba tanggal lain atau hubungi agen.
-        </p>
+        <p className="mt-3 text-sm text-amber-700 dark:text-amber-400">{t('allFull')}</p>
       )}
     </div>
   )

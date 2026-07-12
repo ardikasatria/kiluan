@@ -1,5 +1,14 @@
 import type { KategoriBerita } from '@/lib/api/types'
 
+export const KODE_KATEGORI_BERITA: KategoriBerita[] = [
+  'pengumuman',
+  'cerita',
+  'konservasi',
+  'acara',
+  'panduan',
+  'lainnya',
+]
+
 export const KATEGORI_BERITA: { kode: KategoriBerita; label: string }[] = [
   { kode: 'pengumuman', label: 'Pengumuman' },
   { kode: 'cerita', label: 'Cerita' },
@@ -9,7 +18,8 @@ export const KATEGORI_BERITA: { kode: KategoriBerita; label: string }[] = [
   { kode: 'lainnya', label: 'Lainnya' },
 ]
 
-export function labelKategoriBerita(kode: KategoriBerita): string {
+export function labelKategoriBerita(kode: KategoriBerita, t?: (key: string) => string): string {
+  if (t) return t(`kategori.${kode}`)
   return KATEGORI_BERITA.find((k) => k.kode === kode)?.label ?? kode
 }
 

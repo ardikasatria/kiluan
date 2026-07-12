@@ -3,8 +3,9 @@
 import { RUTE_DASBOR } from '@/lib/kiluan/rute-sigerciv'
 import type { DashboardPeranConfig } from '@/lib/kiluan/dashboard-peran'
 import { labelPeran } from '@/lib/kiluan/peran'
+import { Link } from '@/i18n/navigation'
 import { Bars3Icon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import DashboardContextSwitcher from './DashboardContextSwitcher'
 
 interface Props {
@@ -21,11 +22,14 @@ export default function DashboardTopbar({
   desaSlug,
   desaNama,
   config,
-  sectionTitle = 'Ringkasan',
+  sectionTitle,
   onToggleSidebar,
   sidebarOpen,
   lintasDesa = false,
 }: Props) {
+  const t = useTranslations('dasbor.view')
+  const tPeran = useTranslations('peran')
+  const judulBagian = sectionTitle ?? t('ringkasan')
   const dasborLink = lintasDesa ? RUTE_DASBOR : `/${desaSlug}/dasbor`
   const tampilkanSwitcher = !lintasDesa && config.kode !== 'wisatawan'
 
@@ -42,25 +46,25 @@ export default function DashboardTopbar({
               className="inline-flex size-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-700 hover:bg-neutral-50 lg:hidden dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
             >
               <Bars3Icon className="size-5" aria-hidden />
-              <span className="sr-only">Buka navigasi dasbor</span>
+              <span className="sr-only">{t('bukaNav')}</span>
             </button>
           )}
           <div className="min-w-0">
             <nav className="text-xs text-neutral-500 dark:text-neutral-400" aria-label="Breadcrumb">
               <Link href={dasborLink} className="hover:text-primary-600 dark:hover:text-primary-400">
-                Dasbor
+                {t('dasbor')}
               </Link>
               <span className="mx-1.5">/</span>
-              <span className="text-neutral-700 dark:text-neutral-300">{labelPeran(config.kode)}</span>
-              {sectionTitle !== 'Ringkasan' && (
+              <span className="text-neutral-700 dark:text-neutral-300">{labelPeran(config.kode, tPeran)}</span>
+              {judulBagian !== t('ringkasan') && (
                 <>
                   <span className="mx-1.5">/</span>
-                  <span className="font-medium text-primary-800 dark:text-primary-100">{sectionTitle}</span>
+                  <span className="font-medium text-primary-800 dark:text-primary-100">{judulBagian}</span>
                 </>
               )}
             </nav>
             <h2 className="truncate text-lg font-bold text-primary-800 sm:text-xl dark:text-primary-100">
-              {sectionTitle}
+              {judulBagian}
             </h2>
           </div>
         </div>

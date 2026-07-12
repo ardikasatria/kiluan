@@ -4,16 +4,11 @@ import BadgeChip from '@/components/kiluan/lencana/BadgeChip'
 import KiluanAvatar from '@/components/kiluan/KiluanAvatar'
 import { getLeaderboard, type PeriodeLeaderboard } from '@/lib/api/lencana'
 import type { LeaderboardEntry } from '@/lib/api/types'
+import { Link } from '@/i18n/navigation'
 import { ArrowLeftIcon, TrophyIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import Link from 'next/link'
-import { useCallback, useEffect, useState } from 'react'
-
-const PERIODE: { id: PeriodeLeaderboard; label: string }[] = [
-  { id: 'all', label: 'Sepanjang masa' },
-  { id: '30h', label: '30 hari' },
-  { id: '7h', label: '7 hari' },
-]
+import { useTranslations } from 'next-intl'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   desaSlug: string
@@ -21,9 +16,19 @@ interface Props {
 }
 
 export default function LeaderboardClient({ desaSlug, desaNama }: Props) {
+  const t = useTranslations('leaderboard')
   const [periode, setPeriode] = useState<PeriodeLeaderboard>('all')
   const [item, setItem] = useState<LeaderboardEntry[]>([])
   const [loading, setLoading] = useState(true)
+
+  const periodeOpsi = useMemo(
+    () =>
+      (['all', '30h', '7h'] as const).map((id) => ({
+        id,
+        label: t(`periode.${id}`),
+      })),
+    [t],
+  )
 
   const muat = useCallback(async () => {
     setLoading(true)
@@ -52,18 +57,16 @@ export default function LeaderboardClient({ desaSlug, desaNama }: Props) {
           <div className="mt-6 flex items-center gap-3">
             <TrophyIcon className="size-8 text-amber-200" aria-hidden />
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">Leaderboard</h1>
-              <p className="mt-1 text-sm text-primary-50/90">
-                Peringkat partisipasi regeneratif — nama & avatar saja, tanpa data pribadi.
-              </p>
+              <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
+              <p className="mt-1 text-sm text-primary-50/90">{t('subtitle')}</p>
             </div>
           </div>
         </div>
       </div>
 
       <div className="container py-10 sm:py-12">
-        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Periode leaderboard">
-          {PERIODE.map((p) => (
+        <div className="flex flex-wrap gap-2" role="tablist" aria-label={t('periodeAria')}>
+          {periodeOpsi.map((p) => (
             <button
               key={p.id}
               type="button"
@@ -83,11 +86,9 @@ export default function LeaderboardClient({ desaSlug, desaNama }: Props) {
         </div>
 
         {loading ? (
-          <p className="mt-8 text-center text-sm text-neutral-500">Memuat peringkat…</p>
+          <p className="mt-8 text-center text-sm text-neutral-500">{t('loading')}</p>
         ) : item.length === 0 ? (
-          <p className="mt-8 text-center text-sm text-neutral-500 dark:text-neutral-400">
-            Belum ada peringkat untuk periode ini.
-          </p>
+          <p className="mt-8 text-center text-sm text-neutral-500 dark:text-neutral-400">{t('empty')}</p>
         ) : (
           <ol className="mt-8 space-y-3">
             {item.map((row) => (
@@ -140,9 +141,9 @@ export default function LeaderboardClient({ desaSlug, desaNama }: Props) {
         )}
 
         <p className="mt-8 text-center text-xs text-neutral-500 dark:text-neutral-500">
-          Masuk untuk melihat lencana Anda.{' '}
+          {t('signInPrompt')}{' '}
           <Link href={`/${desaSlug}/saya/lencana`} className="font-medium text-primary-600 hover:underline dark:text-primary-400">
-            Buka lencana saya
+            {t('myBadges')}
           </Link>
         </p>
       </div>

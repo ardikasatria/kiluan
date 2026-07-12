@@ -1,6 +1,6 @@
 import type { DashboardStat } from '@/lib/kiluan/dashboard-peran'
 import DashboardPhaseBadge from '@/components/kiluan/dashboard/DashboardPhaseBadge'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 interface Props {
   stats: DashboardStat[]

@@ -11,7 +11,7 @@ from app.domain.paginasi import keyset
 from app.layanan.media import MediaLayanan
 from app.repo.f2_sql import RepoMisiSQL
 
-TIPE_VALID = frozenset({"destinasi", "paket", "misi"})
+TIPE_VALID = frozenset({"destinasi", "paket", "misi", "produk"})
 
 
 class SimpananLayanan:
@@ -61,6 +61,26 @@ class SimpananLayanan:
                 "subjudul": f"{p.durasi_jam} jam",
             }
 
+        if tipe == "produk":
+            p = await self.store.produk_jasa.ambil(entitas_id)
+            if p is None or getattr(p, "dihapus_pada", None) is not None:
+                raise TidakDitemukan("entitas tidak ditemukan")
+            if p.status != "publikasi":
+                raise TidakDitemukan("entitas tidak ditemukan")
+            umkm = await self.store.umkm.ambil(p.umkm_id)
+            if (
+                umkm is None
+                or getattr(umkm, "dihapus_pada", None) is not None
+                or umkm.status_verifikasi != "terverifikasi"
+            ):
+                raise TidakDitemukan("entitas tidak ditemukan")
+            await self._desa_aktif(p.desa_id)
+            return p.desa_id, {
+                "nama": p.nama,
+                "slug": str(p.id),
+                "subjudul": umkm.nama,
+            }
+
         repo = self._misi_repo()
         if repo is None:
             raise KesalahanValidasi("modul misi belum tersedia", [{"field": "tipe", "pesan": "belum_tersedia"}])
@@ -82,12 +102,11 @@ class SimpananLayanan:
         return {"desa_id": str(desa_id), "desa_slug": d.slug, "desa_nama": d.nama}
 
     async def _sampul_url(self, tipe: str, entitas_id: UUID, desa_id: UUID) -> Optional[str]:
-        if tipe != "destinasi":
+        if tipe not in ("destinasi", "produk"):
             return None
+        ent_tipe = EntitasLampiran.destinasi if tipe == "destinasi" else EntitasLampiran.produk_jasa
         try:
-            media = await MediaLayanan(self.store).daftar_entitas_publik(
-                EntitasLampiran.destinasi, entitas_id,
-            )
+            media = await MediaLayanan(self.store).daftar_entitas_publik(ent_tipe, entitas_id)
             if media:
                 return media[0].get("url")
         except Exception:

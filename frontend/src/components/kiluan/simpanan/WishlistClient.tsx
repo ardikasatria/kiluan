@@ -1,16 +1,16 @@
 'use client'
 
+import { usePesanGalat } from '@/hooks/usePesanGalat'
 import {
   getDaftarSimpanan,
   hapusSimpananAman,
-  labelTipeSimpanan,
   ubahCatatanSimpanan,
   urlDetailSimpanan,
   type SimpananItem,
   type SimpananTipe,
 } from '@/lib/api/simpanan'
-import { pesanGalat } from '@/lib/api/galat'
 import { RUTE_DASBOR, RUTE_WISATAWAN } from '@/lib/kiluan/rute-sigerciv'
+import { Link } from '@/i18n/navigation'
 import {
   ArrowLeftIcon,
   ArrowPathIcon,
@@ -19,7 +19,7 @@ import {
   TrashIcon,
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 
 const PLACEHOLDER =
@@ -37,14 +37,18 @@ function badgeTipe(tipe: SimpananTipe) {
     destinasi: 'bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-200',
     paket: 'bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-200',
     misi: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200',
+    produk: 'bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-200',
   }
   return map[tipe]
 }
 
 export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) {
+  const t = useTranslations('wishlist')
+  const pesanGalat = usePesanGalat()
   const [tab, setTab] = useState<TabWishlist>('wisata')
   const [destinasi, setDestinasi] = useState<SimpananItem[]>([])
   const [paket, setPaket] = useState<SimpananItem[]>([])
+  const [produk, setProduk] = useState<SimpananItem[]>([])
   const [misi, setMisi] = useState<SimpananItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -54,32 +58,35 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
     setLoading(true)
     setError(null)
     try {
-      const [d, p, m] = await Promise.all([
+      const [d, p, pr, m] = await Promise.all([
         getDaftarSimpanan({ tipe: 'destinasi', batas: 50 }),
         getDaftarSimpanan({ tipe: 'paket', batas: 50 }),
+        getDaftarSimpanan({ tipe: 'produk', batas: 50 }),
         getDaftarSimpanan({ tipe: 'misi', batas: 50 }),
       ])
       setDestinasi(d.item)
       setPaket(p.item)
+      setProduk(pr.item)
       setMisi(m.item)
     } catch {
-      setError('Gagal memuat wishlist. Coba lagi.')
+      setError(t('loadError'))
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [t])
 
   useEffect(() => {
     void muat()
   }, [muat])
 
-  const wisata = [...destinasi, ...paket]
+  const wisata = [...destinasi, ...paket, ...produk]
 
   async function handleHapus(item: SimpananItem) {
     try {
       await hapusSimpananAman(item.desa_slug, item.id)
       if (item.tipe === 'destinasi') setDestinasi((prev) => prev.filter((x) => x.id !== item.id))
       else if (item.tipe === 'paket') setPaket((prev) => prev.filter((x) => x.id !== item.id))
+      else if (item.tipe === 'produk') setProduk((prev) => prev.filter((x) => x.id !== item.id))
       else setMisi((prev) => prev.filter((x) => x.id !== item.id))
     } catch (err) {
       setError(pesanGalat(err))
@@ -94,6 +101,7 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
         prev.map((x) => (x.id === item.id ? { ...x, catatan: updated.catatan } : x))
       if (item.tipe === 'destinasi') setDestinasi(patch)
       else if (item.tipe === 'paket') setPaket(patch)
+      else if (item.tipe === 'produk') setProduk(patch)
       else setMisi(patch)
     } catch (err) {
       setError(pesanGalat(err))
@@ -115,23 +123,21 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
           className="inline-flex items-center gap-2 text-sm font-medium text-primary-100 hover:text-white"
         >
           <ArrowLeftIcon className="size-4" aria-hidden />
-          Dasbor
+          {t('backToDashboard')}
         </Link>
         <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="inline-flex items-center gap-2 text-sm font-medium text-rose-200">
               <HeartIcon className="size-4" aria-hidden />
-              Lintas desa Lampung
+              {t('crossVillage')}
             </p>
-            <h1 className="mt-1 text-3xl font-bold tracking-tight text-white">Wishlist saya</h1>
-            <p className="mt-2 max-w-lg text-sm text-primary-100/90">
-              Destinasi, paket wisata, dan misi regeneratif yang ingin Anda kunjungi atau selesaikan.
-            </p>
+            <h1 className="mt-1 text-3xl font-bold tracking-tight text-white">{t('title')}</h1>
+            <p className="mt-2 max-w-lg text-sm text-primary-100/90">{t('subtitle')}</p>
           </div>
           <div className="rounded-2xl border border-white/20 bg-white/10 px-5 py-3 backdrop-blur-sm">
-            <p className="text-xs font-medium tracking-wide text-primary-100/80 uppercase">Total tersimpan</p>
+            <p className="text-xs font-medium tracking-wide text-primary-100/80 uppercase">{t('totalSaved')}</p>
             <p className="mt-0.5 text-2xl font-bold text-white">
-              {destinasi.length + paket.length + misi.length}
+              {destinasi.length + paket.length + produk.length + misi.length}
             </p>
           </div>
         </div>
@@ -142,7 +148,7 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
           <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200">
             {error}
             <button type="button" onClick={() => void muat()} className="ms-2 font-semibold underline">
-              Coba lagi
+              {t('retry')}
             </button>
           </div>
         )}
@@ -150,8 +156,8 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
         <div className="mb-8 flex gap-2">
           {(
             [
-              ['wisata', `Wisata (${wisata.length})`],
-              ['misi', `Misi (${misi.length})`],
+              ['wisata', t('tabWisata', { count: wisata.length })],
+              ['misi', t('tabMisi', { count: misi.length })],
             ] as const
           ).map(([k, label]) => (
             <button
@@ -175,34 +181,34 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
             className="ms-auto inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm text-neutral-500 hover:text-primary-600 dark:hover:text-primary-400"
           >
             <ArrowPathIcon className="size-4" aria-hidden />
-            Segarkan
+            {t('refresh')}
           </button>
         </div>
 
         {loading ? (
-          <p className="py-16 text-center text-sm text-neutral-500 dark:text-neutral-400">Memuat wishlist…</p>
+          <p className="py-16 text-center text-sm text-neutral-500 dark:text-neutral-400">{t('loading')}</p>
         ) : daftarAktif.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-neutral-300 bg-neutral-50/80 px-6 py-16 text-center dark:border-neutral-700 dark:bg-neutral-900/40">
             <HeartIcon className="mx-auto size-12 text-neutral-300 dark:text-neutral-600" aria-hidden />
             <h2 className="mt-4 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-              {tab === 'wisata' ? 'Belum ada wisata tersimpan' : 'Belum ada misi tersimpan'}
+              {tab === 'wisata' ? t('emptyWisataTitle') : t('emptyMisiTitle')}
             </h2>
             <p className="mx-auto mt-2 max-w-md text-sm text-neutral-500 dark:text-neutral-400">
-              Ketuk ikon hati di kartu destinasi, paket, atau misi saat Anda menjelajah Sigerciv.
+              {t('emptyHint')}
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               <Link
                 href={discoveryHref}
                 className="rounded-full bg-primary-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-800 dark:bg-primary-600"
               >
-                Jelajah destinasi
+                {t('exploreCta')}
               </Link>
               {tab === 'misi' && (
                 <Link
                   href={misiHref}
                   className="rounded-full border border-primary-300 px-5 py-2.5 text-sm font-semibold text-primary-800 hover:bg-primary-50 dark:border-primary-600 dark:text-primary-100 dark:hover:bg-primary-900/40"
                 >
-                  Lihat misi lestari
+                  {t('missionCta')}
                 </Link>
               )}
             </div>
@@ -228,7 +234,7 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
                       badgeTipe(item.tipe),
                     )}
                   >
-                    {labelTipeSimpanan(item.tipe)}
+                    {t(`tipe.${item.tipe}`)}
                   </span>
                 </Link>
                 <div className="flex flex-1 flex-col p-4 sm:p-5">
@@ -248,11 +254,11 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
                     </p>
                   ) : null}
                   <label className="mt-4 block text-xs font-medium text-neutral-500 dark:text-neutral-400">
-                    Catatan pribadi
+                    {t('noteLabel')}
                     <textarea
                       defaultValue={item.catatan ?? ''}
                       rows={2}
-                      placeholder="Mis. kunjungi saat bulan puasa…"
+                      placeholder={t('notePlaceholder')}
                       className="mt-1 w-full rounded-xl border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-800 dark:border-neutral-700 dark:bg-neutral-800/80 dark:text-neutral-200"
                       onBlur={(e) => {
                         const v = e.target.value.trim()
@@ -260,7 +266,7 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
                       }}
                     />
                     {simpanCatatan === item.id ? (
-                      <span className="mt-1 block text-[10px] text-neutral-400">Menyimpan…</span>
+                      <span className="mt-1 block text-[10px] text-neutral-400">{t('noteSaving')}</span>
                     ) : null}
                   </label>
                   <div className="mt-4 flex items-center justify-between gap-2 border-t border-neutral-100 pt-4 dark:border-neutral-800">
@@ -268,7 +274,7 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
                       href={urlDetailSimpanan(item)}
                       className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-400"
                     >
-                      Buka detail
+                      {t('openDetail')}
                     </Link>
                     <button
                       type="button"
@@ -276,7 +282,7 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
                       className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30"
                     >
                       <TrashIcon className="size-4" aria-hidden />
-                      Hapus
+                      {t('remove')}
                     </button>
                   </div>
                 </div>

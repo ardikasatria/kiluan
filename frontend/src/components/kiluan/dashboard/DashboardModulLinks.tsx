@@ -1,6 +1,6 @@
 import type { DashboardModulLink } from '@/lib/kiluan/dashboard-peran'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 interface Props {
   modul: DashboardModulLink[]

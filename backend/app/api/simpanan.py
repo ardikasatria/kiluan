@@ -25,7 +25,7 @@ def _svc(store) -> SimpananLayanan:
 
 
 class TambahSimpananReq(BaseModel):
-    tipe: str = Field(..., pattern="^(destinasi|paket|misi)$")
+    tipe: str = Field(..., pattern="^(destinasi|paket|misi|produk)$")
     entitas_id: UUID
     catatan: Optional[str] = None
 
@@ -47,7 +47,7 @@ async def daftar(
 
 @router.get("/status")
 async def cek_status(
-    tipe: str = Query(..., pattern="^(destinasi|paket|misi)$"),
+    tipe: str = Query(..., pattern="^(destinasi|paket|misi|produk)$"),
     entitas_id: list[UUID] = Query(...),
     pengguna_id: UUID = Depends(_wajib_login),
     store=Depends(get_penyimpanan),

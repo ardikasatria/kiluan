@@ -1,7 +1,8 @@
-import { apiFetch } from './client'
+import type { Locale } from '@/i18n/routing'
 import { tambahAntrean } from '@/lib/offline/db'
+import { apiFetch } from './client'
 
-export type SimpananTipe = 'destinasi' | 'paket' | 'misi'
+export type SimpananTipe = 'destinasi' | 'paket' | 'misi' | 'produk'
 
 export interface SimpananEntitasRingkas {
   nama: string
@@ -136,11 +137,25 @@ export function urlDetailSimpanan(item: SimpananItem): string {
   const d = item.desa_slug
   if (item.tipe === 'destinasi') return `/${d}/spot/${item.entitas.slug}`
   if (item.tipe === 'paket') return `/${d}/paket/${item.entitas.slug}`
+  if (item.tipe === 'produk') return `/${d}/pasar/produk/${item.entitas_id}`
   return `/${d}/misi`
 }
 
-export function labelTipeSimpanan(tipe: SimpananTipe): string {
-  if (tipe === 'destinasi') return 'Destinasi'
-  if (tipe === 'paket') return 'Paket wisata'
-  return 'Misi lestari'
+const LABEL_TIPE_SIMPANAN: Record<Locale, Record<SimpananTipe, string>> = {
+  id: {
+    destinasi: 'Destinasi',
+    paket: 'Paket wisata',
+    misi: 'Misi lestari',
+    produk: 'Produk lokal',
+  },
+  en: {
+    destinasi: 'Destination',
+    paket: 'Tour package',
+    misi: 'Regenerative mission',
+    produk: 'Local product',
+  },
+}
+
+export function labelTipeSimpanan(tipe: SimpananTipe, locale: Locale = 'id'): string {
+  return LABEL_TIPE_SIMPANAN[locale][tipe] ?? tipe
 }

@@ -1,9 +1,10 @@
 import type { BeritaDetail as BeritaDetailType } from '@/lib/api/types'
+import { Link } from '@/i18n/navigation'
 import { labelKategoriBerita, renderMarkdownSederhana } from '@/lib/kiluan/berita'
 import { formatTanggal } from '@/lib/kiluan/lencana'
 import { ArrowLeftIcon, StarIcon, UserCircleIcon } from '@heroicons/react/24/outline'
+import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
-import Link from 'next/link'
 
 const PLACEHOLDER =
   'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop'
@@ -14,7 +15,9 @@ interface Props {
   desaNama?: string
 }
 
-export default function BeritaDetail({ berita, desaSlug, desaNama }: Props) {
+export default async function BeritaDetail({ berita, desaSlug, desaNama }: Props) {
+  const t = await getTranslations('berita')
+  const tr = t as unknown as (key: string) => string
   const sampul = berita.sampul?.url
 
   return (
@@ -26,19 +29,19 @@ export default function BeritaDetail({ berita, desaSlug, desaNama }: Props) {
             className="inline-flex items-center gap-2 text-sm text-primary-700 hover:underline dark:text-primary-300"
           >
             <ArrowLeftIcon className="size-4" aria-hidden />
-            Kembali ke Warta
+            {t('back')}
           </Link>
           {desaNama && (
             <p className="mt-4 text-sm font-medium text-primary-600 dark:text-primary-400">{desaNama}</p>
           )}
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <span className="rounded-full bg-primary-100 px-3 py-1 text-xs font-medium text-primary-800 dark:bg-primary-900/50 dark:text-primary-200">
-              {labelKategoriBerita(berita.kategori)}
+              {labelKategoriBerita(berita.kategori, tr)}
             </span>
             {berita.sorotan && (
               <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800 dark:bg-amber-900/40 dark:text-amber-200">
                 <StarIcon className="size-3.5" aria-hidden />
-                Sorotan
+                {t('featured')}
               </span>
             )}
           </div>
@@ -73,12 +76,12 @@ export default function BeritaDetail({ berita, desaSlug, desaNama }: Props) {
 
           {berita.tag.length > 0 && (
             <div className="mb-6 flex flex-wrap gap-2">
-              {berita.tag.map((t) => (
+              {berita.tag.map((tag) => (
                 <span
-                  key={t.id}
+                  key={tag.id}
                   className="rounded-full border border-primary-200 px-3 py-1 text-xs text-primary-700 dark:border-primary-700 dark:text-primary-300"
                 >
-                  #{t.nama}
+                  #{tag.nama}
                 </span>
               ))}
             </div>

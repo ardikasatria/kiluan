@@ -3,6 +3,7 @@ import {
   mockDaftarPaket,
   mockDaftarProduk,
   mockDaftarUmkm,
+  mockDetailUmkm,
   mockPaketDetail,
   mockPaketKelola,
   mockProdukKelola,
@@ -83,6 +84,32 @@ export async function getPaketDetail(desaSlug: string, id: string, kelola = fals
   }
 }
 
+export async function getDetailUmkm(
+  desaSlug: string,
+  umkmId: string,
+  kelola = false,
+): Promise<UmkmDetail> {
+  try {
+    return await apiFetch(`/api/v1/desa/${desaSlug}/umkm/${umkmId}${kelola ? '?kelola=true' : ''}`, {
+      auth: kelola,
+    })
+  } catch {
+    return mockDetailUmkm(umkmId)
+  }
+}
+
+/** Detail produk publik (GET /desa/{slug}/produk/{id}). */
+export async function getDetailProduk(desaSlug: string, produkId: string, kelola = false): Promise<ProdukJasaItem | null> {
+  try {
+    return await apiFetch(`/api/v1/desa/${desaSlug}/produk/${produkId}${kelola ? '?kelola=true' : ''}`, {
+      auth: kelola,
+    })
+  } catch {
+    const res = await getDaftarProduk(desaSlug, { batas: 100 })
+    return res.item.find((p) => p.id === produkId) ?? null
+  }
+}
+
 export async function getUmkmKelola(desaSlug: string): Promise<{ item: UmkmRingkas[]; meta: MetaPaginasi }> {
   try {
     return await apiFetch(`/api/v1/desa/${desaSlug}/umkm?kelola=true`)
@@ -105,8 +132,38 @@ export async function buatUmkm(desaSlug: string, body: Record<string, unknown>):
   return apiFetch(`/api/v1/desa/${desaSlug}/umkm`, { method: 'POST', body: JSON.stringify(body) })
 }
 
+export async function ubahUmkm(
+  desaSlug: string,
+  umkmId: string,
+  body: Record<string, unknown>,
+): Promise<UmkmDetail> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/umkm/${umkmId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function hapusUmkm(desaSlug: string, umkmId: string): Promise<void> {
+  await apiFetch(`/api/v1/desa/${desaSlug}/umkm/${umkmId}`, { method: 'DELETE' })
+}
+
 export async function buatProduk(desaSlug: string, body: Record<string, unknown>): Promise<ProdukJasaItem> {
   return apiFetch(`/api/v1/desa/${desaSlug}/produk`, { method: 'POST', body: JSON.stringify(body) })
+}
+
+export async function ubahProduk(
+  desaSlug: string,
+  produkId: string,
+  body: Record<string, unknown>,
+): Promise<ProdukJasaItem> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/produk/${produkId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function hapusProduk(desaSlug: string, produkId: string): Promise<void> {
+  await apiFetch(`/api/v1/desa/${desaSlug}/produk/${produkId}`, { method: 'DELETE' })
 }
 
 export async function ubahStatusProduk(
@@ -144,6 +201,37 @@ export async function tambahItemPaket(
   return apiFetch(`/api/v1/desa/${desaSlug}/paket/${paketId}/item`, { method: 'POST', body: JSON.stringify(body) })
 }
 
+export async function ubahPaket(
+  desaSlug: string,
+  paketId: string,
+  body: Record<string, unknown>,
+): Promise<PaketDetail> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/paket/${paketId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function hapusPaket(desaSlug: string, paketId: string): Promise<void> {
+  await apiFetch(`/api/v1/desa/${desaSlug}/paket/${paketId}`, { method: 'DELETE' })
+}
+
+export async function ubahItemPaket(
+  desaSlug: string,
+  paketId: string,
+  itemId: string,
+  body: Record<string, unknown>,
+): Promise<unknown> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/paket/${paketId}/item/${itemId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function hapusItemPaket(desaSlug: string, paketId: string, itemId: string): Promise<void> {
+  await apiFetch(`/api/v1/desa/${desaSlug}/paket/${paketId}/item/${itemId}`, { method: 'DELETE' })
+}
+
 export async function verifikasiUmkm(
   desaSlug: string,
   umkmId: string,
@@ -157,11 +245,13 @@ export async function verifikasiUmkm(
 
 export async function getKurasiLog(
   desaSlug: string,
-  opts?: { entitas_tipe?: string; entitas_id?: string },
+  opts?: { entitas_tipe?: string; entitas_id?: string; kursor?: string; batas?: number },
 ): Promise<{ item: KurasiLogItem[]; meta: MetaPaginasi }> {
   const q = new URLSearchParams()
   if (opts?.entitas_tipe) q.set('entitas_tipe', opts.entitas_tipe)
   if (opts?.entitas_id) q.set('entitas_id', opts.entitas_id)
+  if (opts?.kursor) q.set('kursor', opts.kursor)
+  if (opts?.batas) q.set('batas', String(opts.batas ?? 20))
   const qs = q.toString()
   try {
     return await apiFetch(`/api/v1/desa/${desaSlug}/kurasi/log${qs ? `?${qs}` : ''}`)

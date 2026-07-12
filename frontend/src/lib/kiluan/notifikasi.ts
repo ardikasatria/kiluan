@@ -22,14 +22,20 @@ export function urlEntitasNotifikasi(desaSlug: string, n: Pick<NotifikasiItem, '
   }
 }
 
-export function formatWaktuRelatif(iso: string): string {
+export function formatWaktuRelatif(
+  iso: string,
+  opts?: { t?: (key: string, values?: Record<string, string | number>) => string; locale?: string },
+): string {
   const diff = Date.now() - new Date(iso).getTime()
   const menit = Math.floor(diff / 60_000)
-  if (menit < 1) return 'Baru saja'
-  if (menit < 60) return `${menit} menit lalu`
+  const t = opts?.t
+  const locale = opts?.locale ?? 'id-ID'
+
+  if (menit < 1) return t ? t('waktu.baru') : 'Baru saja'
+  if (menit < 60) return t ? t('waktu.menit', { count: menit }) : `${menit} menit lalu`
   const jam = Math.floor(menit / 60)
-  if (jam < 24) return `${jam} jam lalu`
+  if (jam < 24) return t ? t('waktu.jam', { count: jam }) : `${jam} jam lalu`
   const hari = Math.floor(jam / 24)
-  if (hari < 7) return `${hari} hari lalu`
-  return new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'short' }).format(new Date(iso))
+  if (hari < 7) return t ? t('waktu.hari', { count: hari }) : `${hari} hari lalu`
+  return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short' }).format(new Date(iso))
 }

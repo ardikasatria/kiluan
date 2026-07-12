@@ -1,16 +1,18 @@
 import DestinasiCard from '@/components/kiluan/DestinasiCard'
 import type { DestinasiRingkas, Kategori } from '@/lib/api/types'
+import { Link } from '@/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
 import { ArrowRightIcon, StarIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
 
 interface Props {
   destinasi: DestinasiRingkas[]
   kategori: Kategori[]
 }
 
-export default function HomeFeaturedSpots({ destinasi, kategori }: Props) {
+export default async function HomeFeaturedSpots({ destinasi, kategori }: Props) {
   if (destinasi.length === 0) return null
 
+  const t = await getTranslations('landing.featuredSpots')
   const kategoriMap = new Map(kategori.map((k) => [k.id, k]))
   const items = destinasi.slice(0, 6)
 
@@ -21,20 +23,16 @@ export default function HomeFeaturedSpots({ destinasi, kategori }: Props) {
           <div>
             <p className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 dark:text-primary-400">
               <StarIcon className="size-4" aria-hidden />
-              Etalase publik
+              {t('eyebrow')}
             </p>
-            <h2 className="mt-1 text-2xl font-bold text-primary-800 sm:text-3xl dark:text-primary-100">
-              Spot unggulan
-            </h2>
-            <p className="mt-2 max-w-xl text-neutral-600 dark:text-neutral-400">
-              Destinasi aktif dari desa mitra — dikurasi komunitas, siap dijelajahi.
-            </p>
+            <h2 className="mt-1 text-2xl font-bold text-primary-800 sm:text-3xl dark:text-primary-100">{t('title')}</h2>
+            <p className="mt-2 max-w-xl text-neutral-600 dark:text-neutral-400">{t('subtitle')}</p>
           </div>
           <Link
             href="/jelajah"
             className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-primary-700 hover:text-primary-600 dark:text-primary-300"
           >
-            Lihat semua
+            {t('viewAll')}
             <ArrowRightIcon className="size-4" aria-hidden />
           </Link>
         </div>

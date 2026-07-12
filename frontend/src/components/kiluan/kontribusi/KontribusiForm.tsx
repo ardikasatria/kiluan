@@ -10,15 +10,10 @@ import type { KontribusiItem, KontribusiTarget, TipeKontribusi } from '@/lib/api
 import { tambahAntrean } from '@/lib/offline/db'
 import { CameraIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
-const TIPE: { id: TipeKontribusi; label: string }[] = [
-  { id: 'foto', label: 'Foto' },
-  { id: 'tips', label: 'Tips' },
-  { id: 'ulasan', label: 'Ulasan' },
-  { id: 'koreksi_data', label: 'Koreksi' },
-  { id: 'spot_baru', label: 'Spot baru' },
-]
+const TIPE: TipeKontribusi[] = ['foto', 'tips', 'ulasan', 'koreksi_data', 'spot_baru']
 
 interface Props {
   desaSlug: string
@@ -35,6 +30,7 @@ export default function KontribusiForm({
   onBerhasil,
   className,
 }: Props) {
+  const t = useTranslations('kontribusi.form')
   const [tipe, setTipe] = useState<TipeKontribusi>(kontribusiRevisi?.tipe ?? 'tips')
   const [isi, setIsi] = useState(String(kontribusiRevisi?.muatan?.isi ?? ''))
   const [field, setField] = useState(String(kontribusiRevisi?.muatan?.field ?? 'jam_operasional'))
@@ -70,7 +66,7 @@ export default function KontribusiForm({
       })
       setMediaId(media.id)
     } catch {
-      setError('Gagal mengunggah foto.')
+      setError(t('errorUpload'))
     } finally {
       setUnggah(false)
     }
@@ -105,7 +101,7 @@ export default function KontribusiForm({
       }
       onBerhasil?.()
     } catch {
-      setError('Gagal mengirim kontribusi.')
+      setError(t('errorKirim'))
     } finally {
       setLoading(false)
     }
@@ -114,27 +110,27 @@ export default function KontribusiForm({
   return (
     <div className={clsx('rounded-2xl border border-neutral-200 p-5 dark:border-neutral-700', className)}>
       <h3 className="font-semibold text-primary-800 dark:text-primary-100">
-        {kontribusiRevisi ? 'Revisi kontribusi' : 'Kontribusi baru'}
+        {kontribusiRevisi ? t('revisiTitle') : t('newTitle')}
       </h3>
       {target?.label && (
-        <p className="mt-1 text-sm text-neutral-500">Untuk: {target.label}</p>
+        <p className="mt-1 text-sm text-neutral-500">{t('untuk', { label: target.label })}</p>
       )}
 
       {!kontribusiRevisi && (
         <div className="mt-4 flex flex-wrap gap-2">
-          {TIPE.map((t) => (
+          {TIPE.map((id) => (
             <button
-              key={t.id}
+              key={id}
               type="button"
-              onClick={() => setTipe(t.id)}
+              onClick={() => setTipe(id)}
               className={clsx(
                 'rounded-full px-3 py-1 text-sm font-medium ring-1 transition',
-                tipe === t.id
+                tipe === id
                   ? 'bg-primary-700 text-white ring-primary-700'
                   : 'bg-white text-neutral-700 ring-neutral-300 dark:bg-neutral-900',
               )}
             >
-              {t.label}
+              {t(`tipe.${id}`)}
             </button>
           ))}
         </div>
@@ -145,7 +141,7 @@ export default function KontribusiForm({
           <textarea
             value={isi}
             onChange={(e) => setIsi(e.target.value)}
-            placeholder={tipe === 'foto' ? 'Keterangan foto (opsional)' : 'Tulis di sini…'}
+            placeholder={tipe === 'foto' ? t('placeholder.foto') : t('placeholder.default')}
             rows={3}
             className="w-full rounded-xl border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
           />
@@ -155,7 +151,7 @@ export default function KontribusiForm({
           <div>
             <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-neutral-300 px-4 py-3 text-sm dark:border-neutral-600">
               <CameraIcon className="size-5 text-neutral-500" />
-              {mediaId ? 'Foto terunggah' : unggah ? 'Mengunggah…' : 'Pilih foto'}
+              {mediaId ? t('fotoTerunggah') : unggah ? t('mengunggah') : t('pilihFoto')}
               <input
                 type="file"
                 accept="image/*"
@@ -175,19 +171,19 @@ export default function KontribusiForm({
             <input
               value={field}
               onChange={(e) => setField(e.target.value)}
-              placeholder="Field (mis. jam_operasional)"
+              placeholder={t('placeholder.field')}
               className="w-full rounded-xl border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
             />
             <input
               value={usulan}
               onChange={(e) => setUsulan(e.target.value)}
-              placeholder="Nilai usulan"
+              placeholder={t('placeholder.usulan')}
               className="w-full rounded-xl border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
             />
             <textarea
               value={alasan}
               onChange={(e) => setAlasan(e.target.value)}
-              placeholder="Alasan koreksi"
+              placeholder={t('placeholder.alasan')}
               rows={2}
               className="w-full rounded-xl border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
             />
@@ -199,13 +195,13 @@ export default function KontribusiForm({
             <input
               value={namaSpot}
               onChange={(e) => setNamaSpot(e.target.value)}
-              placeholder="Nama spot usulan"
+              placeholder={t('placeholder.namaSpot')}
               className="w-full rounded-xl border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
             />
             <textarea
               value={deskripsiSpot}
               onChange={(e) => setDeskripsiSpot(e.target.value)}
-              placeholder="Deskripsi & lokasi"
+              placeholder={t('placeholder.deskripsiSpot')}
               rows={3}
               className="w-full rounded-xl border px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900"
             />
@@ -222,7 +218,7 @@ export default function KontribusiForm({
         className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-600 disabled:opacity-60"
       >
         <PaperAirplaneIcon className="size-4" />
-        {loading ? 'Mengirim…' : kontribusiRevisi ? 'Kirim ulang' : 'Kirim kontribusi'}
+        {loading ? t('mengirim') : kontribusiRevisi ? t('kirimUlang') : t('kirim')}
       </button>
     </div>
   )

@@ -3,6 +3,7 @@
 import { hitungAntrean } from '@/lib/offline/db'
 import { prosesAntreanSinkron } from '@/lib/offline/sync'
 import { CloudArrowUpIcon, SignalSlashIcon } from '@heroicons/react/24/outline'
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 export default function OfflineIndicator({ desaSlug }: Props) {
   const [online, setOnline] = useState(true)
   const [pending, setPending] = useState(0)
+  const t = useTranslations('nav.offline')
 
   useEffect(() => {
     const refresh = async () => {
@@ -44,7 +46,7 @@ export default function OfflineIndicator({ desaSlug }: Props) {
       }`}
     >
       {online ? <CloudArrowUpIcon className="size-4" /> : <SignalSlashIcon className="size-4" />}
-      {online ? `${pending} perubahan menunggu sinkron` : 'Offline — perubahan disimpan lokal'}
+      {online ? t('syncPending', { count: pending }) : t('offlineMode')}
     </div>
   )
 }

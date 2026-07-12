@@ -2,7 +2,8 @@
 
 import { useAuth } from '@/contexts/AuthProvider'
 import { dasborUtamaHref, perluPemilihDasbor } from '@/lib/kiluan/peran'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 import { useEffect } from 'react'
 import DasborHub from './DasborHub'
 
@@ -14,6 +15,7 @@ interface Props {
 export default function DasborEntry({ desaSlug, profilNama }: Props) {
   const { user, isLoading, isLoggedIn } = useAuth()
   const router = useRouter()
+  const t = useTranslations('dasbor.entry')
 
   const tunggal =
     isLoggedIn && user?.profil && !perluPemilihDasbor(user.profil)
@@ -29,7 +31,7 @@ export default function DasborEntry({ desaSlug, profilNama }: Props) {
   if (isLoading || tunggal) {
     return (
       <div className="py-16 text-center text-sm text-neutral-500 dark:text-neutral-400">
-        Memuat dasbor…
+        {t('loading')}
       </div>
     )
   }

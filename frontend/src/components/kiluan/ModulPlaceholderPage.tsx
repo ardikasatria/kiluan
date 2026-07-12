@@ -1,5 +1,6 @@
+import { Link } from '@/i18n/navigation'
 import { getProfilDesa } from '@/lib/api/desa'
-import { ambilModul } from '@/lib/kiluan/modul-placeholder'
+import { ambilModul, lokalisasiModul } from '@/lib/kiluan/modul-placeholder'
 import type { ModulPlaceholderConfig } from '@/lib/kiluan/modul-placeholder'
 import {
   ArrowLeftIcon,
@@ -7,7 +8,7 @@ import {
   CheckCircleIcon,
   RocketLaunchIcon,
 } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
 interface Props {
@@ -16,7 +17,13 @@ interface Props {
   profilNama?: string
 }
 
-export default function ModulPlaceholderPage({ config, desaSlug, profilNama }: Props) {
+export default async function ModulPlaceholderPage({ config, desaSlug, profilNama }: Props) {
+  const t = await getTranslations('modul')
+  const localized = lokalisasiModul(
+    config,
+    (key) => t(key as 'page.soon'),
+    (key) => t.raw(key as 'page.soon'),
+  )
   const kembali = desaSlug ? `/${desaSlug}` : '/'
   const konteks = profilNama ?? (desaSlug ? desaSlug : 'sigerciv')
 
@@ -29,26 +36,26 @@ export default function ModulPlaceholderPage({ config, desaSlug, profilNama }: P
             className="inline-flex items-center gap-2 text-sm font-medium text-primary-100 hover:text-white"
           >
             <ArrowLeftIcon className="size-4" aria-hidden />
-            Kembali ke {desaSlug ? 'etalase' : 'beranda'}
+            {desaSlug ? t('page.backShowcase') : t('page.backHome')}
           </Link>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/20 px-3 py-1 text-xs font-semibold text-amber-100 ring-1 ring-amber-300/30">
               <BeakerIcon className="size-3.5" aria-hidden />
-              Segera hadir
+              {t('page.soon')}
             </span>
             <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-primary-100">
-              Fase {config.fase}
+              {t('page.phase', { fase: localized.fase })}
             </span>
             <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-primary-100">
-              {config.modulLabel}
+              {localized.modulLabel}
             </span>
           </div>
 
-          <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{config.judul}</h1>
+          <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{localized.judul}</h1>
           <p className="mt-2 text-sm text-primary-100/80">{konteks}</p>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-primary-50/90 sm:text-lg">
-            {config.deskripsi}
+            {localized.deskripsi}
           </p>
         </div>
       </div>
@@ -58,10 +65,10 @@ export default function ModulPlaceholderPage({ config, desaSlug, profilNama }: P
           <div className="lg:col-span-2">
             <h2 className="flex items-center gap-2 text-lg font-semibold text-primary-800 dark:text-primary-100">
               <RocketLaunchIcon className="size-5 text-primary-600 dark:text-primary-400" aria-hidden />
-              Yang akan hadir
+              {t('page.comingTitle')}
             </h2>
             <ul className="mt-5 space-y-3">
-              {config.fiturRencana.map((fitur) => (
+              {localized.fiturRencana.map((fitur) => (
                 <li
                   key={fitur}
                   className="flex gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-3 dark:border-neutral-700 dark:bg-neutral-800/50"
@@ -78,19 +85,19 @@ export default function ModulPlaceholderPage({ config, desaSlug, profilNama }: P
 
           <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
             <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-700 dark:bg-neutral-800/40">
-              <h3 className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">Sudah tersedia</h3>
+              <h3 className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">{t('page.availableTitle')}</h3>
               <ul className="mt-3 space-y-2 text-sm">
                 <li>
                   <Link
                     href={desaSlug ? `/${desaSlug}#destinasi` : '/jelajah'}
                     className="text-primary-700 hover:underline dark:text-primary-300"
                   >
-                    Katalog destinasi
+                    {t('page.destinations')}
                   </Link>
                 </li>
                 <li>
                   <Link href="/masuk" className="text-primary-700 hover:underline dark:text-primary-300">
-                    Masuk / daftar
+                    {t('page.signIn')}
                   </Link>
                 </li>
                 {desaSlug && (
@@ -99,7 +106,7 @@ export default function ModulPlaceholderPage({ config, desaSlug, profilNama }: P
                       href={`/${desaSlug}/kelola`}
                       className="text-primary-700 hover:underline dark:text-primary-300"
                     >
-                      Dashboard pengelola
+                      {t('page.managerDashboard')}
                     </Link>
                   </li>
                 )}
@@ -107,8 +114,7 @@ export default function ModulPlaceholderPage({ config, desaSlug, profilNama }: P
             </div>
 
             <p className="rounded-2xl border border-dashed border-primary-300/60 bg-primary-50/50 px-4 py-3 text-xs leading-relaxed text-primary-800 dark:border-primary-600/40 dark:bg-primary-900/20 dark:text-primary-200">
-              Modul ini masuk roadmap blueprint sigerciv. Fase 0 fokus etalase, auth, destinasi &amp; media —
-              modul {config.modulLabel} direncanakan Fase {config.fase}.
+              {t('page.roadmapNote', { modulLabel: localized.modulLabel, fase: localized.fase })}
             </p>
           </aside>
         </div>

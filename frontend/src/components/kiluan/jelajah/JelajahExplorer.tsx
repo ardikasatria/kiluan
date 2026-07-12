@@ -5,6 +5,9 @@ import DestinasiCard from '@/components/kiluan/DestinasiCard'
 import SigercivPetaPemilih, { type MarkerPeta } from '@/components/kiluan/peta/SigercivPetaPemilih'
 import { cariDestinasiDiscovery, daftarDesaDiscovery } from '@/lib/api/discovery'
 import type { DesaRingkas, DestinasiRingkas, Kategori, MetaPaginasi, Tag } from '@/lib/api/types'
+import { Link, useRouter } from '@/i18n/navigation'
+import type { Locale } from '@/i18n/routing'
+import { labelKategori } from '@/lib/i18n/referensi'
 import {
   buildJelajahHref,
   PUSAT_LAMPUNG,
@@ -23,8 +26,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 import { useCallback, useMemo, useState, useTransition } from 'react'
 
 interface Props {
@@ -49,6 +51,8 @@ export default function JelajahExplorer({
   desaNama,
 }: Props) {
   const router = useRouter()
+  const locale = useLocale() as Locale
+  const t = useTranslations('jelajah.explorer')
   const [params, setParams] = useState<JelajahParams>(initialParams)
   const [qInput, setQInput] = useState(initialParams.q ?? '')
   const [destinasi, setDestinasi] = useState(initialDestinasi)
@@ -152,7 +156,7 @@ export default function JelajahExplorer({
 
   const pakaiLokasi = () => {
     if (!navigator.geolocation) {
-      setGeoError('Peramban tidak mendukung geolokasi.')
+      setGeoError(t('geoUnsupported'))
       return
     }
     setGeoLoading(true)
@@ -167,7 +171,7 @@ export default function JelajahExplorer({
       },
       () => {
         setGeoLoading(false)
-        setGeoError('Izin lokasi ditolak — menampilkan pusat Lampung tanpa jarak.')
+        setGeoError(t('geoDenied'))
         const next = { ...params, dekat: undefined }
         pushParams(next)
         fetchAll(next)
@@ -186,30 +190,47 @@ export default function JelajahExplorer({
           lokasi: d.lokasi!,
           tipe: 'desa' as const,
           href: `/${d.slug}`,
-          sublabel: d.jarak_m != null ? `± ${(d.jarak_m / 1000).toFixed(1)} km` : undefined,
+          sublabel:
+            d.jarak_m != null ? t('distanceKm', { distance: (d.jarak_m / 1000).toFixed(1) }) : undefined,
         }))
     }
     return destinasi
       .filter((d) => d.lokasi)
-      .map((d) => ({
-        id: d.id,
-        nama: d.nama,
-        lokasi: d.lokasi!,
-        tipe: 'destinasi' as const,
-        href: `/${d.desa_slug ?? 'teluk-kiluan'}/spot/${d.slug}`,
-        sublabel: kategoriMap.get(d.kategori_id)?.nama,
-      }))
-  }, [lensa, scopeDesa, desa, destinasi, kategoriMap])
+      .map((d) => {
+        const kat = kategoriMap.get(d.kategori_id)
+        return {
+          id: d.id,
+          nama: d.nama,
+          lokasi: d.lokasi!,
+          tipe: 'destinasi' as const,
+          href: `/${d.desa_slug ?? 'teluk-kiluan'}/spot/${d.slug}`,
+          sublabel: kat ? labelKategori(kat.kode, locale, kat.nama) : undefined,
+        }
+      })
+  }, [lensa, scopeDesa, desa, destinasi, kategoriMap, locale, t])
 
   const chips = useMemo(() => {
     const list: { key: string; label: string; clear: () => void }[] = []
-    if (params.q) list.push({ key: 'q', label: `"${params.q}"`, clear: () => { setQInput(''); pushParams({ ...params, q: undefined }); fetchAll({ ...params, q: undefined }) } })
+    if (params.q) {
+      list.push({
+        key: 'q',
+        label: `"${params.q}"`,
+        clear: () => {
+          setQInput('')
+          pushParams({ ...params, q: undefined })
+          fetchAll({ ...params, q: undefined })
+        },
+      })
+    }
     if (params.kategori) {
       const kat = kategoriMap.get(params.kategori)
       list.push({
         key: 'kat',
-        label: kat?.nama ?? 'Kategori',
-        clear: () => { pushParams({ ...params, kategori: undefined }); fetchAll({ ...params, kategori: undefined }) },
+        label: kat ? labelKategori(kat.kode, locale, kat.nama) : t('categoryFallback'),
+        clear: () => {
+          pushParams({ ...params, kategori: undefined })
+          fetchAll({ ...params, kategori: undefined })
+        },
       })
     }
     if (params.desa) {
@@ -219,10 +240,28 @@ export default function JelajahExplorer({
         clear: setScopeSemua,
       })
     }
-    if (params.tag) list.push({ key: 'tag', label: `Tag: ${params.tag}`, clear: () => { pushParams({ ...params, tag: undefined }); fetchAll({ ...params, tag: undefined }) } })
-    if (params.dekat) list.push({ key: 'dekat', label: 'Dekat saya', clear: () => { pushParams({ ...params, dekat: undefined }); fetchAll({ ...params, dekat: undefined }) } })
+    if (params.tag) {
+      list.push({
+        key: 'tag',
+        label: t('tagPrefix', { tag: params.tag }),
+        clear: () => {
+          pushParams({ ...params, tag: undefined })
+          fetchAll({ ...params, tag: undefined })
+        },
+      })
+    }
+    if (params.dekat) {
+      list.push({
+        key: 'dekat',
+        label: t('nearMeChip'),
+        clear: () => {
+          pushParams({ ...params, dekat: undefined })
+          fetchAll({ ...params, dekat: undefined })
+        },
+      })
+    }
     return list
-  }, [params, kategoriMap, desaNama, pushParams, fetchAll, setScopeSemua])
+  }, [params, kategoriMap, desaNama, pushParams, fetchAll, setScopeSemua, locale, t])
 
   const handleMarkerClick = (id: string) => {
     if (lensa === 'desa' && !scopeDesa) {
@@ -235,9 +274,10 @@ export default function JelajahExplorer({
 
   return (
     <div className="space-y-6">
-      {/* Scope selector */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs font-medium tracking-wide text-neutral-500 uppercase dark:text-neutral-400">Wilayah</span>
+        <span className="text-xs font-medium tracking-wide text-neutral-500 uppercase dark:text-neutral-400">
+          {t('region')}
+        </span>
         <button
           type="button"
           onClick={setScopeSemua}
@@ -249,7 +289,7 @@ export default function JelajahExplorer({
           )}
         >
           <GlobeAltIcon className="size-4" aria-hidden />
-          Semua Lampung
+          {t('allLampung')}
         </button>
         {scopeDesa ? (
           <span className="inline-flex items-center gap-2 rounded-full border border-primary-300 bg-primary-50 px-4 py-2 text-sm font-semibold text-primary-800 dark:border-primary-600 dark:bg-primary-900/40 dark:text-primary-100">
@@ -259,9 +299,14 @@ export default function JelajahExplorer({
               href={`/${scopeDesa}`}
               className="ms-1 text-xs font-medium text-primary-600 underline-offset-2 hover:underline dark:text-primary-300"
             >
-              Buka etalase
+              {t('openShowcase')}
             </Link>
-            <button type="button" onClick={setScopeSemua} className="rounded-full p-0.5 hover:bg-primary-200/60 dark:hover:bg-primary-800" aria-label="Hapus filter desa">
+            <button
+              type="button"
+              onClick={setScopeSemua}
+              className="rounded-full p-0.5 hover:bg-primary-200/60 dark:hover:bg-primary-800"
+              aria-label={t('clearDesaFilter')}
+            >
               <XMarkIcon className="size-4" />
             </button>
           </span>
@@ -269,13 +314,12 @@ export default function JelajahExplorer({
       </div>
 
       <div className="grid gap-6 xl:grid-cols-12">
-        {/* Filter rail */}
         <aside className="xl:col-span-3">
           <div className="kiluan-glass-panel sticky top-24 space-y-5 p-5">
-            <h2 className="text-sm font-semibold text-primary-800 dark:text-primary-100">Filter</h2>
+            <h2 className="text-sm font-semibold text-primary-800 dark:text-primary-100">{t('filter')}</h2>
 
             <label className="block">
-              <span className="mb-1.5 block text-xs font-medium text-neutral-500 dark:text-neutral-400">Cari</span>
+              <span className="mb-1.5 block text-xs font-medium text-neutral-500 dark:text-neutral-400">{t('search')}</span>
               <span className="relative block">
                 <MagnifyingGlassIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-neutral-400" aria-hidden />
                 <input
@@ -283,34 +327,36 @@ export default function JelajahExplorer({
                   value={qInput}
                   onChange={(e) => setQInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && applyFilters()}
-                  placeholder="Nama destinasi atau desa…"
+                  placeholder={t('searchPlaceholder')}
                   className="w-full rounded-xl border border-neutral-200 bg-white py-2.5 pr-3 pl-9 text-sm focus:border-primary-400 focus:ring-2 focus:ring-primary-200 focus:outline-none dark:border-neutral-600 dark:bg-neutral-900"
                 />
               </span>
             </label>
 
             <label className="block">
-              <span className="mb-1.5 block text-xs font-medium text-neutral-500 dark:text-neutral-400">Kategori</span>
+              <span className="mb-1.5 block text-xs font-medium text-neutral-500 dark:text-neutral-400">{t('category')}</span>
               <select
                 value={params.kategori ?? ''}
                 onChange={(e) => {
-                  const kategori = e.target.value ? Number(e.target.value) : undefined
-                  const next = { ...params, kategori }
+                  const kategoriId = e.target.value ? Number(e.target.value) : undefined
+                  const next = { ...params, kategori: kategoriId }
                   pushParams(next)
                   fetchAll(next)
                 }}
                 className="w-full rounded-xl border border-neutral-200 bg-white px-3 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-900"
               >
-                <option value="">Semua kategori</option>
+                <option value="">{t('allCategories')}</option>
                 {kategori.map((k) => (
-                  <option key={k.id} value={k.id}>{k.nama}</option>
+                  <option key={k.id} value={k.id}>
+                    {labelKategori(k.kode, locale, k.nama)}
+                  </option>
                 ))}
               </select>
             </label>
 
             {scopeDesa && tagsDesa.length > 0 ? (
               <label className="block">
-                <span className="mb-1.5 block text-xs font-medium text-neutral-500 dark:text-neutral-400">Tag (desa ini)</span>
+                <span className="mb-1.5 block text-xs font-medium text-neutral-500 dark:text-neutral-400">{t('tag')}</span>
                 <select
                   value={params.tag ?? ''}
                   onChange={(e) => {
@@ -321,9 +367,11 @@ export default function JelajahExplorer({
                   }}
                   className="w-full rounded-xl border border-neutral-200 bg-white px-3 py-2.5 text-sm dark:border-neutral-600 dark:bg-neutral-900"
                 >
-                  <option value="">Semua tag</option>
-                  {tagsDesa.map((t) => (
-                    <option key={t.id} value={t.kode}>{t.nama}</option>
+                  <option value="">{t('allTags')}</option>
+                  {tagsDesa.map((tag) => (
+                    <option key={tag.id} value={tag.kode}>
+                      {tag.nama}
+                    </option>
                   ))}
                 </select>
               </label>
@@ -337,26 +385,35 @@ export default function JelajahExplorer({
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-600 disabled:opacity-60 dark:bg-primary-600"
               >
                 <MagnifyingGlassIcon className="size-4" aria-hidden />
-                Terapkan
+                {t('apply')}
               </button>
               <button
                 type="button"
-                onClick={params.dekat ? () => { pushParams({ ...params, dekat: undefined }); fetchAll({ ...params, dekat: undefined }) } : pakaiLokasi}
+                onClick={
+                  params.dekat
+                    ? () => {
+                        pushParams({ ...params, dekat: undefined })
+                        fetchAll({ ...params, dekat: undefined })
+                      }
+                    : pakaiLokasi
+                }
                 disabled={geoLoading || pending}
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-neutral-200 px-4 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800"
               >
                 {geoLoading ? <ArrowPathIcon className="size-4 animate-spin" aria-hidden /> : <MapPinIcon className="size-4" aria-hidden />}
-                {params.dekat ? 'Reset lokasi' : 'Dekat saya'}
+                {params.dekat ? t('resetLocation') : t('nearMe')}
               </button>
             </div>
 
             {geoError ? (
-              <p className="text-xs text-amber-700 dark:text-amber-300" role="status">{geoError}</p>
+              <p className="text-xs text-amber-700 dark:text-amber-300" role="status">
+                {geoError}
+              </p>
             ) : null}
 
             {chips.length > 0 ? (
               <div className="border-t border-neutral-200/80 pt-4 dark:border-neutral-700">
-                <p className="mb-2 text-xs font-medium text-neutral-500 dark:text-neutral-400">Filter aktif</p>
+                <p className="mb-2 text-xs font-medium text-neutral-500 dark:text-neutral-400">{t('activeFilters')}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {chips.map((c) => (
                     <button
@@ -369,8 +426,12 @@ export default function JelajahExplorer({
                       <XMarkIcon className="size-3" aria-hidden />
                     </button>
                   ))}
-                  <button type="button" onClick={resetFilters} className="text-xs font-medium text-neutral-500 underline hover:text-primary-600 dark:hover:text-primary-400">
-                    Reset semua
+                  <button
+                    type="button"
+                    onClick={resetFilters}
+                    className="text-xs font-medium text-neutral-500 underline hover:text-primary-600 dark:hover:text-primary-400"
+                  >
+                    {t('resetAll')}
                   </button>
                 </div>
               </div>
@@ -378,16 +439,15 @@ export default function JelajahExplorer({
           </div>
         </aside>
 
-        {/* Results */}
         <div className="xl:col-span-5">
           <div className="mb-4 flex gap-1 rounded-xl bg-neutral-100 p-1 dark:bg-neutral-800/80">
             {(
               [
-                { id: 'desa' as LensaJelajah, label: 'Pilih desa', icon: BuildingOffice2Icon, hide: Boolean(scopeDesa) },
-                { id: 'wisata' as LensaJelajah, label: 'Cari wisata', icon: MapPinIcon, hide: false },
+                { id: 'desa' as LensaJelajah, label: t('lensDesa'), icon: BuildingOffice2Icon, hide: Boolean(scopeDesa) },
+                { id: 'wisata' as LensaJelajah, label: t('lensWisata'), icon: MapPinIcon, hide: false },
               ] as const
             )
-              .filter((t) => !t.hide)
+              .filter((tab) => !tab.hide)
               .map(({ id, label, icon: Icon }) => (
                 <button
                   key={id}
@@ -410,13 +470,13 @@ export default function JelajahExplorer({
           {pending && (
             <p className="mb-4 flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400" role="status">
               <ArrowPathIcon className="size-4 animate-spin" aria-hidden />
-              Memuat hasil…
+              {t('loading')}
             </p>
           )}
 
           {lensa === 'desa' && !scopeDesa ? (
             <HasilDaftar
-              kosong="Belum ada desa wisata aktif yang cocok."
+              kosong={t('emptyDesa')}
               count={desa.length}
               adaLagi={metaDs.ada_lagi}
               pending={pending}
@@ -428,7 +488,10 @@ export default function JelajahExplorer({
                   id={`jelajah-item-${d.slug}`}
                   onMouseEnter={() => setHighlightedId(d.slug)}
                   onMouseLeave={() => setHighlightedId(null)}
-                  className={clsx('rounded-2xl transition', highlightedId === d.slug && 'ring-2 ring-kiluan-mint ring-offset-2 dark:ring-offset-neutral-900')}
+                  className={clsx(
+                    'rounded-2xl transition',
+                    highlightedId === d.slug && 'ring-2 ring-kiluan-mint ring-offset-2 dark:ring-offset-neutral-900',
+                  )}
                 >
                   <DesaCard desa={d} onPilih={() => pilihDesa(d.slug)} />
                 </div>
@@ -436,7 +499,7 @@ export default function JelajahExplorer({
             </HasilDaftar>
           ) : (
             <HasilDaftar
-              kosong="Belum ada destinasi publik yang cocok dengan filter."
+              kosong={t('emptyDestinasi')}
               count={destinasi.length}
               adaLagi={metaD.ada_lagi}
               pending={pending}
@@ -448,7 +511,10 @@ export default function JelajahExplorer({
                   id={`jelajah-item-${d.id}`}
                   onMouseEnter={() => setHighlightedId(d.id)}
                   onMouseLeave={() => setHighlightedId(null)}
-                  className={clsx('rounded-2xl transition', highlightedId === d.id && 'ring-2 ring-kiluan-mint ring-offset-2 dark:ring-offset-neutral-900')}
+                  className={clsx(
+                    'rounded-2xl transition',
+                    highlightedId === d.id && 'ring-2 ring-kiluan-mint ring-offset-2 dark:ring-offset-neutral-900',
+                  )}
                 >
                   <DestinasiCard destinasi={d} kategori={kategoriMap.get(d.kategori_id)} showDesa />
                 </div>
@@ -457,12 +523,11 @@ export default function JelajahExplorer({
           )}
         </div>
 
-        {/* Map */}
         <div className="xl:col-span-4">
           <div className="sticky top-24 space-y-3">
             <div className="flex items-center gap-2 text-sm font-medium text-neutral-700 dark:text-neutral-300">
               <MapIcon className="size-5 text-primary-600 dark:text-primary-400" aria-hidden />
-              {lensa === 'desa' && !scopeDesa ? 'Peta desa wisata Lampung' : 'Peta destinasi'}
+              {lensa === 'desa' && !scopeDesa ? t('mapDesa') : t('mapDestinasi')}
             </div>
             <SigercivPetaPemilih
               markers={mapMarkers}
@@ -472,11 +537,9 @@ export default function JelajahExplorer({
               className="h-[320px] lg:h-[calc(100vh-11rem)]"
               onMarkerClick={handleMarkerClick}
               onMarkerHover={setHighlightedId}
-              emptyLabel="Tidak ada marker untuk filter ini. Coba ubah kriteria atau jelajah Semua Lampung."
+              emptyLabel={t('mapEmpty')}
             />
-            <p className="text-xs text-neutral-500 dark:text-neutral-400">
-              Klik marker desa untuk memfilter wisata di desa tersebut. Hover kartu atau marker untuk menyorot.
-            </p>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">{t('mapHint')}</p>
           </div>
         </div>
       </div>
@@ -505,6 +568,8 @@ function HasilDaftar({
   pending: boolean
   onMuat: () => void
 }) {
+  const t = useTranslations('jelajah.explorer')
+
   if (count === 0) {
     return (
       <p className="rounded-2xl border border-dashed border-neutral-300 px-6 py-16 text-center text-sm text-neutral-500 dark:border-neutral-600 dark:text-neutral-400">
@@ -525,7 +590,7 @@ function HasilDaftar({
             className="inline-flex items-center gap-2 rounded-full border border-primary-300 bg-primary-50 px-6 py-2.5 text-sm font-semibold text-primary-800 hover:bg-primary-100 disabled:opacity-60 dark:border-primary-600 dark:bg-primary-900/40 dark:text-primary-100"
           >
             {pending && <ArrowPathIcon className="size-4 animate-spin" aria-hidden />}
-            Muat lebih banyak
+            {t('loadMore')}
           </button>
         </div>
       ) : null}

@@ -1,6 +1,11 @@
 import { apiFetch } from './client'
+import {
+  mockDaftarMisi,
+  mockDetailMisi,
+  mockStasiun,
+  mockVerifikasiAntrean,
+} from './mock-penjelajah'
 import { konfirmasiMedia, presignMedia, unggahKeMinio } from './media'
-import { tambahAntrean } from '@/lib/offline/db'
 import type {
   MisiDetail,
   MisiRingkas,
@@ -19,44 +24,30 @@ export async function getMisi(
   if (params?.jenis) q.set('jenis', params.jenis)
   if (params?.kategori) q.set('kategori', params.kategori)
   const qs = q.toString()
-  return apiFetch(`/api/v1/desa/${desaSlug}/misi${qs ? `?${qs}` : ''}`)
+  try {
+    return await apiFetch(`/api/v1/desa/${desaSlug}/misi${qs ? `?${qs}` : ''}`, { auth: false })
+  } catch {
+    return mockDaftarMisi(params)
+  }
 }
 
 export async function getMisiDetail(desaSlug: string, id: string): Promise<{ misi: MisiDetail }> {
-  return apiFetch(`/api/v1/desa/${desaSlug}/misi/${id}`)
+  try {
+    return await apiFetch(`/api/v1/desa/${desaSlug}/misi/${id}`, { auth: false })
+  } catch {
+    const mock = mockDetailMisi(id)
+    if (!mock) throw new Error('Misi tidak ditemukan')
+    return mock
+  }
 }
 
 export async function selesaiMisi(
   desaSlug: string,
   misiId: string,
   body: MisiSelesaiPayload,
-): Promise<{ stempel: StempelDto; verifikasi: VerifikasiDto; offline?: boolean }> {
+): Promise<{ stempel: StempelDto; verifikasi: VerifikasiDto }> {
   const path = `/api/v1/desa/${desaSlug}/misi/${misiId}/selesai`
-  const payload = JSON.stringify(body)
-
-  if (typeof navigator !== 'undefined' && !navigator.onLine) {
-    await tambahAntrean({ desaSlug, method: 'POST', path, body: payload })
-    return {
-      stempel: {
-        id: 'offline',
-        misi_id: misiId,
-        status: 'menunggu_verifikasi',
-        dampak: body.dampak ?? {},
-        dibuat_pada: new Date().toISOString(),
-      },
-      verifikasi: {
-        id: 'offline',
-        entitas_tipe: 'stempel',
-        entitas_id: 'offline',
-        metode: 'qr_checkin',
-        hasil: 'menunggu',
-        dibuat_pada: new Date().toISOString(),
-      },
-      offline: true,
-    }
-  }
-
-  return apiFetch(path, { method: 'POST', body: payload })
+  return apiFetch(path, { method: 'POST', body: JSON.stringify(body) })
 }
 
 export async function getPasporSaya(desaSlug: string): Promise<PasporDto> {
@@ -72,7 +63,11 @@ export async function getStempelSaya(
 }
 
 export async function getStasiun(desaSlug: string): Promise<{ item: StasiunLestariDto[] }> {
-  return apiFetch(`/api/v1/desa/${desaSlug}/stasiun`)
+  try {
+    return await apiFetch(`/api/v1/desa/${desaSlug}/stasiun`, { auth: false })
+  } catch {
+    return mockStasiun()
+  }
 }
 
 export async function getVerifikasiAntrean(
@@ -83,7 +78,11 @@ export async function getVerifikasiAntrean(
   if (params?.entitas_tipe) q.set('entitas_tipe', params.entitas_tipe)
   if (params?.hasil) q.set('hasil', params.hasil)
   const qs = q.toString()
-  return apiFetch(`/api/v1/desa/${desaSlug}/verifikasi${qs ? `?${qs}` : ''}`)
+  try {
+    return await apiFetch(`/api/v1/desa/${desaSlug}/verifikasi${qs ? `?${qs}` : ''}`)
+  } catch {
+    return mockVerifikasiAntrean()
+  }
 }
 
 export async function putuskanVerifikasi(

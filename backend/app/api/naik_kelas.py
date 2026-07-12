@@ -146,7 +146,4 @@ async def get_sertifikasi(
     desa_id: UUID = Depends(resolusi_desa),
     svc: NaikKelasLayanan = Depends(_svc),
 ):
-    hasil = await svc.ambil_sertifikasi(desa_id, subjek_tipe, subjek_id)
-    if hasil is None:
-        return {"tingkat": None, "skor": 0, "diperbarui_pada": None}
-    return hasil
+    return await svc.ambil_sertifikasi(desa_id, subjek_tipe, subjek_id)

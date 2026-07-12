@@ -4,6 +4,7 @@ import type { MediaItem } from '@/lib/api/types'
 import { ChevronLeftIcon, ChevronRightIcon, PhotoIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const PLACEHOLDER =
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export default function SpotGalleryClient({ nama, media, kategori }: Props) {
+  const t = useTranslations('spot.gallery')
   const slides = useMemo(
     () =>
       media
@@ -55,7 +57,7 @@ export default function SpotGalleryClient({ nama, media, kategori }: Props) {
         <img src={PLACEHOLDER} alt={nama} className="size-full object-cover opacity-80 dark:opacity-60" />
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-t from-primary-950/70 via-primary-900/30 to-transparent text-white">
           <PhotoIcon className="size-10 opacity-90" aria-hidden />
-          <p className="text-sm font-medium">Galeri foto menyusul</p>
+          <p className="text-sm font-medium">{t('empty')}</p>
         </div>
         <OverlayJudul nama={nama} kategori={kategori} />
       </div>
@@ -65,7 +67,7 @@ export default function SpotGalleryClient({ nama, media, kategori }: Props) {
   return (
     <div className="relative w-full">
       <div className="relative overflow-hidden rounded-none bg-neutral-900 lg:rounded-2xl">
-        <div ref={emblaRef} aria-roledescription="carousel" aria-label={`Galeri ${nama}`}>
+        <div ref={emblaRef} aria-roledescription="carousel" aria-label={t('carouselLabel', { nama })}>
           <div className="flex">
             {slides.map((m, i) => (
               <div
@@ -75,7 +77,7 @@ export default function SpotGalleryClient({ nama, media, kategori }: Props) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={m.url!}
-                  alt={m.alt ?? `${nama} — foto ${i + 1}`}
+                  alt={m.alt ?? t('photoAlt', { nama, n: i + 1 })}
                   className="size-full object-cover"
                   loading={i === 0 ? 'eager' : 'lazy'}
                 />
@@ -90,7 +92,7 @@ export default function SpotGalleryClient({ nama, media, kategori }: Props) {
               type="button"
               onClick={scrollPrev}
               className="absolute top-1/2 left-2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:outline-none sm:left-4 sm:size-11"
-              aria-label="Foto sebelumnya"
+              aria-label={t('prev')}
             >
               <ChevronLeftIcon className="size-5" />
             </button>
@@ -98,12 +100,12 @@ export default function SpotGalleryClient({ nama, media, kategori }: Props) {
               type="button"
               onClick={scrollNext}
               className="absolute top-1/2 right-2 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition hover:bg-black/60 focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:outline-none sm:right-4 sm:size-11"
-              aria-label="Foto berikutnya"
+              aria-label={t('next')}
             >
               <ChevronRightIcon className="size-5" />
             </button>
             <p className="sr-only" aria-live="polite">
-              Foto {indeks + 1} dari {slides.length}
+              {t('counter', { current: indeks + 1, total: slides.length })}
             </p>
             <div className="absolute bottom-20 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 sm:bottom-24 lg:bottom-28">
               {slides.map((_, i) => (
@@ -136,7 +138,7 @@ export default function SpotGalleryClient({ nama, media, kategori }: Props) {
                   ? 'border-primary-500 opacity-100 ring-2 ring-primary-500/30 dark:border-primary-400'
                   : 'border-transparent opacity-65 hover:opacity-90 dark:opacity-55 dark:hover:opacity-80',
               )}
-              aria-label={`Lihat foto ${i + 1}`}
+              aria-label={t('viewPhoto', { n: i + 1 })}
               aria-current={i === indeks ? 'true' : undefined}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
