@@ -30,9 +30,18 @@ export interface ProfilSaya {
   id: string
   nama: string
   email: string
+  telepon?: string | null
   status: string
+  email_terverifikasi?: boolean
   avatar_url?: string | null
+  avatar_media_id?: string | null
   keanggotaan: KeanggotaanSaya[]
+}
+
+export interface PatchProfilPayload {
+  nama?: string
+  telepon?: string
+  avatar_media_id?: string
 }
 
 const PERAN_PENGELOLA = new Set(['pokdarwis', 'perangkat_desa', 'admin'])
@@ -102,6 +111,13 @@ export async function keluar(): Promise<void> {
 
 export async function getProfilSaya(): Promise<ProfilSaya> {
   return apiFetch<ProfilSaya>('/api/v1/saya')
+}
+
+export async function patchProfilSaya(payload: PatchProfilPayload): Promise<ProfilSaya> {
+  return apiFetch<ProfilSaya>('/api/v1/saya', {
+    method: 'PATCH',
+    body: JSON.stringify(payload),
+  })
 }
 
 export async function bootstrapSesi(): Promise<ProfilSaya | null> {
