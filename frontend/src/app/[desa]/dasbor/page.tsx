@@ -1,4 +1,4 @@
-import DasborHub from '@/components/kiluan/dashboard/DasborHub'
+import DasborEntry from '@/components/kiluan/dashboard/DasborEntry'
 import { getProfilDesa } from '@/lib/api/desa'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -18,5 +18,5 @@ export default async function DasborHubPage({ params }: Props) {
   const profil = await getProfilDesa(desa)
   if (!profil) notFound()
 
-  return <DasborHub desaSlug={desa} profilNama={profil.nama} />
+  return <DasborEntry desaSlug={desa} profilNama={profil.nama} />
 }

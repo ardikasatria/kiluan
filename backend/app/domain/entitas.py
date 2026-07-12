@@ -375,3 +375,64 @@ class SertifikasiOwner:
     skor: int
     id: UUID = field(default_factory=uid)
     diperbarui_pada: datetime = field(default_factory=_now)
+
+
+# --- F2 addendum: Warta & Genta ---
+
+
+@dataclass
+class Berita:
+    desa_id: UUID
+    penulis_id: UUID
+    slug: str
+    judul: str
+    ringkasan: Optional[str] = None
+    konten: str = ""
+    sampul_media_id: Optional[UUID] = None
+    kategori: str = "lainnya"
+    status: str = "draft"
+    terbit_pada: Optional[datetime] = None
+    sorotan: bool = False
+    tag_ids: list[int] = field(default_factory=list)
+    dihapus_pada: Optional[datetime] = None
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)
+    diperbarui_pada: datetime = field(default_factory=_now)
+
+
+@dataclass
+class BeritaTag:
+    berita_id: UUID
+    tag_id: int
+
+
+@dataclass
+class Peristiwa:
+    desa_id: UUID
+    jenis: str
+    entitas_tipe: str
+    entitas_id: UUID
+    muatan: dict = field(default_factory=dict)
+    diproses_pada: Optional[datetime] = None
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)
+
+
+@dataclass
+class Notifikasi:
+    desa_id: UUID
+    penerima_id: UUID
+    tipe: str
+    judul: str
+    isi: str
+    entitas_tipe: str
+    entitas_id: UUID
+    peristiwa_id: Optional[UUID] = None
+    kanal: str = "in_app"
+    status: str = "belum_dibaca"
+    dibaca_pada: Optional[datetime] = None
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)

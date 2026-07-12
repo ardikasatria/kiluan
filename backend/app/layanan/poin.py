@@ -22,6 +22,7 @@ from app.domain.errors import (
 )
 from app.domain.konteks import Konteks
 from app.inti.idempotensi import toko_idempotensi
+from app.inti.outbox import Outbox
 from app.model import tabel as M
 
 BENDAHARA = frozenset({KodePeran.pokdarwis, KodePeran.perangkat_desa, KodePeran.admin})
@@ -55,6 +56,7 @@ class PoinLayanan:
         self.kupon = RepoKuponSQL(s)
         self.penukaran = RepoPenukaranPoinSQL(s)
         self.pemakaian = RepoPemakaianKuponSQL(s)
+        self.outbox = Outbox(store)
 
     async def _tingkat_pengguna(self, desa_id: UUID, pengguna_id: UUID) -> str | None:
         best = 0
@@ -231,6 +233,17 @@ class PoinLayanan:
             pen.kupon_id = kupon_baru.id
 
         hasil = {"penukaran": pen, "kupon": kupon_baru}
+        await self.outbox.emit(
+            desa_id,
+            "tukar_poin_berhasil",
+            "penukaran_poin",
+            pen.id,
+            {
+                "pengguna_id": str(konteks.pengguna_id),
+                "hadiah_id": str(hadiah.id),
+                "poin_dipakai": hadiah.biaya_poin,
+            },
+        )
         return toko_idempotensi.simpan(idempotency_key, str(konteks.pengguna_id), ep, hasil)
 
     async def daftar_penukaran(

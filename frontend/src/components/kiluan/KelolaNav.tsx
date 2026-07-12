@@ -9,6 +9,7 @@ const ITEMS = [
   { href: '/destinasi', label: 'Destinasi' },
   { href: '/layanan', label: 'Layanan' },
   { href: '/kalender', label: 'Kalender' },
+  { href: '/berita', label: 'Warta' },
   { href: '/bendahara', label: 'Bendahara' },
   { href: '/pendapatan', label: 'Pendapatan' },
   { href: '/refund', label: 'Refund' },

@@ -141,6 +141,32 @@ class EntitasLampiran(str, Enum):
     produk_jasa = "produk_jasa"
     paket_wisata = "paket_wisata"
     kontribusi = "kontribusi"
+    berita = "berita"
+
+
+class KategoriBerita(str, Enum):
+    pengumuman = "pengumuman"
+    cerita = "cerita"
+    konservasi = "konservasi"
+    acara = "acara"
+    panduan = "panduan"
+    lainnya = "lainnya"
+
+
+class StatusBerita(str, Enum):
+    draft = "draft"
+    publikasi = "publikasi"
+    arsip = "arsip"
+
+
+class StatusNotifikasi(str, Enum):
+    belum_dibaca = "belum_dibaca"
+    dibaca = "dibaca"
+
+
+class KanalNotifikasi(str, Enum):
+    in_app = "in_app"
+    email = "email"
 
 
 class SubjekPengajuan(str, Enum):

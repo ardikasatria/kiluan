@@ -176,6 +176,7 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
             { id: 'cd-t-1', href: `/${DESA}/tentang`, name: 'Kisah desa' },
             { id: 'cd-t-2', href: `/${DESA}/tentang`, name: 'Kepemilikan komunitas' },
             { id: 'cd-t-3', href: '/', name: 'Gerbang multi-desa' },
+            { id: 'cd-w-1', href: `/${DESA}/berita`, name: 'Warta & Berita' },
           ],
         },
         {
@@ -214,6 +215,16 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
 export async function getNavMegaMenu(): Promise<TNavigationItem> {
   const navigation = await getNavigation()
   return navigation[0] || {}
+}
+
+/** Tautan footer — sinkron dengan menu utama. */
+export async function getFooterLinks(): Promise<{ href: string; label: string }[]> {
+  return [
+    { href: `/${DESA}/berita`, label: 'Warta & Berita' },
+    { href: `/${DESA}/tentang`, label: 'Tentang desa' },
+    { href: `/${DESA}/panduan`, label: 'Panduan berkunjung' },
+    { href: `/${DESA}/pasar`, label: 'Pasar Desa' },
+  ]
 }
 
 export const getLanguages = async () => {

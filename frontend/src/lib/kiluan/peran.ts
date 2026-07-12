@@ -88,6 +88,25 @@ export function daftarPeranPengguna(profil: ProfilSaya | null): PeranKode[] {
   return SEMUA_PERAN.filter((k) => punyaPeran(profil, k))
 }
 
+/** Peran dengan keanggotaan aktif saja. */
+export function peranAktifPengguna(profil: ProfilSaya | null): PeranKode[] {
+  return daftarPeranPengguna(profil)
+}
+
+/** Tampilkan pemilih /dasbor bila pengguna punya lebih dari satu peran aktif. */
+export function perluPemilihDasbor(profil: ProfilSaya | null): boolean {
+  return peranAktifPengguna(profil).length > 1
+}
+
+/** Destinasi dasbor utama — langsung ke peran tunggal, atau hub bila multi-peran. */
+export function dasborUtamaHref(profil: ProfilSaya | null, desaSlug: string): string {
+  const aktif = peranAktifPengguna(profil)
+  if (aktif.length === 1) {
+    return dasborHref(desaSlug, aktif[0])
+  }
+  return `/${desaSlug}/dasbor`
+}
+
 /** Status keanggotaan untuk peran (termasuk menunggu/ditolak) */
 export function statusKeanggotaan(
   profil: ProfilSaya | null,

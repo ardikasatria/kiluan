@@ -4,7 +4,9 @@ import KiluanAvatar from '@/components/kiluan/KiluanAvatar'
 import ButtonCircle from '@/shared/ButtonCircle'
 import { Divider } from '@/shared/divider'
 import { Link } from '@/shared/link'
+import { useDesaSlug } from '@/contexts/DesaKonteksProvider'
 import { useAuth } from '@/contexts/AuthProvider'
+import { dasborUtamaHref } from '@/lib/kiluan/peran'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import {
   Logout01Icon,
@@ -20,6 +22,8 @@ interface Props {
 
 export default function AvatarDropdown({ className }: Props) {
   const { user, logout, isLoggedIn } = useAuth()
+  const desaSlug = useDesaSlug()
+  const dasborHref = dasborUtamaHref(user?.profil ?? null, desaSlug)
 
   if (!isLoggedIn || !user) return null
 
@@ -50,7 +54,7 @@ export default function AvatarDropdown({ className }: Props) {
             <Divider />
 
             <Link
-              href="/teluk-kiluan/dasbor"
+              href={dasborHref}
               className="-m-3 flex items-center gap-x-4 rounded-lg p-2 transition duration-150 ease-in-out hover:bg-neutral-100 dark:hover:bg-neutral-700"
             >
               <HugeiconsIcon icon={UserIcon} size={24} strokeWidth={1.5} />
@@ -85,7 +89,7 @@ export default function AvatarDropdown({ className }: Props) {
 
             <button
               type="button"
-              onClick={() => logout()}
+              onClick={() => void logout()}
               className="-m-3 flex w-full items-center rounded-lg p-2 text-start transition duration-150 ease-in-out hover:bg-neutral-100 dark:hover:bg-neutral-700"
             >
               <HugeiconsIcon icon={Logout01Icon} size={24} strokeWidth={1.5} />

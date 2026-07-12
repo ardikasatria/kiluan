@@ -3,6 +3,7 @@ import { niveauGrotesk } from '@/lib/fonts'
 import { Metadata } from 'next'
 import ThemeProvider from './theme-provider'
 import { AuthProvider } from '@/contexts/AuthProvider'
+import { DesaKonteksProvider } from '@/contexts/DesaKonteksProvider'
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +20,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-white font-sans text-base text-neutral-900 dark:bg-neutral-900 dark:text-neutral-200">
         <ThemeProvider>
           <AuthProvider>
-            <div>{children}</div>
+            <DesaKonteksProvider>
+              <div>{children}</div>
+            </DesaKonteksProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

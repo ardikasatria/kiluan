@@ -17,6 +17,7 @@ from app.domain.errors import (
 )
 from app.domain.konteks import Konteks
 from app.model import tabel as M
+from app.inti.outbox import Outbox
 from app.repo.f2_sql import (
     RepoMisiSQL,
     RepoPasporLestariSQL,
@@ -51,6 +52,17 @@ class PenjelajahLayanan:
         self.paspor = RepoPasporLestariSQL(s)
         self.stempel = RepoStempelSQL(s)
         self.verifikasi = RepoVerifikasiSQL(s)
+        self.outbox = Outbox(store)
+
+    async def _emit_stempel_terverifikasi(self, desa_id: UUID, stempel: M.Stempel) -> None:
+        paspor = await self.paspor.wajib(stempel.paspor_id, desa_id)
+        await self.outbox.emit(
+            desa_id,
+            "stempel_terverifikasi",
+            "stempel",
+            stempel.id,
+            {"pengguna_id": str(paspor.pengguna_id), "misi_id": str(stempel.misi_id)},
+        )
 
     async def daftar_misi(
         self,
@@ -271,6 +283,7 @@ class PenjelajahLayanan:
         await self.verifikasi.simpan(verif)
         if stempel.status == "terverifikasi":
             await self._bump_paspor(stempel)
+            await self._emit_stempel_terverifikasi(desa_id, stempel)
         return {"stempel": stempel, "verifikasi": verif}
 
     async def paspor_saya(self, konteks: Konteks, desa_id: UUID) -> dict[str, Any]:
@@ -325,6 +338,7 @@ class PenjelajahLayanan:
         if hasil == "valid":
             stempel.status = "terverifikasi"
             await self._bump_paspor(stempel)
+            await self._emit_stempel_terverifikasi(desa_id, stempel)
         else:
             stempel.status = "ditolak"
         await self.store.sesi.flush()

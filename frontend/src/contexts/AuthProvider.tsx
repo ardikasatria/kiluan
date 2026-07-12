@@ -11,6 +11,7 @@ import {
   type ProfilSaya,
 } from '@/lib/api/auth'
 import { pesanGalat } from '@/lib/api/galat'
+import { useRouter } from 'next/navigation'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 export interface AuthUser {
@@ -59,6 +60,7 @@ function profilKeUser(profil: ProfilSaya): AuthUser {
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const router = useRouter()
   const [user, setUser] = useState<AuthUser | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -87,7 +89,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = useCallback(async () => {
     await apiKeluar()
     applyProfil(null)
-  }, [applyProfil])
+    router.replace('/')
+  }, [applyProfil, router])
 
   const refreshProfil = useCallback(async () => {
     const profil = await bootstrapSesi()

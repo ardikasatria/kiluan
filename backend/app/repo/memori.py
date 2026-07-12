@@ -12,6 +12,7 @@ from uuid import UUID
 from ..domain import entitas as E
 from ..domain.enums import StatusDesa
 from ..domain.errors import Konflik
+from .warta_genta_memori import RepoBerita, RepoNotifikasi, RepoPeristiwa
 
 
 def _now() -> datetime:
@@ -144,6 +145,9 @@ class RepoTag:
 
     async def daftar(self, desa_id: UUID) -> list[E.Tag]:
         return [t for t in self._data.values() if t.desa_id in (None, desa_id)]
+
+    async def ambil(self, id: int) -> Optional[E.Tag]:
+        return self._data.get(id)
 
 
 class RepoDestinasi:
@@ -539,4 +543,7 @@ class Penyimpanan:
         self.kartu_aksi = RepoKartuAksi()
         self.pengajuan_kartu = RepoPengajuanKartu()
         self.sertifikasi_owner = RepoSertifikasiOwner()
+        self.berita = RepoBerita()
+        self.peristiwa = RepoPeristiwa()
+        self.notifikasi = RepoNotifikasi()
         self.objek = ObjectStorePalsu()

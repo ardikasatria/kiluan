@@ -633,3 +633,84 @@ export interface SesiPemanduDto {
     dibuat_pada: string
   }>
 }
+
+// --- F2: Warta (Berita) ---
+
+export type KategoriBerita =
+  | 'pengumuman'
+  | 'cerita'
+  | 'konservasi'
+  | 'acara'
+  | 'panduan'
+  | 'lainnya'
+
+export type StatusBerita = 'draft' | 'publikasi' | 'arsip'
+
+export interface BeritaRingkas {
+  id: string
+  slug: string
+  judul: string
+  ringkasan?: string | null
+  kategori: KategoriBerita
+  sampul?: { url: string | null } | null
+  sorotan: boolean
+  terbit_pada?: string | null
+  tag: Tag[]
+  penulis: { nama: string }
+  status?: StatusBerita
+  dihapus_pada?: string | null
+}
+
+export interface BeritaDetail extends BeritaRingkas {
+  konten: string
+  dibuat_pada?: string | null
+  diperbarui_pada?: string | null
+}
+
+export interface BeritaBuatPayload {
+  judul: string
+  slug: string
+  ringkasan?: string
+  konten: string
+  kategori: KategoriBerita
+  sorotan?: boolean
+  terbit_pada?: string | null
+  sampul_media_id?: string | null
+}
+
+export interface BeritaUbahPayload extends Partial<BeritaBuatPayload> {}
+
+// --- F2: Genta (Notifikasi) ---
+
+export type StatusNotifikasi = 'belum_dibaca' | 'dibaca'
+
+export type TipeNotifikasi =
+  | 'pembayaran_menunggu_konfirmasi'
+  | 'pembayaran_berhasil'
+  | 'pesanan_dibayar'
+  | 'booking_terkonfirmasi'
+  | 'booking_checkin'
+  | 'pesanan_selesai'
+  | 'transaksi_dirilis'
+  | 'payout_dibuat'
+  | 'payout_berhasil'
+  | 'refund_diajukan'
+  | 'refund_selesai'
+  | 'tukar_poin_berhasil'
+  | 'stempel_terverifikasi'
+
+export interface NotifikasiItem {
+  id: string
+  tipe: TipeNotifikasi | string
+  judul: string
+  isi: string
+  entitas_tipe: string
+  entitas_id: string
+  status: StatusNotifikasi
+  dibuat_pada: string
+  dibaca_pada?: string | null
+}
+
+export interface NotifikasiHitungResponse {
+  belum_dibaca: number
+}

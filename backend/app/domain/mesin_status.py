@@ -23,6 +23,14 @@ TABEL = {
         ("menunggu", "minta_revisi"): "revisi",
         ("revisi", "ajukan"): "menunggu",
     },
+    "berita": {
+        ("draft", "publikasi"): "publikasi",
+        ("draft", "arsip"): "arsip",
+        ("publikasi", "draft"): "draft",
+        ("publikasi", "arsip"): "arsip",
+        ("arsip", "draft"): "draft",
+        ("arsip", "publikasi"): "publikasi",
+    },
 }
 
 TANPA_LOG = {("paket_wisata", "arsip")}

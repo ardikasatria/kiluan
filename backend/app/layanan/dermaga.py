@@ -19,6 +19,7 @@ from app.domain.errors import (
 )
 from app.domain.konteks import Konteks
 from app.inti.idempotensi import toko_idempotensi
+from app.inti.outbox import Outbox
 from app.model import tabel as M
 from app.inti.pembayaran import verifikasi_signature_webhook
 from app.layanan.poin import PoinLayanan
@@ -59,6 +60,7 @@ class DermagaLayanan:
         self.transaksi = RepoTransaksiSQL(s)
         self.webhook = RepoWebhookPembayaranSQL(s)
         self.poin = PoinLayanan(store)
+        self.outbox = Outbox(store)
 
     async def _resolve_item(self, desa_id: UUID, spec: dict) -> dict:
         tipe = spec["item_tipe"]
@@ -297,6 +299,18 @@ class DermagaLayanan:
             dibuat_pada=_now(),
         )
         await self.pembayaran.simpan(p)
+        if metode == "transfer_manual":
+            await self.outbox.emit(
+                desa_id,
+                "pembayaran_menunggu_konfirmasi",
+                "pembayaran",
+                p.id,
+                {
+                    "pembeli_id": str(pesanan.pembeli_id),
+                    "pesanan_id": str(pesanan.id),
+                    "jumlah": str(pesanan.total),
+                },
+            )
         return toko_idempotensi.simpan(idempotency_key, str(konteks.pengguna_id), ep, p)
 
     async def unggah_bukti(
@@ -393,10 +407,36 @@ class DermagaLayanan:
                 status="tertahan_escrow", dibuat_pada=_now(),
             ))
         pesanan.status = "dibayar"
+        penyedia_ids = [str(pid) for (_, pid) in grup.keys()]
+        booking_dikonfirmasi = False
         for bk in await self.booking.daftar(desa_id):
             it_ids = {i.id for i in items}
             if bk.pesanan_item_id in it_ids and bk.status == "dipesan":
                 bk.status = "terkonfirmasi"
+                booking_dikonfirmasi = True
+        await self.outbox.emit(
+            desa_id,
+            "pembayaran_berhasil",
+            "pembayaran",
+            p.id,
+            {"pembeli_id": str(pesanan.pembeli_id), "pesanan_id": str(pesanan.id)},
+        )
+        if penyedia_ids:
+            await self.outbox.emit(
+                desa_id,
+                "pesanan_dibayar",
+                "pesanan",
+                pesanan.id,
+                {"penyedia_ids": penyedia_ids, "pesanan_id": str(pesanan.id)},
+            )
+        if booking_dikonfirmasi:
+            await self.outbox.emit(
+                desa_id,
+                "booking_terkonfirmasi",
+                "pesanan",
+                pesanan.id,
+                {"pembeli_id": str(pesanan.pembeli_id)},
+            )
 
     async def checkin(self, konteks: Konteks, desa_id: UUID, booking_id: str | UUID) -> M.Booking:
         if not (konteks.admin_global() or konteks.peran_di(desa_id) & VERIFIKATOR):
@@ -406,6 +446,11 @@ class DermagaLayanan:
             raise TransisiIlegalF2("Booking belum terkonfirmasi.")
         bk.status = "checkin"
         bk.checkin_pada = _now()
+        it = await self.item.ambil(bk.pesanan_item_id, desa_id)
+        muatan: dict[str, str | list[str]] = {"booking_id": str(bk.id)}
+        if it is not None:
+            muatan["penyedia_id"] = str(it.penyedia_id)
+        await self.outbox.emit(desa_id, "booking_checkin", "booking", bk.id, muatan)
         return bk
 
     async def selesaikan_pesanan(self, desa_id: UUID, pesanan_id: UUID) -> M.Pesanan:
@@ -416,4 +461,21 @@ class DermagaLayanan:
         for t in await self.transaksi.daftar_pesanan(pesanan_id):
             if t.status == "tertahan_escrow":
                 t.status = "dirilis"
+        items = await self.item.daftar_pesanan(pesanan_id)
+        penyedia_ids = list({str(it.penyedia_id) for it in items})
+        muatan: dict[str, str | list[str]] = {
+            "pembeli_id": str(pesanan.pembeli_id),
+            "pesanan_id": str(pesanan.id),
+        }
+        if penyedia_ids:
+            muatan["penyedia_ids"] = penyedia_ids
+        await self.outbox.emit(desa_id, "pesanan_selesai", "pesanan", pesanan.id, muatan)
+        if penyedia_ids:
+            await self.outbox.emit(
+                desa_id,
+                "transaksi_dirilis",
+                "pesanan",
+                pesanan.id,
+                {"penyedia_ids": penyedia_ids},
+            )
         return pesanan

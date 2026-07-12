@@ -54,6 +54,7 @@ const footerColumns: FooterColumn[] = [
       { href: '/masuk', label: 'Masuk' },
       { href: '/daftar', label: 'Daftar akun' },
       { href: '/teluk-kiluan/tentang', label: 'Tentang desa' },
+      { href: '/teluk-kiluan/berita', label: 'Warta & Berita' },
       { href: '/#jejak-regeneratif', label: 'Jejak regeneratif' },
     ],
   },

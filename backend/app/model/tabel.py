@@ -275,7 +275,7 @@ class MediaLampiran(Base):
     __table_args__ = (
         CheckConstraint(
             "entitas_tipe IN ('destinasi','layanan','desa','pengguna',"
-            "'umkm','produk_jasa','paket_wisata','kontribusi')",
+            "'umkm','produk_jasa','paket_wisata','kontribusi','berita')",
             name="ck_lampiran_entitas",
         ),
     )
@@ -905,3 +905,97 @@ class PercakapanPemandu(Base):
     isi: Mapped[str] = mapped_column(Text)
     sumber = mapped_column(JSONB, nullable=True)
     dibuat_pada: Mapped[datetime] = _ts_buat()
+
+
+# --- F2 addendum: Warta & Genta ---
+
+
+class Berita(Base):
+    __tablename__ = "berita"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    penulis_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    slug: Mapped[str] = mapped_column(Text)
+    judul: Mapped[str] = mapped_column(Text)
+    ringkasan: Mapped[str | None] = mapped_column(Text)
+    konten: Mapped[str] = mapped_column(Text, default="")
+    sampul_media_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("media.id"))
+    kategori: Mapped[str] = mapped_column(String, default="lainnya")
+    status: Mapped[str] = mapped_column(String, default="draft")
+    terbit_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    sorotan: Mapped[bool] = mapped_column(Boolean, default=False)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    diperbarui_pada: Mapped[datetime] = _ts_buat()
+    dihapus_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    __table_args__ = (
+        UniqueConstraint("desa_id", "slug", name="uq_berita_desa_slug"),
+        CheckConstraint(
+            "kategori IN ('pengumuman','cerita','konservasi','acara','panduan','lainnya')",
+            name="ck_berita_kategori",
+        ),
+        CheckConstraint("status IN ('draft','publikasi','arsip')", name="ck_berita_status"),
+    )
+
+    @property
+    def urut(self) -> int:
+        ts = self.terbit_pada or self.dibuat_pada
+        return int(ts.timestamp() * 1_000_000) if ts else 0
+
+
+class BeritaTag(Base):
+    __tablename__ = "berita_tag"
+    berita_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("berita.id"), primary_key=True)
+    tag_id: Mapped[int] = mapped_column(ForeignKey("tag.id"), primary_key=True)
+
+
+class Peristiwa(Base):
+    __tablename__ = "peristiwa"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    jenis: Mapped[str] = mapped_column(String)
+    entitas_tipe: Mapped[str] = mapped_column(String)
+    entitas_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    muatan = mapped_column(JSONB, default=dict)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    diproses_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    __table_args__ = (
+        CheckConstraint(
+            "jenis IN ('pembayaran_menunggu_konfirmasi','pembayaran_berhasil',"
+            "'pesanan_dibayar','booking_terkonfirmasi','booking_checkin',"
+            "'pesanan_selesai','transaksi_dirilis','payout_dibuat','payout_berhasil',"
+            "'refund_diajukan','refund_selesai','tukar_poin_berhasil','stempel_terverifikasi')",
+            name="ck_peristiwa_jenis",
+        ),
+    )
+
+    @property
+    def urut(self) -> int:
+        return int(self.dibuat_pada.timestamp() * 1_000_000) if self.dibuat_pada else 0
+
+
+class Notifikasi(Base):
+    __tablename__ = "notifikasi"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    penerima_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    peristiwa_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("peristiwa.id"))
+    tipe: Mapped[str] = mapped_column(String)
+    judul: Mapped[str] = mapped_column(Text)
+    isi: Mapped[str] = mapped_column(Text)
+    entitas_tipe: Mapped[str] = mapped_column(String)
+    entitas_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    kanal: Mapped[str] = mapped_column(String, default="in_app")
+    status: Mapped[str] = mapped_column(String, default="belum_dibaca")
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    dibaca_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    __table_args__ = (
+        CheckConstraint("kanal IN ('in_app','email')", name="ck_notifikasi_kanal"),
+        CheckConstraint("status IN ('belum_dibaca','dibaca')", name="ck_notifikasi_status"),
+        UniqueConstraint(
+            "peristiwa_id", "penerima_id", "tipe", name="uq_notifikasi_peristiwa_penerima_tipe",
+        ),
+    )
+
+    @property
+    def urut(self) -> int:
+        return int(self.dibuat_pada.timestamp() * 1_000_000) if self.dibuat_pada else 0

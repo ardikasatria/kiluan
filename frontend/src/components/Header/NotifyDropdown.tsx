@@ -1,89 +1,193 @@
 'use client'
 
+import { useDesaSlug } from '@/contexts/DesaKonteksProvider'
+import {
+  getDaftarNotifikasi,
+  getHitungNotifikasi,
+  tandaiNotifikasiBaca,
+} from '@/lib/api/notifikasi'
+import type { NotifikasiItem } from '@/lib/api/types'
+import { formatWaktuRelatif, urlEntitasNotifikasi } from '@/lib/kiluan/notifikasi'
 import ButtonCircle from '@/shared/ButtonCircle'
+import {
+  BanknotesIcon,
+  BellIcon,
+  CheckBadgeIcon,
+  ShoppingBagIcon,
+  TicketIcon,
+} from '@heroicons/react/24/outline'
 import { CloseButton, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
-import { Notification02Icon } from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
-import Image from 'next/image'
+import clsx from 'clsx'
 import Link from 'next/link'
-import { FC } from 'react'
+import { useRouter } from 'next/navigation'
+import { FC, useCallback, useEffect, useRef, useState } from 'react'
 
-const _defaultNotifications = [
-  {
-    name: 'John Doe',
-    description: 'Measure actions your users take',
-    time: '3 minutes ago',
-    href: '#',
-    avatar:
-      'https://images.unsplash.com/photo-1651684215020-f7a5b6610f23?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
-  {
-    name: 'Jane Smith',
-    description: 'Create your own targeted content',
-    time: '1 minute ago',
-    href: '#',
-    avatar:
-      'https://images.unsplash.com/photo-1736194689767-9e3c4e7bd7f6?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
-  {
-    name: 'Alice Johnson',
-    description: 'Keep track of your growth',
-    time: '3 minutes ago',
-    href: '#',
-    avatar:
-      'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1760&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
-]
+const POLL_MS = 60_000
+
+function ikonNotifikasi(tipe: string) {
+  if (tipe.includes('pembayaran') || tipe.includes('payout') || tipe.includes('refund')) {
+    return BanknotesIcon
+  }
+  if (tipe.includes('booking') || tipe.includes('checkin')) return TicketIcon
+  if (tipe.includes('stempel') || tipe.includes('poin')) return CheckBadgeIcon
+  return ShoppingBagIcon
+}
 
 interface Props {
   className?: string
-  notifications?: typeof _defaultNotifications
+  desaSlug?: string
 }
 
-const NotifyDropdown: FC<Props> = ({ className = '', notifications = _defaultNotifications }) => {
+const NotifyDropdown: FC<Props> = ({ className = '', desaSlug: desaProp }) => {
+  const desaKonteks = useDesaSlug()
+  const desaSlug = desaProp ?? desaKonteks
+  const router = useRouter()
+
+  const [belumDibaca, setBelumDibaca] = useState(0)
+  const [item, setItem] = useState<NotifikasiItem[]>([])
+  const [memuat, setMemuat] = useState(false)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  const muatHitung = useCallback(async () => {
+    if (document.hidden) return
+    try {
+      const res = await getHitungNotifikasi(desaSlug)
+      setBelumDibaca(res.belum_dibaca)
+    } catch {
+      /* abaikan — badge tetap 0 */
+    }
+  }, [desaSlug])
+
+  const muatDaftar = useCallback(async () => {
+    setMemuat(true)
+    try {
+      const res = await getDaftarNotifikasi(desaSlug, { batas: 8 })
+      setItem(res.item)
+    } finally {
+      setMemuat(false)
+    }
+  }, [desaSlug])
+
+  useEffect(() => {
+    void muatHitung()
+    intervalRef.current = setInterval(() => void muatHitung(), POLL_MS)
+
+    const onVis = () => {
+      if (!document.hidden) void muatHitung()
+    }
+    document.addEventListener('visibilitychange', onVis)
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current)
+      document.removeEventListener('visibilitychange', onVis)
+    }
+  }, [muatHitung])
+
+  const bukaDropdown = () => {
+    void muatDaftar()
+  }
+
+  const klik = async (n: NotifikasiItem) => {
+    if (n.status === 'belum_dibaca') {
+      await tandaiNotifikasiBaca(desaSlug, n.id)
+      setBelumDibaca((c) => Math.max(0, c - 1))
+      setItem((prev) =>
+        prev.map((x) =>
+          x.id === n.id ? { ...x, status: 'dibaca', dibaca_pada: new Date().toISOString() } : x,
+        ),
+      )
+    }
+    router.push(urlEntitasNotifikasi(desaSlug, n))
+  }
+
   return (
     <Popover className={className}>
       <>
-        <PopoverButton as={ButtonCircle} className="relative" color="light" plain>
-          <span className="absolute end-0 top-px size-2.5 rounded-full bg-primary-500"></span>
-          <HugeiconsIcon icon={Notification02Icon} size={24} />
-        </PopoverButton>
-
-        <PopoverPanel
-          transition
-          anchor={{
-            to: 'bottom end',
-            gap: 16,
-          }}
-          className="z-40 w-sm rounded-3xl shadow-lg ring-1 ring-black/5 transition duration-200 ease-in-out data-closed:translate-y-1 data-closed:opacity-0"
+        <PopoverButton
+          as={ButtonCircle}
+          className="relative"
+          color="light"
+          plain
+          onClick={bukaDropdown}
+          aria-label={`Notifikasi${belumDibaca ? `, ${belumDibaca} belum dibaca` : ''}`}
         >
-          <div className="relative grid gap-8 bg-white p-7 dark:bg-neutral-800">
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-200">Notifications</h3>
-            {notifications.map((item, index) => (
-              <CloseButton
-                as={Link}
-                key={index}
-                href={item.href}
-                className="relative -m-3 flex rounded-lg p-2 pe-8 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-orange-500/50 dark:hover:bg-gray-700"
-              >
-                <Image
-                  alt="avatar"
-                  src={item.avatar}
-                  width={48}
-                  height={48}
-                  className="rounded-full object-cover sm:size-12"
-                  sizes="100px"
-                />
-                <div className="ms-3 space-y-1 sm:ms-4">
-                  <p className="text-sm font-medium text-gray-900 dark:text-gray-200">{item.name}</p>
-                  <p className="text-xs text-gray-500 sm:text-sm dark:text-gray-400">{item.description}</p>
-                  <p className="text-xs text-gray-400 dark:text-gray-400">{item.time}</p>
+              {belumDibaca > 0 && (
+                <span className="absolute -end-0.5 -top-0.5 flex min-w-[1.125rem] items-center justify-center rounded-full bg-primary-600 px-1 py-0.5 text-[10px] font-bold leading-none text-white ring-2 ring-white dark:ring-neutral-900">
+                  {belumDibaca > 99 ? '99+' : belumDibaca}
+                </span>
+              )}
+              <BellIcon className="size-6 text-neutral-700 dark:text-neutral-200" aria-hidden />
+            </PopoverButton>
+
+            <PopoverPanel
+              transition
+              anchor={{ to: 'bottom end', gap: 16 }}
+              className="z-40 w-sm rounded-3xl shadow-lg ring-1 ring-black/5 transition duration-200 ease-in-out data-closed:translate-y-1 data-closed:opacity-0 dark:ring-white/10"
+            >
+              <div className="relative grid gap-1 bg-white p-4 dark:bg-neutral-800">
+                <div className="mb-2 flex items-center justify-between px-2">
+                  <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">Genta</h3>
+                  <Link
+                    href={`/${desaSlug}/notifikasi`}
+                    className="text-xs font-medium text-primary-600 hover:underline dark:text-primary-400"
+                  >
+                    Lihat semua
+                  </Link>
                 </div>
-                <span className="absolute end-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-blue-500"></span>
-              </CloseButton>
-            ))}
-          </div>
-        </PopoverPanel>
+
+                {memuat && item.length === 0 ? (
+                  <p className="px-3 py-6 text-center text-sm text-neutral-500">Memuat…</p>
+                ) : item.length === 0 ? (
+                  <p className="px-3 py-6 text-center text-sm text-neutral-500">Belum ada notifikasi.</p>
+                ) : (
+                  item.map((n) => {
+                    const Icon = ikonNotifikasi(n.tipe)
+                    return (
+                      <CloseButton
+                        key={n.id}
+                        as="button"
+                        type="button"
+                        onClick={() => void klik(n)}
+                        className={clsx(
+                          'relative flex w-full gap-3 rounded-xl p-3 text-left transition hover:bg-neutral-100 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-primary-500/50 dark:hover:bg-neutral-700/80',
+                          n.status === 'belum_dibaca' && 'bg-primary-50/50 dark:bg-primary-950/30',
+                        )}
+                      >
+                        <div
+                          className={clsx(
+                            'flex size-9 shrink-0 items-center justify-center rounded-lg',
+                            n.status === 'belum_dibaca'
+                              ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/60 dark:text-primary-300'
+                              : 'bg-neutral-100 text-neutral-500 dark:bg-neutral-700 dark:text-neutral-400',
+                          )}
+                        >
+                          <Icon className="size-5" aria-hidden />
+                        </div>
+                        <div className="min-w-0 flex-1 pe-2">
+                          <p
+                            className={clsx(
+                              'text-sm leading-snug',
+                              n.status === 'belum_dibaca'
+                                ? 'font-semibold text-neutral-900 dark:text-neutral-100'
+                                : 'font-medium text-neutral-700 dark:text-neutral-300',
+                            )}
+                          >
+                            {n.judul}
+                          </p>
+                          <p className="mt-0.5 line-clamp-2 text-xs text-neutral-500 dark:text-neutral-400">
+                            {n.isi}
+                          </p>
+                          <p className="mt-1 text-xs text-neutral-400">{formatWaktuRelatif(n.dibuat_pada)}</p>
+                        </div>
+                        {n.status === 'belum_dibaca' && (
+                          <span className="absolute end-3 top-1/2 size-2 -translate-y-1/2 rounded-full bg-primary-500" />
+                        )}
+                      </CloseButton>
+                    )
+                  })
+                )}
+              </div>
+            </PopoverPanel>
       </>
     </Popover>
   )

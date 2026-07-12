@@ -1,7 +1,14 @@
 'use client'
 
 import { useAuth } from '@/contexts/AuthProvider'
-import { labelPeran, punyaPeran, statusKeanggotaan, type PeranKode } from '@/lib/kiluan/peran'
+import {
+  dasborUtamaHref,
+  labelPeran,
+  perluPemilihDasbor,
+  punyaPeran,
+  statusKeanggotaan,
+  type PeranKode,
+} from '@/lib/kiluan/peran'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -29,7 +36,10 @@ export default function DasborGuard({ desaSlug, desaNama = 'Desa', peran, childr
   useEffect(() => {
     if (!isLoading && isLoggedIn && peran && !punyaPeran(user?.profil ?? null, peran)) {
       if (statusPeran === 'menunggu' || statusPeran === 'ditolak') return
-      router.replace(`/${desaSlug}/dasbor`)
+      const profil = user?.profil ?? null
+      router.replace(
+        perluPemilihDasbor(profil) ? `/${desaSlug}/dasbor` : dasborUtamaHref(profil, desaSlug),
+      )
     }
   }, [isLoading, isLoggedIn, peran, user, desaSlug, router, statusPeran])
 

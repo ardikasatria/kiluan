@@ -15,6 +15,7 @@ from app.domain.errors import (
 )
 from app.domain.konteks import Konteks
 from app.inti.idempotensi import toko_idempotensi
+from app.inti.outbox import Outbox
 from app.model import tabel as M
 from app.repo.f2_sql import (
     RepoPayoutSQL,
@@ -43,6 +44,7 @@ class UangLayanan:
         self.rekening = RepoRekeningPenyediaSQL(s)
         self.payout = RepoPayoutSQL(s)
         self.refund = RepoRefundSQL(s)
+        self.outbox = Outbox(store)
 
     async def _cek_pemilik_penyedia(
         self, konteks: Konteks, desa_id: UUID, penyedia_tipe: str, penyedia_id: UUID,
@@ -183,6 +185,17 @@ class UangLayanan:
         await self.payout.simpan(payout)
         for t in kandidat:
             t.payout_id = payout.id
+        await self.outbox.emit(
+            desa_id,
+            "payout_dibuat",
+            "payout",
+            payout.id,
+            {
+                "penyedia_id": str(penyedia_id),
+                "penyedia_tipe": penyedia_tipe,
+                "jumlah": str(jumlah),
+            },
+        )
         return toko_idempotensi.simpan(idempotency_key, str(konteks.pengguna_id), ep, payout)
 
     async def transisi_payout(
@@ -194,6 +207,17 @@ class UangLayanan:
         if aksi == "tandai_berhasil":
             payout.status = "berhasil"
             payout.diproses_pada = _now()
+            await self.outbox.emit(
+                desa_id,
+                "payout_berhasil",
+                "payout",
+                payout.id,
+                {
+                    "penyedia_id": str(payout.penyedia_id),
+                    "penyedia_tipe": payout.penyedia_tipe,
+                    "jumlah": str(payout.jumlah),
+                },
+            )
         elif aksi == "tandai_gagal":
             payout.status = "gagal"
             await self.transaksi.lepas_payout(payout_id, desa_id)
@@ -241,6 +265,17 @@ class UangLayanan:
             dibuat_pada=_now(),
         )
         await self.refund.simpan(r)
+        await self.outbox.emit(
+            desa_id,
+            "refund_diajukan",
+            "refund",
+            r.id,
+            {
+                "pembeli_id": str(pesanan.pembeli_id),
+                "pesanan_id": str(pesanan.id),
+                "jumlah": str(r.jumlah),
+            },
+        )
         return toko_idempotensi.simpan(idempotency_key, str(konteks.pengguna_id), ep, r)
 
     async def daftar_refund(
@@ -310,6 +345,13 @@ class UangLayanan:
         r.status = ke
         if ke == "selesai":
             r.selesai_pada = _now()
+            await self.outbox.emit(
+                desa_id,
+                "refund_selesai",
+                "refund",
+                r.id,
+                {"pembeli_id": str(pesanan.pembeli_id), "pesanan_id": str(pesanan.id)},
+            )
         return r
 
     async def baca_pengaturan(self, desa_id: UUID) -> M.PengaturanDesa:

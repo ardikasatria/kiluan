@@ -28,6 +28,7 @@ from ..domain import entitas as E
 from ..domain.enums import StatusKonten
 from ..domain.errors import Konflik
 from ..inti.minio import penyimpanan_objek
+from .warta_genta_sql import RepoBeritaSQL, RepoNotifikasiSQL, RepoPeristiwaSQL
 from ..model import tabel as M
 
 
@@ -1335,4 +1336,7 @@ class Penyimpanan:
         self.kartu_aksi = RepoKartuAksiSQL(sesi)
         self.pengajuan_kartu = RepoPengajuanKartuSQL(sesi)
         self.sertifikasi_owner = RepoSertifikasiOwnerSQL(sesi)
+        self.berita = RepoBeritaSQL(sesi)
+        self.peristiwa = RepoPeristiwaSQL(sesi)
+        self.notifikasi = RepoNotifikasiSQL(sesi)
         self.objek = penyimpanan_objek()
