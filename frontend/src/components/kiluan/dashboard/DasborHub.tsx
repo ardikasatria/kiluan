@@ -35,11 +35,13 @@ const IKON: Record<PeranKode, ComponentType<{ className?: string }>> = {
 }
 
 interface Props {
-  desaSlug: string
-  profilNama: string
+  desaSlug?: string
+  profilNama?: string
+  /** Hub lintas desa (Sigerciv Lampung), bukan satu desa */
+  lintasDesa?: boolean
 }
 
-export default function DasborHub({ desaSlug, profilNama }: Props) {
+export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, lintasDesa }: Props) {
   const { user } = useAuth()
   const peranSaya = daftarPeranPengguna(user?.profil ?? null)
   const configs = konfigDasborPeran(desaSlug)
@@ -51,11 +53,12 @@ export default function DasborHub({ desaSlug, profilNama }: Props) {
           Halo, <strong className="text-neutral-900 dark:text-neutral-100">{user?.name}</strong>
         </p>
         <h2 className="mt-2 text-xl font-bold text-primary-800 dark:text-primary-100">
-          Pilih konteks dasbor di {profilNama}
+          {lintasDesa ? 'Pilih peran dasbor Anda' : `Pilih konteks dasbor di ${profilNama}`}
         </h2>
         <p className="mt-2 max-w-2xl text-sm text-neutral-600 dark:text-neutral-400">
-          Setiap peran memiliki navigasi dan widget berbeda. Ganti peran kapan saja lewat pemilih konteks di
-          topbar dasbor.
+          {lintasDesa
+            ? 'Sigerciv menghubungkan desa wisata di Lampung. Wisatawan punya dasbor lintas desa; peran pengelola terikat desa keanggotaan Anda.'
+            : 'Setiap peran memiliki navigasi dan widget berbeda. Ganti peran lewat pemilih di dasbor peran desa.'}
         </p>
       </div>
 

@@ -1,3 +1,4 @@
+import SimpanTombol from '@/components/kiluan/simpanan/SimpanTombol'
 import type { DestinasiRingkas, Kategori } from '@/lib/api/types'
 import { MapPinIcon, PhotoIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
@@ -56,6 +57,13 @@ export default function DestinasiCard({
             {kategori.nama}
           </span>
         )}
+        <SimpanTombol
+          tipe="destinasi"
+          entitasId={destinasi.id}
+          desaSlug={slug}
+          size="sm"
+          className="absolute top-3 right-3 z-10"
+        />
         <div
           className={clsx(
             'absolute right-3 bottom-3 flex size-8 items-center justify-center rounded-lg text-white backdrop-blur-sm',

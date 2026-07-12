@@ -12,6 +12,8 @@ const RUTE_GLOBAL = new Set([
   'cari',
   'paspor',
   'api',
+  'dasbor',
+  'saya',
   'forgot-password',
   'reset-password',
 ])

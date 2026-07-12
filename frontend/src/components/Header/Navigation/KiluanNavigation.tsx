@@ -60,7 +60,7 @@ function FeaturedCard({ featured }: { featured: TNavigationFeatured }) {
 
 const Lv1MenuItem = ({ menuItem }: { menuItem: TNavigationItem }) => (
   <Link
-    className="kiluan-nav-btn flex items-center self-center rounded-full px-4 py-2.5 text-sm font-medium whitespace-nowrap text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 lg:text-[15px] xl:px-5 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
+    className="kiluan-nav-btn flex items-center self-center rounded-full px-3 py-2.5 text-sm font-medium whitespace-nowrap text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 lg:text-[15px] xl:px-4 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
     href={menuItem.href || '#'}
   >
     {menuItem.name}
@@ -106,31 +106,33 @@ const MegaMenu = ({ menuItem }: { menuItem: TNavigationItem }) => {
     kolom >= 4 ? 'grid-cols-4' : kolom === 3 ? 'grid-cols-3' : kolom === 2 ? 'grid-cols-2' : 'grid-cols-1'
 
   return (
-    <li className="menu-megamenu menu-item relative flex">
+    <li className="menu-megamenu menu-item flex">
       <Lv1MenuItem menuItem={menuItem} />
 
       {menuItem.children?.length && menuItem.type === 'mega-menu' ? (
-        <div className="absolute inset-x-0 top-full z-50 sub-menu">
-          <div className="bg-white shadow-lg dark:bg-neutral-900">
+        <div className="header-popover-full-panel sub-menu absolute top-full right-0 left-0 z-40 w-full">
+          <div className="border-t border-neutral-200 bg-white shadow-lg dark:border-neutral-700 dark:bg-neutral-900">
             <div className="container">
-              <div className="flex border-t border-neutral-200 py-11 text-sm dark:border-neutral-700">
+              <div className="flex gap-8 py-10 text-sm xl:gap-10 xl:py-11">
                 <div
                   className={clsx(
-                    'grid min-w-0 flex-1 gap-6 pe-10 xl:gap-8 2xl:pe-14',
+                    'grid min-w-0 flex-1 gap-6 xl:gap-8',
                     gridKolom,
                   )}
                 >
                   {menuItem.children.map((menuChild) => (
                     <div key={menuChild.id} className="min-w-0">
                       <p className="font-medium text-neutral-900 dark:text-neutral-200">{menuChild.name}</p>
-                      <ul className="mt-4 grid space-y-1">{menuChild.children?.map((item) => (
-                        <SubMenuLink key={item.id} item={item} />
-                      ))}</ul>
+                      <ul className="mt-4 grid space-y-1">
+                        {menuChild.children?.map((item) => (
+                          <SubMenuLink key={item.id} item={item} />
+                        ))}
+                      </ul>
                     </div>
                   ))}
                 </div>
                 {menuItem.featured ? (
-                  <div className="grid w-2/7 shrink-0 grid-cols-1 xl:w-4/9">
+                  <div className="hidden w-64 shrink-0 xl:block xl:w-72 2xl:w-80">
                     <FeaturedCard featured={menuItem.featured} />
                   </div>
                 ) : null}
@@ -149,7 +151,7 @@ export interface Props {
 }
 
 const KiluanNavigation: FC<Props> = ({ menu, className }) => (
-  <ul className={clsx('kiluan-nav relative flex items-center', className)}>
+  <ul className={clsx('kiluan-nav flex flex-nowrap items-center', className)}>
     {menu.map((menuItem) => (
       <MegaMenu key={menuItem.id} menuItem={menuItem} />
     ))}

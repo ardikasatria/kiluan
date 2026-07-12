@@ -106,10 +106,11 @@ export function metadataPrivat(
   path: string,
   deskripsi?: string,
 ): Metadata {
+  const pathKanons = desaSlug === 'sigerciv' ? path : `/${desaSlug}${path}`
   return buatMetadata({
     judul,
     deskripsi: deskripsi ?? `${judul} — sigerciv.`,
-    path: `/${desaSlug}${path}`,
+    path: pathKanons,
     noindex: true,
   })
 }

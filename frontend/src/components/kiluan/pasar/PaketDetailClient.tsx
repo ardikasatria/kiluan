@@ -1,5 +1,6 @@
 'use client'
 
+import SimpanTombol from '@/components/kiluan/simpanan/SimpanTombol'
 import SlotPicker from '@/components/kiluan/dermaga/SlotPicker'
 import { getPaketDetail } from '@/lib/api/pasar'
 import type { PaketDetail, SlotJadwal } from '@/lib/api/types'
@@ -64,7 +65,10 @@ export default function PaketDetailClient({ desaSlug, paketIdOrSlug }: Props) {
             ← Semua paket
           </Link>
           <p className="mt-4 text-sm text-primary-600 dark:text-primary-400">{paket.agen.nama}</p>
-          <h1 className="mt-1 text-3xl font-bold text-primary-800 dark:text-primary-100">{paket.nama}</h1>
+          <div className="mt-1 flex flex-wrap items-center gap-3">
+            <h1 className="text-3xl font-bold text-primary-800 dark:text-primary-100">{paket.nama}</h1>
+            <SimpanTombol tipe="paket" entitasId={paket.id} desaSlug={desaSlug} onParentClick={false} />
+          </div>
           {paket.deskripsi && (
             <p className="mt-3 max-w-2xl text-neutral-600 dark:text-neutral-400">{paket.deskripsi}</p>
           )}

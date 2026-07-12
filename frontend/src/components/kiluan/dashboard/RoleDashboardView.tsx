@@ -18,6 +18,8 @@ interface Props {
   config: DashboardPeranConfig
   statsOverride?: Partial<Record<string, string | number>>
   sectionTitle?: string
+  /** Dasbor wisatawan / pengguna lintas desa */
+  lintasDesa?: boolean
 }
 
 export default function RoleDashboardView({
@@ -26,6 +28,7 @@ export default function RoleDashboardView({
   config,
   statsOverride,
   sectionTitle = 'Ringkasan',
+  lintasDesa = false,
 }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -48,6 +51,7 @@ export default function RoleDashboardView({
           sectionTitle={sectionTitle}
           sidebarOpen={sidebarOpen}
           onToggleSidebar={() => setSidebarOpen((v) => !v)}
+          lintasDesa={lintasDesa}
         />
       }
     >

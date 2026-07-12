@@ -23,7 +23,7 @@ const KiluanHeader: FC<Props> = async ({ bottomBorder, className, variant = 'def
     <header
       data-landing={isLanding ? '' : undefined}
       className={clsx(
-        'kiluan-header sticky top-0 z-30 transition-[background-color,border-color,box-shadow] duration-300',
+        'kiluan-header relative sticky top-0 z-30 transition-[background-color,border-color,box-shadow] duration-300',
         isLanding
           ? [
               'border-transparent bg-transparent shadow-none',
@@ -42,20 +42,20 @@ const KiluanHeader: FC<Props> = async ({ bottomBorder, className, variant = 'def
       )}
     >
       {isLanding ? <HeaderLandingScroll /> : null}
-      <div className="container flex h-[72px] items-center justify-between gap-x-4 lg:h-20">
-        <div className="flex min-w-0 flex-1 items-center gap-x-3 sm:gap-x-4 lg:max-w-[280px]">
+      <div className="container flex h-[72px] items-center gap-x-4 lg:h-20 lg:gap-x-6">
+        <div className="flex shrink-0 items-center gap-x-3 sm:gap-x-4 lg:max-w-[min(280px,32vw)]">
           <Logo />
           <div className="hidden h-7 border-l border-neutral-200 lg:border-neutral-300/60 lg:block dark:border-neutral-700 dark:lg:border-neutral-600/50" />
-          <div className="hidden lg:block">
+          <div className="hidden min-w-0 lg:block">
             <KiluanSearchModal type="type1" />
           </div>
         </div>
 
-        <div className="hidden flex-1 justify-center lg:flex">
+        <div className="hidden min-w-0 flex-1 justify-center px-2 lg:flex xl:px-4">
           <KiluanNavigation menu={navigationMenu} />
         </div>
 
-        <div className="flex flex-1 items-center justify-end gap-x-1">
+        <div className="ms-auto flex shrink-0 items-center justify-end gap-x-1 lg:ms-0">
           <PwaInstallButton variant="header" />
           <div className="flex lg:hidden">
             <KiluanSearchModal type="icon" />

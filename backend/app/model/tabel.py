@@ -999,3 +999,25 @@ class Notifikasi(Base):
     @property
     def urut(self) -> int:
         return int(self.dibuat_pada.timestamp() * 1_000_000) if self.dibuat_pada else 0
+
+
+class Simpanan(Base):
+    __tablename__ = "simpanan"
+    id: Mapped[uuid.UUID] = _pk()
+    pengguna_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    tipe: Mapped[str] = mapped_column(String)
+    entitas_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True))
+    catatan: Mapped[str | None] = mapped_column(Text)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        CheckConstraint(
+            "tipe IN ('destinasi','paket','misi')",
+            name="ck_simpanan_tipe",
+        ),
+        UniqueConstraint("pengguna_id", "tipe", "entitas_id", name="uq_simpanan_pengguna_entitas"),
+    )
+
+    @property
+    def urut(self) -> int:
+        return int(self.dibuat_pada.timestamp() * 1_000_000) if self.dibuat_pada else 0

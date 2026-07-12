@@ -2,6 +2,7 @@
 
 import AvatarDropdown from '@/components/Header/AvatarDropdown'
 import NotifyDropdown from '@/components/Header/NotifyDropdown'
+import WishlistHeaderButton from '@/components/Header/WishlistHeaderButton'
 import { useAuth } from '@/contexts/AuthProvider'
 import { Button } from '@/shared/Button'
 import SwitchDarkMode from '@/shared/SwitchDarkMode'
@@ -22,6 +23,7 @@ export default function AuthActions({ className }: Props) {
         <div className="size-10 animate-pulse rounded-full bg-neutral-200 dark:bg-neutral-700 md:size-11" />
       ) : isLoggedIn ? (
         <>
+          <WishlistHeaderButton />
           <NotifyDropdown className="hidden sm:block" />
           <AvatarDropdown />
         </>

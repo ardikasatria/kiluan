@@ -131,6 +131,16 @@
   @apply border-white/25 bg-white/10 text-primary-100 hover:border-white/40;
 }
 
+/* Mega menu — panel lebar penuh, di-anchor ke header (bukan ke <li>) */
+.kiluan-header .menu-megamenu {
+  position: static;
+}
+.kiluan-header .menu-megamenu > .sub-menu {
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
 @utility pl-container {
   @apply pl-4 sm:pl-[calc((100vw-40rem+2rem)/2)] md:pl-[calc((100vw-48rem+2rem)/2)] lg:pl-[calc((100vw-64rem+2rem)/2)] xl:pl-[calc((100vw-80rem+2rem)/2)] 2xl:pl-[calc((100vw-96rem+16rem)/2)];
 }

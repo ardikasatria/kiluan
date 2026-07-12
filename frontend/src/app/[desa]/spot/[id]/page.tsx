@@ -1,4 +1,5 @@
 import SpotGallery from '@/components/kiluan/SpotGallery'
+import SpotSimpanBar from '@/components/kiluan/simpanan/SpotSimpanBar'
 import SpotMap from '@/components/kiluan/SpotMap'
 import KontribusiSpotPanel from '@/components/kiluan/kontribusi/KontribusiSpotPanel'
 import WeatherWidget from '@/components/kiluan/WeatherWidget'
@@ -142,6 +143,9 @@ export default async function SpotDetailPage({ params }: Props) {
         </div>
 
         <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <div className="rounded-2xl border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900/60">
+            <SpotSimpanBar destinasiId={detail.id} desaSlug={desa} nama={detail.nama} />
+          </div>
           <WeatherWidget cuaca={cuaca} />
           <KontribusiSpotPanel desaSlug={desa} destinasiId={detail.id} destinasiNama={detail.nama} />
           {detail.tag.length > 0 && (

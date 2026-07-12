@@ -9,6 +9,7 @@ import {
   statusKeanggotaan,
   type PeranKode,
 } from '@/lib/kiluan/peran'
+import { RUTE_DASBOR } from '@/lib/kiluan/rute-sigerciv'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -26,6 +27,8 @@ interface Props {
 export default function DasborGuard({ desaSlug, desaNama = 'Desa', peran, children, loginOnly }: Props) {
   const { isLoggedIn, isLoading, user } = useAuth()
   const router = useRouter()
+  const globalSigerciv = desaSlug === 'sigerciv'
+  const dasborHub = globalSigerciv ? RUTE_DASBOR : `/${desaSlug}/dasbor`
 
   const statusPeran = peran ? statusKeanggotaan(user?.profil ?? null, peran) : null
   const boleh =
@@ -38,10 +41,10 @@ export default function DasborGuard({ desaSlug, desaNama = 'Desa', peran, childr
       if (statusPeran === 'menunggu' || statusPeran === 'ditolak') return
       const profil = user?.profil ?? null
       router.replace(
-        perluPemilihDasbor(profil) ? `/${desaSlug}/dasbor` : dasborUtamaHref(profil, desaSlug),
+        perluPemilihDasbor(profil) ? dasborHub : dasborUtamaHref(profil, desaSlug),
       )
     }
-  }, [isLoading, isLoggedIn, peran, user, desaSlug, router, statusPeran])
+  }, [isLoading, isLoggedIn, peran, user, desaSlug, router, statusPeran, dasborHub])
 
   if (isLoading) {
     return (
@@ -57,7 +60,7 @@ export default function DasborGuard({ desaSlug, desaNama = 'Desa', peran, childr
           Masuk untuk mengakses dasbor sesuai peran keanggotaan Anda.
         </p>
         <div className="mt-6 flex justify-center gap-3">
-          <ButtonPrimary href={`/masuk?redirect=/${desaSlug}/dasbor`}>Masuk</ButtonPrimary>
+          <ButtonPrimary href={`/masuk?redirect=${encodeURIComponent(dasborHub)}`}>Masuk</ButtonPrimary>
           <Link
             href="/daftar"
             className="inline-flex items-center rounded-full border border-neutral-300 px-5 py-2.5 text-sm font-medium dark:border-neutral-600"
@@ -78,7 +81,7 @@ export default function DasborGuard({ desaSlug, desaNama = 'Desa', peran, childr
           desaNama={desaNama}
         />
         <Link
-          href={`/${desaSlug}/dasbor`}
+          href={dasborHub}
           className="inline-block text-sm font-semibold text-primary-700 dark:text-primary-300"
         >
           Kembali ke pemilih dasbor

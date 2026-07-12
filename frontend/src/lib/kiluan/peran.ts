@@ -1,4 +1,5 @@
 import type { ProfilSaya } from '@/lib/api/auth'
+import { RUTE_DASBOR, RUTE_DASBOR_WISATAWAN } from '@/lib/kiluan/rute-sigerciv'
 
 /** Kode peran sesuai backend RBAC */
 export type PeranKode =
@@ -98,13 +99,13 @@ export function perluPemilihDasbor(profil: ProfilSaya | null): boolean {
   return peranAktifPengguna(profil).length > 1
 }
 
-/** Destinasi dasbor utama — langsung ke peran tunggal, atau hub bila multi-peran. */
+/** Destinasi dasbor utama — wisatawan & multi-peran global; peran desa tetap scoped. */
 export function dasborUtamaHref(profil: ProfilSaya | null, desaSlug: string): string {
   const aktif = peranAktifPengguna(profil)
   if (aktif.length === 1) {
     return dasborHref(desaSlug, aktif[0])
   }
-  return `/${desaSlug}/dasbor`
+  return RUTE_DASBOR
 }
 
 /** Status keanggotaan untuk peran (termasuk menunggu/ditolak) */
@@ -123,5 +124,6 @@ export function statusKeanggotaan(
 
 export function dasborHref(desaSlug: string, kode: PeranKode): string {
   if (kode === 'admin') return '/admin/dasbor'
+  if (kode === 'wisatawan') return RUTE_DASBOR_WISATAWAN
   return `/${desaSlug}/dasbor/${slugPeran(kode)}`
 }

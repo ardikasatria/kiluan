@@ -4,13 +4,8 @@ import KiluanAvatar from '@/components/kiluan/KiluanAvatar'
 import { useDesaSlug } from '@/contexts/DesaKonteksProvider'
 import { useAuth } from '@/contexts/AuthProvider'
 import { adalahPengelola } from '@/lib/api/auth'
-import {
-  daftarPeranPengguna,
-  dasborUtamaHref,
-  labelPeran,
-  peranAktifPengguna,
-  punyaPeran,
-} from '@/lib/kiluan/peran'
+import { RUTE_WISATAWAN, ruteSaya } from '@/lib/kiluan/rute-sigerciv'
+import { dasborUtamaHref, punyaPeran } from '@/lib/kiluan/peran'
 import ButtonCircle from '@/shared/ButtonCircle'
 import { Divider } from '@/shared/divider'
 import { Link } from '@/shared/link'
@@ -59,8 +54,6 @@ export default function AvatarDropdown({ className }: Props) {
   const profil = user.profil
   const wisatawan = punyaPeran(profil, 'wisatawan')
   const pengelola = adalahPengelola(profil)
-  const peranUtama = peranAktifPengguna(profil)[0]
-  const labelKonteks = peranUtama ? labelPeran(peranUtama) : user.role
 
   const itemClass =
     '-m-2 flex w-full items-center gap-x-3 rounded-lg px-2 py-2.5 text-start text-sm transition duration-150 ease-in-out hover:bg-neutral-100 focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:outline-none dark:hover:bg-neutral-700'
@@ -68,45 +61,45 @@ export default function AvatarDropdown({ className }: Props) {
   const menuItems: ItemMenu[] = [
     { href: dasborHref, label: 'Dasbor saya', icon: UserIcon, tampil: true },
     {
-      href: `/${desaSlug}/paspor`,
+      href: RUTE_WISATAWAN.paspor,
       label: 'Paspor Lestari',
       icon: PassportIcon,
       tampil: wisatawan,
     },
     {
-      href: `/${desaSlug}/saya/wishlist`,
+      href: RUTE_WISATAWAN.wishlist,
       label: 'Wishlist saya',
       icon: HeartAddIcon,
-      segera: true,
       tampil: wisatawan,
     },
     {
-      href: `/${desaSlug}/dermaga/pesanan`,
+      href: '#',
       label: 'Pesanan / Booking saya',
       icon: ShoppingBag01Icon,
       segera: true,
       tampil: wisatawan || punyaPeran(profil, 'agen'),
     },
     {
-      href: `/${desaSlug}/kontribusi`,
+      href: RUTE_WISATAWAN.discovery,
       label: 'Kontribusi saya',
       icon: Task01Icon,
       tampil: wisatawan || punyaPeran(profil, 'kontributor'),
     },
     {
-      href: `/${desaSlug}/saya/lencana`,
+      href: ruteSaya('lencana'),
       label: 'Poin & Lencana',
       icon: Task01Icon,
+      segera: true,
       tampil: wisatawan,
     },
     {
-      href: `/${desaSlug}/saya/akun`,
+      href: RUTE_WISATAWAN.akun,
       label: 'Akun & Preferensi',
       icon: Settings02Icon,
       tampil: true,
     },
     {
-      href: `/${desaSlug}/saya/akun#bantuan`,
+      href: `${RUTE_WISATAWAN.akun}#bantuan`,
       label: 'Panduan & Bantuan',
       icon: BookOpen01Icon,
       tampil: true,
@@ -118,9 +111,6 @@ export default function AvatarDropdown({ className }: Props) {
       tampil: pengelola,
     },
   ]
-
-  const gantiPeranHref =
-    daftarPeranPengguna(profil).length > 1 ? `/${desaSlug}/dasbor` : `/${desaSlug}/saya/akun`
 
   return (
     <div className={className}>
@@ -158,31 +148,14 @@ export default function AvatarDropdown({ className }: Props) {
                     <p className="truncate text-xs text-neutral-500 dark:text-neutral-400">{user.email}</p>
                     {wisatawan && (
                       <Link
-                        href={`/${desaSlug}/saya/lencana`}
+                        href={RUTE_WISATAWAN.wishlist}
                         className="mt-0.5 inline-block text-xs font-medium text-primary-600 hover:underline dark:text-primary-400"
                         onClick={() => close()}
                       >
-                        Lihat poin & lencana →
+                        Wishlist saya →
                       </Link>
                     )}
                   </div>
-                </div>
-
-                {/* Konteks aktif */}
-                <div className="mb-2 rounded-xl border border-neutral-200 bg-neutral-50 px-3 py-2.5 dark:border-neutral-700 dark:bg-neutral-800/60">
-                  <p className="text-[10px] font-semibold tracking-wide text-neutral-400 uppercase dark:text-neutral-500">
-                    Konteks aktif
-                  </p>
-                  <p className="mt-0.5 truncate text-sm font-medium text-neutral-800 dark:text-neutral-200">
-                    {desaSlug.replace(/-/g, ' ')} · {labelKonteks}
-                  </p>
-                  <Link
-                    href={gantiPeranHref}
-                    onClick={() => close()}
-                    className="mt-1 inline-block text-xs font-medium text-primary-600 hover:underline dark:text-primary-400"
-                  >
-                    Ganti desa / peran
-                  </Link>
                 </div>
 
                 <Divider className="my-1" />

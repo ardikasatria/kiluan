@@ -1,6 +1,7 @@
 'use client'
 
 import OfflineIndicator from '@/components/kiluan/OfflineIndicator'
+import SimpanTombol from '@/components/kiluan/simpanan/SimpanTombol'
 import {
   ambilLokasi,
   getMisi,
@@ -200,11 +201,22 @@ export default function MisiClient({ desaSlug, desaNama }: Props) {
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {misi.map((m) => (
-              <button
+              <div
                 key={m.id}
+                className="relative rounded-2xl border border-neutral-200 bg-white shadow-sm transition hover:border-primary-300 dark:border-neutral-700 dark:bg-neutral-900"
+              >
+                <SimpanTombol
+                  tipe="misi"
+                  entitasId={m.id}
+                  desaSlug={desaSlug}
+                  size="sm"
+                  className="absolute top-3 right-3 z-10"
+                  onParentClick={false}
+                />
+                <button
                 type="button"
                 onClick={() => void bukaMisi(m.id)}
-                className="rounded-2xl border border-neutral-200 bg-white p-5 text-left shadow-sm transition hover:border-primary-300 dark:border-neutral-700 dark:bg-neutral-900"
+                className="w-full p-5 text-left"
               >
                 <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-primary-600">
                   {m.jenis === 'belajar' ? (
@@ -220,6 +232,7 @@ export default function MisiClient({ desaSlug, desaNama }: Props) {
                   <p className="mt-2 text-xs text-amber-700">Selesaikan misi belajar dulu</p>
                 )}
               </button>
+              </div>
             ))}
           </div>
         )}

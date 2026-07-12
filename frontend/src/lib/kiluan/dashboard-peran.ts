@@ -1,10 +1,13 @@
 import type { PeranKode } from './peran'
+import { RUTE_WISATAWAN, ruteSaya } from './rute-sigerciv'
 
 export interface DashboardNavItem {
   id: string
   label: string
   /** path relatif dasbor, mis. "" = ringkasan, "/destinasi" = sub-halaman */
   segment: string
+  /** Tautan absolut — mengabaikan segment + base dasbor */
+  href?: string
   segera?: boolean
 }
 
@@ -61,78 +64,7 @@ function href(desa: string, path: string) {
 export function konfigDasborPeran(desaSlug: string): Record<PeranKode, DashboardPeranConfig> {
   const d = desaSlug
   return {
-    wisatawan: {
-      kode: 'wisatawan',
-      tagline: 'Jelajah & kontribusi',
-      deskripsi: 'Rencanakan kunjungan, kelola Paspor Lestari, dan kontribusi foto atau tips ke komunitas.',
-      fase: 'F0–F2',
-      nav: [
-        { id: 'ringkasan', label: 'Ringkasan', segment: '' },
-        { id: 'rencana', label: 'Rencana saya', segment: '/rencana', segera: true },
-        { id: 'booking', label: 'Pemesanan', segment: '/booking', segera: true },
-        { id: 'paspor', label: 'Paspor Lestari', segment: '/paspor' },
-        { id: 'kontribusi', label: 'Kontribusi', segment: '/kontribusi' },
-      ],
-      stats: [
-        { id: 'misi', label: 'Misi aktif', value: '—', hint: 'Fase 2' },
-        { id: 'stempel', label: 'Stempel paspor', value: 0 },
-        { id: 'kontrib', label: 'Kontribusi', value: 0, hint: 'Fase 1' },
-        { id: 'poin', label: 'Poin', value: 0, hint: 'Fase 1' },
-      ],
-      aksiCepat: [
-        { id: 'cari', label: 'Cari destinasi', href: '/#discovery', primary: true },
-        { id: 'paspor', label: 'Buka Paspor Lestari', href: '/paspor' },
-        { id: 'misi', label: 'Lihat misi', href: href(d, 'misi'), segera: true },
-        { id: 'kontrib', label: 'Kontribusi data', href: href(d, 'kontribusi'), segera: false },
-      ],
-      modulTerkait: [
-        { label: 'Discovery', href: '/#discovery' },
-        { label: 'Misi sigerciv', href: href(d, 'misi') },
-        { label: 'Paspor Lestari', href: '/paspor' },
-      ],
-      aktivitasContoh: [
-        'Menyelesaikan micro-lesson kode etik lumba-lumba',
-        'Menyimpan spot Pantai Gigi Hiu ke daftar kunjungan',
-      ],
-      widgets: [
-        {
-          id: 'booking',
-          title: 'Pesanan & booking',
-          description: 'Riwayat pemesanan paket dan layanan — alur manual thin-F2.',
-          fase: '2',
-          segera: true,
-        },
-        {
-          id: 'paspor',
-          title: 'Paspor Lestari',
-          description: 'Kumpulkan stempel dari misi lestari yang terverifikasi.',
-          fase: '2',
-          href: '/paspor',
-        },
-        {
-          id: 'misi',
-          title: 'Misi berjalan',
-          description: 'Quest Penjelajah Lestari dan aksi terverifikasi.',
-          fase: '2',
-          href: href(d, 'misi'),
-          segera: true,
-        },
-        {
-          id: 'kontrib',
-          title: 'Kontribusi saya',
-          description: 'Foto, tips, dan koreksi data — status kurasi komunitas.',
-          fase: '1',
-          href: href(d, 'kontribusi'),
-        },
-        {
-          id: 'poin',
-          title: 'Poin & lencana',
-          description: 'Gamifikasi partisipasi wisatawan di desa.',
-          fase: '1',
-          href: href(d, 'saya/lencana'),
-        },
-      ],
-    },
+    wisatawan: konfigDasborWisatawan(),
     pokdarwis: {
       kode: 'pokdarwis',
       tagline: 'Pengelola desa wisata',
@@ -586,5 +518,77 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         },
       ],
     },
+  }
+}
+
+/** Dasbor wisatawan lintas desa — tidak terikat satu desa di URL. */
+export function konfigDasborWisatawan(): DashboardPeranConfig {
+  return {
+    kode: 'wisatawan',
+    tagline: 'Sigerciv · Lampung',
+    deskripsi:
+      'Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata regeneratif.',
+    fase: 'F0–F2',
+    nav: [{ id: 'ringkasan', label: 'Ringkasan', segment: '' }],
+    stats: [
+      { id: 'wishlist', label: 'Item tersimpan', value: '—', hint: 'Lintas desa' },
+      { id: 'stempel', label: 'Stempel paspor', value: 0 },
+      { id: 'kontrib', label: 'Kontribusi', value: 0, hint: 'Fase 1' },
+      { id: 'poin', label: 'Poin', value: 0, hint: 'Per desa' },
+    ],
+    aksiCepat: [
+      { id: 'cari', label: 'Jelajah desa wisata', href: RUTE_WISATAWAN.discovery, primary: true },
+      { id: 'wishlist', label: 'Wishlist saya', href: RUTE_WISATAWAN.wishlist },
+      { id: 'paspor', label: 'Paspor Lestari', href: RUTE_WISATAWAN.paspor },
+      { id: 'akun', label: 'Akun & preferensi', href: RUTE_WISATAWAN.akun },
+    ],
+    modulTerkait: [
+      { label: 'Discovery Lampung', href: RUTE_WISATAWAN.discovery },
+      { label: 'Wishlist', href: RUTE_WISATAWAN.wishlist },
+      { label: 'Paspor Lestari', href: RUTE_WISATAWAN.paspor },
+    ],
+    aktivitasContoh: [
+      'Menyimpan paket snorkeling dari desa lain ke wishlist',
+      'Menyelesaikan micro-lesson kode etik wisata regeneratif',
+      'Mengumpulkan stempel misi di beberapa desa wisata',
+    ],
+    widgets: [
+      {
+        id: 'wishlist',
+        title: 'Wishlist saya',
+        description: 'Destinasi, paket, dan misi dari desa mana pun di Lampung.',
+        fase: '0',
+        href: RUTE_WISATAWAN.wishlist,
+      },
+      {
+        id: 'paspor',
+        title: 'Paspor Lestari',
+        description: 'Kumpulkan stempel dari misi lestari yang terverifikasi.',
+        fase: '2',
+        href: RUTE_WISATAWAN.paspor,
+      },
+      {
+        id: 'booking',
+        title: 'Pesanan & booking',
+        description: 'Riwayat pemesanan paket dan layanan.',
+        fase: '2',
+        segera: true,
+      },
+      {
+        id: 'kontrib',
+        title: 'Kontribusi saya',
+        description: 'Foto, tips, dan koreksi data — per desa yang Anda kunjungi.',
+        fase: '1',
+        href: RUTE_WISATAWAN.discovery,
+      },
+      {
+        id: 'poin',
+        title: 'Poin & lencana',
+        description: 'Saldo poin dan badge per desa wisata.',
+        fase: '1',
+        href: ruteSaya('lencana'),
+        segera: true,
+      },
+    ],
   }
 }

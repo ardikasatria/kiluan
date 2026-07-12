@@ -1302,6 +1302,83 @@ class RepoBadgePenggunaSQL:
         return await self.cari(pengguna_id=pengguna_id)
 
 
+class RepoSimpananSQL:
+    def __init__(self, s: AsyncSession):
+        self.s = s
+
+    async def tambah_idempoten(self, simp: E.Simpanan) -> tuple[E.Simpanan, bool]:
+        stmt = (
+            insert(M.Simpanan)
+            .values(
+                id=simp.id,
+                pengguna_id=simp.pengguna_id,
+                desa_id=simp.desa_id,
+                tipe=simp.tipe,
+                entitas_id=simp.entitas_id,
+                catatan=simp.catatan,
+            )
+            .on_conflict_do_nothing(constraint="uq_simpanan_pengguna_entitas")
+            .returning(M.Simpanan.id)
+        )
+        res = await self.s.execute(stmt)
+        baru_id = res.scalar_one_or_none()
+        if baru_id is not None:
+            row = await self.s.get(M.Simpanan, baru_id)
+            return self._ke_domain(row), True
+        res2 = await self.s.execute(
+            select(M.Simpanan).where(
+                M.Simpanan.pengguna_id == simp.pengguna_id,
+                M.Simpanan.tipe == simp.tipe,
+                M.Simpanan.entitas_id == simp.entitas_id,
+            )
+        )
+        row = res2.scalar_one()
+        return self._ke_domain(row), False
+
+    def _ke_domain(self, row: M.Simpanan) -> E.Simpanan:
+        return E.Simpanan(
+            id=row.id,
+            pengguna_id=row.pengguna_id,
+            desa_id=row.desa_id,
+            tipe=row.tipe,
+            entitas_id=row.entitas_id,
+            catatan=row.catatan,
+            dibuat_pada=row.dibuat_pada,
+            urut=row.urut,
+        )
+
+    async def ambil(self, id: UUID) -> Optional[E.Simpanan]:
+        row = await self.s.get(M.Simpanan, id)
+        return self._ke_domain(row) if row else None
+
+    async def cari_entitas(
+        self, pengguna_id: UUID, tipe: str, entitas_id: UUID,
+    ) -> Optional[E.Simpanan]:
+        res = await self.s.execute(
+            select(M.Simpanan).where(
+                M.Simpanan.pengguna_id == pengguna_id,
+                M.Simpanan.tipe == tipe,
+                M.Simpanan.entitas_id == entitas_id,
+            )
+        )
+        row = res.scalar_one_or_none()
+        return self._ke_domain(row) if row else None
+
+    async def daftar_pengguna(
+        self, pengguna_id: UUID, tipe: str | None = None,
+    ) -> list[E.Simpanan]:
+        q = select(M.Simpanan).where(M.Simpanan.pengguna_id == pengguna_id)
+        if tipe:
+            q = q.where(M.Simpanan.tipe == tipe)
+        res = await self.s.execute(q)
+        return [self._ke_domain(r) for r in res.scalars().all()]
+
+    async def hapus(self, id: UUID) -> None:
+        row = await self.s.get(M.Simpanan, id)
+        if row:
+            await self.s.delete(row)
+
+
 class Penyimpanan:
     """Agregat repo SQL untuk satu request (bound ke satu AsyncSession).
 
@@ -1339,4 +1416,5 @@ class Penyimpanan:
         self.berita = RepoBeritaSQL(sesi)
         self.peristiwa = RepoPeristiwaSQL(sesi)
         self.notifikasi = RepoNotifikasiSQL(sesi)
+        self.simpanan = RepoSimpananSQL(sesi)
         self.objek = penyimpanan_objek()

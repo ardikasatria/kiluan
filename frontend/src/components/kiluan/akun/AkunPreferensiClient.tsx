@@ -20,6 +20,8 @@ import {
   statusKeanggotaan,
   type PeranKode,
 } from '@/lib/kiluan/peran'
+import { DEFAULT_DESA_SLUG } from '@/contexts/DesaKonteksProvider'
+import { RUTE_DASBOR, RUTE_WISATAWAN } from '@/lib/kiluan/rute-sigerciv'
 import { Button } from '@/shared/Button'
 import Input from '@/shared/Input'
 import Textarea from '@/shared/Textarea'
@@ -49,8 +51,9 @@ export type BagianAkun =
   | 'bantuan'
 
 interface Props {
-  desaSlug: string
-  desaNama: string
+  desaSlug?: string
+  desaNama?: string
+  lintasDesa?: boolean
 }
 
 const NAV: { id: BagianAkun; label: string; grup?: string }[] = [
@@ -144,7 +147,7 @@ function StatusKeanggotaanBadge({ status }: { status: string }) {
   )
 }
 
-export default function AkunPreferensiClient({ desaSlug, desaNama }: Props) {
+export default function AkunPreferensiClient({ desaSlug, desaNama, lintasDesa = false }: Props) {
   const { user, refreshProfil } = useAuth()
   const theme = useContext(ThemeContext)
   const [bagian, setBagian] = useState<BagianAkun>('profil')
@@ -210,9 +213,9 @@ export default function AkunPreferensiClient({ desaSlug, desaNama }: Props) {
     setUnggahAvatar(true)
     setPctUnggah(0)
     try {
-      const presign = await presignMedia(desaSlug, file)
+      const presign = await presignMedia(slugMedia, file)
       await unggahKeMinio(presign.url_unggah, file, setPctUnggah)
-      await konfirmasiMedia(desaSlug, {
+      await konfirmasiMedia(slugMedia, {
         media_id: presign.media_id,
         tipe: 'foto',
         alt: `Avatar ${user.name}`,
@@ -239,6 +242,7 @@ export default function AkunPreferensiClient({ desaSlug, desaNama }: Props) {
   }
 
   async function handleAjukanPeran() {
+    if (!desaSlug) return
     bersihkanPesan()
     setAjukanLoading(true)
     try {
@@ -260,6 +264,8 @@ export default function AkunPreferensiClient({ desaSlug, desaNama }: Props) {
 
   if (!user) return null
 
+  const slugMedia = desaSlug ?? DEFAULT_DESA_SLUG
+  const dasborHref = lintasDesa ? RUTE_DASBOR : `/${desaSlug}/dasbor`
   const emailTerverifikasi = user.profil.email_terverifikasi ?? user.profil.status === 'aktif'
 
   return (
@@ -268,7 +274,7 @@ export default function AkunPreferensiClient({ desaSlug, desaNama }: Props) {
       <div className="border-b border-neutral-200 bg-gradient-to-br from-primary-800 via-primary-700 to-kiluan-teal text-white dark:from-primary-950 dark:via-primary-900 dark:to-primary-800">
         <div className="container py-10 sm:py-12">
           <Link
-            href={`/${desaSlug}/dasbor`}
+            href={dasborHref}
             className="inline-flex items-center gap-2 text-sm font-medium text-primary-100 hover:text-white"
           >
             <ArrowLeftIcon className="size-4" aria-hidden />
@@ -539,7 +545,7 @@ export default function AkunPreferensiClient({ desaSlug, desaNama }: Props) {
                             {labelPeran(k.peran as PeranKode)}
                           </p>
                           <p className="text-xs text-neutral-500 dark:text-neutral-400">
-                            {k.desa_id ? desaNama : 'Sigerciv (global)'}
+                            {k.desa_id ? (lintasDesa ? 'Desa keanggotaan' : desaNama) : 'Sigerciv (global)'}
                           </p>
                         </div>
                         <StatusKeanggotaanBadge status={k.status} />
@@ -548,31 +554,45 @@ export default function AkunPreferensiClient({ desaSlug, desaNama }: Props) {
                   </ul>
                 </Kartu>
 
-                <Kartu title="Gabung komunitas desa" description={`Ajukan peran baru di ${desaNama}.`}>
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
-                    <LabelField htmlFor="peran-ajuan" label="Peran yang diajukan" className="flex-1">
-                      <select
-                        id="peran-ajuan"
-                        value={peranAjuan}
-                        onChange={(e) => setPeranAjuan(e.target.value as PeranKode)}
-                        className="block w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm dark:border-neutral-700 dark:bg-neutral-900"
-                      >
-                        {PERAN_AJUAN.map((p) => (
-                          <option key={p} value={p} disabled={statusKeanggotaan(user.profil, p) === 'aktif' || statusKeanggotaan(user.profil, p) === 'menunggu'}>
-                            {labelPeran(p)}
-                            {statusKeanggotaan(user.profil, p) === 'menunggu' ? ' (menunggu)' : ''}
-                          </option>
-                        ))}
-                      </select>
-                    </LabelField>
-                    <Button color="primary" onClick={() => void handleAjukanPeran()} disabled={ajukanLoading}>
-                      {ajukanLoading ? 'Mengirim…' : 'Ajukan peran'}
-                    </Button>
-                  </div>
-                  <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
-                    Pengajuan ditinjau Pokdarwis atau perangkat desa. Anda akan mendapat notifikasi saat disetujui.
-                  </p>
-                </Kartu>
+                {!lintasDesa && desaSlug ? (
+                  <Kartu title="Gabung komunitas desa" description={`Ajukan peran baru di ${desaNama}.`}>
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
+                      <LabelField htmlFor="peran-ajuan" label="Peran yang diajukan" className="flex-1">
+                        <select
+                          id="peran-ajuan"
+                          value={peranAjuan}
+                          onChange={(e) => setPeranAjuan(e.target.value as PeranKode)}
+                          className="block w-full rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-sm dark:border-neutral-700 dark:bg-neutral-900"
+                        >
+                          {PERAN_AJUAN.map((p) => (
+                            <option key={p} value={p} disabled={statusKeanggotaan(user.profil, p) === 'aktif' || statusKeanggotaan(user.profil, p) === 'menunggu'}>
+                              {labelPeran(p)}
+                              {statusKeanggotaan(user.profil, p) === 'menunggu' ? ' (menunggu)' : ''}
+                            </option>
+                          ))}
+                        </select>
+                      </LabelField>
+                      <Button color="primary" onClick={() => void handleAjukanPeran()} disabled={ajukanLoading}>
+                        {ajukanLoading ? 'Mengirim…' : 'Ajukan peran'}
+                      </Button>
+                    </div>
+                    <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
+                      Pengajuan ditinjau Pokdarwis atau perangkat desa. Anda akan mendapat notifikasi saat disetujui.
+                    </p>
+                  </Kartu>
+                ) : (
+                  <Kartu
+                    title="Gabung komunitas desa"
+                    description="Untuk mengajukan peran UMKM, agen, kontributor, atau Pokdarwis, kunjungi halaman desa wisata yang Anda minati."
+                  >
+                    <Link
+                      href={RUTE_WISATAWAN.discovery}
+                      className="inline-flex text-sm font-semibold text-primary-600 hover:underline dark:text-primary-400"
+                    >
+                      Jelajah desa wisata di Lampung →
+                    </Link>
+                  </Kartu>
+                )}
               </>
             )}
 
@@ -717,16 +737,25 @@ export default function AkunPreferensiClient({ desaSlug, desaNama }: Props) {
                 <Kartu title="Panduan & etik">
                   <ul className="space-y-2 text-sm">
                     <li>
-                      <Link href={`/${desaSlug}/berita`} className="font-medium text-primary-600 hover:underline dark:text-primary-400">
-                        Berita & pengumuman desa
+                      <Link href={RUTE_WISATAWAN.discovery} className="font-medium text-primary-600 hover:underline dark:text-primary-400">
+                        Jelajah desa wisata Lampung
                       </Link>
                     </li>
-                    <li>
-                      <Link href={`/${desaSlug}`} className="font-medium text-primary-600 hover:underline dark:text-primary-400">
-                        Kode etik wisata regeneratif
-                      </Link>
-                      <span className="ms-2 text-neutral-400">— di halaman desa</span>
-                    </li>
+                    {desaSlug && !lintasDesa ? (
+                      <>
+                        <li>
+                          <Link href={`/${desaSlug}/berita`} className="font-medium text-primary-600 hover:underline dark:text-primary-400">
+                            Berita & pengumuman desa
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href={`/${desaSlug}`} className="font-medium text-primary-600 hover:underline dark:text-primary-400">
+                            Kode etik wisata regeneratif
+                          </Link>
+                          <span className="ms-2 text-neutral-400">— di halaman desa</span>
+                        </li>
+                      </>
+                    ) : null}
                     <li>
                       <a href="mailto:admin@sigerciv.com" className="font-medium text-primary-600 hover:underline dark:text-primary-400">
                         Hubungi tim Sigerciv

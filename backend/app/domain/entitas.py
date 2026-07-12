@@ -436,3 +436,30 @@ class Notifikasi:
     id: UUID = field(default_factory=uid)
     urut: int = field(default_factory=urut)
     dibuat_pada: datetime = field(default_factory=_now)
+
+
+# --- Wishlist / Simpanan ---
+
+
+@dataclass
+class MisiSimpel:
+    """Ringan untuk validasi wishlist di repo in-memory."""
+    desa_id: UUID
+    kode: str
+    judul: str
+    aktif: bool = True
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)
+
+
+@dataclass
+class Simpanan:
+    pengguna_id: UUID
+    desa_id: UUID
+    tipe: str  # destinasi | paket | misi
+    entitas_id: UUID
+    catatan: Optional[str] = None
+    id: UUID = field(default_factory=uid)
+    urut: int = field(default_factory=urut)
+    dibuat_pada: datetime = field(default_factory=_now)

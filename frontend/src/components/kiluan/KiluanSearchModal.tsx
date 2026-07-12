@@ -42,7 +42,7 @@ const KiluanSearchModal: FC<Props> = ({ type = 'type1' }) => {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="kiluan-search-trigger flex w-full max-w-[220px] items-center gap-2 rounded-full border border-neutral-200/80 bg-neutral-50/80 px-4 py-2 text-sm text-neutral-500 backdrop-blur-sm hover:border-primary-300 dark:border-neutral-600/70 dark:bg-neutral-800/50 dark:text-neutral-400 lg:bg-white/45 lg:dark:bg-neutral-800/40"
+          className="kiluan-search-trigger flex w-full max-w-[200px] items-center gap-2 rounded-full border border-neutral-200/80 bg-neutral-50/80 px-3.5 py-2 text-sm text-neutral-500 backdrop-blur-sm hover:border-primary-300 xl:max-w-[220px] dark:border-neutral-600/70 dark:bg-neutral-800/50 dark:text-neutral-400 lg:bg-white/45 lg:dark:bg-neutral-800/40"
         >
           <MagnifyingGlassIcon className="size-4 shrink-0" aria-hidden />
           <span className="truncate">Cari destinasi…</span>

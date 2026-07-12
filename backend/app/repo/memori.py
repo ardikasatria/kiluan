@@ -497,6 +497,63 @@ class RepoSertifikasiOwner(_RepoGenerik):
         return await self.simpan(s)
 
 
+class RepoMisi:
+    def __init__(self):
+        self._data: dict[UUID, E.MisiSimpel] = {}
+
+    async def simpan(self, m: E.MisiSimpel) -> E.MisiSimpel:
+        self._data[m.id] = m
+        return m
+
+    async def ambil(self, id: UUID, desa_id: UUID | None = None) -> Optional[E.MisiSimpel]:
+        row = self._data.get(id)
+        if row is None:
+            return None
+        if desa_id is not None and row.desa_id != desa_id:
+            return None
+        return row
+
+
+class RepoSimpanan:
+    def __init__(self):
+        self._data: dict[UUID, E.Simpanan] = {}
+        self._indeks: dict[tuple, UUID] = {}
+
+    def _kunci(self, s: E.Simpanan) -> tuple:
+        return (s.pengguna_id, s.tipe, s.entitas_id)
+
+    async def tambah_idempoten(self, s: E.Simpanan) -> tuple[E.Simpanan, bool]:
+        k = self._kunci(s)
+        ada = self._indeks.get(k)
+        if ada is not None:
+            return self._data[ada], False
+        self._data[s.id] = s
+        self._indeks[k] = s.id
+        return s, True
+
+    async def ambil(self, id: UUID) -> Optional[E.Simpanan]:
+        return self._data.get(id)
+
+    async def cari_entitas(
+        self, pengguna_id: UUID, tipe: str, entitas_id: UUID,
+    ) -> Optional[E.Simpanan]:
+        sid = self._indeks.get((pengguna_id, tipe, entitas_id))
+        return self._data.get(sid) if sid else None
+
+    async def daftar_pengguna(
+        self, pengguna_id: UUID, tipe: str | None = None,
+    ) -> list[E.Simpanan]:
+        rows = [s for s in self._data.values() if s.pengguna_id == pengguna_id]
+        if tipe:
+            rows = [s for s in rows if s.tipe == tipe]
+        return rows
+
+    async def hapus(self, id: UUID) -> None:
+        s = self._data.pop(id, None)
+        if s:
+            self._indeks.pop(self._kunci(s), None)
+
+
 class ObjectStorePalsu:
     def __init__(self):
         self._objek: set[str] = set()
@@ -546,4 +603,6 @@ class Penyimpanan:
         self.berita = RepoBerita()
         self.peristiwa = RepoPeristiwa()
         self.notifikasi = RepoNotifikasi()
+        self.misi = RepoMisi()
+        self.simpanan = RepoSimpanan()
         self.objek = ObjectStorePalsu()

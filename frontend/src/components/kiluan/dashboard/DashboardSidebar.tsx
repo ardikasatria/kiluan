@@ -2,6 +2,7 @@
 
 import type { DashboardNavItem } from '@/lib/kiluan/dashboard-peran'
 import { labelPeran, slugPeran, type PeranKode } from '@/lib/kiluan/peran'
+import { RUTE_DASBOR, RUTE_DASBOR_WISATAWAN } from '@/lib/kiluan/rute-sigerciv'
 import {
   BanknotesIcon,
   BuildingOffice2Icon,
@@ -63,7 +64,12 @@ interface Props {
 
 export default function DashboardSidebar({ desaSlug, peran, nav, tagline, compact }: Props) {
   const pathname = usePathname()
-  const base = peran === 'admin' ? '/admin/dasbor' : `/${desaSlug}/dasbor/${slugPeran(peran)}`
+  const base =
+    peran === 'admin'
+      ? '/admin/dasbor'
+      : peran === 'wisatawan'
+        ? RUTE_DASBOR_WISATAWAN
+        : `/${desaSlug}/dasbor/${slugPeran(peran)}`
 
   return (
     <div className={clsx('flex h-full flex-col p-4', compact ? 'p-3' : 'lg:p-5')}>
@@ -79,8 +85,12 @@ export default function DashboardSidebar({ desaSlug, peran, nav, tagline, compac
 
       <nav className="flex flex-1 flex-col gap-0.5" aria-label={`Navigasi ${labelPeran(peran)}`}>
         {nav.map((item) => {
-          const href = `${base}${item.segment}`
-          const aktif = item.segment === '' ? pathname === base : pathname.startsWith(href)
+          const href = item.href ?? `${base}${item.segment}`
+          const aktif = item.href
+            ? pathname === item.href || pathname.startsWith(`${item.href}/`)
+            : item.segment === ''
+              ? pathname === base
+              : pathname.startsWith(href)
           const Icon = NAV_ICONS[item.id] ?? HomeIcon
           return (
             <Link
