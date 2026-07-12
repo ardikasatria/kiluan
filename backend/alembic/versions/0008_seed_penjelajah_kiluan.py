@@ -1,7 +1,7 @@
 """0008 — Seed Penjelajah Lestari demo: stasiun + misi Teluk Kiluan.
 
 Revision ID: 0008_seed_penjelajah_kiluan
-Revises: 0007_keanggotaan_revisi_produk_simpanan
+Revises: 0007_keanggotaan_simpanan
 """
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from alembic import op
 from app.domain.seed_penjelajah import DESA_SLUG, MISI, STASIUN, dump_json
 
 revision = "0008_seed_penjelajah_kiluan"
-down_revision = "0007_keanggotaan_revisi_produk_simpanan"
+down_revision = "0007_keanggotaan_simpanan"
 branch_labels = None
 depends_on = None
 
