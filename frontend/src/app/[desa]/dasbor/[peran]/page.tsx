@@ -4,6 +4,7 @@ import { getProfilDesa } from '@/lib/api/desa'
 import { ambilStatsDasbor } from '@/lib/kiluan/dashboard-stats'
 import { konfigDasborPeran } from '@/lib/kiluan/dashboard-peran'
 import { peranDariSlug } from '@/lib/kiluan/peran'
+import { metadataDasbor } from '@/lib/kiluan/seo'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
@@ -14,9 +15,9 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa, peran } = await params
   const kode = peranDariSlug(peran)
-  if (!kode) return { title: 'Dasbor' }
+  if (!kode) return metadataDasbor('Dasbor', desa)
   const cfg = konfigDasborPeran(desa)[kode]
-  return { title: `Dasbor — ${cfg?.tagline ?? peran}` }
+  return metadataDasbor(cfg?.tagline ?? peran, desa, `/${peran}`)
 }
 
 export default async function DasborPeranPage({ params }: Props) {

@@ -1,5 +1,6 @@
 import SertifikasiPublikClient from '@/components/kiluan/naik-kelas/SertifikasiPublikClient'
 import { getProfilDesa } from '@/lib/api/desa'
+import { metadataHalamanPublik } from '@/lib/kiluan/seo'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
@@ -10,7 +11,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa } = await params
   const profil = await getProfilDesa(desa)
-  return { title: profil ? `Sertifikasi — ${profil.nama}` : 'Tingkat Sertifikasi' }
+  return metadataHalamanPublik(desa, 'sertifikasi', profil?.nama ?? undefined) ?? { title: 'sertifikasi' }
 }
 
 export default async function SertifikasiPage({ params }: Props) {

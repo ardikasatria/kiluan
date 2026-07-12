@@ -14,23 +14,20 @@ import { cariDestinasiDiscovery, daftarDesaDiscovery } from '@/lib/api/discovery
 import { getDaftarPaket, getDaftarUmkm } from '@/lib/api/pasar'
 import { getKategori } from '@/lib/api/referensi'
 import { MapIcon } from '@heroicons/react/24/outline'
+import { buatMetadata } from '@/lib/kiluan/seo'
 import type { Metadata } from 'next'
 
 const DESA = 'teluk-kiluan'
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: 'sigerciv — Platform Desa Wisata Regeneratif',
-  description:
+export const metadata: Metadata = buatMetadata({
+  judul: 'sigerciv — Platform Desa Wisata Regeneratif',
+  deskripsi:
     'Berwisata yang meninggalkan Kiluan lebih baik. Temukan destinasi, dukung UMKM lokal, dan ikut misi lestari di sigerciv.',
-  openGraph: {
-    title: 'sigerciv — Platform Desa Wisata Regeneratif',
-    description: 'Wisata regeneratif berbasis komunitas — data milik desa, nilai kembali ke warga.',
-    type: 'website',
-    images: [{ url: '/gallery/laguna.jpg', alt: 'Laguna Teluk Kiluan' }],
-  },
-}
+  path: '/',
+  gambar: '/gallery/laguna.jpg',
+})
 
 interface Props {
   searchParams: Promise<{ q?: string; tab?: string; kategori?: string }>

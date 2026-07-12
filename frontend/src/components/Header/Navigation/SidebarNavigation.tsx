@@ -1,6 +1,7 @@
 'use client'
 
 import { TNavigationItem } from '@/data/navigation'
+import { ikonNavigasi } from '@/lib/kiluan/navigation-icons'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Divider } from '@/shared/divider'
 import { Link } from '@/shared/link'
@@ -23,21 +24,36 @@ const SidebarNavigation: React.FC<Props> = ({ data }) => {
 
   const _renderMenuChild = (
     item: TNavigationItem,
-    itemClass = 'ps-3 text-neutral-900 dark:text-neutral-200 font-medium'
+    itemClass = 'ps-3 text-neutral-900 dark:text-neutral-200 font-medium',
+    depth = 0,
   ) => {
     return (
-      <ul className="nav-mobile-sub-menu ps-6 pb-1 text-base">
-        {item.children?.map((childMenu, index) => (
+      <ul className={clsx('nav-mobile-sub-menu pb-1 text-base', depth === 0 ? 'ps-6' : 'ps-4')}>
+        {item.children?.map((childMenu, index) => {
+          const Icon = ikonNavigasi(childMenu.icon)
+          return (
           <Disclosure key={index} as="li">
             <Link
               href={childMenu.href || '#'}
               onClick={handleClose}
-              className={`mt-0.5 flex rounded-lg pe-4 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 ${itemClass}`}
+              className={`mt-0.5 flex items-center gap-2.5 rounded-lg pe-4 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 ${itemClass}`}
             >
-              <span className={`py-2.5 ${!childMenu.children ? 'block w-full' : ''}`}>{childMenu.name}</span>
+              {Icon && depth > 0 ? (
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-md bg-neutral-100 text-primary-600 dark:bg-neutral-800 dark:text-primary-400">
+                  <Icon className="size-4" aria-hidden />
+                </span>
+              ) : null}
+              <span className={`flex-1 py-2.5 ${!childMenu.children ? 'block w-full' : ''}`}>
+                {childMenu.name}
+                {childMenu.description && depth > 0 ? (
+                  <span className="mt-0.5 block text-xs font-normal text-neutral-500 dark:text-neutral-400">
+                    {childMenu.description}
+                  </span>
+                ) : null}
+              </span>
               {childMenu.children && (
-                <span className="flex grow items-center" onClick={(e) => e.preventDefault()}>
-                  <DisclosureButton as="span" className="flex grow justify-end">
+                <span className="flex shrink-0 items-center" onClick={(e) => e.preventDefault()}>
+                  <DisclosureButton as="span" className="flex justify-end">
                     <ChevronDownIcon className="ms-2 h-4 w-4 text-neutral-500" aria-hidden="true" />
                   </DisclosureButton>
                 </span>
@@ -45,11 +61,11 @@ const SidebarNavigation: React.FC<Props> = ({ data }) => {
             </Link>
             {childMenu.children && (
               <DisclosurePanel>
-                {_renderMenuChild(childMenu, 'ps-3 text-neutral-600 dark:text-neutral-400')}
+                {_renderMenuChild(childMenu, 'ps-3 text-neutral-600 dark:text-neutral-400', depth + 1)}
               </DisclosurePanel>
             )}
           </Disclosure>
-        ))}
+        )})}
       </ul>
     )
   }

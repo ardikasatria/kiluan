@@ -5,6 +5,7 @@ import {
   GlobeAltIcon,
   UserGroupIcon,
 } from '@heroicons/react/24/outline'
+import { metadataHalamanPublik } from '@/lib/kiluan/seo'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -16,10 +17,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa } = await params
   const profil = await getProfilDesa(desa)
-  return {
-    title: profil ? `Tentang ${profil.nama}` : 'Profil desa',
-    description: profil?.deskripsi ?? undefined,
-  }
+  return metadataHalamanPublik(desa, 'tentang', profil?.nama ?? undefined) ?? { title: 'tentang' }
 }
 
 export default async function TentangDesaPage({ params }: Props) {

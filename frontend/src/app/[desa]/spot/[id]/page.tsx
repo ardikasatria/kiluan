@@ -4,6 +4,7 @@ import KontribusiSpotPanel from '@/components/kiluan/kontribusi/KontribusiSpotPa
 import WeatherWidget from '@/components/kiluan/WeatherWidget'
 import { getCuacaDesa } from '@/lib/api/desa'
 import { getDestinasiDetail } from '@/lib/api/destinasi'
+import { metadataDesa } from '@/lib/kiluan/seo'
 import {
   ArrowLeftIcon,
   BanknotesIcon,
@@ -26,15 +27,15 @@ export const revalidate = 60
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa, id } = await params
   const detail = await getDestinasiDetail(desa, id)
-  return {
-    title: detail?.nama ?? 'Destinasi',
-    description: detail?.deskripsi ?? undefined,
-    openGraph: {
-      title: detail?.nama,
-      description: detail?.deskripsi ?? undefined,
-      type: 'article',
-    },
-  }
+  const gambar = detail?.media?.[0]?.url
+  return metadataDesa({
+    judul: detail?.nama ?? 'Destinasi',
+    desaSlug: desa,
+    path: `/spot/${detail?.slug ?? id}`,
+    deskripsi: detail?.deskripsi ?? undefined,
+    gambar,
+    tipe: 'article',
+  })
 }
 
 function SectionHeading({ icon: Icon, children }: { icon: ComponentType<{ className?: string }>; children: ReactNode }) {

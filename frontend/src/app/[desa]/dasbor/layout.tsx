@@ -2,12 +2,19 @@ import DasborGuard from '@/components/kiluan/dashboard/DasborGuard'
 import OfflineIndicator from '@/components/kiluan/OfflineIndicator'
 import KiluanMeshBackground from '@/components/kiluan/KiluanMeshBackground'
 import { getProfilDesa } from '@/lib/api/desa'
+import { metadataDasbor } from '@/lib/kiluan/seo'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 interface Props {
   children: React.ReactNode
   params: Promise<{ desa: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { desa } = await params
+  return metadataDasbor('Dasbor', desa)
 }
 
 export default async function DasborLayout({ children, params }: Props) {

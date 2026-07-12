@@ -5,6 +5,7 @@ import {
   SignalSlashIcon,
   SunIcon,
 } from '@heroicons/react/24/outline'
+import { metadataHalamanPublik } from '@/lib/kiluan/seo'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -16,9 +17,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa } = await params
   const profil = await getProfilDesa(desa)
-  return {
-    title: profil ? `Panduan berkunjung ${profil.nama}` : 'Panduan berkunjung',
-  }
+  return metadataHalamanPublik(desa, 'panduan', profil?.nama ?? undefined) ?? { title: 'panduan' }
 }
 
 const tips = [

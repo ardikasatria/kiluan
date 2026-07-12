@@ -1,5 +1,6 @@
 import PasarDesaClient from '@/components/kiluan/pasar/PasarDesaClient'
 import { getProfilDesa } from '@/lib/api/desa'
+import { metadataHalamanPublik } from '@/lib/kiluan/seo'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
@@ -11,10 +12,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa } = await params
   const profil = await getProfilDesa(desa)
-  return {
-    title: profil ? `Pasar Desa — ${profil.nama}` : 'Pasar Desa',
-    description: 'Katalog UMKM, produk lokal, dan paket wisata desa.',
-  }
+  return metadataHalamanPublik(desa, 'pasar', profil?.nama ?? undefined) ?? { title: 'Pasar Desa' }
 }
 
 export default async function PasarDesaPage({ params }: Props) {

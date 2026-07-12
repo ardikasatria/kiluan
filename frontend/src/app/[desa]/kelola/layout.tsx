@@ -1,10 +1,18 @@
 import KelolaNav from '@/components/kiluan/KelolaNav'
 import OfflineIndicator from '@/components/kiluan/OfflineIndicator'
 import PengelolaGuard from '@/components/kiluan/PengelolaGuard'
+import { getProfilDesa } from '@/lib/api/desa'
+import { metadataKelola } from '@/lib/kiluan/seo'
+import type { Metadata } from 'next'
 
 interface Props {
   children: React.ReactNode
   params: Promise<{ desa: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { desa } = await params
+  return metadataKelola('Kelola Desa', desa)
 }
 
 export default async function KelolaLayout({ children, params }: Props) {

@@ -1,5 +1,6 @@
 import LeaderboardClient from '@/components/kiluan/lencana/LeaderboardClient'
 import { getProfilDesa } from '@/lib/api/desa'
+import { metadataHalamanPublik } from '@/lib/kiluan/seo'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
@@ -10,10 +11,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa } = await params
   const profil = await getProfilDesa(desa)
-  return {
-    title: profil ? `Leaderboard — ${profil.nama}` : 'Leaderboard',
-    description: 'Papan peringkat partisipasi regeneratif per desa.',
-  }
+  return metadataHalamanPublik(desa, 'leaderboard', profil?.nama ?? undefined) ?? { title: 'leaderboard' }
 }
 
 export default async function LeaderboardPage({ params }: Props) {

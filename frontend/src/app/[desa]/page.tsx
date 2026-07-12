@@ -4,6 +4,7 @@ import DesaQuickLinks from '@/components/kiluan/DesaQuickLinks'
 import { getCuacaDesa, getProfilDesa } from '@/lib/api/desa'
 import { cariDestinasi } from '@/lib/api/destinasi'
 import { getKategori } from '@/lib/api/referensi'
+import { metadataDesa } from '@/lib/kiluan/seo'
 import { MapPinIcon } from '@heroicons/react/24/outline'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -17,15 +18,14 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa } = await params
   const profil = await getProfilDesa(desa)
-  return {
-    title: profil?.nama ?? desa,
-    description: profil?.deskripsi ?? `Etalase wisata ${desa}`,
-    openGraph: {
-      title: profil?.nama ?? desa,
-      description: profil?.deskripsi ?? undefined,
-      type: 'website',
-    },
-  }
+  return metadataDesa({
+    judul: profil?.nama ?? desa,
+    desaSlug: desa,
+    desaNama: profil?.nama,
+    path: '',
+    deskripsi: profil?.deskripsi ?? `Etalase wisata ${desa}`,
+    gambar: profil?.logo,
+  })
 }
 
 export default async function DesaEtalasePage({ params }: Props) {
