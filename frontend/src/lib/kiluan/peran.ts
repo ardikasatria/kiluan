@@ -61,7 +61,7 @@ export function labelPeran(kode: PeranKode, t?: (key: PeranKode) => string): str
   if (t) return t(kode)
   const labels: Record<PeranKode, string> = {
     wisatawan: 'Wisatawan',
-    pokdarwis: 'Pokdarwis',
+    pokdarwis: 'Organisasi',
     umkm: 'UMKM',
     agen: 'Agen Lokal',
     kontributor: 'Kontributor',

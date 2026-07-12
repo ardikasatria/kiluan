@@ -9,7 +9,7 @@ export interface PeranRef {
 
 const MOCK_PERAN: PeranRef[] = [
   { kode: 'wisatawan', nama: 'Wisatawan', scoped_desa: false },
-  { kode: 'pokdarwis', nama: 'Pokdarwis', scoped_desa: true },
+  { kode: 'pokdarwis', nama: 'Organisasi', scoped_desa: true },
   { kode: 'umkm', nama: 'UMKM', scoped_desa: true },
   { kode: 'agen', nama: 'Agen Lokal', scoped_desa: true },
   { kode: 'kontributor', nama: 'Kontributor Umum', scoped_desa: false },

@@ -14,6 +14,16 @@
     "loading": "Memuat…",
     "close": "Tutup"
   },
+  "notFound": {
+    "code": "404",
+    "eyebrow": "Spot hilang di peta",
+    "title": "Halaman tidak ditemukan",
+    "description": "Spot yang Anda cari belum terdaftar di peta sigerciv — mungkin sudah dipindahkan, belum dipublikasi, atau alamatnya salah.",
+    "hint": "Coba kembali ke beranda, jelajah desa wisata di Lampung, atau gunakan pencarian untuk menemukan destinasi regeneratif.",
+    "backHome": "Kembali ke beranda",
+    "explore": "Jelajah desa wisata",
+    "illustrationAlt": "Ilustrasi pesisir sigerciv — kompas, perahu, dan pin peta yang hilang"
+  },
   "auth": {
     "masuk": "Masuk",
     "daftar": "Daftar",
@@ -170,7 +180,7 @@
       },
       "cerita-dampak": {
         "title": "Gabung komunitas",
-        "description": "Daftar sebagai wisatawan, UMKM, agen, atau pengelola Pokdarwis."
+        "description": "Daftar sebagai wisatawan, UMKM, agen, atau pengelola Organisasi."
       }
     },
     "item": {
@@ -351,7 +361,7 @@
         "description": "Kurasi paket"
       },
       "cd-g-4": {
-        "name": "Pokdarwis",
+        "name": "Organisasi",
         "description": "Kelola desa"
       }
     },
@@ -469,7 +479,7 @@
       "pillars": {
         "dataOwnership": {
           "title": "Data milik desa",
-          "body": "Inventori spot, layanan, dan media dikurasi komunitas. Platform hanya penatalayan — data tetap milik desa & Pokdarwis."
+          "body": "Inventori spot, layanan, dan media dikurasi komunitas. Platform hanya penatalayan — data tetap milik desa & Organisasi."
         },
         "localValue": {
           "title": "Nilai kembali ke warga",
@@ -529,7 +539,7 @@
       "subtitle": "Paket wisata kurasi komunitas — agen lokal, jadwal fleksibel, nilai kembali ke desa.",
       "explorePackages": "Jelajah paket",
       "emptyTitle": "Paket wisata — segera",
-      "emptyBody": "Kurasi paket bahari dan pengalaman lokal sedang disiapkan bersama agen & Pokdarwis di jaringan desa wisata Sigerciv.",
+      "emptyBody": "Kurasi paket bahari dan pengalaman lokal sedang disiapkan bersama agen & Organisasi di jaringan desa wisata Sigerciv.",
       "exploreCta": "Jelajah paket di Lampung"
     },
     "jejakRegeneratif": {
@@ -550,7 +560,7 @@
     "communityCta": {
       "eyebrow": "Gabung komunitas",
       "title": "Pilih peran Anda di sigerciv",
-      "subtitle": "Daftar sesuai peran keanggotaan — wisatawan, pelaku UMKM, agen lokal, atau pengelola Pokdarwis. Pasang aplikasi sebagai PWA untuk akses offline di lapangan.",
+      "subtitle": "Daftar sesuai peran keanggotaan — wisatawan, pelaku UMKM, agen lokal, atau pengelola Organisasi. Pasang aplikasi sebagai PWA untuk akses offline di lapangan.",
       "register": "Daftar",
       "roles": {
         "wisatawan": {
@@ -566,7 +576,7 @@
           "desc": "Kurasi paket wisata dan layanan bahari bersama komunitas lokal."
         },
         "pokdarwis": {
-          "label": "Pokdarwis",
+          "label": "Organisasi",
           "desc": "Kelola data destinasi, kurasi konten, dan awasi dampak regeneratif desa."
         }
       }
@@ -595,7 +605,7 @@
         "balai": {
           "name": "Balai Warga",
           "tag": "Identitas & Keanggotaan",
-          "desc": "Auth multi-peran, RBAC per tenant, masuk & daftar untuk wisatawan hingga pengelola Pokdarwis."
+          "desc": "Auth multi-peran, RBAC per tenant, masuk & daftar untuk wisatawan hingga pengelola Organisasi."
         },
         "destinasi": {
           "name": "Destinasi sigerciv",
@@ -734,7 +744,7 @@
     "guard": {
       "loading": "Memuat sesi…",
       "title": "Area Pengelola Desa",
-      "desc": "Masuk dengan akun yang memiliki peran pengelola desa (pokdarwis, perangkat desa, atau admin).",
+      "desc": "Masuk dengan akun yang memiliki peran pengelola desa (organisasi, perangkat desa, atau admin).",
       "masuk": "Masuk"
     },
     "nav": {
@@ -758,7 +768,7 @@
       "draft": "Draft",
       "layanan": "Layanan",
       "kalender": "Kalender",
-      "dasborPokdarwis": "Dasbor Pokdarwis",
+      "dasborPokdarwis": "Dasbor Organisasi",
       "tambahDestinasi": "+ Tambah destinasi baru"
     },
     "bendahara": {
@@ -1733,7 +1743,7 @@
         "otomatis": "Verifikasi otomatis (micro-lesson)",
         "qr_checkin": "Check-in QR + geofence di stasiun",
         "foto_geotag": "Unggah foto + geolokasi",
-        "konfirmasi_pemandu": "Konfirmasi pemandu/Pokdarwis"
+        "konfirmasi_pemandu": "Konfirmasi pemandu/Organisasi"
       }
     },
     "modal": {
@@ -1830,11 +1840,11 @@
     "back": "Kembali ke etalase",
     "title": "Tentang {nama}",
     "communityTitle": "Wisata milik komunitas",
-    "communityBody": "{nama} adalah bagian dari jaringan sigerciv — platform desa wisata regeneratif di mana data destinasi dan layanan dimiliki komunitas lokal (Pokdarwis & perangkat desa), bukan agregator komersial. Setiap kunjungan idealnya meninggalkan destinasi lebih baik melalui pemantauan daya dukung, reinvestment ke dana konservasi, dan partisipasi warga.",
+    "communityBody": "{nama} adalah bagian dari jaringan sigerciv — platform desa wisata regeneratif di mana data destinasi dan layanan dimiliki komunitas lokal (Organisasi & perangkat desa), bukan agregator komersial. Setiap kunjungan idealnya meninggalkan destinasi lebih baik melalui pemantauan daya dukung, reinvestment ke dana konservasi, dan partisipasi warga.",
     "rolesTitle": "Peran di ekosistem",
     "roles": {
       "pokdarwis": {
-        "title": "Pokdarwis & warga",
+        "title": "Organisasi & warga",
         "body": "Mengkurasi spot, layanan, dan konten; memverifikasi data lapangan."
       },
       "umkm": {
@@ -1888,7 +1898,7 @@
     "seoDesc": "Berita, pengumuman, dan cerita desa wisata.",
     "loading": "Memuat…",
     "title": "Warta",
-    "subtitle": "Pengumuman, cerita desa, update konservasi, dan rekap acara — kurasi Pokdarwis & perangkat desa.",
+    "subtitle": "Pengumuman, cerita desa, update konservasi, dan rekap acara — kurasi Organisasi & perangkat desa.",
     "searchPlaceholder": "Cari artikel…",
     "allCategories": "Semua kategori",
     "tagFilter": "Filter tag…",
@@ -2001,7 +2011,7 @@
     "manualTransfer": "Transfer manual",
     "uploadProof": "Unggah bukti transfer",
     "uploadError": "Gagal mengunggah bukti.",
-    "treasurerNote": "Konfirmasi lunas hanya oleh bendahara Pokdarwis — bukan otomatis setelah upload.",
+    "treasurerNote": "Konfirmasi lunas hanya oleh bendahara Organisasi — bukan otomatis setelah upload.",
     "refund": {
       "title": "Ajukan refund",
       "note": "Refund setelah kunjungan selesai memerlukan persetujuan manual bendahara.",
@@ -2265,7 +2275,7 @@
   },
   "peran": {
     "wisatawan": "Wisatawan",
-    "pokdarwis": "Pokdarwis",
+    "pokdarwis": "Organisasi",
     "umkm": "UMKM",
     "agen": "Agen Lokal",
     "kontributor": "Kontributor",
@@ -2401,7 +2411,7 @@
       "sedangDitinjau": "Sedang ditinjau pengelola desa.",
       "ditolakArahan": "Pengajuan perlu revisi atau sebelumnya ditolak. Buka Gabung Komunitas untuk submit ulang kombinasi peran dan desa yang sama.",
       "ajukanBaru": "Revisi & submit ulang",
-      "ajuanInfo": "Pengajuan ditinjau Pokdarwis atau perangkat desa. Pantau status di daftar di atas."
+      "ajuanInfo": "Pengajuan ditinjau Organisasi atau perangkat desa. Pantau status di daftar di atas."
     },
     "notifikasi": {
       "title": "Preferensi notifikasi",
@@ -2447,7 +2457,7 @@
   "gabung": {
     "seo": {
       "title": "Gabung Komunitas",
-      "description": "Ajukan peran Wisatawan, UMKM, Agen Lokal, atau Pokdarwis di desa wisata Lampung."
+      "description": "Ajukan peran Wisatawan, UMKM, Agen Lokal, atau Organisasi di desa wisata Lampung."
     },
     "hero": {
       "title": "Gabung Komunitas Sigerciv",
@@ -2493,7 +2503,7 @@
       "desa": "Desa",
       "cakupan": "Cakupan",
       "lintasDesa": "Lintas desa (global)",
-      "hintMenunggu": "Pengajuan Anda akan ditinjau Pokdarwis atau perangkat desa. Modul kelola terbuka setelah keanggotaan aktif.",
+      "hintMenunggu": "Pengajuan Anda akan ditinjau Organisasi atau perangkat desa. Modul kelola terbuka setelah keanggotaan aktif.",
       "hintAktif": "Peran wisatawan aktif segera setelah diajukan — Anda bisa mulai menjelajah.",
       "ditolakPeringatan": "Pengajuan sebelumnya untuk kombinasi ini perlu revisi atau ditolak. Tombol Ajukan akan mengirim ulang pengajuan yang sama untuk ditinjau kembali.",
       "ajukan": "Ajukan keanggotaan",
@@ -2565,7 +2575,7 @@
       "adminTitle": "Admin / Steward",
       "adminDesc": "Dasbor lintas-tenant untuk moderasi, konfigurasi, dan provisioning desa.",
       "bukaAdmin": "Buka dasbor admin",
-      "footerNote": "Perlu peran tambahan? Hubungi Pokdarwis atau perangkat desa untuk aktivasi keanggotaan.",
+      "footerNote": "Perlu peran tambahan? Hubungi Organisasi atau perangkat desa untuk aktivasi keanggotaan.",
       "revisi": "Perlu revisi"
     },
     "switcher": {
@@ -2592,7 +2602,7 @@
       },
       "agen": {
         "tagline": "Penyusun paket wisata",
-        "deskripsi": "Buat itinerary, atur kuota & jadwal, publikasikan paket melalui alur kurasi Pokdarwis."
+        "deskripsi": "Buat itinerary, atur kuota & jadwal, publikasikan paket melalui alur kurasi Organisasi."
       },
       "kontributor": {
         "tagline": "Relawan data komunitas",
@@ -2600,7 +2610,7 @@
       },
       "organisasi": {
         "tagline": "Mitra konservasi & riset",
-        "deskripsi": "Program konservasi, data ekologi, dan sponsor reinvestment bersama Pokdarwis."
+        "deskripsi": "Program konservasi, data ekologi, dan sponsor reinvestment bersama Organisasi."
       },
       "perangkat_desa": {
         "tagline": "Tata kelola & legitimasi",
@@ -2783,7 +2793,7 @@
     },
     "agen": {
       "tagline": "Penyusun paket wisata",
-      "deskripsi": "Buat itinerary, atur kuota & jadwal, publikasikan paket melalui alur kurasi Pokdarwis.",
+      "deskripsi": "Buat itinerary, atur kuota & jadwal, publikasikan paket melalui alur kurasi Organisasi.",
       "nav": {
         "ringkasan": "Ringkasan",
         "paket": "Paket saya",
@@ -2868,7 +2878,7 @@
     },
     "organisasi": {
       "tagline": "Mitra konservasi & riset",
-      "deskripsi": "Program konservasi, data ekologi, dan sponsor reinvestment bersama Pokdarwis.",
+      "deskripsi": "Program konservasi, data ekologi, dan sponsor reinvestment bersama Organisasi.",
       "nav": {
         "ringkasan": "Ringkasan",
         "program": "Program",
@@ -2897,7 +2907,7 @@
       },
       "widgets": {
         "programTitle": "Program konservasi",
-        "programDesc": "Kolaborasi riset dan aksi lapangan bersama Pokdarwis.",
+        "programDesc": "Kolaborasi riset dan aksi lapangan bersama Organisasi.",
         "ekologiTitle": "Data ekologi",
         "ekologiDesc": "Monitoring indeks karang, mangrove, dan biodiversitas.",
         "sponsorTitle": "Sponsor & reinvestment",
@@ -3102,7 +3112,7 @@
       "paket": {
         "judul": "Paket Wisata",
         "modulLabel": "Kurasi Konten & Paket",
-        "deskripsi": "Agen lokal menyusun itinerary, kuota, dan harga paket wisata dengan alur kurasi Pokdarwis (draft → review → publikasi).",
+        "deskripsi": "Agen lokal menyusun itinerary, kuota, dan harga paket wisata dengan alur kurasi Organisasi (draft → review → publikasi).",
         "fiturRencana": [
           "Editor paket dengan item itinerary",
           "State machine status paket",
@@ -3116,7 +3126,7 @@
         "deskripsi": "Direktori penyusun paket wisata dan pemandu bersertifikat di desa.",
         "fiturRencana": [
           "Profil agen & portofolio paket",
-          "Verifikasi peran oleh Pokdarwis",
+          "Verifikasi peran oleh Organisasi",
           "Kontak langsung ke wisatawan"
         ]
       },
@@ -3126,7 +3136,7 @@
         "deskripsi": "Warga dan wisatawan menyumbang foto, tips, atau koreksi data destinasi. Konten melalui antrian kurasi sebelum tampil publik.",
         "fiturRencana": [
           "Form kontribusi foto & koreksi",
-          "Antrian kurasi Pokdarwis",
+          "Antrian kurasi Organisasi",
           "Poin & badge untuk kontributor"
         ]
       },
@@ -3186,7 +3196,7 @@
         "deskripsi": "Titik check-in QR di dermaga lumba-lumba, mangrove, dan spot konservasi — bukti kehadiran aksi regeneratif.",
         "fiturRencana": [
           "QR geotag per stasiun",
-          "Konfirmasi pemandu/Pokdarwis",
+          "Konfirmasi pemandu/Organisasi",
           "Log verifikasi terhubung ke misi"
         ]
       },

@@ -1,22 +1,37 @@
-import ButtonPrimary from '@/shared/ButtonPrimary'
-import React from 'react'
+import '@/styles/tailwind.css'
+import Sigerciv404Illustration from '@/components/kiluan/Sigerciv404Illustration'
+import { defaultLocale } from '@/i18n/routing'
+import { niveauGrotesk } from '@/lib/fonts'
+import type { Metadata } from 'next'
 
-const Page404: React.FC = () => (
-  <div className="nc-Page404">
-    <div className="relative container py-16 lg:py-20">
-      {/* HEADER */}
-      <header className="mx-auto max-w-2xl space-y-7 text-center">
-        <h2 className="text-7xl md:text-8xl">🪔</h2>
-        <h1 className="text-8xl font-semibold tracking-widest md:text-9xl">404</h1>
-        <span className="block text-sm font-medium tracking-wider text-neutral-800 sm:text-base dark:text-neutral-200">
-          {`THE PAGE YOU WERE LOOKING FOR DOESN'T EXIST.`}
-        </span>
-        <ButtonPrimary href="/" className="mt-4">
-          Return Home Page
-        </ButtonPrimary>
-      </header>
-    </div>
-  </div>
-)
+export const metadata: Metadata = {
+  title: '404 - Sigerciv',
+  robots: { index: false, follow: false },
+}
 
-export default Page404
+/** Fallback global bila rute di luar segmen locale — arahkan ke beranda locale default. */
+export default function RootNotFoundPage() {
+  const homeHref = `/${defaultLocale}`
+
+  return (
+    <html lang={defaultLocale} className={`${niveauGrotesk.variable} ${niveauGrotesk.className}`}>
+      <body className="kiluan-mesh-bg min-h-screen bg-white font-sans text-base text-neutral-900 dark:bg-neutral-900 dark:text-neutral-200">
+        <main className="container flex min-h-screen flex-col items-center justify-center py-16">
+          <div className="kiluan-glass-panel w-full max-w-lg overflow-hidden p-6 text-center">
+            <Sigerciv404Illustration className="mx-auto w-full max-w-sm" title="Spot tidak ditemukan di peta" />
+            <h1 className="mt-6 text-2xl font-bold text-primary-900 dark:text-primary-50">Halaman tidak ditemukan</h1>
+            <p className="mt-3 text-sm leading-relaxed text-neutral-600 dark:text-neutral-300">
+              Spot ini belum ada di peta sigerciv — mungkin sudah dipindahkan atau alamatnya salah.
+            </p>
+            <a
+              href={homeHref}
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-primary-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-800"
+            >
+              Kembali ke beranda
+            </a>
+          </div>
+        </main>
+      </body>
+    </html>
+  )
+}

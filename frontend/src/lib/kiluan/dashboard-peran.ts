@@ -231,7 +231,7 @@ export function konfigDasborPeran(
     agen: {
       kode: 'agen',
       tagline: tr('agen', 'tagline', 'Penyusun paket wisata'),
-      deskripsi: tr('agen', 'deskripsi', 'Buat itinerary, atur kuota & jadwal, publikasikan paket melalui alur kurasi Pokdarwis.'),
+      deskripsi: tr('agen', 'deskripsi', 'Buat itinerary, atur kuota & jadwal, publikasikan paket melalui alur kurasi Organisasi.'),
       fase: 'F1–F2',
       nav: [
         { id: 'ringkasan', label: tr('agen', 'nav.ringkasan', 'Ringkasan'), segment: '' },
@@ -363,7 +363,7 @@ export function konfigDasborPeran(
     organisasi: {
       kode: 'organisasi',
       tagline: tr('organisasi', 'tagline', 'Mitra konservasi & riset'),
-      deskripsi: tr('organisasi', 'deskripsi', 'Program konservasi, data ekologi, dan sponsor reinvestment bersama Pokdarwis.'),
+      deskripsi: tr('organisasi', 'deskripsi', 'Program konservasi, data ekologi, dan sponsor reinvestment bersama Organisasi.'),
       fase: 'F1–F3',
       nav: [
         { id: 'ringkasan', label: tr('organisasi', 'nav.ringkasan', 'Ringkasan'), segment: '' },
@@ -394,7 +394,7 @@ export function konfigDasborPeran(
         {
           id: 'program',
           title: tr('organisasi', 'widgets.programTitle', 'Program konservasi'),
-          description: tr('organisasi', 'widgets.programDesc', 'Kolaborasi riset dan aksi lapangan bersama Pokdarwis.'),
+          description: tr('organisasi', 'widgets.programDesc', 'Kolaborasi riset dan aksi lapangan bersama Organisasi.'),
           fase: '3',
           placeholder: true,
         },

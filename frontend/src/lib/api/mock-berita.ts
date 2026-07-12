@@ -18,7 +18,7 @@ const MOCK_BERITA: BeritaDetail[] = [
     sorotan: true,
     terbit_pada: '2026-01-15T06:00:00Z',
     tag: [TAG[0]],
-    penulis: { nama: 'Pokdarwis Kiluan' },
+    penulis: { nama: 'Organisasi Kiluan' },
     status: 'publikasi',
     dibuat_pada: '2026-01-10T08:00:00Z',
     diperbarui_pada: '2026-01-14T10:00:00Z',

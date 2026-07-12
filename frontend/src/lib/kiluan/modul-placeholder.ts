@@ -34,7 +34,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     modulLabel: 'Kurasi Konten & Paket',
     fase: 'F1',
     deskripsi:
-      'Agen lokal menyusun itinerary, kuota, dan harga paket wisata dengan alur kurasi Pokdarwis (draft → review → publikasi).',
+      'Agen lokal menyusun itinerary, kuota, dan harga paket wisata dengan alur kurasi Organisasi (draft → review → publikasi).',
     fiturRencana: [
       'Editor paket dengan item itinerary',
       'State machine status paket',
@@ -50,7 +50,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     deskripsi: 'Direktori penyusun paket wisata dan pemandu bersertifikat di desa.',
     fiturRencana: [
       'Profil agen & portofolio paket',
-      'Verifikasi peran oleh Pokdarwis',
+      'Verifikasi peran oleh Organisasi',
       'Kontak langsung ke wisatawan',
     ],
   },
@@ -64,7 +64,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
       'Warga dan wisatawan menyumbang foto, tips, atau koreksi data destinasi. Konten melalui antrian kurasi sebelum tampil publik.',
     fiturRencana: [
       'Form kontribusi foto & koreksi',
-      'Antrian kurasi Pokdarwis',
+      'Antrian kurasi Organisasi',
       'Poin & badge untuk kontributor',
     ],
   },
@@ -139,7 +139,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
       'Titik check-in QR di dermaga lumba-lumba, mangrove, dan spot konservasi — bukti kehadiran aksi regeneratif.',
     fiturRencana: [
       'QR geotag per stasiun',
-      'Konfirmasi pemandu/Pokdarwis',
+      'Konfirmasi pemandu/Organisasi',
       'Log verifikasi terhubung ke misi',
     ],
   },

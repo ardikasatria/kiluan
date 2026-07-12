@@ -14,6 +14,16 @@
     "loading": "Loading…",
     "close": "Close"
   },
+  "notFound": {
+    "code": "404",
+    "eyebrow": "Spot missing on the map",
+    "title": "Page not found",
+    "description": "The spot you are looking for is not on the sigerciv map — it may have moved, is not published yet, or the address is wrong.",
+    "hint": "Try returning home, exploring tourism villages in Lampung, or using search to find regenerative destinations.",
+    "backHome": "Back to home",
+    "explore": "Explore tourism villages",
+    "illustrationAlt": "Sigerciv coastal illustration — compass, boat, and missing map pin"
+  },
   "auth": {
     "masuk": "Sign in",
     "daftar": "Register",
@@ -170,7 +180,7 @@
       },
       "cerita-dampak": {
         "title": "Join the community",
-        "description": "Register as a traveler, MSME, local agent, or Pokdarwis manager."
+        "description": "Register as a traveler, MSME, local agent, or Organization manager."
       }
     },
     "item": {
@@ -351,7 +361,7 @@
         "description": "Curate packages"
       },
       "cd-g-4": {
-        "name": "Pokdarwis",
+        "name": "Organization",
         "description": "Manage the village"
       }
     },
@@ -469,7 +479,7 @@
       "pillars": {
         "dataOwnership": {
           "title": "Village-owned data",
-          "body": "Spot inventories, services, and media are curated by the community. The platform is only a steward — data remains with the village and Pokdarwis."
+          "body": "Spot inventories, services, and media are curated by the community. The platform is only a steward — data remains with the village and Organization."
         },
         "localValue": {
           "title": "Value returns to residents",
@@ -529,7 +539,7 @@
       "subtitle": "Community-curated tour packages — local agents, flexible schedules, value returning to the village.",
       "explorePackages": "Browse packages",
       "emptyTitle": "Tour packages — coming soon",
-      "emptyBody": "Coastal packages and local experiences are being prepared with agents and Pokdarwis across the Sigerciv village network.",
+      "emptyBody": "Coastal packages and local experiences are being prepared with agents and Organizations across the Sigerciv village network.",
       "exploreCta": "Browse packages in Lampung"
     },
     "jejakRegeneratif": {
@@ -550,7 +560,7 @@
     "communityCta": {
       "eyebrow": "Join the community",
       "title": "Choose your role on sigerciv",
-      "subtitle": "Register for your membership role — traveler, MSME operator, local agent, or Pokdarwis manager. Install the app as a PWA for offline access in the field.",
+      "subtitle": "Register for your membership role — traveler, MSME operator, local agent, or Organization manager. Install the app as a PWA for offline access in the field.",
       "register": "Register",
       "roles": {
         "wisatawan": {
@@ -566,7 +576,7 @@
           "desc": "Curate tour packages and coastal services with the local community."
         },
         "pokdarwis": {
-          "label": "Pokdarwis",
+          "label": "Organization",
           "desc": "Manage destination data, curate content, and oversee the village's regenerative impact."
         }
       }
@@ -595,7 +605,7 @@
         "balai": {
           "name": "Community Hall",
           "tag": "Identity & Membership",
-          "desc": "Multi-role auth, RBAC per tenant, sign in & register for travelers through Pokdarwis managers."
+          "desc": "Multi-role auth, RBAC per tenant, sign in & register for travelers through Organization managers."
         },
         "destinasi": {
           "name": "Sigerciv Destinations",
@@ -734,7 +744,7 @@
     "guard": {
       "loading": "Loading session…",
       "title": "Village Manager Area",
-      "desc": "Sign in with an account that has village manager role (pokdarwis, village official, or admin).",
+      "desc": "Sign in with an account that has village manager role (organization, village official, or admin).",
       "masuk": "Sign in"
     },
     "nav": {
@@ -758,7 +768,7 @@
       "draft": "Drafts",
       "layanan": "Services",
       "kalender": "Calendar",
-      "dasborPokdarwis": "Pokdarwis dashboard",
+      "dasborPokdarwis": "Organization dashboard",
       "tambahDestinasi": "+ Add new destination"
     },
     "bendahara": {
@@ -1733,7 +1743,7 @@
         "otomatis": "Automatic verification (micro-lesson)",
         "qr_checkin": "QR check-in + station geofence",
         "foto_geotag": "Photo upload + geolocation",
-        "konfirmasi_pemandu": "Guide/Pokdarwis confirmation"
+        "konfirmasi_pemandu": "Guide/Organization confirmation"
       }
     },
     "modal": {
@@ -1830,11 +1840,11 @@
     "back": "Back to showcase",
     "title": "About {nama}",
     "communityTitle": "Community-owned tourism",
-    "communityBody": "{nama} is part of the sigerciv network — a regenerative village tourism platform where destination data and services are owned by the local community (Pokdarwis & village officials), not a commercial aggregator. Every visit should ideally leave destinations better through carrying-capacity monitoring, reinvestment in conservation funds, and community participation.",
+    "communityBody": "{nama} is part of the sigerciv network — a regenerative village tourism platform where destination data and services are owned by the local community (Organizations & village officials), not a commercial aggregator. Every visit should ideally leave destinations better through carrying-capacity monitoring, reinvestment in conservation funds, and community participation.",
     "rolesTitle": "Roles in the ecosystem",
     "roles": {
       "pokdarwis": {
-        "title": "Pokdarwis & residents",
+        "title": "Organizations & residents",
         "body": "Curate spots, services, and content; verify field data."
       },
       "umkm": {
@@ -1888,7 +1898,7 @@
     "seoDesc": "News, announcements, and stories from the tourism village.",
     "loading": "Loading…",
     "title": "News",
-    "subtitle": "Announcements, village stories, conservation updates, and event recaps — curated by Pokdarwis & village officials.",
+    "subtitle": "Announcements, village stories, conservation updates, and event recaps — curated by Organizations & village officials.",
     "searchPlaceholder": "Search articles…",
     "allCategories": "All categories",
     "tagFilter": "Filter by tag…",
@@ -2001,7 +2011,7 @@
     "manualTransfer": "Manual transfer",
     "uploadProof": "Upload transfer proof",
     "uploadError": "Failed to upload proof.",
-    "treasurerNote": "Payment confirmation is done by the Pokdarwis treasurer only — not automatically after upload.",
+    "treasurerNote": "Payment confirmation is done by the Organization treasurer only — not automatically after upload.",
     "refund": {
       "title": "Request refund",
       "note": "Refunds after a completed visit require manual treasurer approval.",
@@ -2265,7 +2275,7 @@
   },
   "peran": {
     "wisatawan": "Traveler",
-    "pokdarwis": "Pokdarwis",
+    "pokdarwis": "Organization",
     "umkm": "Local Business (UMKM)",
     "agen": "Local Agent",
     "kontributor": "Contributor",
@@ -2401,7 +2411,7 @@
       "sedangDitinjau": "Being reviewed by village stewards.",
       "ditolakArahan": "Application needs revision or was previously rejected. Open Join Community to resubmit the same role and village.",
       "ajukanBaru": "Revise & resubmit",
-      "ajuanInfo": "Applications are reviewed by Pokdarwis or village officials. Track status in the list above."
+      "ajuanInfo": "Applications are reviewed by Organizations or village officials. Track status in the list above."
     },
     "notifikasi": {
       "title": "Notification preferences",
@@ -2447,7 +2457,7 @@
   "gabung": {
     "seo": {
       "title": "Join the Community",
-      "description": "Apply for Visitor, MSME, Local Agent, or Pokdarwis roles in Lampung village tourism."
+      "description": "Apply for Visitor, MSME, Local Agent, or Organization roles in Lampung village tourism."
     },
     "hero": {
       "title": "Join the Sigerciv Community",
@@ -2493,7 +2503,7 @@
       "desa": "Village",
       "cakupan": "Scope",
       "lintasDesa": "Cross-village (global)",
-      "hintMenunggu": "Your application will be reviewed by Pokdarwis or village officials. Management modules unlock after activation.",
+      "hintMenunggu": "Your application will be reviewed by Organizations or village officials. Management modules unlock after activation.",
       "hintAktif": "The visitor role activates right after submission — you can start exploring.",
       "ditolakPeringatan": "A previous application for this combination needs revision or was rejected. Submit will resubmit the same application for another review.",
       "ajukan": "Submit application",
@@ -2565,7 +2575,7 @@
       "adminTitle": "Admin / Steward",
       "adminDesc": "Cross-tenant dashboard for moderation, configuration, and village provisioning.",
       "bukaAdmin": "Open admin dashboard",
-      "footerNote": "Need an additional role? Contact Pokdarwis or village officials to activate your membership.",
+      "footerNote": "Need an additional role? Contact an Organization or village officials to activate your membership.",
       "revisi": "Needs revision"
     },
     "switcher": {
@@ -2592,7 +2602,7 @@
       },
       "agen": {
         "tagline": "Tour package composer",
-        "deskripsi": "Build itineraries, set quotas & schedules, and publish packages through the Pokdarwis curation flow."
+        "deskripsi": "Build itineraries, set quotas & schedules, and publish packages through the Organization curation flow."
       },
       "kontributor": {
         "tagline": "Community data volunteer",
@@ -2600,7 +2610,7 @@
       },
       "organisasi": {
         "tagline": "Conservation & research partner",
-        "deskripsi": "Conservation programs, ecological data, and reinvestment sponsorship together with Pokdarwis."
+        "deskripsi": "Conservation programs, ecological data, and reinvestment sponsorship together with Organizations."
       },
       "perangkat_desa": {
         "tagline": "Governance & legitimacy",
@@ -2783,7 +2793,7 @@
     },
     "agen": {
       "tagline": "Tour package composer",
-      "deskripsi": "Build itineraries, set quotas & schedules, and publish packages through the Pokdarwis curation flow.",
+      "deskripsi": "Build itineraries, set quotas & schedules, and publish packages through the Organization curation flow.",
       "nav": {
         "ringkasan": "Overview",
         "paket": "My packages",
@@ -2868,7 +2878,7 @@
     },
     "organisasi": {
       "tagline": "Conservation & research partner",
-      "deskripsi": "Conservation programs, ecological data, and reinvestment sponsorship together with Pokdarwis.",
+      "deskripsi": "Conservation programs, ecological data, and reinvestment sponsorship together with Organizations.",
       "nav": {
         "ringkasan": "Overview",
         "program": "Programs",
@@ -2897,7 +2907,7 @@
       },
       "widgets": {
         "programTitle": "Conservation programs",
-        "programDesc": "Research collaboration and field action with Pokdarwis.",
+        "programDesc": "Research collaboration and field action with Organizations.",
         "ekologiTitle": "Ecological data",
         "ekologiDesc": "Coral index, mangrove, and biodiversity monitoring.",
         "sponsorTitle": "Sponsor & reinvestment",
@@ -3102,7 +3112,7 @@
       "paket": {
         "judul": "Tour Packages",
         "modulLabel": "Content & Package Curation",
-        "deskripsi": "Local agents compose itineraries, quotas, and tour package pricing with Pokdarwis curation flow (draft → review → publish).",
+        "deskripsi": "Local agents compose itineraries, quotas, and tour package pricing with the Organization curation flow (draft → review → publish).",
         "fiturRencana": [
           "Package editor with itinerary items",
           "Package status state machine",
@@ -3116,7 +3126,7 @@
         "deskripsi": "Directory of tour package composers and certified guides in the village.",
         "fiturRencana": [
           "Agent profile & package portfolio",
-          "Role verification by Pokdarwis",
+          "Role verification by Organizations",
           "Direct contact with travelers"
         ]
       },
@@ -3126,7 +3136,7 @@
         "deskripsi": "Residents and travelers contribute photos, tips, or destination data corrections. Content goes through a curation queue before going public.",
         "fiturRencana": [
           "Photo & correction contribution forms",
-          "Pokdarwis curation queue",
+          "Organization curation queue",
           "Points & badges for contributors"
         ]
       },
@@ -3186,7 +3196,7 @@
         "deskripsi": "QR check-in points at dolphin docks, mangroves, and conservation spots — proof of regenerative action attendance.",
         "fiturRencana": [
           "Geotagged QR per station",
-          "Guide/Pokdarwis confirmation",
+          "Guide/Organization confirmation",
           "Verification log linked to missions"
         ]
       },

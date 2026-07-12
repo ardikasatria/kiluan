@@ -135,7 +135,7 @@ MISI: list[dict[str, Any]] = [
     {
         "kode": "AK-MGR-01",
         "judul": "Tanam bibit mangrove",
-        "deskripsi": "Aksi tanam di titik mangrove — konfirmasi pemandu/Pokdarwis setelah bukti di lapangan.",
+        "deskripsi": "Aksi tanam di titik mangrove — konfirmasi pemandu/Organisasi setelah bukti di lapangan.",
         "jenis": "aksi",
         "kategori": "mangrove",
         "poin": 50,
