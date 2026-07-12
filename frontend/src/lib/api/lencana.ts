@@ -1,5 +1,6 @@
 import { apiFetch } from './client'
 import {
+  mockAturanPoin,
   mockBadgeKatalog,
   mockBadgeSaya,
   mockLeaderboard,
@@ -78,10 +79,7 @@ export async function getAturanPoin(desaSlug: string): Promise<AturanPoinItem[]>
     )
     return res.item
   } catch {
-    return [
-      { kode_aksi: 'kontribusi_disetujui', poin: 20, deskripsi: 'Kontribusi disetujui', aktif: true },
-      { kode_aksi: 'produk_terdaftar', poin: 10, deskripsi: 'Produk terdaftar', aktif: true },
-    ]
+    return mockAturanPoin()
   }
 }
 

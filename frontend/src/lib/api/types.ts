@@ -613,8 +613,49 @@ export interface StasiunLestariDto {
   tipe: string
   radius_m: number
   aktif: boolean
+  destinasi_id?: string | null
   lokasi?: Lokasi | null
   qr_token?: string
+}
+
+export interface MisiBuatPayload {
+  kode?: string
+  judul: string
+  deskripsi?: string
+  jenis: 'belajar' | 'aksi'
+  kategori: string
+  micro_lesson?: Record<string, unknown> | null
+  syarat_verifikasi?: Record<string, unknown>
+  stasiun_id?: string | null
+  poin?: number
+  dampak_template?: Record<string, number>
+  aktif?: boolean
+}
+
+export type MisiUbahPayload = Partial<
+  Omit<MisiBuatPayload, 'kode' | 'judul' | 'jenis' | 'kategori'>
+> & {
+  judul?: string
+  jenis?: 'belajar' | 'aksi'
+  kategori?: string
+}
+
+export interface StasiunBuatPayload {
+  nama: string
+  tipe: string
+  lokasi?: Lokasi | null
+  destinasi_id?: string | null
+  radius_m?: number
+  aktif?: boolean
+}
+
+export interface StasiunUbahPayload {
+  nama?: string
+  tipe?: string
+  lokasi?: Lokasi | null
+  radius_m?: number
+  aktif?: boolean
+  rotasi_qr?: boolean
 }
 
 export interface StempelDto {

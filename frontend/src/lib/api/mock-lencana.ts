@@ -36,6 +36,16 @@ export function mockBadgeKatalog() {
   return MOCK_BADGES
 }
 
+export function mockAturanPoin() {
+  return [
+    { kode_aksi: 'kontribusi_disetujui', poin: 20, deskripsi: 'Kontribusi disetujui kurator', aktif: true },
+    { kode_aksi: 'produk_terdaftar', poin: 10, deskripsi: 'Produk/jasa pertama terdaftar', aktif: true },
+    { kode_aksi: 'paket_dipublikasi', poin: 30, deskripsi: 'Paket wisata dipublikasi', aktif: true },
+    { kode_aksi: 'profil_lengkap', poin: 15, deskripsi: 'Profil UMKM lengkap', aktif: true },
+    { kode_aksi: 'warga_perintis', poin: 50, deskripsi: 'Warga perintis platform', aktif: true },
+  ]
+}
+
 export function mockBadgeSaya() {
   return [
     {

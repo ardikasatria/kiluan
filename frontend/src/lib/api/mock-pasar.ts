@@ -150,6 +150,19 @@ export function mockUmkmSaya(): UmkmRingkas[] {
   return [{ ...MOCK_UMKM[0], status_verifikasi: 'terverifikasi' }]
 }
 
+export function mockUmkmKelola(status?: string): UmkmRingkas[] {
+  const menunggu: UmkmRingkas = {
+    id: 'umkm-menunggu',
+    nama: 'Homestay Bu Siti',
+    bidang: { id: 3, kode: 'penginapan', nama: 'Penginapan', ikon: '🏠' },
+    status_verifikasi: 'menunggu',
+    lokasi: { lat: -5.792, lng: 105.104 },
+  }
+  const all = [...MOCK_UMKM, menunggu]
+  if (!status) return all
+  return all.filter((u) => u.status_verifikasi === status)
+}
+
 export function mockProdukKelola(): ProdukJasaItem[] {
   return [
     ...MOCK_PRODUK,

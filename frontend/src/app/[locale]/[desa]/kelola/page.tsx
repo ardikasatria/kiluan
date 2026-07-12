@@ -2,6 +2,7 @@ import { cariDestinasiKelola } from '@/lib/api/destinasi'
 import { getKalenderDesa } from '@/lib/api/kalender'
 import { getLayananDesa } from '@/lib/api/layanan'
 import { getProfilDesa } from '@/lib/api/desa'
+import KelolaRingkasanStatsClient from '@/components/kiluan/KelolaRingkasanStatsClient'
 import { Link } from '@/i18n/navigation'
 import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -49,12 +50,37 @@ export default async function KelolaRingkasanPage({ params }: Props) {
           </Link>
         ))}
       </div>
+      <KelolaRingkasanStatsClient desaSlug={desa} />
       <div className="flex flex-wrap items-center gap-3">
         <Link
           href={`/${desa}/dasbor/pokdarwis`}
           className="inline-flex rounded-full border border-primary-300 px-5 py-2.5 text-sm font-semibold text-primary-800 hover:bg-primary-50 dark:border-primary-600 dark:text-primary-200 dark:hover:bg-primary-900/30"
         >
           {t('dasborPokdarwis')}
+        </Link>
+        <Link
+          href={`/${desa}/kelola/keanggotaan`}
+          className="inline-flex rounded-full border border-neutral-300 px-5 py-2.5 text-sm font-semibold text-neutral-800 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800/60"
+        >
+          {t('kelolaKeanggotaan')}
+        </Link>
+        <Link
+          href={`/${desa}/kelola/umkm`}
+          className="inline-flex rounded-full border border-neutral-300 px-5 py-2.5 text-sm font-semibold text-neutral-800 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800/60"
+        >
+          {t('kelolaUmkm')}
+        </Link>
+        <Link
+          href={`/${desa}/kelola/misi`}
+          className="inline-flex rounded-full border border-neutral-300 px-5 py-2.5 text-sm font-semibold text-neutral-800 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800/60"
+        >
+          {t('kelolaMisi')}
+        </Link>
+        <Link
+          href={`/${desa}/kelola/poin`}
+          className="inline-flex rounded-full border border-neutral-300 px-5 py-2.5 text-sm font-semibold text-neutral-800 hover:bg-neutral-50 dark:border-neutral-600 dark:text-neutral-200 dark:hover:bg-neutral-800/60"
+        >
+          {t('kelolaPoin')}
         </Link>
         <Link
           href={`/${desa}/kelola/destinasi/baru`}

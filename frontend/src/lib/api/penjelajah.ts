@@ -7,11 +7,15 @@ import {
 } from './mock-penjelajah'
 import { konfirmasiMedia, presignMedia, unggahKeMinio } from './media'
 import type {
+  MisiBuatPayload,
   MisiDetail,
   MisiRingkas,
   MisiSelesaiPayload,
+  MisiUbahPayload,
   PasporDto,
+  StasiunBuatPayload,
   StasiunLestariDto,
+  StasiunUbahPayload,
   StempelDto,
   VerifikasiDto,
 } from './types'
@@ -68,6 +72,61 @@ export async function getStasiun(desaSlug: string): Promise<{ item: StasiunLesta
   } catch {
     return mockStasiun()
   }
+}
+
+/** Daftar stasiun untuk pengelola (termasuk qr_token). */
+export async function getStasiunKelola(desaSlug: string): Promise<{ item: StasiunLestariDto[] }> {
+  try {
+    return await apiFetch(`/api/v1/desa/${desaSlug}/stasiun`)
+  } catch {
+    return mockStasiun()
+  }
+}
+
+export async function buatMisi(
+  desaSlug: string,
+  body: MisiBuatPayload,
+): Promise<{ misi: MisiDetail }> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/misi`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function ubahMisi(
+  desaSlug: string,
+  misiId: string,
+  body: MisiUbahPayload,
+): Promise<{ misi: MisiDetail }> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/misi/${misiId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function buatStasiun(
+  desaSlug: string,
+  body: StasiunBuatPayload,
+): Promise<{ stasiun: StasiunLestariDto }> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/stasiun`, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function ubahStasiun(
+  desaSlug: string,
+  stasiunId: string,
+  body: StasiunUbahPayload,
+): Promise<{ stasiun: StasiunLestariDto }> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/stasiun/${stasiunId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+  })
+}
+
+export async function hapusStasiun(desaSlug: string, stasiunId: string): Promise<void> {
+  await apiFetch(`/api/v1/desa/${desaSlug}/stasiun/${stasiunId}`, { method: 'DELETE' })
 }
 
 export async function getVerifikasiAntrean(

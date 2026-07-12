@@ -7,6 +7,7 @@ import {
   mockPaketDetail,
   mockPaketKelola,
   mockProdukKelola,
+  mockUmkmKelola,
   mockUmkmSaya,
 } from './mock-pasar'
 import type {
@@ -110,11 +111,19 @@ export async function getDetailProduk(desaSlug: string, produkId: string, kelola
   }
 }
 
-export async function getUmkmKelola(desaSlug: string): Promise<{ item: UmkmRingkas[]; meta: MetaPaginasi }> {
+export async function getUmkmKelola(
+  desaSlug: string,
+  opts?: { status?: string; q?: string; batas?: number },
+): Promise<{ item: UmkmRingkas[]; meta: MetaPaginasi }> {
+  const q = new URLSearchParams({ kelola: 'true' })
+  if (opts?.status) q.set('status', opts.status)
+  if (opts?.q) q.set('q', opts.q)
+  if (opts?.batas) q.set('batas', String(opts.batas))
   try {
-    return await apiFetch(`/api/v1/desa/${desaSlug}/umkm?kelola=true`)
+    return await apiFetch(`/api/v1/desa/${desaSlug}/umkm?${q}`)
   } catch {
-    return { item: mockUmkmSaya(), meta: { kursor_berikutnya: null, ada_lagi: false, batas: 20 } }
+    const item = mockUmkmKelola(opts?.status)
+    return { item, meta: { kursor_berikutnya: null, ada_lagi: false, batas: 20 } }
   }
 }
 

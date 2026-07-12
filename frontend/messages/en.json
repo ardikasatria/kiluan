@@ -772,6 +772,11 @@
       "checkin": "Check-in",
       "pengaturan": "Settings",
       "kurasi": "Content Kitchen",
+      "keanggotaan": "Membership",
+      "umkm": "MSME Verification",
+      "misi": "Missions",
+      "stasiun": "QR Stations",
+      "poin": "Point rules",
       "validasiKartu": "Action Card Validation",
       "verifikasi": "Verification"
     },
@@ -782,7 +787,20 @@
       "layanan": "Services",
       "kalender": "Calendar",
       "dasborPokdarwis": "Organization dashboard",
-      "tambahDestinasi": "+ Add new destination"
+      "tambahDestinasi": "+ Add new destination",
+      "keanggotaanPending": "Pending membership",
+      "umkmPending": "MSMEs awaiting verification",
+      "kelolaKeanggotaan": "Manage membership →",
+      "kelolaUmkm": "Verify MSMEs →",
+      "kelolaMisi": "Manage missions →",
+      "kelolaPoin": "Point rules →",
+      "antreanTitle": "Operational queue",
+      "antreanHint": "Items awaiting manager action — refreshed when the page loads.",
+      "antreanKeanggotaan": "Membership",
+      "antreanUmkm": "MSME verification",
+      "antreanKurasi": "Content curation",
+      "antreanValidasi": "Action card validation",
+      "antreanVerifikasi": "Mission verification"
     },
     "bendahara": {
       "seoTitle": "Treasurer Panel",
@@ -1597,6 +1615,251 @@
         "diproses": "Processing",
         "selesai": "Completed",
         "ditolak": "Rejected"
+      }
+    },
+    "keanggotaan": {
+      "seoTitle": "Membership",
+      "seoTitleDesa": "Membership — {desa}",
+      "title": "Membership Approval",
+      "subtitle": "Review and activate new role applications in the tourism village.",
+      "subtitleDesa": "Membership queue — {desa}.",
+      "loading": "Loading queue…",
+      "memproses": "Processing…",
+      "empty": "No membership applications.",
+      "antreanLabel": "Membership queue",
+      "detailTitle": "Application detail",
+      "fieldPeran": "Requested role",
+      "fieldPengguna": "User ID",
+      "fieldStatus": "Status",
+      "penggunaId": "User {id}…",
+      "panelTitle": "Manager decision",
+      "panelHint": "Approve to activate the role in this village, or reject if requirements are not met.",
+      "setujui": "Approve & activate",
+      "tolak": "Reject",
+      "pilihHint": "Select an application from the queue.",
+      "filter": {
+        "menunggu": "Pending",
+        "aktif": "Active",
+        "ditolak": "Rejected"
+      },
+      "status": {
+        "menunggu": "Awaiting approval",
+        "aktif": "Active",
+        "ditolak": "Rejected",
+        "revisi": "Needs revision",
+        "nonaktif": "Inactive"
+      },
+      "sukses": {
+        "setuju": "Membership activated.",
+        "tolak": "Membership application rejected."
+      },
+      "errors": {
+        "load": "Failed to load membership queue."
+      }
+    },
+    "umkm": {
+      "seoTitle": "MSME Verification",
+      "seoTitleDesa": "MSME Verification — {desa}",
+      "title": "MSME Verification",
+      "subtitle": "Legitimize MSME profiles before they appear in Village Market and receive orders.",
+      "subtitleDesa": "MSME verification queue — {desa}.",
+      "loading": "Loading MSME list…",
+      "memproses": "Processing…",
+      "empty": "No MSMEs in this filter.",
+      "antreanLabel": "MSME list",
+      "panelTitle": "Verification decision",
+      "panelHint": "Verified MSMEs can publish products and receive orders.",
+      "setujui": "Verify",
+      "tolak": "Reject",
+      "pilihHint": "Select an MSME from the list.",
+      "fieldTelepon": "Phone",
+      "fieldAlamat": "Address",
+      "fieldSertifikasi": "Lestari Level-Up certification",
+      "filter": {
+        "menunggu": "Pending",
+        "terverifikasi": "Verified",
+        "ditolak": "Rejected"
+      },
+      "status": {
+        "menunggu": "Awaiting verification",
+        "terverifikasi": "Verified",
+        "ditolak": "Rejected"
+      },
+      "sukses": {
+        "setuju": "MSME verified.",
+        "tolak": "MSME rejected."
+      },
+      "errors": {
+        "load": "Failed to load MSME list."
+      }
+    },
+    "misi": {
+      "seoTitle": "Manage Missions",
+      "seoTitleDesa": "Manage Missions — {desa}",
+      "title": "Manage Lestari Missions",
+      "subtitle": "Create and manage learn/action missions for Penjelajah Lestari.",
+      "subtitleDesa": "Penjelajah mission catalog — {desa}.",
+      "loading": "Loading missions…",
+      "menyimpan": "Saving…",
+      "empty": "No missions yet.",
+      "katalog": "Mission catalog",
+      "katalogHint": "Tap a mission to edit. Deactivate to hide it from visitors.",
+      "formBuat": "Add new mission",
+      "formBuatHint": "Code is optional — the system generates one if empty.",
+      "formEdit": "Edit mission",
+      "formEditHint": "Changes immediately affect the public mission page.",
+      "batalEdit": "Cancel · create new",
+      "tambahMisi": "Save mission",
+      "simpanUbah": "Save changes",
+      "aktifkan": "Activate",
+      "nonaktifkan": "Deactivate",
+      "poinSuffix": "pts",
+      "stasiunKosong": "— No station —",
+      "status": {
+        "aktif": "Active",
+        "nonaktif": "Inactive"
+      },
+      "jenis": {
+        "belajar": "Learn",
+        "aksi": "Action"
+      },
+      "kategori": {
+        "mangrove": "Mangrove",
+        "karang": "Coral",
+        "sampah": "Waste",
+        "lumba": "Dolphins",
+        "budaya": "Culture"
+      },
+      "metode": {
+        "otomatis": "Automatic",
+        "qr_checkin": "QR check-in",
+        "foto_geotag": "Photo + geotag",
+        "konfirmasi_pemandu": "Guide confirmation"
+      },
+      "tipeStasiun": {
+        "dermaga": "Pier",
+        "titik_mangrove": "Mangrove point",
+        "pos": "Post"
+      },
+      "field": {
+        "kode": "Mission code",
+        "judul": "Title",
+        "jenis": "Type",
+        "kategori": "Category",
+        "poin": "Points",
+        "metode": "Verification method",
+        "stasiun": "Linked station",
+        "stasiunHint": "Required for QR check-in missions.",
+        "deskripsi": "Description",
+        "dampak": "Impact template",
+        "dampakHint": "Format: key:number, comma-separated. Example: mangrove:1, sampah:2",
+        "buktiFoto": "Require photo proof"
+      },
+      "placeholder": {
+        "kode": "BL-LUMBA-01",
+        "judul": "Dolphin observation ethics",
+        "deskripsi": "Mission summary for visitors…",
+        "dampak": "lumba_observasi:1"
+      },
+      "sukses": {
+        "buat": "Mission created.",
+        "ubah": "Mission updated.",
+        "aktif": "Mission activated.",
+        "nonaktif": "Mission deactivated."
+      },
+      "errors": {
+        "load": "Failed to load mission catalog."
+      }
+    },
+    "stasiun": {
+      "seoTitle": "Manage Stations",
+      "seoTitleDesa": "Manage Stations — {desa}",
+      "title": "Lestari QR Stations",
+      "subtitle": "Geofence check-in points and QR tokens for action missions.",
+      "subtitleDesa": "Penjelajah stations — {desa}.",
+      "loading": "Loading stations…",
+      "menyimpan": "Saving…",
+      "empty": "No stations yet.",
+      "katalog": "Station list",
+      "katalogHint": "QR tokens are visible to managers only. Rotating QR invalidates old codes.",
+      "formBuat": "Add station",
+      "formBuatHint": "QR token is generated automatically.",
+      "formEdit": "Edit station",
+      "formEditHint": "Check rotate QR to issue a new token.",
+      "batalEdit": "Cancel · create new",
+      "tambahStasiun": "Save station",
+      "simpanUbah": "Save changes",
+      "aktifkan": "Activate",
+      "nonaktifkan": "Deactivate",
+      "rotasiQr": "Rotate QR",
+      "qrToken": "QR token",
+      "tanpaLokasi": "no coordinates",
+      "radius": "Radius {m} m",
+      "status": {
+        "aktif": "Active",
+        "nonaktif": "Inactive"
+      },
+      "tipe": {
+        "dermaga": "Pier",
+        "titik_mangrove": "Mangrove point",
+        "pos": "Post"
+      },
+      "field": {
+        "nama": "Station name",
+        "tipe": "Type",
+        "radius": "Geofence radius (m)",
+        "lat": "Latitude",
+        "lng": "Longitude",
+        "rotasiQr": "Rotate QR token on save"
+      },
+      "placeholder": {
+        "nama": "Kiluan Dolphin Pier",
+        "lat": "-5.7497",
+        "lng": "105.1985"
+      },
+      "sukses": {
+        "buat": "Station created.",
+        "ubah": "Station updated.",
+        "aktif": "Station activated.",
+        "nonaktif": "Station deactivated.",
+        "rotasi": "QR token rotated."
+      },
+      "errors": {
+        "load": "Failed to load station list."
+      }
+    },
+    "poin": {
+      "seoTitle": "Point Rules",
+      "seoTitleDesa": "Point Rules — {desa}",
+      "title": "Point Rules & Badges",
+      "subtitle": "Reference for automatic points and the village gamification badge catalog.",
+      "subtitleDesa": "Community gamification — {desa}.",
+      "loading": "Loading point rules…",
+      "readOnlyNote": "Point rules are read-only for now. Gamification configuration editing is planned for a later phase.",
+      "aturanTitle": "Points per action",
+      "aturanHint": "Points are awarded automatically when the action is fulfilled.",
+      "badgeTitle": "Badge catalog",
+      "badgeHint": "Badges residents can earn based on requirements.",
+      "emptyAturan": "No active point rules yet.",
+      "emptyBadge": "No badges registered yet.",
+      "col": {
+        "aksi": "Action",
+        "poin": "Points",
+        "status": "Status"
+      },
+      "status": {
+        "aktif": "Active",
+        "nonaktif": "Inactive"
+      },
+      "aksi": {
+        "kontribusi_disetujui": "Contribution approved",
+        "produk_terdaftar": "First product/service registered",
+        "paket_dipublikasi": "Tour package published",
+        "profil_lengkap": "Complete MSME profile",
+        "warga_perintis": "Platform pioneer resident"
+      },
+      "errors": {
+        "load": "Failed to load point rules."
       }
     },
     "validasiKartu": {
@@ -3070,6 +3333,7 @@
       },
       "aksi": {
         "kelola": "Manage destinations",
+        "keanggotaan": "Membership approval",
         "validasi": "Validate action cards",
         "kurasi": "Curate content",
         "baru": "+ New spot",
@@ -3094,6 +3358,12 @@
         "kurasiDesc": "Curation queue for traveler contributions and agent packages.",
         "naikKelasTitle": "Level-Up Validation",
         "naikKelasDesc": "Approve action cards and UMKM certification tiers.",
+        "misiTitle": "Manage lestari missions",
+        "misiDesc": "Create and edit learn/action missions for Penjelajah Lestari.",
+        "stasiunTitle": "QR stations",
+        "stasiunDesc": "Geofence check-in points and station QR tokens.",
+        "poinTitle": "Point rules & badges",
+        "poinDesc": "Village community gamification reference.",
         "keanggotaanTitle": "Membership approval",
         "keanggotaanDesc": "Activate new roles in the village.",
         "danaTitle": "Conservation fund",
@@ -3314,6 +3584,8 @@
       "widgets": {
         "verifikasiTitle": "Membership approval",
         "verifikasiDesc": "Legitimize UMKM, agent, and contributor roles.",
+        "umkmTitle": "MSME verification",
+        "umkmDesc": "Legitimize MSME profiles before Village Market publication.",
         "kelolaTitle": "Operational management",
         "kelolaDesc": "Village management dashboard and policies.",
         "danaTitle": "Fund transparency",

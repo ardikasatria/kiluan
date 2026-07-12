@@ -84,7 +84,7 @@ export function konfigDasborPeran(
         { id: 'ringkasan', label: tr('pokdarwis', 'nav.ringkasan', 'Ringkasan'), segment: '' },
         { id: 'destinasi', label: tr('pokdarwis', 'nav.destinasi', 'Destinasi'), segment: '/destinasi' },
         { id: 'kurasi', label: tr('pokdarwis', 'nav.kurasi', 'Antrian kurasi'), segment: '/kurasi' },
-        { id: 'keanggotaan', label: tr('pokdarwis', 'nav.keanggotaan', 'Keanggotaan'), segment: '/keanggotaan', segera: true },
+        { id: 'keanggotaan', label: tr('pokdarwis', 'nav.keanggotaan', 'Keanggotaan'), segment: '/keanggotaan', href: href(d, 'kelola/keanggotaan') },
         { id: 'dana', label: tr('pokdarwis', 'nav.dana', 'Dana konservasi'), segment: '/dana', segera: true },
       ],
       stats: [
@@ -95,6 +95,7 @@ export function konfigDasborPeran(
       ],
       aksiCepat: [
         { id: 'kelola', label: tr('pokdarwis', 'aksi.kelola', 'Kelola destinasi'), href: href(d, 'kelola/destinasi'), primary: true },
+        { id: 'keanggotaan', label: tr('pokdarwis', 'aksi.keanggotaan', 'Persetujuan keanggotaan'), href: href(d, 'kelola/keanggotaan'), segera: false },
         { id: 'validasi', label: tr('pokdarwis', 'aksi.validasi', 'Validasi kartu'), href: href(d, 'kelola/validasi-kartu'), segera: false },
         { id: 'kurasi', label: tr('pokdarwis', 'aksi.kurasi', 'Kurasi konten'), href: href(d, 'kelola/kurasi'), segera: false },
         { id: 'baru', label: tr('pokdarwis', 'aksi.baru', '+ Spot baru'), href: href(d, 'kelola/destinasi/baru') },
@@ -137,11 +138,32 @@ export function konfigDasborPeran(
           href: href(d, 'kelola/validasi-kartu'),
         },
         {
+          id: 'misi',
+          title: tr('pokdarwis', 'widgets.misiTitle', 'Kelola misi lestari'),
+          description: tr('pokdarwis', 'widgets.misiDesc', 'Buat dan edit misi belajar/aksi Penjelajah Lestari.'),
+          fase: '2',
+          href: href(d, 'kelola/misi'),
+        },
+        {
+          id: 'stasiun',
+          title: tr('pokdarwis', 'widgets.stasiunTitle', 'Stasiun QR'),
+          description: tr('pokdarwis', 'widgets.stasiunDesc', 'Titik check-in geofence dan token QR stasiun.'),
+          fase: '2',
+          href: href(d, 'kelola/stasiun'),
+        },
+        {
+          id: 'poin',
+          title: tr('pokdarwis', 'widgets.poinTitle', 'Aturan poin & lencana'),
+          description: tr('pokdarwis', 'widgets.poinDesc', 'Referensi gamifikasi komunitas desa.'),
+          fase: '1',
+          href: href(d, 'kelola/poin'),
+        },
+        {
           id: 'keanggotaan',
           title: tr('pokdarwis', 'widgets.keanggotaanTitle', 'Persetujuan keanggotaan'),
           description: tr('pokdarwis', 'widgets.keanggotaanDesc', 'Aktivasi peran baru di desa.'),
           fase: '0',
-          segera: true,
+          href: href(d, 'kelola/keanggotaan'),
         },
         {
           id: 'dana',
@@ -435,7 +457,7 @@ export function konfigDasborPeran(
       fase: 'F0–F3',
       nav: [
         { id: 'ringkasan', label: tr('perangkat_desa', 'nav.ringkasan', 'Ringkasan'), segment: '' },
-        { id: 'verifikasi', label: tr('perangkat_desa', 'nav.verifikasi', 'Verifikasi'), segment: '/verifikasi', segera: true },
+        { id: 'verifikasi', label: tr('perangkat_desa', 'nav.verifikasi', 'Verifikasi'), segment: '/verifikasi', href: href(d, 'kelola/keanggotaan') },
         { id: 'kebijakan', label: tr('perangkat_desa', 'nav.kebijakan', 'Kebijakan'), segment: '/kebijakan', segera: true },
         { id: 'transparansi', label: tr('perangkat_desa', 'nav.transparansi', 'Transparansi'), segment: '/transparansi', segera: true },
         { id: 'kelola', label: tr('perangkat_desa', 'nav.kelola', 'Kelola operasional'), segment: '/operasional' },
@@ -467,7 +489,14 @@ export function konfigDasborPeran(
           title: tr('perangkat_desa', 'widgets.verifikasiTitle', 'Persetujuan keanggotaan'),
           description: tr('perangkat_desa', 'widgets.verifikasiDesc', 'Legitimasi peran UMKM, agen, dan kontributor.'),
           fase: '0',
-          segera: true,
+          href: href(d, 'kelola/keanggotaan'),
+        },
+        {
+          id: 'umkm',
+          title: tr('perangkat_desa', 'widgets.umkmTitle', 'Verifikasi UMKM'),
+          description: tr('perangkat_desa', 'widgets.umkmDesc', 'Legitimasi profil UMKM sebelum publikasi di Pasar Desa.'),
+          fase: '1',
+          href: href(d, 'kelola/umkm'),
         },
         {
           id: 'kelola',

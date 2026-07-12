@@ -22,6 +22,7 @@ const MOCK_STASIUN: StasiunLestariDto[] = [
     radius_m: 80,
     aktif: true,
     lokasi: { lat: -5.7497, lng: 105.1985 },
+    qr_token: 'STN-KILUAN-DERMAGA',
   },
   {
     id: STASIUN_IDS.mangrove,
@@ -30,6 +31,7 @@ const MOCK_STASIUN: StasiunLestariDto[] = [
     radius_m: 100,
     aktif: true,
     lokasi: { lat: -5.751, lng: 105.1995 },
+    qr_token: 'STN-KILUAN-MANGROVE',
   },
   {
     id: STASIUN_IDS.pantai,
@@ -38,6 +40,7 @@ const MOCK_STASIUN: StasiunLestariDto[] = [
     radius_m: 100,
     aktif: true,
     lokasi: { lat: -5.7485, lng: 105.197 },
+    qr_token: 'STN-KILUAN-PANTAI',
   },
 ]
 

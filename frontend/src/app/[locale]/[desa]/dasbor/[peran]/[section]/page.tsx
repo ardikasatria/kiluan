@@ -51,6 +51,15 @@ export default async function DasborSectionPage({ params }: Props) {
   if (section === 'sertifikasi') {
     redirect(`/${desa}/naik-kelas`)
   }
+  if (section === 'keanggotaan') {
+    redirect(`/${desa}/kelola/keanggotaan`)
+  }
+  if (section === 'verifikasi' && kode === 'perangkat_desa') {
+    redirect(`/${desa}/kelola/keanggotaan`)
+  }
+  if (section === 'umkm' && (kode === 'pokdarwis' || kode === 'perangkat_desa')) {
+    redirect(`/${desa}/kelola/umkm`)
+  }
 
   const t = await getTranslations(`dasbor.${kode}` as 'dasbor.pokdarwis')
   const translators: Partial<Record<PeranKode, PenerjemahDasbor>> = {

@@ -772,6 +772,11 @@
       "checkin": "Check-in",
       "pengaturan": "Pengaturan",
       "kurasi": "Dapur Konten",
+      "keanggotaan": "Keanggotaan",
+      "umkm": "Verifikasi UMKM",
+      "misi": "Misi",
+      "stasiun": "Stasiun QR",
+      "poin": "Aturan poin",
       "validasiKartu": "Validasi Kartu",
       "verifikasi": "Verifikasi"
     },
@@ -782,7 +787,20 @@
       "layanan": "Layanan",
       "kalender": "Kalender",
       "dasborPokdarwis": "Dasbor Organisasi",
-      "tambahDestinasi": "+ Tambah destinasi baru"
+      "tambahDestinasi": "+ Tambah destinasi baru",
+      "keanggotaanPending": "Keanggotaan menunggu",
+      "umkmPending": "UMKM menunggu verifikasi",
+      "kelolaKeanggotaan": "Kelola keanggotaan →",
+      "kelolaUmkm": "Verifikasi UMKM →",
+      "kelolaMisi": "Kelola misi →",
+      "kelolaPoin": "Aturan poin →",
+      "antreanTitle": "Antrean operasional",
+      "antreanHint": "Item yang menunggu tindakan pengelola — diperbarui saat halaman dimuat.",
+      "antreanKeanggotaan": "Keanggotaan",
+      "antreanUmkm": "Verifikasi UMKM",
+      "antreanKurasi": "Kurasi konten",
+      "antreanValidasi": "Validasi kartu",
+      "antreanVerifikasi": "Verifikasi misi"
     },
     "bendahara": {
       "seoTitle": "Panel Bendahara",
@@ -1597,6 +1615,251 @@
         "diproses": "Diproses",
         "selesai": "Selesai",
         "ditolak": "Ditolak"
+      }
+    },
+    "keanggotaan": {
+      "seoTitle": "Keanggotaan",
+      "seoTitleDesa": "Keanggotaan — {desa}",
+      "title": "Persetujuan Keanggotaan",
+      "subtitle": "Tinjau dan aktivasi peran baru yang diajukan warga di desa wisata.",
+      "subtitleDesa": "Antrean keanggotaan — {desa}.",
+      "loading": "Memuat antrean…",
+      "memproses": "Memproses…",
+      "empty": "Tidak ada pengajuan keanggotaan.",
+      "antreanLabel": "Antrean keanggotaan",
+      "detailTitle": "Detail pengajuan",
+      "fieldPeran": "Peran diajukan",
+      "fieldPengguna": "ID pengguna",
+      "fieldStatus": "Status",
+      "penggunaId": "Pengguna {id}…",
+      "panelTitle": "Keputusan pengelola",
+      "panelHint": "Setujui untuk mengaktifkan peran di desa ini, atau tolak jika tidak memenuhi syarat.",
+      "setujui": "Setujui & aktifkan",
+      "tolak": "Tolak",
+      "pilihHint": "Pilih satu pengajuan dari antrean.",
+      "filter": {
+        "menunggu": "Menunggu",
+        "aktif": "Aktif",
+        "ditolak": "Ditolak"
+      },
+      "status": {
+        "menunggu": "Menunggu persetujuan",
+        "aktif": "Aktif",
+        "ditolak": "Ditolak",
+        "revisi": "Perlu revisi",
+        "nonaktif": "Nonaktif"
+      },
+      "sukses": {
+        "setuju": "Keanggotaan diaktifkan.",
+        "tolak": "Pengajuan keanggotaan ditolak."
+      },
+      "errors": {
+        "load": "Gagal memuat antrean keanggotaan."
+      }
+    },
+    "umkm": {
+      "seoTitle": "Verifikasi UMKM",
+      "seoTitleDesa": "Verifikasi UMKM — {desa}",
+      "title": "Verifikasi UMKM",
+      "subtitle": "Legitimasi profil UMKM sebelum muncul di Pasar Desa dan menerima pesanan.",
+      "subtitleDesa": "Antrean verifikasi UMKM — {desa}.",
+      "loading": "Memuat daftar UMKM…",
+      "memproses": "Memproses…",
+      "empty": "Tidak ada UMKM dalam filter ini.",
+      "antreanLabel": "Daftar UMKM",
+      "panelTitle": "Keputusan verifikasi",
+      "panelHint": "UMKM terverifikasi dapat mempublikasikan produk dan menerima pesanan.",
+      "setujui": "Verifikasi",
+      "tolak": "Tolak",
+      "pilihHint": "Pilih satu UMKM dari daftar.",
+      "fieldTelepon": "Telepon",
+      "fieldAlamat": "Alamat",
+      "fieldSertifikasi": "Sertifikasi Naik Kelas",
+      "filter": {
+        "menunggu": "Menunggu",
+        "terverifikasi": "Terverifikasi",
+        "ditolak": "Ditolak"
+      },
+      "status": {
+        "menunggu": "Menunggu verifikasi",
+        "terverifikasi": "Terverifikasi",
+        "ditolak": "Ditolak"
+      },
+      "sukses": {
+        "setuju": "UMKM terverifikasi.",
+        "tolak": "UMKM ditolak."
+      },
+      "errors": {
+        "load": "Gagal memuat daftar UMKM."
+      }
+    },
+    "misi": {
+      "seoTitle": "Kelola Misi",
+      "seoTitleDesa": "Kelola Misi — {desa}",
+      "title": "Kelola Misi Lestari",
+      "subtitle": "Buat dan kelola misi belajar/aksi untuk Penjelajah Lestari.",
+      "subtitleDesa": "Katalog misi Penjelajah — {desa}.",
+      "loading": "Memuat misi…",
+      "menyimpan": "Menyimpan…",
+      "empty": "Belum ada misi.",
+      "katalog": "Katalog misi",
+      "katalogHint": "Ketuk misi untuk mengedit. Nonaktifkan untuk menyembunyikan dari wisatawan.",
+      "formBuat": "Tambah misi baru",
+      "formBuatHint": "Kode opsional — sistem membuat otomatis jika kosong.",
+      "formEdit": "Edit misi",
+      "formEditHint": "Perubahan langsung memengaruhi halaman misi publik.",
+      "batalEdit": "Batal · buat baru",
+      "tambahMisi": "Simpan misi",
+      "simpanUbah": "Simpan perubahan",
+      "aktifkan": "Aktifkan",
+      "nonaktifkan": "Nonaktifkan",
+      "poinSuffix": "poin",
+      "stasiunKosong": "— Tanpa stasiun —",
+      "status": {
+        "aktif": "Aktif",
+        "nonaktif": "Nonaktif"
+      },
+      "jenis": {
+        "belajar": "Belajar",
+        "aksi": "Aksi"
+      },
+      "kategori": {
+        "mangrove": "Mangrove",
+        "karang": "Karang",
+        "sampah": "Sampah",
+        "lumba": "Lumba-lumba",
+        "budaya": "Budaya"
+      },
+      "metode": {
+        "otomatis": "Otomatis",
+        "qr_checkin": "QR check-in",
+        "foto_geotag": "Foto + geotag",
+        "konfirmasi_pemandu": "Konfirmasi pemandu"
+      },
+      "tipeStasiun": {
+        "dermaga": "Dermaga",
+        "titik_mangrove": "Titik mangrove",
+        "pos": "Pos"
+      },
+      "field": {
+        "kode": "Kode misi",
+        "judul": "Judul",
+        "jenis": "Jenis",
+        "kategori": "Kategori",
+        "poin": "Poin",
+        "metode": "Metode verifikasi",
+        "stasiun": "Stasiun terkait",
+        "stasiunHint": "Wajib untuk misi QR check-in.",
+        "deskripsi": "Deskripsi",
+        "dampak": "Template dampak",
+        "dampakHint": "Format: kunci:angka, dipisah koma. Contoh: mangrove:1, sampah:2",
+        "buktiFoto": "Mewajibkan bukti foto"
+      },
+      "placeholder": {
+        "kode": "BL-LUMBA-01",
+        "judul": "Etik observasi lumba-lumba",
+        "deskripsi": "Ringkasan misi untuk wisatawan…",
+        "dampak": "lumba_observasi:1"
+      },
+      "sukses": {
+        "buat": "Misi dibuat.",
+        "ubah": "Misi diperbarui.",
+        "aktif": "Misi diaktifkan.",
+        "nonaktif": "Misi dinonaktifkan."
+      },
+      "errors": {
+        "load": "Gagal memuat katalog misi."
+      }
+    },
+    "stasiun": {
+      "seoTitle": "Kelola Stasiun",
+      "seoTitleDesa": "Kelola Stasiun — {desa}",
+      "title": "Stasiun QR Lestari",
+      "subtitle": "Titik check-in geofence dan token QR untuk misi aksi.",
+      "subtitleDesa": "Stasiun Penjelajah — {desa}.",
+      "loading": "Memuat stasiun…",
+      "menyimpan": "Menyimpan…",
+      "empty": "Belum ada stasiun.",
+      "katalog": "Daftar stasiun",
+      "katalogHint": "Token QR hanya terlihat oleh pengelola. Rotasi QR membatalkan kode lama.",
+      "formBuat": "Tambah stasiun",
+      "formBuatHint": "Token QR dibuat otomatis oleh sistem.",
+      "formEdit": "Edit stasiun",
+      "formEditHint": "Centang rotasi QR jika ingin menerbitkan token baru.",
+      "batalEdit": "Batal · buat baru",
+      "tambahStasiun": "Simpan stasiun",
+      "simpanUbah": "Simpan perubahan",
+      "aktifkan": "Aktifkan",
+      "nonaktifkan": "Nonaktifkan",
+      "rotasiQr": "Rotasi QR",
+      "qrToken": "Token QR",
+      "tanpaLokasi": "tanpa koordinat",
+      "radius": "Radius {m} m",
+      "status": {
+        "aktif": "Aktif",
+        "nonaktif": "Nonaktif"
+      },
+      "tipe": {
+        "dermaga": "Dermaga",
+        "titik_mangrove": "Titik mangrove",
+        "pos": "Pos"
+      },
+      "field": {
+        "nama": "Nama stasiun",
+        "tipe": "Tipe",
+        "radius": "Radius geofence (m)",
+        "lat": "Latitude",
+        "lng": "Longitude",
+        "rotasiQr": "Rotasi token QR saat menyimpan"
+      },
+      "placeholder": {
+        "nama": "Dermaga Lumba Kiluan",
+        "lat": "-5.7497",
+        "lng": "105.1985"
+      },
+      "sukses": {
+        "buat": "Stasiun dibuat.",
+        "ubah": "Stasiun diperbarui.",
+        "aktif": "Stasiun diaktifkan.",
+        "nonaktif": "Stasiun dinonaktifkan.",
+        "rotasi": "Token QR diganti."
+      },
+      "errors": {
+        "load": "Gagal memuat daftar stasiun."
+      }
+    },
+    "poin": {
+      "seoTitle": "Aturan Poin",
+      "seoTitleDesa": "Aturan Poin — {desa}",
+      "title": "Aturan Poin & Lencana",
+      "subtitle": "Referensi poin otomatis dan katalog badge gamifikasi desa.",
+      "subtitleDesa": "Gamifikasi komunitas — {desa}.",
+      "loading": "Memuat aturan poin…",
+      "readOnlyNote": "Aturan poin saat ini hanya dapat dibaca. Pengeditan konfigurasi gamifikasi direncanakan di fase berikutnya.",
+      "aturanTitle": "Aturan poin per aksi",
+      "aturanHint": "Poin diberikan otomatis oleh sistem saat aksi terpenuhi.",
+      "badgeTitle": "Katalog badge",
+      "badgeHint": "Lencana yang dapat diperoleh warga berdasarkan syarat.",
+      "emptyAturan": "Belum ada aturan poin aktif.",
+      "emptyBadge": "Belum ada badge terdaftar.",
+      "col": {
+        "aksi": "Aksi",
+        "poin": "Poin",
+        "status": "Status"
+      },
+      "status": {
+        "aktif": "Aktif",
+        "nonaktif": "Nonaktif"
+      },
+      "aksi": {
+        "kontribusi_disetujui": "Kontribusi disetujui",
+        "produk_terdaftar": "Produk/jasa pertama terdaftar",
+        "paket_dipublikasi": "Paket wisata dipublikasi",
+        "profil_lengkap": "Profil UMKM lengkap",
+        "warga_perintis": "Warga perintis platform"
+      },
+      "errors": {
+        "load": "Gagal memuat aturan poin."
       }
     },
     "validasiKartu": {
@@ -3070,6 +3333,7 @@
       },
       "aksi": {
         "kelola": "Kelola destinasi",
+        "keanggotaan": "Persetujuan keanggotaan",
         "validasi": "Validasi kartu",
         "kurasi": "Kurasi konten",
         "baru": "+ Spot baru",
@@ -3094,6 +3358,12 @@
         "kurasiDesc": "Antrian kurasi kontribusi wisatawan dan paket agen.",
         "naikKelasTitle": "Validasi Naik Kelas",
         "naikKelasDesc": "Setujui kartu aksi dan tingkat sertifikasi UMKM.",
+        "misiTitle": "Kelola misi lestari",
+        "misiDesc": "Buat dan edit misi belajar/aksi Penjelajah Lestari.",
+        "stasiunTitle": "Stasiun QR",
+        "stasiunDesc": "Titik check-in geofence dan token QR stasiun.",
+        "poinTitle": "Aturan poin & lencana",
+        "poinDesc": "Referensi gamifikasi komunitas desa.",
         "keanggotaanTitle": "Persetujuan keanggotaan",
         "keanggotaanDesc": "Aktivasi peran baru di desa.",
         "danaTitle": "Dana konservasi",
@@ -3314,6 +3584,8 @@
       "widgets": {
         "verifikasiTitle": "Persetujuan keanggotaan",
         "verifikasiDesc": "Legitimasi peran UMKM, agen, dan kontributor.",
+        "umkmTitle": "Verifikasi UMKM",
+        "umkmDesc": "Legitimasi profil UMKM sebelum publikasi di Pasar Desa.",
         "kelolaTitle": "Kelola operasional",
         "kelolaDesc": "Dashboard pengelolaan desa dan kebijakan.",
         "danaTitle": "Transparansi dana",

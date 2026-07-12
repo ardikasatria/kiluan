@@ -25,6 +25,11 @@ const ITEMS = [
   { href: '/checkin', key: 'checkin' },
   { href: '/pengaturan', key: 'pengaturan' },
   { href: '/kurasi', key: 'kurasi' },
+  { href: '/keanggotaan', key: 'keanggotaan' },
+  { href: '/umkm', key: 'umkm' },
+  { href: '/misi', key: 'misi' },
+  { href: '/stasiun', key: 'stasiun' },
+  { href: '/poin', key: 'poin' },
   { href: '/validasi-kartu', key: 'validasiKartu' },
   { href: '/verifikasi', key: 'verifikasi' },
 ] as const
