@@ -4,7 +4,7 @@ export const HALAMAN_PUBLIK_DESA: { path: string; judul: string; deskripsi: stri
   { path: '/pasar', judul: 'Pasar Desa', deskripsi: 'UMKM dan produk lokal bersertifikat.' },
   { path: '/paket', judul: 'Paket Wisata', deskripsi: 'Paket wisata kurasi komunitas desa.' },
   { path: '/misi', judul: 'Misi Lestari', deskripsi: 'Penjelajah Lestari — misi edukasi dan aksi konservasi.' },
-  { path: '/panduan', judul: 'Panduan Berkunjung', deskripsi: 'Kode etik dan panduan wisata regeneratif.' },
+  { path: '/panduan', judul: 'Panduan Berkunjung', deskripsi: 'Kode etik dan panduan wisata.' },
   { path: '/tentang', judul: 'Tentang Desa', deskripsi: 'Kisah desa dan kepemilikan komunitas.' },
   { path: '/kontribusi', judul: 'Kontribusi', deskripsi: 'Sumbang foto, tips, dan koreksi data destinasi.' },
   { path: '/sertifikasi', judul: 'Sertifikasi Owner', deskripsi: 'Tingkat Tunas, Bahari, dan Lumba-Lumba.' },

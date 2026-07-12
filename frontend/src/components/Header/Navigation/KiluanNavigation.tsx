@@ -239,7 +239,9 @@ const KiluanNavigation: FC<Props> = ({ menu, className }) => {
           key={menuItem.id}
           menuItem={menuItem}
           isOpen={openId === menuItem.id}
-          onToggle={() => toggle(menuItem.id)}
+          onToggle={() => {
+            if (menuItem.id) toggle(menuItem.id)
+          }}
           onClose={close}
         />
       ))}

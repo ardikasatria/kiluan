@@ -207,7 +207,7 @@ export const NAV_MENUS: NavMenuDef[] = [
         children: [
           { id: 'cd-j-3', href: '/#jejak-regeneratif', nameKey: 'item.cd-j-3.name', descriptionKey: 'item.cd-j-3.description', icon: 'cycle' },
           { id: 'cd-j-1', href: `/${DESA}/dana-konservasi`, nameKey: 'item.cd-j-1.name', descriptionKey: 'item.cd-j-1.description', icon: 'money', soon: true },
-          { id: 'cd-j-2', href: `/${DESA}/neraca-regeneratif`, nameKey: 'item.cd-j-2.name', descriptionKey: 'item.cd-j-2.description', icon: 'beaker', soon: true },
+          { id: 'cd-j-2', href: `/${DESA}/neraca-lestari`, nameKey: 'item.cd-j-2.name', descriptionKey: 'item.cd-j-2.description', icon: 'beaker', soon: true },
         ],
       },
       {

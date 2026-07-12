@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Pick<Props, 'params'>): Promi
       default: JUDUL_PLATFORM,
     },
     description: DESKRIPSI_DEFAULT,
-    keywords: ['sigerciv', 'Lampung', 'Desa Wisata', 'Pariwisata Regeneratif', 'Ekowisata', 'Wisata Berkelanjutan'],
+    keywords: ['sigerciv', 'Lampung', 'Desa Wisata', 'Pariwisata', 'Ekowisata', 'Wisata Berkelanjutan'],
     applicationName: NAMA_SITUS,
     openGraph: {
       type: 'website',

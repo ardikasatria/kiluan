@@ -19,7 +19,7 @@
     "eyebrow": "Spot missing on the map",
     "title": "Page not found",
     "description": "The spot you are looking for is not on the sigerciv map — it may have moved, is not published yet, or the address is wrong.",
-    "hint": "Try returning home, exploring tourism villages in Lampung, or using search to find regenerative destinations.",
+    "hint": "Try returning home, exploring tourism villages in Lampung, or using search to find tourism destinations.",
     "backHome": "Back to home",
     "explore": "Explore tourism villages",
     "illustrationAlt": "Sigerciv coastal illustration — compass, boat, and missing map pin"
@@ -141,7 +141,7 @@
         "name": "Services"
       },
       "pengalaman-misi": {
-        "name": "Regenerative missions"
+        "name": "Lestari missions"
       },
       "pasar-kategori": {
         "name": "Shop"
@@ -156,7 +156,7 @@
         "name": "About"
       },
       "cerita-regeneratif": {
-        "name": "Regenerative"
+        "name": "Lestari"
       },
       "cerita-jejak": {
         "name": "Transparency"
@@ -261,11 +261,11 @@
         "description": "Pick-up & drop-off"
       },
       "p-m-1": {
-        "name": "Regenerative Explorer",
+        "name": "Lestari Explorer",
         "description": "Education & action missions"
       },
       "p-m-2": {
-        "name": "Regenerative Passport",
+        "name": "Lestari Passport",
         "description": "Track your impact"
       },
       "p-m-3": {
@@ -290,7 +290,7 @@
       },
       "pd-s-1": {
         "name": "Tunas tier",
-        "description": "Regenerative starter"
+        "description": "Lestari starter"
       },
       "pd-s-2": {
         "name": "Bahari tier",
@@ -345,7 +345,7 @@
         "description": "Fund allocation"
       },
       "cd-j-2": {
-        "name": "Regenerative ledger",
+        "name": "Lestari ledger",
         "description": "Impact reports"
       },
       "cd-g-1": {
@@ -368,7 +368,7 @@
     "userMenu": {
       "dasbor": "My dashboard",
       "gabung": "Join community",
-      "paspor": "Regenerative Passport",
+      "paspor": "Lestari Passport",
       "wishlist": "My wishlist",
       "booking": "My bookings",
       "kontribusi": "My contributions",
@@ -406,7 +406,7 @@
       "offlineMode": "Offline — changes saved locally"
     },
     "sidebar": {
-      "tagline": "A community-led regenerative village tourism platform — explore destinations, support local MSMEs, and join regenerative missions.",
+      "tagline": "A community-led village tourism platform — explore destinations, support local MSMEs, and join Lestari missions.",
       "searchPlaceholder": "Type and press Enter",
       "masuk": "Sign in",
       "daftar": "Register"
@@ -419,7 +419,7 @@
     }
   },
   "footer": {
-    "tagline": "Sigerciv — a cross-village regenerative tourism platform in Lampung. Destination data is community-owned; economic value returns to residents; data exports are available to authorized managers.",
+    "tagline": "Sigerciv — a cross-village tourism platform in Lampung. Destination data is community-owned; economic value returns to residents; data exports are available to authorized managers.",
     "columns": {
       "jelajah": "Explore",
       "pengalaman": "Experiences",
@@ -432,8 +432,8 @@
       "featuredSpots": "Featured spots",
       "findDestinations": "Find destinations",
       "packages": "Tour packages",
-      "explorer": "Regenerative Explorer",
-      "paspor": "Regenerative Passport",
+      "explorer": "Lestari Explorer",
+      "paspor": "Lestari Passport",
       "guideEthics": "Guide & ethics",
       "localUmkm": "Local MSMEs",
       "certificationTiers": "Certification tiers",
@@ -441,15 +441,15 @@
       "signIn": "Sign in",
       "register": "Create account",
       "villagesInNetwork": "Villages in the network",
-      "regenerativeTrail": "Regenerative trail"
+      "regenerativeTrail": "Lestari trail"
     },
     "copyright": "© {year} sigerciv · CIV Scientific Group, Sains Data Study Program, ITERA.",
     "domainNote": "sigerciv.com · PWA offline-first"
   },
   "landing": {
     "seo": {
-      "title": "sigerciv — Regenerative Tourism Platform for Lampung",
-      "description": "Sigerciv connects regenerative village tourism across Lampung — discover cross-village destinations, support local MSMEs, and join regenerative missions."
+      "title": "sigerciv — Tourism Platform for Lampung",
+      "description": "Sigerciv connects village tourism across Lampung — discover cross-village destinations, support local MSMEs, and join Lestari missions."
     },
     "hero": {
       "badge": "Sigerciv platform · Lampung",
@@ -475,7 +475,7 @@
     },
     "valuePillars": {
       "title": "Why sigerciv",
-      "subtitle": "Three pillars of regenerative tourism: community data ownership, local value flows, and conservation transparency.",
+      "subtitle": "Three pillars of tourism: community data ownership, local value flows, and conservation transparency.",
       "pillars": {
         "dataOwnership": {
           "title": "Village-owned data",
@@ -492,15 +492,15 @@
       }
     },
     "misiLestari": {
-      "eyebrow": "Regenerative missions",
-      "title": "Regenerative Explorer & Regenerative Passport",
-      "subtitle": "Learn coastal tourism ethics, take verified actions, and collect stamps in your Regenerative Passport. Full quests and Regenerative Stations will follow in the next phase.",
+      "eyebrow": "Lestari missions",
+      "title": "Lestari Explorer & Lestari Passport",
+      "subtitle": "Learn coastal tourism ethics, take verified actions, and collect stamps in your Lestari Passport. Full quests and Lestari Stations will follow in the next phase.",
       "exploreVillages": "Explore village tourism",
-      "viewPaspor": "View Regenerative Passport",
+      "viewPaspor": "View Lestari Passport",
       "steps": {
         "learn": {
           "title": "Learn",
-          "body": "Understand coastal ethics, dolphin viewing codes, and regenerative practices before you visit."
+          "body": "Understand coastal ethics, dolphin viewing codes, and sustainable practices before you visit."
         },
         "act": {
           "title": "Act",
@@ -508,18 +508,18 @@
         },
         "stamp": {
           "title": "Passport stamps",
-          "body": "Collect Regenerative Passport stamps as a record of your regenerative journey."
+          "body": "Collect Lestari Passport stamps as a record of your Lestari journey."
         }
       }
     },
     "pasarDesa": {
       "eyebrow": "Village Market",
       "title": "Certified MSMEs & local products",
-      "subtitle": "Tourism value flows to local providers. Certification tiers mark regenerative commitment from Tunas to Lumba-Lumba.",
+      "subtitle": "Tourism value flows to local providers. Certification tiers mark sustainable commitment from Tunas to Lumba-Lumba.",
       "tiers": {
         "tunas": {
           "title": "Tunas",
-          "body": "First steps in regenerative practice — a baseline commitment to sustainable business."
+          "body": "First steps in sustainable practice — a baseline commitment to sustainable business."
         },
         "bahari": {
           "title": "Bahari",
@@ -527,7 +527,7 @@
         },
         "lumba": {
           "title": "Lumba-Lumba",
-          "body": "Highest tier — regenerative standards and transparent impact reporting."
+          "body": "Highest tier — sustainable standards and transparent impact reporting."
         }
       },
       "emptyCatalog": "Certified MSME catalog coming soon — register as a local provider to join the Village Market.",
@@ -543,18 +543,18 @@
       "exploreCta": "Browse packages in Lampung"
     },
     "jejakRegeneratif": {
-      "eyebrow": "Regenerative trail",
+      "eyebrow": "Lestari trail",
       "title": "Conservation impact transparency",
       "subtitle": "sigerciv is committed to showing verified conservation outcomes — from conservation funds to carrying-capacity indicators. Impact figures will only appear once verified monitoring data is available, not as aspirational claims.",
       "commitmentTitle": "Open commitment",
-      "commitmentBody": "Conservation funds and the regenerative ledger will be published when the F3 data pipeline is active.",
+      "commitmentBody": "Conservation funds and the Lestari ledger will be published when the F3 data pipeline is active.",
       "targetLabel": "Transparency target",
       "targetBody": "Transparency will follow once conservation data is verified — no hard-coded figures on this page."
     },
     "jelajahCta": {
       "eyebrow": "Cross-village · Lampung",
       "title": "Explore village tourism across Lampung",
-      "subtitle": "Interactive map, category filters, search, and distance from your location — find regenerative destinations village by village.",
+      "subtitle": "Interactive map, category filters, search, and distance from your location — find tourism destinations village by village.",
       "cta": "Open Explore"
     },
     "communityCta": {
@@ -565,11 +565,11 @@
       "roles": {
         "wisatawan": {
           "label": "Resident / Traveler",
-          "desc": "Explore destinations, join regenerative missions, and collect Passport stamps."
+          "desc": "Explore destinations, join Lestari missions, and collect Passport stamps."
         },
         "umkm": {
           "label": "MSME",
-          "desc": "Showcase products and services in the Village Market with regenerative certification tiers."
+          "desc": "Showcase products and services in the Village Market with Lestari certification tiers."
         },
         "agen": {
           "label": "Agent",
@@ -577,7 +577,7 @@
         },
         "pokdarwis": {
           "label": "Organization",
-          "desc": "Manage destination data, curate content, and oversee the village's regenerative impact."
+          "desc": "Manage destination data, curate content, and oversee the village's community impact."
         }
       }
     },
@@ -589,7 +589,7 @@
     "featuredDesa": {
       "eyebrow": "Multi-village tenant",
       "title": "Tourism villages in the sigerciv network",
-      "subtitle": "Sigerciv connects regenerative tourism villages across Lampung — from coast to inland, ready to grow together with cross-village modules.",
+      "subtitle": "Sigerciv connects tourism villages across Lampung — from coast to inland, ready to grow together with cross-village modules.",
       "viewMap": "View all on map"
     },
     "modules": {
@@ -618,7 +618,7 @@
   "jelajah": {
     "seo": {
       "defaultTitle": "Explore Village Tourism in Lampung",
-      "defaultDescription": "Discover regenerative village tourism in Lampung — interactive map, category filters, and cross-village destinations on Sigerciv.",
+      "defaultDescription": "Discover village tourism in Lampung — interactive map, category filters, and cross-village destinations on Sigerciv.",
       "villageTitle": "Explore {villageName}",
       "villageDescription": "Destinations and tourism in {villageName}, Lampung — Sigerciv public showcase.",
       "searchTitle": "Search \"{query}\" — Explore Lampung",
@@ -627,7 +627,7 @@
     "hero": {
       "badge": "Sigerciv · Lampung",
       "title": "Explore village tourism",
-      "subtitle": "Pick a village on the Lampung map or search cross-village destinations — community-owned regenerative tourism."
+      "subtitle": "Pick a village on the Lampung map or search cross-village destinations — community-owned tourism."
     },
     "explorer": {
       "region": "Region",
@@ -672,7 +672,7 @@
   "cari": {
     "seo": {
       "title": "Find Destinations",
-      "description": "Browse regenerative tourism destinations across sigerciv villages."
+      "description": "Browse tourism destinations across sigerciv villages."
     }
   },
   "etalase": {
@@ -684,7 +684,7 @@
     },
     "hero": {
       "back": "Back to Sigerciv",
-      "badge": "Regenerative Village Tourism Showcase",
+      "badge": "Village Tourism Showcase",
       "exploreCta": "Explore destinations",
       "dasborCta": "My dashboard",
       "kelolaCta": "Manage village",
@@ -701,7 +701,7 @@
       },
       "tentang": {
         "title": "Village profile",
-        "desc": "Community story & regenerative vision."
+        "desc": "Community story & community vision."
       },
       "pasar": {
         "title": "Village Market",
@@ -1015,7 +1015,7 @@
       "eyebrow": "Coupons & points",
       "title": "Manage Rewards",
       "subtitle": "Village point redemption catalog.",
-      "subtitleDesa": "{desa} loyalty program — Regenerative Passport rewards & discount coupons.",
+      "subtitleDesa": "{desa} loyalty program — Lestari Passport rewards & discount coupons.",
       "loading": "Loading catalog…",
       "menyimpan": "Saving…",
       "katalog": "Reward catalog",
@@ -1076,13 +1076,13 @@
       },
       "eyebrow": "Coupons & promotions",
       "campaignHeading": "Village campaign coupons",
-      "campaignSubtitle": "Create campaign coupons for travelers and regenerative providers in {desa}.",
+      "campaignSubtitle": "Create campaign coupons for travelers and local providers in {desa}.",
       "ownerHeading": "Create an MSME promotion",
       "ownerSubtitle": "Create discounts for your business products and services.",
       "ownerCostTitle": "The business owner funds this discount",
       "ownerCostBody": "Owner promo coupons proportionally reduce the provider's gross amount. The discount is your marketing cost, not funded by the platform or conservation fund.",
       "campaignTitle": "Village-managed campaign",
-      "campaignBody": "Only managers can create campaign coupons. Choose providers or certification tiers so benefits flow to regenerative businesses.",
+      "campaignBody": "Only managers can create campaign coupons. Choose providers or certification tiers so benefits flow to local businesses.",
       "formTitle": {
         "kampanye": "Create campaign coupon",
         "promo_owner": "Create business promo coupon"
@@ -1102,13 +1102,13 @@
         "nominal": "Nominal (IDR)"
       },
       "provider": {
-        "title": "Eligible regenerative providers",
+        "title": "Eligible local providers",
         "hint": "Leave empty for all providers, or restrict by certification tier and MSME IDs.",
         "level": "Minimum tier",
         "all": "All tiers",
         "ids": "Specific MSME IDs",
         "idsPlaceholder": "Separate with commas",
-        "flywheel": "Rewards are directed to certified providers so regenerative participation creates real demand."
+        "flywheel": "Rewards are directed to certified providers so community participation creates real demand."
       },
       "level": {
         "tunas": "Tunas",
@@ -1603,8 +1603,8 @@
       "seoTitle": "Action Card Validation",
       "seoTitleDesa": "Action Card Validation — {desa}",
       "title": "Action Card Validation",
-      "subtitle": "Review regenerative action card applications from MSMEs, agents, and village managers.",
-      "subtitleDesa": "Regenerative Level-Up validation queue — {desa}.",
+      "subtitle": "Review sustainable action card applications from MSMEs, agents, and village managers.",
+      "subtitleDesa": "Lestari Level-Up validation queue — {desa}.",
       "loading": "Loading queue…",
       "memproses": "Processing…",
       "empty": "No pending applications.",
@@ -1923,7 +1923,14 @@
       "duration": "{jam} hours",
       "kuota": "Default quota {count} people",
       "minutes": "{count} min",
-      "priceNote": "Indicative package price. Scheduling and booking will be available in a later phase.",
+      "priceNote": "Price per package · slot quota held at checkout.",
+      "bookTitle": "Book & pick a schedule",
+      "bookHint": "Choose a departure date, then proceed to checkout.",
+      "jumlahOrang": "Number of guests",
+      "addCart": "Add to cart",
+      "goCheckout": "Checkout now",
+      "selectSlot": "Please select a slot date first.",
+      "cartAdded": "Added to cart.",
       "contactTitle": "Interested in this package?",
       "contactDesc": "Contact {agen} for schedule and availability information."
     },
@@ -1939,10 +1946,10 @@
     }
   },
   "misi": {
-    "seoTitle": "Regenerative Missions",
+    "seoTitle": "Lestari Missions",
     "title": "Sigerciv missions",
-    "subtitle": "Learn the code of ethics → take action in the field. Only verified stamps count toward your Regenerative Passport.",
-    "pasporLink": "Open Regenerative Passport →",
+    "subtitle": "Learn the code of ethics → take action in the field. Only verified stamps count toward your Lestari Passport.",
+    "pasporLink": "Open Lestari Passport →",
     "stasiunLink": "Lestari Stations →",
     "filter": {
       "semuaJenis": "All types"
@@ -2092,7 +2099,7 @@
     "back": "Back to showcase",
     "title": "About {nama}",
     "communityTitle": "Community-owned tourism",
-    "communityBody": "{nama} is part of the sigerciv network — a regenerative village tourism platform where destination data and services are owned by the local community (Organizations & village officials), not a commercial aggregator. Every visit should ideally leave destinations better through carrying-capacity monitoring, reinvestment in conservation funds, and community participation.",
+    "communityBody": "{nama} is part of the sigerciv network — a village tourism platform where destination data and services are owned by the local community (Organizations & village officials), not a commercial aggregator. Every visit should ideally leave destinations better through carrying-capacity monitoring, reinvestment in conservation funds, and community participation.",
     "rolesTitle": "Roles in the ecosystem",
     "roles": {
       "pokdarwis": {
@@ -2137,7 +2144,7 @@
         "body": "Android: Install / Add to Home Screen in Chrome. iOS: Share → Add to Home Screen in Safari. Opens full-screen without the Play Store."
       }
     },
-    "ethicsTitle": "Regenerative code of ethics",
+    "ethicsTitle": "Tourism code of ethics",
     "ethics": {
       "karang": "Do not touch or step on coral reefs; use reef-safe sunscreen.",
       "sampah": "Take plastic waste with you — many marine spots have no trash bins.",
@@ -2226,7 +2233,12 @@
     },
     "kupon": "Coupon",
     "kuponPlaceholder": "Coupon code",
+    "kuponHint": "Preview discount before checkout.",
+    "kuponPreview": "Preview discount: {diskon}",
+    "kuponFinalNote": "Final validation at checkout — preview may differ from the final result.",
     "cekKupon": "Apply",
+    "hapusItem": "Remove from cart",
+    "metodeLabel": "Pickup method",
     "ringkasan": "Summary",
     "subtotal": "Subtotal",
     "diskon": "Discount",
@@ -2237,8 +2249,10 @@
       "gagal": "Checkout failed. Please try again."
     },
     "memproses": "Processing…",
+    "submitOrder": "Place order",
     "bayar": "Create order & proceed to payment",
     "note": "Paid status only changes after treasurer verification.",
+    "riwayatLink": "Order history",
     "orang": "{count} people"
   },
   "pesanan": {
@@ -2248,7 +2262,11 @@
       "description": "Your tourism order details."
     },
     "loading": "Loading order…",
+    "loadError": "Failed to load order.",
     "label": "Order {code}",
+    "timeline": "Order status",
+    "items": "Line items",
+    "diskonApplied": "Coupon discount: {amount}",
     "status": {
       "menunggu_pembayaran": "Awaiting payment",
       "dibayar": "Paid",
@@ -2262,6 +2280,7 @@
     "payExpired": "Payment window has expired",
     "manualTransfer": "Manual transfer",
     "uploadProof": "Upload transfer proof",
+    "proofSubmitted": "Proof submitted — awaiting treasurer verification.",
     "uploadError": "Failed to upload proof.",
     "treasurerNote": "Payment confirmation is done by the Organization treasurer only — not automatically after upload.",
     "refund": {
@@ -2274,7 +2293,29 @@
     },
     "checkIn": {
       "title": "Check-in tickets",
+      "hint": "Show this QR to staff on your visit date.",
       "qrAlt": "Ticket QR"
+    },
+    "kebijakanTitle": "Village cancellation policy",
+    "batal": {
+      "action": "Cancel order",
+      "confirm": "Cancel this order? Slot quota will be released.",
+      "processing": "Cancelling…",
+      "error": "Failed to cancel order."
+    },
+    "riwayat": {
+      "seoTitle": "My Orders",
+      "seoTitleDesa": "My Orders — {desa}",
+      "seoDesc": "Order history for tour packages and the village market.",
+      "title": "My orders",
+      "subtitle": "Track payment status, bookings, and refunds.",
+      "back": "All orders",
+      "link": "Order history",
+      "empty": "No orders in this village yet.",
+      "linkPaket": "Browse tour packages",
+      "linkPasar": "Explore village market",
+      "detail": "Details",
+      "itemCount": "+{count} more items"
     }
   },
   "kupon": {
@@ -2284,7 +2325,7 @@
       "description": "Your discount coupon wallet."
     },
     "title": "Coupon Wallet",
-    "subtitle": "Save, copy, and use coupons with regenerative providers at checkout.",
+    "subtitle": "Save, copy, and use coupons with local providers at checkout.",
     "tukarPoinLink": "Browse rewards",
     "loading": "Loading…",
     "empty": "There are no coupons in your wallet yet.",
@@ -2316,7 +2357,7 @@
       "title": "Accepted by",
       "all": "All participating providers",
       "nama": "MSME {nama}",
-      "flywheel": "Regenerative choice: this coupon directs spending to providers that level up."
+      "flywheel": "Lestari choice: this coupon directs spending to providers that level up."
     },
     "historyTitle": "Redemption history",
     "historyHint": "A record of points exchanged for rewards or coupons.",
@@ -2336,10 +2377,10 @@
       "description": "Redeem points for rewards."
     },
     "title": "Redeem Points",
-    "subtitle": "Turn contributions and regenerative missions into community rewards.",
+    "subtitle": "Turn contributions and Lestari missions into community rewards.",
     "saldoLabel": "Village point balance",
     "riwayatPoin": "Point history",
-    "paspor": "Regenerative Passport",
+    "paspor": "Lestari Passport",
     "loading": "Loading catalog…",
     "empty": "There are no active rewards in this village yet.",
     "error": "Redemption failed — check balance, stock, or tier requirements.",
@@ -2378,7 +2419,7 @@
   "leaderboard": {
     "seoTitle": "Leaderboard",
     "title": "Leaderboard",
-    "subtitle": "Regenerative participation rankings — names and avatars only, no private data.",
+    "subtitle": "Community participation rankings — names and avatars only, no private data.",
     "periodeAria": "Leaderboard period",
     "periode": {
       "all": "All time",
@@ -2393,7 +2434,7 @@
   "sertifikasi": {
     "seoTitle": "Certification Tiers",
     "title": "Certification Tiers",
-    "subtitle": "Transparency of Regenerative Level-Up tiers for providers in the village — Tunas, Bahari, Lumba-Lumba.",
+    "subtitle": "Transparency of Lestari Level-Up tiers for providers in the village — Tunas, Bahari, Lumba-Lumba.",
     "searchPlaceholder": "Search MSMEs…",
     "loading": "Loading…",
     "skorPraktik": "Practice score: {skor}",
@@ -2446,8 +2487,8 @@
     "kirim": "Send"
   },
   "naikKelas": {
-    "seoTitle": "Regenerative Level-Up",
-    "title": "Regenerative Level-Up",
+    "seoTitle": "Lestari Level-Up",
+    "title": "Lestari Level-Up",
     "backDashboard": "Dashboard",
     "skorPraktik": "Score {skor} practice points",
     "loading": "Loading catalog…",
@@ -2457,11 +2498,11 @@
       "daftarUmkm": "Register MSME →"
     },
     "progres": {
-      "title": "Regenerative level progress",
+      "title": "Lestari level progress",
       "subtitle": "Levels rise from validated action cards — requirements come from the village, not guesswork.",
       "skorSaatIni": "Score {skor}",
       "menuju": "Toward {tingkat} · {skor} points",
-      "tingkatMaks": "You're at Lumba-Lumba level — keep up your regenerative practices.",
+      "tingkatMaks": "You're at Lumba-Lumba level — keep up your sustainable practices.",
       "mulai": "Submit your first action card to start leveling up.",
       "insentif": "Higher levels show a badge on Village Market and rotation exposure opportunities — not a guaranteed rank."
     },
@@ -2473,7 +2514,7 @@
     },
     "kartuAksi": {
       "title": "Action cards",
-      "subtitle": "Learn first, then submit proof of your regenerative practice.",
+      "subtitle": "Learn first, then submit proof of your sustainable practice.",
       "kenapaPenting": "Why it matters: ",
       "kenapaPentingJudul": "Why it matters?",
       "belumDiajukan": "Not submitted",
@@ -2529,7 +2570,7 @@
       "description": "Transaction activity notification inbox."
     },
     "title": "Genta",
-    "subtitle": "Transaction activity notifications — orders, bookings, payouts, and regenerative missions.",
+    "subtitle": "Transaction activity notifications — orders, bookings, payouts, and Lestari missions.",
     "markAllRead": "Mark all as read",
     "filter": {
       "semua": "All",
@@ -2557,7 +2598,7 @@
     "loading": "Loading badges…",
     "backDashboard": "Dashboard",
     "title": "Citizen Badges",
-    "subtitle": "Points and badges from contributions, products, and regenerative participation in this village.",
+    "subtitle": "Points and badges from contributions, products, and community participation in this village.",
     "saldoPoin": "Point balance",
     "koleksiBadge": "Badge collection",
     "leaderboard": "Leaderboard",
@@ -2599,12 +2640,12 @@
   "wishlist": {
     "seo": {
       "title": "My Wishlist",
-      "description": "Destinations, tour packages, local products, and regenerative missions you saved on Sigerciv."
+      "description": "Destinations, tour packages, local products, and Lestari missions you saved on Sigerciv."
     },
     "backToDashboard": "Dashboard",
     "crossVillage": "Across Lampung villages",
     "title": "My wishlist",
-    "subtitle": "Destinations, tour packages, local products, and regenerative missions you want to visit or complete.",
+    "subtitle": "Destinations, tour packages, local products, and Lestari missions you want to visit or complete.",
     "totalSaved": "Total saved",
     "loadError": "Failed to load your wishlist. Please try again.",
     "retry": "Try again",
@@ -2616,7 +2657,7 @@
     "emptyMisiTitle": "No saved missions yet",
     "emptyHint": "Tap the heart icon on destination, package, market product, or mission cards while exploring Sigerciv.",
     "exploreCta": "Explore destinations",
-    "missionCta": "View regenerative missions",
+    "missionCta": "View Lestari missions",
     "noteLabel": "Personal note",
     "notePlaceholder": "E.g. visit during the fasting month…",
     "noteSaving": "Saving…",
@@ -2625,7 +2666,7 @@
     "tipe": {
       "destinasi": "Destination",
       "paket": "Tour package",
-      "misi": "Regenerative mission",
+      "misi": "Lestari mission",
       "produk": "Local product"
     }
   },
@@ -2666,7 +2707,7 @@
       "teleponHint": "Optional. For booking & mission coordination.",
       "bioLabel": "Short bio",
       "bioHint": "Stored temporarily on this device — account sync coming soon.",
-      "bioPlaceholder": "Tell us about your regenerative travel interests…",
+      "bioPlaceholder": "Tell us about your travel interests…",
       "simpan": "Save changes",
       "menyimpan": "Saving…",
       "sukses": "Profile saved successfully.",
@@ -2690,7 +2731,7 @@
         "budaya": "Local culture",
         "kuliner": "Village cuisine",
         "kerajinan": "UMKM crafts",
-        "misi": "Regenerative missions",
+        "misi": "Lestari missions",
         "petualangan": "Adventure",
         "keluarga": "Family",
         "fotografi": "Photography"
@@ -2761,7 +2802,7 @@
       "panduanTitle": "Guides & ethics",
       "jelajah": "Explore Lampung tourism villages",
       "berita": "Village news & announcements",
-      "kodeEtik": "Regenerative tourism code of ethics",
+      "kodeEtik": "Tourism code of ethics",
       "kodeEtikSuffix": "— on the village page",
       "kontak": "Contact the Sigerciv team"
     }
@@ -2773,7 +2814,7 @@
     },
     "hero": {
       "title": "Join the Sigerciv Community",
-      "subtitle": "Choose your role in Lampung's regenerative village tourism network — visitors activate instantly; village roles need steward approval.",
+      "subtitle": "Choose your role in Lampung's village tourism network — visitors activate instantly; village roles need steward approval.",
       "progress": "Application progress"
     },
     "stepper": {
@@ -2902,7 +2943,7 @@
     "peranInfo": {
       "wisatawan": {
         "tagline": "Sigerciv · Lampung",
-        "deskripsi": "Explore tourism villages across Lampung, manage your wishlist & Regenerative Passport, and contribute to regenerative tourism."
+        "deskripsi": "Explore tourism villages across Lampung, manage your wishlist & Lestari Passport, and contribute to tourism."
       },
       "pokdarwis": {
         "tagline": "Tourism village manager",
@@ -2962,7 +3003,7 @@
     },
     "wisatawan": {
       "tagline": "Sigerciv · Lampung",
-      "deskripsi": "Explore tourism villages across Lampung, manage your wishlist & Regenerative Passport, and contribute to regenerative tourism.",
+      "deskripsi": "Explore tourism villages across Lampung, manage your wishlist & Lestari Passport, and contribute to tourism.",
       "nav": {
         "ringkasan": "Overview"
       },
@@ -2978,24 +3019,24 @@
       "aksi": {
         "cari": "Explore tourism villages",
         "wishlist": "My wishlist",
-        "paspor": "Regenerative Passport",
+        "paspor": "Lestari Passport",
         "akun": "Account & preferences"
       },
       "modul": {
         "discovery": "Lampung Discovery",
         "wishlist": "Wishlist",
-        "paspor": "Regenerative Passport"
+        "paspor": "Lestari Passport"
       },
       "aktivitas": {
         "a1": "Saved a snorkeling package from another village to the wishlist",
-        "a2": "Completed the regenerative tourism code-of-ethics micro-lesson",
+        "a2": "Completed the tourism code-of-ethics micro-lesson",
         "a3": "Collected mission stamps across several tourism villages"
       },
       "widgets": {
         "wishlistTitle": "My wishlist",
         "wishlistDesc": "Destinations, packages, and missions from any village in Lampung.",
-        "pasporTitle": "Regenerative Passport",
-        "pasporDesc": "Collect stamps from verified regenerative missions.",
+        "pasporTitle": "Lestari Passport",
+        "pasporDesc": "Collect stamps from verified Lestari missions.",
         "bookingTitle": "Orders & bookings",
         "bookingDesc": "Your package and service booking history.",
         "kontribTitle": "My contributions",
@@ -3050,7 +3091,7 @@
         "keanggotaanTitle": "Membership approval",
         "keanggotaanDesc": "Activate new roles in the village.",
         "danaTitle": "Conservation fund",
-        "danaDesc": "Visit summary and regenerative fund flows."
+        "danaDesc": "Visit summary and conservation fund flows."
       }
     },
     "umkm": {
@@ -3062,7 +3103,7 @@
         "layanan": "Tourism services",
         "pesanan": "Orders",
         "performa": "Performance",
-        "sertifikasi": "Regenerative Level-Up"
+        "sertifikasi": "Lestari Level-Up"
       },
       "stats": {
         "produkLabel": "Active products",
@@ -3070,7 +3111,7 @@
         "pesananLabel": "Orders this month",
         "pesananHint": "Phase 2",
         "ratingLabel": "Rating",
-        "tingkatLabel": "Regenerative tier",
+        "tingkatLabel": "Lestari tier",
         "tingkatHint": "Phase 1",
         "tingkatValue": "Sprout"
       },
@@ -3099,12 +3140,12 @@
         "layananDesc": "Transport, guides, equipment rental — your services on the village showcase.",
         "pesananTitle": "Incoming orders",
         "pesananDesc": "Manual thin-F2 bookings from travelers.",
-        "naikKelasTitle": "Regenerative Level-Up",
+        "naikKelasTitle": "Lestari Level-Up",
         "naikKelasDesc": "Action cards and Sprout → Dolphin tier progress.",
         "verifikasiTitle": "Verification status",
         "verifikasiDesc": "UMKM profile and local provider legitimacy.",
         "performaTitle": "Performance summary",
-        "performaDesc": "Sales metrics and regenerative impact."
+        "performaDesc": "Sales metrics and community impact."
       }
     },
     "agen": {
@@ -3150,7 +3191,7 @@
         "bookingTitle": "Package orders",
         "bookingDesc": "Incoming bookings from travelers.",
         "sertifikasiTitle": "Certification progress",
-        "sertifikasiDesc": "Local agent regenerative tier."
+        "sertifikasiDesc": "Local agent Lestari tier."
       }
     },
     "kontributor": {
@@ -3211,11 +3252,11 @@
       "aksi": {
         "monitor": "Ecological monitoring",
         "dana": "Conservation fund",
-        "neraca": "Regenerative balance"
+        "neraca": "Lestari balance"
       },
       "modul": {
         "monitoring": "Ecological Monitoring",
-        "jejak": "Regenerative Trail"
+        "jejak": "Lestari Trail"
       },
       "aktivitas": {
         "a1": "Uploaded Q2 coral index data",
@@ -3227,7 +3268,7 @@
         "ekologiTitle": "Ecological data",
         "ekologiDesc": "Coral index, mangrove, and biodiversity monitoring.",
         "sponsorTitle": "Sponsor & reinvestment",
-        "sponsorDesc": "Partner fund allocation to regenerative programs.",
+        "sponsorDesc": "Partner fund allocation to conservation programs.",
         "kontakTitle": "Collaboration channel",
         "kontakDesc": "Partner profile and village cooperation contacts."
       }
@@ -3258,7 +3299,7 @@
       "modul": {
         "kelola": "Manage village",
         "dana": "Conservation fund",
-        "neraca": "Regenerative balance"
+        "neraca": "Lestari balance"
       },
       "aktivitas": {
         "a1": "Approved new UMKM membership",
@@ -3274,7 +3315,7 @@
         "dayaDukungTitle": "Spot carrying capacity",
         "dayaDukungDesc": "Green/yellow/red light per destination.",
         "laporanTitle": "Village report",
-        "laporanDesc": "Regenerative tourism performance summary."
+        "laporanDesc": "Tourism performance summary."
       }
     },
     "admin": {
@@ -3339,11 +3380,11 @@
     "updated": " · updated {date}"
   },
   "paspor": {
-    "seoTitle": "Regenerative Passport",
-    "seoDesc": "Your personal impact passport — verified mission stamps and regenerative journey summary.",
+    "seoTitle": "Lestari Passport",
+    "seoDesc": "Your personal impact passport — verified mission stamps and Lestari journey summary.",
     "subtitle": "Only verified stamps count toward your passport — recorded actions, not proven impact claims (ecological validation in Phase 3).",
     "loading": "Loading passport…",
-    "loginRequired": "Sign in to view your Regenerative Passport.",
+    "loginRequired": "Sign in to view your Lestari Passport.",
     "signIn": "Sign in →",
     "stamps": "{count} stamps",
     "noImpact": "No recorded impact yet.",
@@ -3469,7 +3510,7 @@
       "leaderboard": {
         "judul": "Contributor Leaderboard",
         "modulLabel": "Contribution Gamification",
-        "deskripsi": "Rankings for data contributors and regenerative participation per village.",
+        "deskripsi": "Rankings for data contributors and community participation per village.",
         "fiturRencana": [
           "Monthly & all-time rankings",
           "Filter by contribution category"
@@ -3496,20 +3537,20 @@
         ]
       },
       "misi": {
-        "judul": "Regenerative Explorer",
+        "judul": "Lestari Explorer",
         "modulLabel": "Sigerciv Missions",
         "deskripsi": "Traveler quests: marine ethics micro-lessons, then verified actions (plant mangroves, beach cleanup, dolphin monitoring).",
         "fiturRencana": [
           "Mission catalog per village",
           "Required micro-lesson before quest",
           "QR verification at Lestari Stations",
-          "Rewards to Regenerative Passport"
+          "Rewards to Lestari Passport"
         ]
       },
       "stasiun-lestari": {
         "judul": "Lestari Stations",
         "modulLabel": "Sigerciv Missions",
-        "deskripsi": "QR check-in points at dolphin docks, mangroves, and conservation spots — proof of regenerative action attendance.",
+        "deskripsi": "QR check-in points at dolphin docks, mangroves, and conservation spots — proof of sustainable action attendance.",
         "fiturRencana": [
           "Geotagged QR per station",
           "Guide/Organization confirmation",
@@ -3517,13 +3558,13 @@
         ]
       },
       "naik-kelas": {
-        "judul": "Regenerative Level-Up",
+        "judul": "Lestari Level-Up",
         "modulLabel": "Sigerciv Missions",
-        "deskripsi": "Tiered MSME/agent owner certification: Tunas → Bahari → Lumba-Lumba through validated regenerative action cards.",
+        "deskripsi": "Tiered MSME/agent owner certification: Tunas → Bahari → Lumba-Lumba through validated sustainable action cards.",
         "fiturRencana": [
           "Owner progress dashboard",
           "Tier & badge on Village Market listings",
-          "Ranking boost for regenerative practice"
+          "Ranking boost for sustainable practice"
         ]
       },
       "kartu-aksi": {
@@ -3539,7 +3580,7 @@
       "sertifikasi": {
         "judul": "Certification Tiers",
         "modulLabel": "Sigerciv Missions",
-        "deskripsi": "Summary of regenerative certification tiers held by providers in the village.",
+        "deskripsi": "Summary of Lestari certification tiers held by providers in the village.",
         "fiturRencana": [
           "Public: badge on MSME profile",
           "Transparency of validated cards"
@@ -3547,7 +3588,7 @@
       },
       "dana-konservasi": {
         "judul": "Conservation Fund",
-        "modulLabel": "Regenerative Trail",
+        "modulLabel": "Lestari Trail",
         "deskripsi": "Accumulation of reinvestment share from transactions and transparent usage reports for the community & village officials.",
         "fiturRencana": [
           "Balance & reinvestment share history",
@@ -3555,10 +3596,10 @@
           "Transaction hooks from Dock module (F2)"
         ]
       },
-      "neraca-regeneratif": {
-        "judul": "Regenerative Balance",
-        "modulLabel": "Regenerative Trail",
-        "deskripsi": "Combined eco-social-economic impact score — GMV-equivalent KPI for measurable regenerative tourism.",
+      "neraca-lestari": {
+        "judul": "Lestari Balance",
+        "modulLabel": "Lestari Trail",
+        "deskripsi": "Combined eco-social-economic impact score — GMV-equivalent KPI for measurable tourism.",
         "fiturRencana": [
           "Ecological, social, economic indicators",
           "Feed from citizen monitoring & transactions",
@@ -3567,7 +3608,7 @@
       },
       "daya-dukung": {
         "judul": "Spot Carrying Capacity",
-        "modulLabel": "Regenerative Trail",
+        "modulLabel": "Lestari Trail",
         "deskripsi": "Daily capacity per spot vs actual visits — over-capacity warnings for responsible ecotourism.",
         "fiturRencana": [
           "Green/yellow/red light per destination",
@@ -3577,7 +3618,7 @@
       },
       "monitoring": {
         "judul": "Ecological Monitoring",
-        "modulLabel": "Regenerative Trail",
+        "modulLabel": "Lestari Trail",
         "deskripsi": "Offline-first field forms: mangrove survival, coral health, collected waste — verified by residents & village officials.",
         "fiturRencana": [
           "PWA data entry without signal",
@@ -3586,7 +3627,7 @@
         ]
       },
       "paspor": {
-        "judul": "Regenerative Passport",
+        "judul": "Lestari Passport",
         "modulLabel": "Sigerciv Missions",
         "deskripsi": "Personal traveler impact passport — mission stamps, impact summary (\"you helped plant 5 mangroves\"), badges & digital certificates.",
         "fiturRencana": [
@@ -3653,7 +3694,7 @@
     "simpananTipe": {
       "destinasi": "Destination",
       "paket": "Tour package",
-      "misi": "Regenerative mission"
+      "misi": "Lestari mission"
     }
   }
 }

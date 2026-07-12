@@ -107,7 +107,7 @@ export function konfigDasborPeran(
         { label: tr('pokdarwis', 'modul.crud', 'Kelola desa (CRUD)'), href: href(d, 'kelola') },
         { label: tr('pokdarwis', 'modul.hadiah', 'Hadiah & kupon'), href: href(d, 'kelola/hadiah') },
         { label: tr('pokdarwis', 'modul.dermaga', 'Dermaga & escrow'), href: href(d, 'kelola/bendahara') },
-        { label: tr('pokdarwis', 'modul.anjungan', 'Anjungan Data'), href: href(d, 'neraca-regeneratif') },
+        { label: tr('pokdarwis', 'modul.anjungan', 'Anjungan Data'), href: href(d, 'neraca-lestari') },
         { label: tr('pokdarwis', 'modul.dayaDukung', 'Daya dukung'), href: href(d, 'daya-dukung') },
       ],
       aktivitasContoh: [
@@ -183,7 +183,7 @@ export function konfigDasborPeran(
       modulTerkait: [
         { label: tr('umkm', 'modul.pasar', 'Pasar Desa'), href: href(d, 'pasar') },
         { label: tr('umkm', 'modul.dermaga', 'Dermaga (booking)'), href: href(d, 'paket') },
-        { label: tr('umkm', 'modul.performa', 'Performa UMKM'), href: href(d, 'neraca-regeneratif') },
+        { label: tr('umkm', 'modul.performa', 'Performa UMKM'), href: href(d, 'neraca-lestari') },
         { label: tr('umkm', 'modul.promo', 'Kupon promo'), href: href(d, 'saya/kupon-promo') },
       ],
       aktivitasContoh: [
@@ -387,11 +387,11 @@ export function konfigDasborPeran(
       aksiCepat: [
         { id: 'monitor', label: tr('organisasi', 'aksi.monitor', 'Monitoring ekologi'), href: href(d, 'monitoring'), primary: true, segera: true },
         { id: 'dana', label: tr('organisasi', 'aksi.dana', 'Dana konservasi'), href: href(d, 'dana-konservasi'), segera: true },
-        { id: 'neraca', label: tr('organisasi', 'aksi.neraca', 'Neraca regeneratif'), href: href(d, 'neraca-regeneratif'), segera: true },
+        { id: 'neraca', label: tr('organisasi', 'aksi.neraca', 'Neraca lestari'), href: href(d, 'neraca-lestari'), segera: true },
       ],
       modulTerkait: [
         { label: tr('organisasi', 'modul.monitoring', 'Monitoring Ekologi'), href: href(d, 'monitoring') },
-        { label: tr('organisasi', 'modul.jejak', 'Jejak Lestari'), href: href(d, 'neraca-regeneratif') },
+        { label: tr('organisasi', 'modul.jejak', 'Jejak Lestari'), href: href(d, 'neraca-lestari') },
       ],
       aktivitasContoh: [
         tr('organisasi', 'aktivitas.a1', 'Mengunggah data indeks karang Q2'),
@@ -455,7 +455,7 @@ export function konfigDasborPeran(
       modulTerkait: [
         { label: tr('perangkat_desa', 'modul.kelola', 'Kelola desa'), href: href(d, 'kelola') },
         { label: tr('perangkat_desa', 'modul.dana', 'Dana konservasi'), href: href(d, 'dana-konservasi') },
-        { label: tr('perangkat_desa', 'modul.neraca', 'Neraca regeneratif'), href: href(d, 'neraca-regeneratif') },
+        { label: tr('perangkat_desa', 'modul.neraca', 'Neraca lestari'), href: href(d, 'neraca-lestari') },
       ],
       aktivitasContoh: [
         tr('perangkat_desa', 'aktivitas.a1', 'Menyetujui keanggotaan UMKM baru'),
@@ -493,7 +493,7 @@ export function konfigDasborPeran(
         {
           id: 'laporan',
           title: tr('perangkat_desa', 'widgets.laporanTitle', 'Laporan desa'),
-          description: tr('perangkat_desa', 'widgets.laporanDesc', 'Ringkasan kinerja wisata regeneratif.'),
+          description: tr('perangkat_desa', 'widgets.laporanDesc', 'Ringkasan kinerja wisata.'),
           fase: '3',
           placeholder: true,
         },
@@ -577,7 +577,7 @@ export function konfigDasborWisatawan(t?: PenerjemahDasbor): DashboardPeranConfi
     tagline: tr('tagline', 'Sigerciv · Lampung'),
     deskripsi: tr(
       'deskripsi',
-      'Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata regeneratif.',
+      'Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata.',
     ),
     fase: 'F0–F2',
     nav: [{ id: 'ringkasan', label: tr('nav.ringkasan', 'Ringkasan'), segment: '' }],
@@ -610,7 +610,7 @@ export function konfigDasborWisatawan(t?: PenerjemahDasbor): DashboardPeranConfi
     ],
     aktivitasContoh: [
       tr('aktivitas.a1', 'Menyimpan paket snorkeling dari desa lain ke wishlist'),
-      tr('aktivitas.a2', 'Menyelesaikan micro-lesson kode etik wisata regeneratif'),
+      tr('aktivitas.a2', 'Menyelesaikan micro-lesson kode etik wisata'),
       tr('aktivitas.a3', 'Mengumpulkan stempel misi di beberapa desa wisata'),
     ],
     widgets: [

@@ -19,7 +19,7 @@
     "eyebrow": "Spot hilang di peta",
     "title": "Halaman tidak ditemukan",
     "description": "Spot yang Anda cari belum terdaftar di peta sigerciv — mungkin sudah dipindahkan, belum dipublikasi, atau alamatnya salah.",
-    "hint": "Coba kembali ke beranda, jelajah desa wisata di Lampung, atau gunakan pencarian untuk menemukan destinasi regeneratif.",
+    "hint": "Coba kembali ke beranda, jelajah desa wisata di Lampung, atau gunakan pencarian untuk menemukan destinasi wisata.",
     "backHome": "Kembali ke beranda",
     "explore": "Jelajah desa wisata",
     "illustrationAlt": "Ilustrasi pesisir sigerciv — kompas, perahu, dan pin peta yang hilang"
@@ -156,7 +156,7 @@
         "name": "Tentang"
       },
       "cerita-regeneratif": {
-        "name": "Regeneratif"
+        "name": "Lestari"
       },
       "cerita-jejak": {
         "name": "Transparansi"
@@ -345,7 +345,7 @@
         "description": "Alokasi dana"
       },
       "cd-j-2": {
-        "name": "Neraca regeneratif",
+        "name": "Neraca lestari",
         "description": "Laporan dampak"
       },
       "cd-g-1": {
@@ -406,7 +406,7 @@
       "offlineMode": "Offline — perubahan disimpan lokal"
     },
     "sidebar": {
-      "tagline": "Platform desa wisata regeneratif berbasis komunitas — jelajahi destinasi, dukung UMKM lokal, dan ikut misi lestari.",
+      "tagline": "Platform desa wisata berbasis komunitas — jelajahi destinasi, dukung UMKM lokal, dan ikut misi lestari.",
       "searchPlaceholder": "Ketik lalu tekan Enter",
       "masuk": "Masuk",
       "daftar": "Daftar"
@@ -419,7 +419,7 @@
     }
   },
   "footer": {
-    "tagline": "Sigerciv — platform pariwisata regeneratif lintas desa di Lampung. Data destinasi dimiliki komunitas; nilai ekonomi kembali ke warga; ekspor data tersedia bagi pengelola yang berwenang.",
+    "tagline": "Sigerciv — platform pariwisata lintas desa di Lampung. Data destinasi dimiliki komunitas; nilai ekonomi kembali ke warga; ekspor data tersedia bagi pengelola yang berwenang.",
     "columns": {
       "jelajah": "Jelajah",
       "pengalaman": "Pengalaman",
@@ -441,15 +441,15 @@
       "signIn": "Masuk",
       "register": "Daftar akun",
       "villagesInNetwork": "Desa di jaringan",
-      "regenerativeTrail": "Jejak regeneratif"
+      "regenerativeTrail": "Jejak Lestari"
     },
     "copyright": "© {year} sigerciv · Kelompok Keilmuan CIV, Program Studi Sains Data ITERA.",
     "domainNote": "sigerciv.com · PWA offline-first"
   },
   "landing": {
     "seo": {
-      "title": "sigerciv — Platform Pariwisata Regeneratif Lampung",
-      "description": "Sigerciv menghubungkan desa wisata regeneratif di Lampung — temukan destinasi lintas desa, dukung UMKM lokal, dan ikut misi lestari."
+      "title": "sigerciv — Platform Pariwisata Lampung",
+      "description": "Sigerciv menghubungkan desa wisata di Lampung — temukan destinasi lintas desa, dukung UMKM lokal, dan ikut misi lestari."
     },
     "hero": {
       "badge": "Platform Sigerciv · Lampung",
@@ -475,7 +475,7 @@
     },
     "valuePillars": {
       "title": "Kenapa sigerciv",
-      "subtitle": "Tiga pilar wisata regeneratif: kepemilikan data komunitas, aliran nilai lokal, dan transparansi konservasi.",
+      "subtitle": "Tiga pilar wisata: kepemilikan data komunitas, aliran nilai lokal, dan transparansi konservasi.",
       "pillars": {
         "dataOwnership": {
           "title": "Data milik desa",
@@ -508,7 +508,7 @@
         },
         "stamp": {
           "title": "Stempel Paspor",
-          "body": "Kumpulkan stempel Paspor Lestari sebagai jejak perjalanan regeneratif Anda."
+          "body": "Kumpulkan stempel Paspor Lestari sebagai jejak perjalanan lestari Anda."
         }
       }
     },
@@ -527,7 +527,7 @@
         },
         "lumba": {
           "title": "Lumba-Lumba",
-          "body": "Tingkat tertinggi — standar regeneratif dan transparansi dampak."
+          "body": "Tingkat tertinggi — standar lestari dan transparansi dampak."
         }
       },
       "emptyCatalog": "Katalog UMKM bersertifikat segera hadir — daftar sebagai penyedia lokal untuk ikut Pasar Desa.",
@@ -543,18 +543,18 @@
       "exploreCta": "Jelajah paket di Lampung"
     },
     "jejakRegeneratif": {
-      "eyebrow": "Jejak Regeneratif",
+      "eyebrow": "Jejak Lestari",
       "title": "Transparansi dampak konservasi",
       "subtitle": "sigerciv berkomitmen menampilkan jejak konservasi yang terverifikasi — dari dana konservasi hingga indikator daya dukung. Angka dampak hanya akan ditampilkan setelah data monitoring terverifikasi tersedia, bukan sebagai klaim aspirasional.",
       "commitmentTitle": "Komitmen terbuka",
-      "commitmentBody": "Dana konservasi dan neraca regeneratif akan dipublikasikan saat pipeline data F3 aktif.",
+      "commitmentBody": "Dana konservasi dan neraca lestari akan dipublikasikan saat pipeline data F3 aktif.",
       "targetLabel": "Target transparansi",
       "targetBody": "Transparansi menyusul saat data konservasi terverifikasi — tanpa angka hard-code di halaman ini."
     },
     "jelajahCta": {
       "eyebrow": "Lintas desa · Lampung",
       "title": "Jelajah desa wisata di seluruh Lampung",
-      "subtitle": "Peta interaktif, filter kategori, pencarian, dan jarak dari lokasi Anda — temukan destinasi regeneratif dari desa ke desa.",
+      "subtitle": "Peta interaktif, filter kategori, pencarian, dan jarak dari lokasi Anda — temukan destinasi wisata dari desa ke desa.",
       "cta": "Buka halaman Jelajah"
     },
     "communityCta": {
@@ -577,7 +577,7 @@
         },
         "pokdarwis": {
           "label": "Organisasi",
-          "desc": "Kelola data destinasi, kurasi konten, dan awasi dampak regeneratif desa."
+          "desc": "Kelola data destinasi, kurasi konten, dan awasi dampak wisata desa."
         }
       }
     },
@@ -589,7 +589,7 @@
     "featuredDesa": {
       "eyebrow": "Tenant multi-desa",
       "title": "Desa wisata di jaringan sigerciv",
-      "subtitle": "Sigerciv menghubungkan desa wisata regeneratif di Lampung — dari pesisir hingga pedalaman, siap berkembang bersama modul lintas desa.",
+      "subtitle": "Sigerciv menghubungkan desa wisata di Lampung — dari pesisir hingga pedalaman, siap berkembang bersama modul lintas desa.",
       "viewMap": "Lihat semua di peta"
     },
     "modules": {
@@ -618,7 +618,7 @@
   "jelajah": {
     "seo": {
       "defaultTitle": "Jelajah Desa Wisata Lampung",
-      "defaultDescription": "Temukan desa wisata regeneratif di Lampung — peta interaktif, filter kategori, dan destinasi lintas desa di Sigerciv.",
+      "defaultDescription": "Temukan desa wisata di Lampung — peta interaktif, filter kategori, dan destinasi lintas desa di Sigerciv.",
       "villageTitle": "Jelajah {villageName}",
       "villageDescription": "Destinasi dan wisata di {villageName}, Lampung — etalase publik Sigerciv.",
       "searchTitle": "Cari \"{query}\" — Jelajah Lampung",
@@ -627,7 +627,7 @@
     "hero": {
       "badge": "Sigerciv · Lampung",
       "title": "Jelajah desa wisata",
-      "subtitle": "Pilih desa di peta Lampung atau cari destinasi lintas desa — pariwisata regeneratif yang dimiliki komunitas."
+      "subtitle": "Pilih desa di peta Lampung atau cari destinasi lintas desa — pariwisata yang dimiliki komunitas."
     },
     "explorer": {
       "region": "Wilayah",
@@ -672,7 +672,7 @@
   "cari": {
     "seo": {
       "title": "Cari Destinasi",
-      "description": "Jelajahi destinasi wisata regeneratif di seluruh desa sigerciv."
+      "description": "Jelajahi destinasi wisata di seluruh desa sigerciv."
     }
   },
   "etalase": {
@@ -684,7 +684,7 @@
     },
     "hero": {
       "back": "Kembali ke sigerciv",
-      "badge": "Etalase Desa Wisata Regeneratif",
+      "badge": "Etalase Desa Wisata",
       "exploreCta": "Jelajahi destinasi",
       "dasborCta": "Dasbor saya",
       "kelolaCta": "Kelola desa",
@@ -701,7 +701,7 @@
       },
       "tentang": {
         "title": "Profil desa",
-        "desc": "Cerita komunitas & visi regeneratif."
+        "desc": "Cerita komunitas & visi lestari."
       },
       "pasar": {
         "title": "Pasar Desa",
@@ -1076,13 +1076,13 @@
       },
       "eyebrow": "Kupon & promosi",
       "campaignHeading": "Kupon kampanye desa",
-      "campaignSubtitle": "Buat kupon kampanye untuk wisatawan dan penyedia regeneratif di {desa}.",
+      "campaignSubtitle": "Buat kupon kampanye untuk wisatawan dan penyedia lokal di {desa}.",
       "ownerHeading": "Buat promo UMKM",
       "ownerSubtitle": "Buat diskon untuk produk dan layanan usaha Anda.",
       "ownerCostTitle": "Diskon ditanggung pemilik usaha",
       "ownerCostBody": "Kupon promo owner mengurangi bruto penyedia secara proporsional. Nilai diskon menjadi biaya pemasaran usaha Anda, bukan ditanggung platform atau dana konservasi.",
       "campaignTitle": "Kampanye dikelola desa",
-      "campaignBody": "Kupon kampanye hanya dapat dibuat pengelola. Tentukan penyedia atau tingkat sertifikasi agar manfaat mengalir ke usaha regeneratif.",
+      "campaignBody": "Kupon kampanye hanya dapat dibuat pengelola. Tentukan penyedia atau tingkat sertifikasi agar manfaat mengalir ke usaha lokal.",
       "formTitle": {
         "kampanye": "Buat kupon kampanye",
         "promo_owner": "Buat kupon promo usaha"
@@ -1102,13 +1102,13 @@
         "nominal": "Nominal (Rp)"
       },
       "provider": {
-        "title": "Penyedia regeneratif yang menerima",
+        "title": "Penyedia lokal yang menerima",
         "hint": "Kosongkan untuk semua penyedia, atau batasi berdasarkan tingkat sertifikasi dan ID UMKM.",
         "level": "Tingkat minimum",
         "all": "Semua tingkat",
         "ids": "ID UMKM tertentu",
         "idsPlaceholder": "Pisahkan dengan koma",
-        "flywheel": "Reward diarahkan ke penyedia bersertifikat agar partisipasi regeneratif menciptakan permintaan nyata."
+        "flywheel": "Reward diarahkan ke penyedia bersertifikat agar partisipasi menciptakan permintaan nyata."
       },
       "level": {
         "tunas": "Tunas",
@@ -1603,7 +1603,7 @@
       "seoTitle": "Validasi Kartu",
       "seoTitleDesa": "Validasi Kartu — {desa}",
       "title": "Validasi Kartu Aksi",
-      "subtitle": "Tinjau pengajuan kartu aksi regeneratif dari UMKM, agen, dan pengelola desa.",
+      "subtitle": "Tinjau pengajuan kartu aksi lestari dari UMKM, agen, dan pengelola desa.",
       "subtitleDesa": "Antrean validasi Naik Kelas Lestari — {desa}.",
       "loading": "Memuat antrean…",
       "memproses": "Memproses…",
@@ -1923,7 +1923,14 @@
       "duration": "{jam} jam",
       "kuota": "Kuota default {count} orang",
       "minutes": "{count} menit",
-      "priceNote": "Harga indikatif per paket. Penjadwalan & pemesanan akan tersedia di fase berikutnya.",
+      "priceNote": "Harga per paket · kuota slot ditahan saat checkout.",
+      "bookTitle": "Pesan & pilih jadwal",
+      "bookHint": "Pilih tanggal berangkat, lalu lanjut ke checkout.",
+      "jumlahOrang": "Jumlah orang",
+      "addCart": "Tambah ke keranjang",
+      "goCheckout": "Checkout sekarang",
+      "selectSlot": "Pilih tanggal slot terlebih dahulu.",
+      "cartAdded": "Ditambahkan ke keranjang.",
       "contactTitle": "Tertarik paket ini?",
       "contactDesc": "Hubungi {agen} untuk informasi jadwal dan ketersediaan."
     },
@@ -2092,7 +2099,7 @@
     "back": "Kembali ke etalase",
     "title": "Tentang {nama}",
     "communityTitle": "Wisata milik komunitas",
-    "communityBody": "{nama} adalah bagian dari jaringan sigerciv — platform desa wisata regeneratif di mana data destinasi dan layanan dimiliki komunitas lokal (Organisasi & perangkat desa), bukan agregator komersial. Setiap kunjungan idealnya meninggalkan destinasi lebih baik melalui pemantauan daya dukung, reinvestment ke dana konservasi, dan partisipasi warga.",
+    "communityBody": "{nama} adalah bagian dari jaringan sigerciv — platform desa wisata di mana data destinasi dan layanan dimiliki komunitas lokal (Organisasi & perangkat desa), bukan agregator komersial. Setiap kunjungan idealnya meninggalkan destinasi lebih baik melalui pemantauan daya dukung, reinvestment ke dana konservasi, dan partisipasi warga.",
     "rolesTitle": "Peran di ekosistem",
     "roles": {
       "pokdarwis": {
@@ -2137,7 +2144,7 @@
         "body": "Android: tombol Install / Tambah ke Layar Utama di Chrome. iOS: Share → Add to Home Screen di Safari. Aplikasi terbuka layar penuh tanpa Play Store."
       }
     },
-    "ethicsTitle": "Kode etik regeneratif",
+    "ethicsTitle": "Kode etik wisata",
     "ethics": {
       "karang": "Jangan sentuh atau injak terumbu karang; gunakan sunscreen ramah laut.",
       "sampah": "Bawa pulang sampah plastik — tidak ada trash bin di banyak spot bahari.",
@@ -2226,7 +2233,12 @@
     },
     "kupon": "Kupon",
     "kuponPlaceholder": "Kode kupon",
+    "kuponHint": "Pratinjau diskon sebelum checkout.",
+    "kuponPreview": "Pratinjau diskon: {diskon}",
+    "kuponFinalNote": "Validasi final saat checkout — pratinjau bisa berbeda dari hasil akhir.",
     "cekKupon": "Cek",
+    "hapusItem": "Hapus dari keranjang",
+    "metodeLabel": "Pengambilan",
     "ringkasan": "Ringkasan",
     "subtotal": "Subtotal",
     "diskon": "Diskon",
@@ -2237,8 +2249,10 @@
       "gagal": "Checkout gagal. Coba lagi."
     },
     "memproses": "Memproses…",
+    "submitOrder": "Buat pesanan",
     "bayar": "Buat pesanan & lanjut bayar",
     "note": "Status lunas hanya berubah setelah verifikasi bendahara.",
+    "riwayatLink": "Riwayat pesanan",
     "orang": "{count} orang"
   },
   "pesanan": {
@@ -2248,7 +2262,11 @@
       "description": "Detail pesanan wisata Anda."
     },
     "loading": "Memuat pesanan…",
+    "loadError": "Gagal memuat pesanan.",
     "label": "Pesanan {code}",
+    "timeline": "Status pesanan",
+    "items": "Detail item",
+    "diskonApplied": "Diskon kupon: {amount}",
     "status": {
       "menunggu_pembayaran": "Menunggu pembayaran",
       "dibayar": "Dibayar",
@@ -2262,6 +2280,7 @@
     "payExpired": "Batas waktu pembayaran habis",
     "manualTransfer": "Transfer manual",
     "uploadProof": "Unggah bukti transfer",
+    "proofSubmitted": "Bukti terkirim — menunggu verifikasi bendahara.",
     "uploadError": "Gagal mengunggah bukti.",
     "treasurerNote": "Konfirmasi lunas hanya oleh bendahara Organisasi — bukan otomatis setelah upload.",
     "refund": {
@@ -2274,7 +2293,29 @@
     },
     "checkIn": {
       "title": "Tiket check-in",
+      "hint": "Tunjukkan QR ini kepada petugas saat hari kunjungan.",
       "qrAlt": "QR tiket"
+    },
+    "kebijakanTitle": "Kebijakan pembatalan desa",
+    "batal": {
+      "action": "Batalkan pesanan",
+      "confirm": "Batalkan pesanan ini? Kuota slot akan dilepas.",
+      "processing": "Membatalkan…",
+      "error": "Gagal membatalkan pesanan."
+    },
+    "riwayat": {
+      "seoTitle": "Pesanan Saya",
+      "seoTitleDesa": "Pesanan Saya — {desa}",
+      "seoDesc": "Riwayat pemesanan paket wisata dan pasar desa.",
+      "title": "Pesanan saya",
+      "subtitle": "Lacak status pembayaran, booking, dan refund.",
+      "back": "Semua pesanan",
+      "link": "Riwayat pesanan",
+      "empty": "Belum ada pesanan di desa ini.",
+      "linkPaket": "Lihat paket wisata",
+      "linkPasar": "Jelajah pasar desa",
+      "detail": "Detail",
+      "itemCount": "+{count} item lain"
     }
   },
   "kupon": {
@@ -2284,7 +2325,7 @@
       "description": "Dompet kupon diskon Anda."
     },
     "title": "Dompet Kupon",
-    "subtitle": "Simpan, salin, dan gunakan kupon di penyedia regeneratif saat checkout.",
+    "subtitle": "Simpan, salin, dan gunakan kupon di penyedia lokal saat checkout.",
     "tukarPoinLink": "Cari hadiah",
     "loading": "Memuat…",
     "empty": "Belum ada kupon di dompet Anda.",
@@ -2316,7 +2357,7 @@
       "title": "Dapat digunakan di",
       "all": "Semua penyedia yang berpartisipasi",
       "nama": "UMKM {nama}",
-      "flywheel": "Pilihan regeneratif: kupon ini mengarahkan belanja ke penyedia yang naik kelas."
+      "flywheel": "Pilihan lestari: kupon ini mengarahkan belanja ke penyedia yang naik kelas."
     },
     "historyTitle": "Riwayat penukaran",
     "historyHint": "Catatan poin yang telah ditukar menjadi hadiah atau kupon.",
@@ -2378,7 +2419,7 @@
   "leaderboard": {
     "seoTitle": "Leaderboard",
     "title": "Leaderboard",
-    "subtitle": "Peringkat partisipasi regeneratif — nama & avatar saja, tanpa data pribadi.",
+    "subtitle": "Peringkat partisipasi — nama & avatar saja, tanpa data pribadi.",
     "periodeAria": "Periode leaderboard",
     "periode": {
       "all": "Sepanjang masa",
@@ -2473,7 +2514,7 @@
     },
     "kartuAksi": {
       "title": "Kartu aksi",
-      "subtitle": "Pelajari dulu, lalu ajukan bukti praktik regeneratif Anda.",
+      "subtitle": "Pelajari dulu, lalu ajukan bukti praktik lestari Anda.",
       "kenapaPenting": "Kenapa penting: ",
       "kenapaPentingJudul": "Kenapa penting?",
       "belumDiajukan": "Belum diajukan",
@@ -2557,7 +2598,7 @@
     "loading": "Memuat lencana…",
     "backDashboard": "Dasbor",
     "title": "Lencana Warga",
-    "subtitle": "Poin dan badge dari kontribusi, produk, dan partisipasi regeneratif di desa ini.",
+    "subtitle": "Poin dan badge dari kontribusi, produk, dan partisipasi di desa ini.",
     "saldoPoin": "Saldo poin",
     "koleksiBadge": "Koleksi badge",
     "leaderboard": "Leaderboard",
@@ -2604,7 +2645,7 @@
     "backToDashboard": "Dasbor",
     "crossVillage": "Lintas desa Lampung",
     "title": "Wishlist saya",
-    "subtitle": "Destinasi, paket wisata, produk lokal, dan misi regeneratif yang ingin Anda kunjungi atau selesaikan.",
+    "subtitle": "Destinasi, paket wisata, produk lokal, dan misi lestari yang ingin Anda kunjungi atau selesaikan.",
     "totalSaved": "Total tersimpan",
     "loadError": "Gagal memuat wishlist. Coba lagi.",
     "retry": "Coba lagi",
@@ -2666,7 +2707,7 @@
       "teleponHint": "Opsional. Untuk koordinasi booking & misi.",
       "bioLabel": "Bio singkat",
       "bioHint": "Disimpan sementara di perangkat — sinkron akun segera.",
-      "bioPlaceholder": "Ceritakan minat wisata regeneratif Anda…",
+      "bioPlaceholder": "Ceritakan minat wisata Anda…",
       "simpan": "Simpan perubahan",
       "menyimpan": "Menyimpan…",
       "sukses": "Profil berhasil disimpan.",
@@ -2761,7 +2802,7 @@
       "panduanTitle": "Panduan & etik",
       "jelajah": "Jelajah desa wisata Lampung",
       "berita": "Berita & pengumuman desa",
-      "kodeEtik": "Kode etik wisata regeneratif",
+      "kodeEtik": "Kode etik wisata",
       "kodeEtikSuffix": "— di halaman desa",
       "kontak": "Hubungi tim Sigerciv"
     }
@@ -2773,7 +2814,7 @@
     },
     "hero": {
       "title": "Gabung Komunitas Sigerciv",
-      "subtitle": "Pilih peran Anda di jaringan desa wisata regeneratif Lampung — wisatawan langsung aktif, peran desa ditinjau pengelola.",
+      "subtitle": "Pilih peran Anda di jaringan desa wisata Lampung — wisatawan langsung aktif, peran desa ditinjau pengelola.",
       "progress": "Kemajuan pengajuan"
     },
     "stepper": {
@@ -2902,7 +2943,7 @@
     "peranInfo": {
       "wisatawan": {
         "tagline": "Sigerciv · Lampung",
-        "deskripsi": "Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata regeneratif."
+        "deskripsi": "Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata."
       },
       "pokdarwis": {
         "tagline": "Pengelola desa wisata",
@@ -2962,7 +3003,7 @@
     },
     "wisatawan": {
       "tagline": "Sigerciv · Lampung",
-      "deskripsi": "Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata regeneratif.",
+      "deskripsi": "Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata.",
       "nav": {
         "ringkasan": "Ringkasan"
       },
@@ -2988,7 +3029,7 @@
       },
       "aktivitas": {
         "a1": "Menyimpan paket snorkeling dari desa lain ke wishlist",
-        "a2": "Menyelesaikan micro-lesson kode etik wisata regeneratif",
+        "a2": "Menyelesaikan micro-lesson kode etik wisata",
         "a3": "Mengumpulkan stempel misi di beberapa desa wisata"
       },
       "widgets": {
@@ -3211,7 +3252,7 @@
       "aksi": {
         "monitor": "Monitoring ekologi",
         "dana": "Dana konservasi",
-        "neraca": "Neraca regeneratif"
+        "neraca": "Neraca lestari"
       },
       "modul": {
         "monitoring": "Monitoring Ekologi",
@@ -3258,7 +3299,7 @@
       "modul": {
         "kelola": "Kelola desa",
         "dana": "Dana konservasi",
-        "neraca": "Neraca regeneratif"
+        "neraca": "Neraca lestari"
       },
       "aktivitas": {
         "a1": "Menyetujui keanggotaan UMKM baru",
@@ -3274,7 +3315,7 @@
         "dayaDukungTitle": "Daya dukung spot",
         "dayaDukungDesc": "Lampu hijau/kuning/merah per destinasi.",
         "laporanTitle": "Laporan desa",
-        "laporanDesc": "Ringkasan kinerja wisata regeneratif."
+        "laporanDesc": "Ringkasan kinerja wisata."
       }
     },
     "admin": {
@@ -3340,7 +3381,7 @@
   },
   "paspor": {
     "seoTitle": "Paspor Lestari",
-    "seoDesc": "Paspor dampak pribadi — stempel misi terverifikasi dan ringkasan perjalanan regeneratif.",
+    "seoDesc": "Paspor dampak pribadi — stempel misi terverifikasi dan ringkasan perjalanan lestari.",
     "subtitle": "Hanya stempel terverifikasi yang masuk paspor — aksi tercatat, bukan klaim dampak terbukti (validasi ekologis di Fase 3).",
     "loading": "Memuat paspor…",
     "loginRequired": "Masuk untuk melihat Paspor Lestari Anda.",
@@ -3469,7 +3510,7 @@
       "leaderboard": {
         "judul": "Leaderboard Kontributor",
         "modulLabel": "Gamifikasi Kontribusi",
-        "deskripsi": "Peringkat kontributor data dan partisipasi regeneratif per desa.",
+        "deskripsi": "Peringkat kontributor data dan partisipasi per desa.",
         "fiturRencana": [
           "Peringkat bulanan & sepanjang masa",
           "Filter per kategori kontribusi"
@@ -3509,7 +3550,7 @@
       "stasiun-lestari": {
         "judul": "Stasiun Lestari",
         "modulLabel": "Misi sigerciv",
-        "deskripsi": "Titik check-in QR di dermaga lumba-lumba, mangrove, dan spot konservasi — bukti kehadiran aksi regeneratif.",
+        "deskripsi": "Titik check-in QR di dermaga lumba-lumba, mangrove, dan spot konservasi — bukti kehadiran aksi lestari.",
         "fiturRencana": [
           "QR geotag per stasiun",
           "Konfirmasi pemandu/Organisasi",
@@ -3519,7 +3560,7 @@
       "naik-kelas": {
         "judul": "Naik Kelas Lestari",
         "modulLabel": "Misi sigerciv",
-        "deskripsi": "Sertifikasi bertingkat owner UMKM/agen: Tunas → Bahari → Lumba-Lumba melalui kartu aksi regeneratif tervalidasi.",
+        "deskripsi": "Sertifikasi bertingkat owner UMKM/agen: Tunas → Bahari → Lumba-Lumba melalui kartu aksi lestari tervalidasi.",
         "fiturRencana": [
           "Dashboard progres owner",
           "Tingkat & badge di listing Pasar Desa",
@@ -3539,7 +3580,7 @@
       "sertifikasi": {
         "judul": "Tingkat Sertifikasi",
         "modulLabel": "Misi sigerciv",
-        "deskripsi": "Ringkasan tingkat sertifikasi regeneratif yang dimiliki penyedia di desa.",
+        "deskripsi": "Ringkasan tingkat sertifikasi lestari yang dimiliki penyedia di desa.",
         "fiturRencana": [
           "Publik: badge di profil UMKM",
           "Transparansi kartu tervalidasi"
@@ -3555,10 +3596,10 @@
           "Hook transaksi dari modul Dermaga (F2)"
         ]
       },
-      "neraca-regeneratif": {
-        "judul": "Neraca Regeneratif",
+      "neraca-lestari": {
+        "judul": "Neraca Lestari",
         "modulLabel": "Jejak Lestari",
-        "deskripsi": "Skor gabungan dampak ekologi-sosial-ekonomi — KPI setara GMV untuk pariwisata regeneratif yang terukur.",
+        "deskripsi": "Skor gabungan dampak ekologi-sosial-ekonomi — KPI setara GMV untuk pariwisata yang terukur.",
         "fiturRencana": [
           "Indikator ekologi, sosial, ekonomi",
           "Feed dari monitoring warga & transaksi",

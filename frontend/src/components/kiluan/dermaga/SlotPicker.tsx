@@ -91,12 +91,12 @@ export default function SlotPicker({ desaSlug, paketId, hargaDefault, satuanHarg
   }
 
   if (loading) {
-    return <p className="text-sm text-neutral-500">{t('loading')}</p>
+    return <p className="text-sm text-neutral-500 dark:text-neutral-400">{t('loading')}</p>
   }
 
   if (!slots.length) {
     return (
-      <p className="rounded-xl border border-dashed border-neutral-300 p-4 text-sm text-neutral-500 dark:border-neutral-600">
+      <p className="rounded-xl border border-dashed border-neutral-300 p-4 text-sm text-neutral-500 dark:border-neutral-600 dark:text-neutral-400">
         {t('empty')}
       </p>
     )
@@ -108,7 +108,7 @@ export default function SlotPicker({ desaSlug, paketId, hargaDefault, satuanHarg
         <CalendarDaysIcon className="size-5 text-primary-600" />
         <h3 className="font-semibold text-primary-800 dark:text-primary-100">{t('title')}</h3>
       </div>
-      <p className="mt-1 text-xs text-neutral-500">{t('hint')}</p>
+      <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">{t('hint')}</p>
 
       <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
         {slots.map((slot) => {
@@ -126,21 +126,21 @@ export default function SlotPicker({ desaSlug, paketId, hargaDefault, satuanHarg
               }}
               className={clsx(
                 'rounded-xl border p-3 text-left text-sm transition',
-                penuh && 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50 dark:bg-neutral-900',
-                !penuh && !dipilih && 'border-neutral-200 hover:border-primary-300 dark:border-neutral-700',
-                dipilih && 'border-primary-600 bg-primary-50 ring-2 ring-primary-500/30 dark:bg-primary-950/40',
+                penuh && 'cursor-not-allowed border-neutral-200 bg-neutral-50 opacity-50 dark:border-neutral-800 dark:bg-neutral-900/80',
+                !penuh && !dipilih && 'border-neutral-200 bg-white hover:border-primary-300 dark:border-neutral-700 dark:bg-neutral-900/40 dark:hover:border-primary-600',
+                dipilih && 'border-primary-600 bg-primary-50 ring-2 ring-primary-500/30 dark:border-primary-500 dark:bg-primary-950/50',
               )}
             >
               <p className="font-medium text-primary-800 dark:text-primary-100">{labelTanggal(slot.tanggal)}</p>
               {slot.waktu_mulai && (
-                <p className="mt-0.5 text-xs text-neutral-500">
+                <p className="mt-0.5 text-xs text-neutral-500 dark:text-neutral-400">
                   {t('depart', { waktu: slot.waktu_mulai.slice(0, 5) })}
                 </p>
               )}
               <p className="mt-1 text-xs font-semibold text-kiluan-sea dark:text-kiluan-mint">
                 {formatHarga(harga, satuanHarga)}
               </p>
-              <p className={clsx('mt-1 text-xs', penuh ? 'text-red-600' : 'text-neutral-500')}>
+              <p className={clsx('mt-1 text-xs', penuh ? 'text-red-600 dark:text-red-400' : 'text-neutral-500 dark:text-neutral-400')}>
                 {penuh ? t('full') : t('seats', { count: slot.sisa })}
               </p>
             </button>

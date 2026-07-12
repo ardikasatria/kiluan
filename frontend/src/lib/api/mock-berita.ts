@@ -12,7 +12,7 @@ const MOCK_BERITA: BeritaDetail[] = [
     judul: 'Musim Lumba-Lumba 2026 Resmi Dibuka',
     ringkasan: 'Panduan etika berkunjung dan jadwal trip pagi untuk musim ini.',
     konten:
-      '## Selamat datang di musim baru\n\nMusim **lumba-lumba** Teluk Kiluan dimulai. Pastikan mengikuti kode etik:\n\n- Jarak aman minimal 50 m\n- Tidak memberi makan\n- Ikuti arahan pemandu lokal\n\n> Wisata regeneratif dimulai dari sikap kita di laut.',
+      '## Selamat datang di musim baru\n\nMusim **lumba-lumba** Teluk Kiluan dimulai. Pastikan mengikuti kode etik:\n\n- Jarak aman minimal 50 m\n- Tidak memberi makan\n- Ikuti arahan pemandu lokal\n\n> Wisata lestari dimulai dari sikap kita di laut.',
     kategori: 'pengumuman',
     sampul: { url: null },
     sorotan: true,

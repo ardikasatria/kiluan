@@ -1,10 +1,12 @@
 'use client'
 
+import SlotPicker from '@/components/kiluan/dermaga/SlotPicker'
 import SimpanTombol from '@/components/kiluan/simpanan/SimpanTombol'
-import { Link } from '@/i18n/navigation'
+import { Link, useRouter } from '@/i18n/navigation'
 import { urlSampulDariMedia } from '@/lib/api/media'
 import { getPaketDetail } from '@/lib/api/pasar'
-import type { PaketDetail } from '@/lib/api/types'
+import type { PaketDetail, SlotJadwal } from '@/lib/api/types'
+import { tambahKeKeranjang } from '@/lib/kiluan/cart'
 import { formatHarga } from '@/lib/kiluan/pasar'
 import { kelompokItineraryPerHari, labelItemItinerary } from '@/lib/kiluan/paket'
 import {
@@ -25,10 +27,14 @@ export default function PaketDetailClient({ desaSlug, paketIdOrSlug }: Props) {
   const t = useTranslations('paket.detail')
   const locale = useLocale()
   const localeTag = locale === 'en' ? 'en-ID' : 'id-ID'
+  const router = useRouter()
   const [paket, setPaket] = useState<PaketDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [aktif, setAktif] = useState(0)
   const [notFound, setNotFound] = useState(false)
+  const [slot, setSlot] = useState<SlotJadwal | null>(null)
+  const [jumlahOrang, setJumlahOrang] = useState(2)
+  const [sukses, setSukses] = useState(false)
 
   const muat = useCallback(async () => {
     setLoading(true)
@@ -79,6 +85,23 @@ export default function PaketDetailClient({ desaSlug, paketIdOrSlug }: Props) {
   }
 
   const sampul = galeri[aktif]?.url ?? urlSampulDariMedia(paket.media ?? [])
+
+  function keKeranjang(lanjutCheckout: boolean) {
+    if (!paket || !slot) return
+    const harga = slot.harga_override ?? paket.harga
+    tambahKeKeranjang(desaSlug, {
+      item_tipe: 'paket_wisata',
+      item_id: paket.id,
+      nama: paket.nama,
+      harga,
+      jumlah: 1,
+      slot_jadwal_id: slot.id,
+      tanggal_slot: slot.tanggal,
+      metadata: { jumlah_orang: jumlahOrang },
+    })
+    setSukses(true)
+    if (lanjutCheckout) router.push(`/${desaSlug}/checkout`)
+  }
 
   return (
     <div className="pb-20">
@@ -148,7 +171,62 @@ export default function PaketDetailClient({ desaSlug, paketIdOrSlug }: Props) {
           </p>
           <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">{t('priceNote')}</p>
 
-          <div className="mt-8 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-700 dark:bg-neutral-800/40">
+          <section className="mt-8 rounded-2xl border border-neutral-200 bg-neutral-50/80 p-5 dark:border-neutral-700 dark:bg-neutral-800/40">
+            <h2 className="font-semibold text-neutral-900 dark:text-neutral-100">{t('bookTitle')}</h2>
+            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{t('bookHint')}</p>
+
+            <div className="mt-5">
+              <SlotPicker
+                desaSlug={desaSlug}
+                paketId={paket.id}
+                hargaDefault={paket.harga}
+                satuanHarga={paket.satuan_harga}
+                value={slot}
+                onChange={setSlot}
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                {t('jumlahOrang')}
+              </label>
+              <input
+                type="number"
+                min={1}
+                max={Math.min(paket.kuota_default, slot?.sisa ?? paket.kuota_default)}
+                value={jumlahOrang}
+                onChange={(e) => setJumlahOrang(Math.max(1, Number(e.target.value) || 1))}
+                className="mt-1 w-24 rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-100"
+              />
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <button
+                type="button"
+                disabled={!slot}
+                onClick={() => keKeranjang(false)}
+                className="rounded-full border border-primary-300 bg-white px-5 py-2.5 text-sm font-semibold text-primary-800 transition hover:bg-primary-50 disabled:opacity-50 dark:border-primary-700 dark:bg-neutral-900 dark:text-primary-200 dark:hover:bg-primary-950/60"
+              >
+                {t('addCart')}
+              </button>
+              <button
+                type="button"
+                disabled={!slot}
+                onClick={() => keKeranjang(true)}
+                className="rounded-full bg-primary-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-800 disabled:opacity-50 dark:bg-primary-600 dark:hover:bg-primary-500"
+              >
+                {t('goCheckout')}
+              </button>
+            </div>
+            {!slot && (
+              <p className="mt-2 text-xs text-amber-700 dark:text-amber-400">{t('selectSlot')}</p>
+            )}
+            {sukses && (
+              <p className="mt-3 text-sm text-green-700 dark:text-green-400">{t('cartAdded')}</p>
+            )}
+          </section>
+
+          <div className="mt-6 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-700 dark:bg-neutral-800/40">
             <p className="text-sm font-medium text-neutral-800 dark:text-neutral-100">{t('contactTitle')}</p>
             <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">{t('contactDesc', { agen: paket.agen.nama })}</p>
           </div>

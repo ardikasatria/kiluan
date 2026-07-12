@@ -87,7 +87,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     modulLabel: 'Gamifikasi Kontribusi',
     fase: 'F1',
     aktif: true,
-    deskripsi: 'Peringkat kontributor data dan partisipasi regeneratif per desa.',
+    deskripsi: 'Peringkat kontributor data dan partisipasi per desa.',
     fiturRencana: ['Peringkat bulanan & sepanjang masa', 'Filter per kategori kontribusi'],
   },
   peta: {
@@ -136,7 +136,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     modulLabel: 'Misi sigerciv',
     fase: 'F2',
     deskripsi:
-      'Titik check-in QR di dermaga lumba-lumba, mangrove, dan spot konservasi — bukti kehadiran aksi regeneratif.',
+      'Titik check-in QR di dermaga lumba-lumba, mangrove, dan spot konservasi — bukti kehadiran aksi lestari.',
     fiturRencana: [
       'QR geotag per stasiun',
       'Konfirmasi pemandu/Organisasi',
@@ -150,7 +150,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     fase: 'F1',
     aktif: true,
     deskripsi:
-      'Sertifikasi bertingkat owner UMKM/agen: Tunas → Bahari → Lumba-Lumba melalui kartu aksi regeneratif tervalidasi.',
+      'Sertifikasi bertingkat owner UMKM/agen: Tunas → Bahari → Lumba-Lumba melalui kartu aksi lestari tervalidasi.',
     fiturRencana: [
       'Dashboard progres owner',
       'Tingkat & badge di listing Pasar Desa',
@@ -176,7 +176,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     modulLabel: 'Misi sigerciv',
     fase: 'F1',
     aktif: true,
-    deskripsi: 'Ringkasan tingkat sertifikasi regeneratif yang dimiliki penyedia di desa.',
+    deskripsi: 'Ringkasan tingkat sertifikasi lestari yang dimiliki penyedia di desa.',
     fiturRencana: ['Publik: badge di profil UMKM', 'Transparansi kartu tervalidasi'],
   },
   'dana-konservasi': {
@@ -192,13 +192,13 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
       'Hook transaksi dari modul Dermaga (F2)',
     ],
   },
-  'neraca-regeneratif': {
-    slug: 'neraca-regeneratif',
-    judul: 'Neraca Regeneratif',
+  'neraca-lestari': {
+    slug: 'neraca-lestari',
+    judul: 'Neraca Lestari',
     modulLabel: 'Jejak Lestari',
     fase: 'F3',
     deskripsi:
-      'Skor gabungan dampak ekologi-sosial-ekonomi — KPI setara GMV untuk pariwisata regeneratif yang terukur.',
+      'Skor gabungan dampak ekologi-sosial-ekonomi — KPI setara GMV untuk pariwisata yang terukur.',
     fiturRencana: [
       'Indikator ekologi, sosial, ekonomi',
       'Feed dari monitoring warga & transaksi',

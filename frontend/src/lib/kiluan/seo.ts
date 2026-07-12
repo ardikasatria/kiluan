@@ -3,11 +3,11 @@ import type { Metadata } from 'next'
 import { HALAMAN_PUBLIK_DESA } from './meta-halaman'
 
 export const NAMA_SITUS = 'sigerciv'
-export const JUDUL_PLATFORM = `${NAMA_SITUS} — Platform Pariwisata Regeneratif Lampung`
+export const JUDUL_PLATFORM = `${NAMA_SITUS} — Platform Pariwisata Lampung`
 export const TAGLINE_PLATFORM = 'Berwisata yang meninggalkan dampak positif di Lampung'
 export const BADGE_PLATFORM = 'Platform Sigerciv · Lampung'
 export const DESKRIPSI_DEFAULT =
-  'Sigerciv menghubungkan desa wisata regeneratif di Lampung — temukan destinasi lintas desa, dukung UMKM lokal, dan ikut misi lestari.'
+  'Sigerciv menghubungkan desa wisata di Lampung — temukan destinasi lintas desa, dukung UMKM lokal, dan ikut misi lestari.'
 export const GAMBAR_OG_DEFAULT = '/sigerciv-long.png'
 
 /** URL kanonis situs — wajib diset `NEXT_PUBLIC_SITE_URL` di produksi. */

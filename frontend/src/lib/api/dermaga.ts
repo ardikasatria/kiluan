@@ -98,6 +98,10 @@ export async function getPesanan(desaSlug: string, id: string): Promise<PesananR
   return apiFetch(`/api/v1/desa/${desaSlug}/pesanan/${id}`)
 }
 
+export async function batalkanPesanan(desaSlug: string, pesananId: string): Promise<PesananRingkas> {
+  return apiFetch(`/api/v1/desa/${desaSlug}/pesanan/${pesananId}/batal`, { method: 'POST' })
+}
+
 export async function daftarPesananSaya(desaSlug: string): Promise<{ item: PesananRingkas[] }> {
   return apiFetch(`/api/v1/desa/${desaSlug}/pesanan?milik=saya`)
 }

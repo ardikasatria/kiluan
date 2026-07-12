@@ -136,7 +136,7 @@ export function mockDetailUmkm(id: string): UmkmDetail {
     ...u,
     bidang_id: u.bidang.id,
     deskripsi:
-      'UMKM lokal Teluk Kiluan yang mengangkat produk khas desa dengan prinsip wisata regeneratif.',
+      'UMKM lokal Teluk Kiluan yang mengangkat produk khas desa dengan prinsip wisata berkelanjutan.',
     telepon: '0812-0000-0000',
     whatsapp: '6281200000000',
     alamat: 'Pekon Kiluan Negeri, Tanggamus, Lampung',

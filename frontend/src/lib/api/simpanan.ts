@@ -151,7 +151,7 @@ const LABEL_TIPE_SIMPANAN: Record<Locale, Record<SimpananTipe, string>> = {
   en: {
     destinasi: 'Destination',
     paket: 'Tour package',
-    misi: 'Regenerative mission',
+    misi: 'Lestari mission',
     produk: 'Local product',
   },
 }
