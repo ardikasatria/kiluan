@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { JUDUL_PLATFORM } from '@/lib/kiluan/seo'
 
 interface Props {
   className?: string
@@ -13,7 +14,7 @@ const Logo: React.FC<Props> = ({ className, size = 'h-9 w-auto sm:h-10' }) => {
     <Link href="/" className={clsx('inline-block shrink-0', className)}>
       <Image
         src="/sigerciv-long.png"
-        alt="sigerciv — Platform Desa Wisata Regeneratif"
+        alt={JUDUL_PLATFORM}
         width={180}
         height={40}
         className={clsx(size, 'object-contain object-left')}

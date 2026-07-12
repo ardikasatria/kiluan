@@ -97,7 +97,7 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
         { label: 'Daya dukung', href: href(d, 'daya-dukung') },
       ],
       aktivitasContoh: [
-        'Mempublikasikan spot Laguna Kiluan',
+        'Mempublikasikan spot unggulan desa',
         'Menyetujui kontribusi foto dari wisatawan',
       ],
       widgets: [
@@ -475,8 +475,8 @@ export function konfigDasborPeran(desaSlug: string): Record<PeranKode, Dashboard
       ],
       aksiCepat: [
         { id: 'tenant', label: 'Provisioning desa', href: '/admin/dasbor/tenant', primary: true, segera: true },
-        { id: 'discovery', label: 'Discovery global', href: '/#discovery' },
-        { id: 'flagship', label: 'Teluk Kiluan', href: '/teluk-kiluan/dasbor/pokdarwis' },
+        { id: 'discovery', label: 'Discovery global', href: '/jelajah' },
+        { id: 'flagship', label: 'Dasbor desa mitra', href: '/teluk-kiluan/dasbor/pokdarwis' },
       ],
       modulTerkait: [
         { label: 'Nusantara (F4)', href: '/admin/dasbor/nusantara' },

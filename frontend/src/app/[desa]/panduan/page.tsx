@@ -29,7 +29,7 @@ const tips = [
   {
     icon: SignalSlashIcon,
     title: 'Siapkan mode offline',
-    body: 'Sinyal di Teluk Kiluan terbatas. Pasang sigerciv sebagai PWA dan buka halaman destinasi saat masih online agar konten tersimpan untuk dibaca tanpa jaringan.',
+    body: 'Sinyal di beberapa desa wisata terpencil terbatas. Pasang Sigerciv sebagai PWA dan buka halaman destinasi saat masih online agar konten tersimpan untuk dibaca tanpa jaringan.',
   },
   {
     icon: DevicePhoneMobileIcon,

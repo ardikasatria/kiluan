@@ -1,4 +1,3 @@
-import DasborGuard from '@/components/kiluan/dashboard/DasborGuard'
 import RoleDashboardView from '@/components/kiluan/dashboard/RoleDashboardView'
 import { konfigDasborWisatawan } from '@/lib/kiluan/dashboard-peran'
 import { metadataPrivat } from '@/lib/kiluan/seo'
@@ -15,13 +14,11 @@ export default function DasborWisatawanGlobalPage() {
   const config = konfigDasborWisatawan()
 
   return (
-    <DasborGuard desaSlug="sigerciv" peran="wisatawan" loginOnly>
-      <RoleDashboardView
-        desaSlug="sigerciv"
-        desaNama="Sigerciv · Lampung"
-        config={config}
-        lintasDesa
-      />
-    </DasborGuard>
+    <RoleDashboardView
+      desaSlug="sigerciv"
+      desaNama="Sigerciv · Lampung"
+      config={config}
+      lintasDesa
+    />
   )
 }

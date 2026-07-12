@@ -9,8 +9,6 @@ import {
 } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 
-const DESA = 'teluk-kiluan'
-
 const tingkatInfo = [
   {
     icon: SunIcon,
@@ -100,10 +98,10 @@ export default function HomePasarDesa({ umkm }: Props) {
         )}
 
         <Link
-          href={`/${DESA}/pasar`}
+          href="/jelajah"
           className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-700 hover:text-primary-600 dark:text-primary-300"
         >
-          Jelajahi Pasar Desa
+          Jelajahi desa di jaringan
           <ArrowRightIcon className="size-4" aria-hidden />
         </Link>
       </div>

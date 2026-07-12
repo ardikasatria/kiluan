@@ -6,8 +6,6 @@ import {
 } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 
-const DESA = 'teluk-kiluan'
-
 const steps = [
   {
     icon: BookOpenIcon,
@@ -42,10 +40,10 @@ export default function HomeMisiLestari() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href={`/${DESA}/misi`}
+                href="/jelajah"
                 className="inline-flex items-center gap-2 rounded-full bg-primary-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-800 dark:bg-primary-600 dark:hover:bg-primary-500"
               >
-                Mulai Penjelajah Lestari
+                Jelajah desa wisata
                 <ArrowRightIcon className="size-4" aria-hidden />
               </Link>
               <Link

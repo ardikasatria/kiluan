@@ -82,7 +82,7 @@ export default function ModulPlaceholderPage({ config, desaSlug, profilNama }: P
               <ul className="mt-3 space-y-2 text-sm">
                 <li>
                   <Link
-                    href={desaSlug ? `/${desaSlug}#destinasi` : '/#discovery'}
+                    href={desaSlug ? `/${desaSlug}#destinasi` : '/jelajah'}
                     className="text-primary-700 hover:underline dark:text-primary-300"
                   >
                     Katalog destinasi

@@ -79,7 +79,7 @@ export default function DashboardContextSwitcher({ desaSlug, desaNama, peranAkti
                 onClick={() => setOpen(false)}
                 className="block px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800"
               >
-                Teluk Kiluan
+                Desa mitra pilot
               </Link>
             )}
             {peran.length > 1 && (

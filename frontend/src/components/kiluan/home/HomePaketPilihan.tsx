@@ -30,10 +30,10 @@ export default function HomePaketPilihan({ paket }: Props) {
           </div>
           {publik.length > 0 && (
             <Link
-              href={`/${DESA}/paket`}
+              href="/jelajah?lensa=wisata"
               className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-primary-700 dark:text-primary-300"
             >
-              Semua paket
+              Jelajah paket
               <ArrowRightIcon className="size-4" aria-hidden />
             </Link>
           )}
@@ -49,13 +49,13 @@ export default function HomePaketPilihan({ paket }: Props) {
           <div className="mt-8 rounded-2xl border border-dashed border-primary-300/60 bg-primary-50/50 px-6 py-10 text-center dark:border-primary-600/40 dark:bg-primary-900/20">
             <p className="text-lg font-semibold text-primary-800 dark:text-primary-100">Paket wisata — segera</p>
             <p className="mx-auto mt-2 max-w-md text-sm text-neutral-600 dark:text-neutral-400">
-              Kurasi paket bahari dan pengalaman lokal sedang disiapkan bersama agen & Pokdarwis Teluk Kiluan.
+              Kurasi paket bahari dan pengalaman lokal sedang disiapkan bersama agen & Pokdarwis di jaringan desa wisata Sigerciv.
             </p>
             <Link
-              href={`/${DESA}/paket`}
+              href="/jelajah?lensa=wisata"
               className="mt-5 inline-flex items-center gap-2 rounded-full border border-primary-300 px-5 py-2.5 text-sm font-semibold text-primary-800 hover:bg-white dark:border-primary-600 dark:text-primary-100 dark:hover:bg-primary-900/40"
             >
-              Lihat halaman paket
+              Jelajah paket di Lampung
             </Link>
           </div>
         )}

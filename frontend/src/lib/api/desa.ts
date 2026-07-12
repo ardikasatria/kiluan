@@ -12,7 +12,7 @@ export async function getProfilDesa(slug: string): Promise<ProfilDesa | null> {
 
 export async function getTagDesa(slug: string): Promise<Tag[]> {
   try {
-    const res = await apiFetch<{ item: Tag[] }>(`/api/v1/desa/${slug}/tag`)
+    const res = await apiFetch<{ item: Tag[] }>(`/api/v1/desa/${slug}/tag`, { auth: false })
     return res.item
   } catch {
     return []

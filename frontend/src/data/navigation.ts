@@ -25,12 +25,12 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
   return [
     {
       id: 'jelajah',
-      href: `/${DESA}`,
+      href: '/jelajah',
       name: 'Jelajah',
       type: 'mega-menu',
       featured: {
         title: 'Laguna Kiluan',
-        description: 'Spot unggulan untuk snorkeling di perairan tenang Teluk Kiluan.',
+        description: 'Spot unggulan snorkeling dari jaringan desa wisata Sigerciv.',
         href: `/${DESA}/spot/laguna-kiluan`,
         badge: 'Unggulan',
         image: '/gallery/laguna.jpg',
@@ -40,12 +40,12 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
           id: 'jelajah-kategori',
           name: 'Kategori',
           children: [
-            { id: 'j-k-1', href: `/${DESA}?kategori=pantai#destinasi`, name: 'Pantai', icon: 'sun', description: 'Pesisir & sunset' },
-            { id: 'j-k-2', href: `/${DESA}?kategori=snorkeling#destinasi`, name: 'Snorkeling', icon: 'eye', description: 'Terumbu & laguna' },
-            { id: 'j-k-3', href: `/${DESA}?kategori=lumba-lumba#destinasi`, name: 'Lumba-lumba', icon: 'sparkles', description: 'Trip pagi etis' },
-            { id: 'j-k-4', href: `/${DESA}?kategori=mangrove#destinasi`, name: 'Mangrove', icon: 'globe', description: 'Hutan bakau' },
-            { id: 'j-k-5', href: `/${DESA}?kategori=budaya#destinasi`, name: 'Budaya', icon: 'library', description: 'Tradisi nelayan' },
-            { id: 'j-k-6', href: `/${DESA}?kategori=kuliner#destinasi`, name: 'Kuliner', icon: 'shop', description: 'Cita rasa lokal' },
+            { id: 'j-k-1', href: '/jelajah?kategori=pantai&lensa=wisata', name: 'Pantai', icon: 'sun', description: 'Pesisir & sunset' },
+            { id: 'j-k-2', href: '/jelajah?kategori=snorkeling&lensa=wisata', name: 'Snorkeling', icon: 'eye', description: 'Terumbu & laguna' },
+            { id: 'j-k-3', href: '/jelajah?kategori=lumba-lumba&lensa=wisata', name: 'Lumba-lumba', icon: 'sparkles', description: 'Trip pagi etis' },
+            { id: 'j-k-4', href: '/jelajah?kategori=mangrove&lensa=wisata', name: 'Mangrove', icon: 'globe', description: 'Hutan bakau' },
+            { id: 'j-k-5', href: '/jelajah?kategori=budaya&lensa=wisata', name: 'Budaya', icon: 'library', description: 'Tradisi nelayan' },
+            { id: 'j-k-6', href: '/jelajah?kategori=kuliner&lensa=wisata', name: 'Kuliner', icon: 'shop', description: 'Cita rasa lokal' },
           ],
         },
         {
@@ -53,8 +53,8 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
           name: 'Cara jelajah',
           children: [
             { id: 'j-c-1', href: `/${DESA}/peta`, name: 'Peta interaktif', icon: 'map', description: 'Lokasi & rute', soon: true },
-            { id: 'j-c-2', href: '/#spot-unggulan', name: 'Spot unggulan', icon: 'star', description: 'Kurasi komunitas' },
-            { id: 'j-c-3', href: '/cari', name: 'Destinasi terdekat', icon: 'pin', description: 'Berdasarkan lokasi' },
+            { id: 'j-c-2', href: '/jelajah?lensa=wisata', name: 'Spot unggulan', icon: 'star', description: 'Kurasi komunitas' },
+            { id: 'j-c-3', href: '/jelajah', name: 'Destinasi terdekat', icon: 'pin', description: 'Berdasarkan lokasi' },
           ],
         },
         {
@@ -62,7 +62,7 @@ export async function getNavigation(): Promise<TNavigationItem[]> {
           name: 'Informasi',
           children: [
             { id: 'j-l-1', href: `/${DESA}/panduan`, name: 'Panduan berkunjung', icon: 'book', description: 'Kode etik & tips' },
-            { id: 'j-l-2', href: `/${DESA}?kategori=lumba-lumba#destinasi`, name: 'Jadwal lumba-lumba', icon: 'clock', description: 'Pagi terbaik' },
+            { id: 'j-l-2', href: '/jelajah?kategori=lumba-lumba&lensa=wisata', name: 'Jadwal lumba-lumba', icon: 'clock', description: 'Pagi terbaik' },
             { id: 'j-l-3', href: `/${DESA}/berita`, name: 'Warta desa', icon: 'news', description: 'Pengumuman terbaru' },
           ],
         },

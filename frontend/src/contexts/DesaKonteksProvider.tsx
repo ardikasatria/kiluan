@@ -13,6 +13,7 @@ const RUTE_GLOBAL = new Set([
   'paspor',
   'api',
   'dasbor',
+  'jelajah',
   'saya',
   'forgot-password',
   'reset-password',

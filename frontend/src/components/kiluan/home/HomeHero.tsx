@@ -6,11 +6,12 @@ import {
 } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import Link from 'next/link'
+import { BADGE_PLATFORM, TAGLINE_PLATFORM } from '@/lib/kiluan/seo'
 import HomeHeroSearch from './HomeHeroSearch'
 
 const HERO_IMAGE = {
   src: '/gallery/laguna.jpg',
-  alt: 'Laguna Teluk Kiluan — perairan tenang untuk snorkeling',
+  alt: 'Destinasi wisata bahari Lampung — snorkeling di perairan tenang',
 } as const
 
 export default function HomeHero() {
@@ -32,13 +33,13 @@ export default function HomeHero() {
         <div className="max-w-2xl">
           <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm font-medium text-primary-100 backdrop-blur-sm">
             <SparklesIcon className="size-4" aria-hidden />
-            Platform Desa Wisata Regeneratif
+            {BADGE_PLATFORM}
           </p>
           <h1 className="mt-5 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl lg:leading-tight">
-            Berwisata yang meninggalkan Kiluan lebih baik
+            {TAGLINE_PLATFORM}
           </h1>
           <p className="mt-5 text-base leading-relaxed text-primary-50/90 sm:text-lg">
-            sigerciv menatalayan teknologi agar data destinasi dimiliki komunitas, nilai ekonomi mengalir ke
+            Sigerciv menatalayan teknologi agar data destinasi dimiliki komunitas, nilai ekonomi mengalir ke
             warga lokal, dan dana konservasi dapat diawasi secara transparan.
           </p>
 
@@ -46,7 +47,7 @@ export default function HomeHero() {
 
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
-              href="/teluk-kiluan"
+              href="/jelajah"
               className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary-800 shadow-lg transition hover:bg-primary-50 focus-visible:ring-2 focus-visible:ring-kiluan-mint focus-visible:outline-none"
             >
               Jelajah

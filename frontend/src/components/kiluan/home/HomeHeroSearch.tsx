@@ -11,8 +11,8 @@ export default function HomeHeroSearch() {
   const submit = (e: FormEvent) => {
     e.preventDefault()
     const term = q.trim()
-    if (term) router.push(`/?q=${encodeURIComponent(term)}#discovery`)
-    else router.push('/#discovery')
+    if (term) router.push(`/jelajah?q=${encodeURIComponent(term)}`)
+    else router.push('/jelajah')
   }
 
   return (

@@ -108,40 +108,36 @@ export default function WishlistClient({ desaSlug, lintasDesa = false }: Props) 
   const misiHref = lintasDesa ? RUTE_WISATAWAN.discovery : `/${desaSlug}/misi`
 
   return (
-    <div className="pb-20">
-      <div className="border-b border-neutral-200 bg-gradient-to-br from-rose-50 via-white to-primary-50 dark:from-primary-950 dark:via-neutral-950 dark:to-neutral-900">
-        <div className="container py-10 sm:py-12">
-          <Link
-            href={dasborHref}
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 hover:text-primary-600 dark:text-primary-300"
-          >
-            <ArrowLeftIcon className="size-4" aria-hidden />
-            Dasbor
-          </Link>
-          <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="inline-flex items-center gap-2 text-sm font-medium text-rose-600 dark:text-rose-300">
-                <HeartIcon className="size-4" aria-hidden />
-                Lintas desa Lampung
-              </p>
-              <h1 className="mt-1 text-3xl font-bold tracking-tight text-primary-900 dark:text-primary-50">
-                Wishlist saya
-              </h1>
-              <p className="mt-2 max-w-lg text-sm text-neutral-600 dark:text-neutral-400">
-                Destinasi, paket wisata, dan misi regeneratif yang ingin Anda kunjungi atau selesaikan.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-neutral-200/80 bg-white/80 px-5 py-3 dark:border-neutral-700 dark:bg-neutral-900/60">
-              <p className="text-xs font-medium tracking-wide text-neutral-500 uppercase dark:text-neutral-400">Total tersimpan</p>
-              <p className="mt-0.5 text-2xl font-bold text-primary-800 dark:text-primary-100">
-                {destinasi.length + paket.length + misi.length}
-              </p>
-            </div>
+    <div>
+      <section className="mb-8 overflow-hidden rounded-2xl border border-primary-700/25 bg-gradient-to-br from-primary-800 via-primary-700 to-kiluan-teal px-6 py-8 text-white shadow-sm sm:px-8 sm:py-10 dark:border-primary-800/50 dark:from-primary-950 dark:via-primary-900 dark:to-primary-800">
+        <Link
+          href={dasborHref}
+          className="inline-flex items-center gap-2 text-sm font-medium text-primary-100 hover:text-white"
+        >
+          <ArrowLeftIcon className="size-4" aria-hidden />
+          Dasbor
+        </Link>
+        <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="inline-flex items-center gap-2 text-sm font-medium text-rose-200">
+              <HeartIcon className="size-4" aria-hidden />
+              Lintas desa Lampung
+            </p>
+            <h1 className="mt-1 text-3xl font-bold tracking-tight text-white">Wishlist saya</h1>
+            <p className="mt-2 max-w-lg text-sm text-primary-100/90">
+              Destinasi, paket wisata, dan misi regeneratif yang ingin Anda kunjungi atau selesaikan.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/20 bg-white/10 px-5 py-3 backdrop-blur-sm">
+            <p className="text-xs font-medium tracking-wide text-primary-100/80 uppercase">Total tersimpan</p>
+            <p className="mt-0.5 text-2xl font-bold text-white">
+              {destinasi.length + paket.length + misi.length}
+            </p>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="container py-8 sm:py-10">
+      <div>
         {error && (
           <div className="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200">
             {error}

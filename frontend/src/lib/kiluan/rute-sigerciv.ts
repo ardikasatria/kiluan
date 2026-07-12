@@ -13,5 +13,5 @@ export const RUTE_WISATAWAN = {
   wishlist: ruteSaya('wishlist'),
   akun: ruteSaya('akun'),
   paspor: '/paspor',
-  discovery: '/#discovery',
+  discovery: '/jelajah',
 } as const

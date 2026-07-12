@@ -1,13 +1,9 @@
 'use client'
 
-import KiluanSearchModal from '@/components/kiluan/KiluanSearchModal'
-import NotifyDropdown from '@/components/Header/NotifyDropdown'
-import AvatarDropdown from '@/components/Header/AvatarDropdown'
 import { RUTE_DASBOR } from '@/lib/kiluan/rute-sigerciv'
 import type { DashboardPeranConfig } from '@/lib/kiluan/dashboard-peran'
 import { labelPeran } from '@/lib/kiluan/peran'
 import { Bars3Icon } from '@heroicons/react/24/outline'
-import clsx from 'clsx'
 import Link from 'next/link'
 import DashboardContextSwitcher from './DashboardContextSwitcher'
 
@@ -31,9 +27,10 @@ export default function DashboardTopbar({
   lintasDesa = false,
 }: Props) {
   const dasborLink = lintasDesa ? RUTE_DASBOR : `/${desaSlug}/dasbor`
+  const tampilkanSwitcher = !lintasDesa && config.kode !== 'wisatawan'
 
   return (
-    <header className="sticky top-[72px] z-20 -mx-4 border-b border-neutral-200/80 bg-white/90 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:top-20 dark:border-neutral-800/80 dark:bg-neutral-900/90">
+    <header className="-mx-4 border-b border-neutral-200/80 bg-neutral-50/80 px-4 py-3 sm:-mx-6 sm:px-6 dark:border-neutral-800/80 dark:bg-neutral-900/50">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex min-w-0 items-center gap-3">
           {onToggleSidebar && (
@@ -62,29 +59,20 @@ export default function DashboardTopbar({
                 </>
               )}
             </nav>
-            <h1 className="truncate text-lg font-bold text-primary-800 sm:text-xl dark:text-primary-100">
+            <h2 className="truncate text-lg font-bold text-primary-800 sm:text-xl dark:text-primary-100">
               {sectionTitle}
-            </h1>
+            </h2>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-          <div className="hidden sm:block">
-            <KiluanSearchModal type="type1" />
-          </div>
-          {!lintasDesa && config.kode !== 'wisatawan' ? (
-            <DashboardContextSwitcher
-              desaSlug={desaSlug}
-              desaNama={desaNama}
-              peranAktif={config.kode}
-              className="w-full sm:w-auto"
-            />
-          ) : null}
-          <div className="flex items-center gap-1">
-            <NotifyDropdown className="hidden sm:block" />
-            <AvatarDropdown />
-          </div>
-        </div>
+        {tampilkanSwitcher ? (
+          <DashboardContextSwitcher
+            desaSlug={desaSlug}
+            desaNama={desaNama}
+            peranAktif={config.kode}
+            className="w-full sm:w-auto sm:max-w-xs"
+          />
+        ) : null}
       </div>
     </header>
   )

@@ -12,7 +12,7 @@ const modules = [
     tag: 'Etalase & Discovery',
     fase: 'F0',
     desc: 'Katalog destinasi lintas desa, peta interaktif, filter kategori, dan halaman spot publik.',
-    href: '#discovery',
+    href: '/jelajah',
   },
   {
     icon: UserCircleIcon,

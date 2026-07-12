@@ -1,6 +1,5 @@
 import DashboardSectionPlaceholder from '@/components/kiluan/dashboard/DashboardSectionPlaceholder'
 import DasborGuard from '@/components/kiluan/dashboard/DasborGuard'
-import KiluanMeshBackground from '@/components/kiluan/KiluanMeshBackground'
 import { konfigDasborPeran } from '@/lib/kiluan/dashboard-peran'
 import { ApplicationLayout } from '@/app/(app)/application-layout'
 import Aside from '@/components/aside'
@@ -17,9 +16,8 @@ export default async function AdminDasborSectionPage({ params }: Props) {
   return (
     <Aside.Provider>
       <ApplicationLayout headerHasBorder>
-        <KiluanMeshBackground className="min-h-screen">
-          <DasborGuard desaSlug="teluk-kiluan" desaNama="Lintas desa" peran="admin">
-            <div className="container py-6 sm:py-10">
+        <DasborGuard desaSlug="teluk-kiluan" desaNama="Lintas desa" peran="admin">
+            <div className="container py-8 sm:py-10">
               <DashboardSectionPlaceholder
                 desaSlug="teluk-kiluan"
                 desaNama="Steward platform"
@@ -28,7 +26,6 @@ export default async function AdminDasborSectionPage({ params }: Props) {
               />
             </div>
           </DasborGuard>
-        </KiluanMeshBackground>
       </ApplicationLayout>
     </Aside.Provider>
   )

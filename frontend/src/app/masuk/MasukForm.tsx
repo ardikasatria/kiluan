@@ -15,7 +15,7 @@ import { FormEvent, useState } from 'react'
 export default function MasukForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirect = searchParams.get('redirect') ?? '/teluk-kiluan'
+  const redirect = searchParams.get('redirect') ?? '/dasbor'
   const { masuk } = useAuth()
   const [email, setEmail] = useState('')
   const [sandi, setSandi] = useState('')

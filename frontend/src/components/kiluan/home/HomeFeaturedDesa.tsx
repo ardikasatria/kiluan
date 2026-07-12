@@ -23,12 +23,12 @@ export default function HomeFeaturedDesa({ desa }: Props) {
               Desa wisata di jaringan sigerciv
             </h2>
             <p className="mt-2 max-w-xl text-neutral-600 dark:text-neutral-400">
-              Mulai dari Teluk Kiluan sebagai instans flagship — siap direplikasi ke desa mitra lain lewat modul
-              Nusantara.
+              Sigerciv menghubungkan desa wisata regeneratif di Lampung — dari pesisir hingga pedalaman, siap
+              berkembang bersama modul lintas desa.
             </p>
           </div>
           <Link
-            href="#discovery"
+            href="/jelajah"
             className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-primary-700 hover:text-primary-600 dark:text-primary-300"
           >
             Lihat semua di peta

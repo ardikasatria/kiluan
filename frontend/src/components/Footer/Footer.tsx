@@ -22,28 +22,28 @@ const footerColumns: FooterColumn[] = [
     id: 'jelajah',
     title: 'Jelajah',
     links: [
-      { href: '/', label: 'Beranda sigerciv' },
-      { href: '/teluk-kiluan', label: 'Teluk Kiluan' },
-      { href: '/#spot-unggulan', label: 'Spot unggulan' },
-      { href: '/#discovery', label: 'Cari destinasi' },
+      { href: '/', label: 'Beranda Sigerciv' },
+      { href: '/jelajah', label: 'Jelajah Lampung' },
+      { href: '/jelajah?lensa=wisata', label: 'Spot unggulan' },
+      { href: '/jelajah', label: 'Cari destinasi' },
     ],
   },
   {
     id: 'pengalaman',
     title: 'Pengalaman',
     links: [
-      { href: '/teluk-kiluan/paket', label: 'Paket wisata' },
-      { href: '/teluk-kiluan/misi', label: 'Penjelajah Lestari' },
+      { href: '/jelajah?lensa=wisata', label: 'Paket wisata' },
+      { href: '/jelajah', label: 'Penjelajah Lestari' },
       { href: '/paspor', label: 'Paspor Lestari' },
-      { href: '/teluk-kiluan/panduan', label: 'Panduan berkunjung' },
+      { href: '/jelajah', label: 'Panduan & etik' },
     ],
   },
   {
     id: 'pasar',
     title: 'Pasar Desa',
     links: [
-      { href: '/teluk-kiluan/pasar', label: 'UMKM lokal' },
-      { href: '/teluk-kiluan/sertifikasi', label: 'Tingkat sertifikasi' },
+      { href: '/jelajah', label: 'UMKM lokal' },
+      { href: '/jelajah', label: 'Tingkat sertifikasi' },
       { href: '/daftar?peran=umkm', label: 'Daftar sebagai UMKM' },
     ],
   },
@@ -53,8 +53,7 @@ const footerColumns: FooterColumn[] = [
     links: [
       { href: '/masuk', label: 'Masuk' },
       { href: '/daftar', label: 'Daftar akun' },
-      { href: '/teluk-kiluan/tentang', label: 'Tentang desa' },
-      { href: '/teluk-kiluan/berita', label: 'Warta & Berita' },
+      { href: '/jelajah?lensa=desa', label: 'Desa di jaringan' },
       { href: '/#jejak-regeneratif', label: 'Jejak regeneratif' },
     ],
   },
@@ -70,17 +69,17 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-2">
             <Logo size="h-12 w-auto sm:h-14" />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
-              sigerciv — platform desa wisata regeneratif berbasis komunitas. Data destinasi dimiliki desa;
+              Sigerciv — platform pariwisata regeneratif lintas desa di Lampung. Data destinasi dimiliki komunitas;
               nilai ekonomi kembali ke warga; ekspor data tersedia bagi pengelola yang berwenang.
             </p>
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <PwaInstallButton variant="footer" />
               <Link
-                href="mailto:kiluan@sainsdataciv.com"
+                href="mailto:sigerciv@sainsdataciv.com"
                 className="inline-flex items-center gap-2 text-sm text-neutral-700 hover:text-primary-700 dark:text-neutral-300 dark:hover:text-primary-300"
               >
                 <HugeiconsIcon icon={Mail01Icon} size={18} />
-                kiluan@sainsdataciv.com
+                sigerciv@sainsdataciv.com
               </Link>
             </div>
           </div>

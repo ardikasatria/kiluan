@@ -31,8 +31,8 @@ const KiluanSearchModal: FC<Props> = ({ type = 'type1' }) => {
     e.preventDefault()
     const term = q.trim()
     setOpen(false)
-    if (term) router.push(`/?q=${encodeURIComponent(term)}#discovery`)
-    else router.push('/#discovery')
+    if (term) router.push(`/jelajah?q=${encodeURIComponent(term)}`)
+    else router.push('/jelajah')
     setQ('')
   }
 
@@ -97,7 +97,7 @@ const KiluanSearchModal: FC<Props> = ({ type = 'type1' }) => {
               </button>
             </form>
             <p className="mt-3 text-xs text-neutral-500 dark:text-neutral-400">
-              Tekan Enter untuk membuka etalase discovery dengan kata kunci Anda.
+              Tekan Enter untuk membuka halaman Jelajah dengan kata kunci Anda.
             </p>
           </div>
         </div>

@@ -269,29 +269,26 @@ export default function AkunPreferensiClient({ desaSlug, desaNama, lintasDesa = 
   const emailTerverifikasi = user.profil.email_terverifikasi ?? user.profil.status === 'aktif'
 
   return (
-    <div className="pb-20">
-      {/* Hero */}
-      <div className="border-b border-neutral-200 bg-gradient-to-br from-primary-800 via-primary-700 to-kiluan-teal text-white dark:from-primary-950 dark:via-primary-900 dark:to-primary-800">
-        <div className="container py-10 sm:py-12">
-          <Link
-            href={dasborHref}
-            className="inline-flex items-center gap-2 text-sm font-medium text-primary-100 hover:text-white"
-          >
-            <ArrowLeftIcon className="size-4" aria-hidden />
-            Dasbor
-          </Link>
-          <div className="mt-6 flex flex-wrap items-center gap-5">
-            <KiluanAvatar nama={user.name} src={user.avatar} width={72} height={72} className="size-[4.5rem] ring-2 ring-white/30" />
-            <div>
-              <p className="text-sm font-medium text-primary-100/90">Sigerciv</p>
-              <h1 className="mt-0.5 text-2xl font-bold tracking-tight sm:text-3xl">Akun & Preferensi</h1>
-              <p className="mt-1 text-sm text-primary-50/90">{user.email}</p>
-            </div>
+    <div>
+      <section className="mb-8 overflow-hidden rounded-2xl border border-primary-700/25 bg-gradient-to-br from-primary-800 via-primary-700 to-kiluan-teal px-6 py-8 text-white shadow-sm sm:px-8 sm:py-10 dark:border-primary-800/50 dark:from-primary-950 dark:via-primary-900 dark:to-primary-800">
+        <Link
+          href={dasborHref}
+          className="inline-flex items-center gap-2 text-sm font-medium text-primary-100 hover:text-white"
+        >
+          <ArrowLeftIcon className="size-4" aria-hidden />
+          Dasbor
+        </Link>
+        <div className="mt-6 flex flex-wrap items-center gap-5">
+          <KiluanAvatar nama={user.name} src={user.avatar} width={72} height={72} className="size-[4.5rem] ring-2 ring-white/30" />
+          <div>
+            <p className="text-sm font-medium text-primary-100/90">Sigerciv</p>
+            <h1 className="mt-0.5 text-2xl font-bold tracking-tight text-white sm:text-3xl">Akun & Preferensi</h1>
+            <p className="mt-1 text-sm text-primary-100/80">{user.email}</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="container py-8 sm:py-10">
+      <div>
         {(pesanSukses || pesanError) && (
           <div
             role="status"

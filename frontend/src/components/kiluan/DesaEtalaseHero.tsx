@@ -14,7 +14,7 @@ const DESA_COVER: Record<string, { src: string; alt: string }> = {
   'teluk-kiluan': { src: '/gallery/laguna.jpg', alt: 'Laguna Teluk Kiluan' },
 }
 
-const FALLBACK_COVER = { src: '/gallery/laguna.jpg', alt: 'Teluk Kiluan' } as const
+const FALLBACK_COVER = { src: '/gallery/laguna.jpg', alt: 'Sigerciv — destinasi wisata Lampung' } as const
 
 interface Props {
   profil: ProfilDesa
