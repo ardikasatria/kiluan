@@ -27,7 +27,7 @@ from app.repo.f2_sql import (
     _now,
 )
 
-BENDAHARA = frozenset({KodePeran.pokdarwis, KodePeran.perangkat_desa, KodePeran.admin})
+BENDAHARA = frozenset({KodePeran.kontributor, KodePeran.perangkat_desa, KodePeran.admin})
 
 
 def _pengelola(konteks: Konteks, desa_id: UUID) -> bool:

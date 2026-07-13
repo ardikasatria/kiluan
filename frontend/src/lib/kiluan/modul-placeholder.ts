@@ -184,6 +184,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     judul: 'Dana Konservasi',
     modulLabel: 'Jejak Lestari',
     fase: 'F3',
+    aktif: true,
     deskripsi:
       'Akumulasi porsi reinvestment dari transaksi dan laporan penggunaan transparan untuk komunitas & perangkat desa.',
     fiturRencana: [
@@ -197,6 +198,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     judul: 'Neraca Lestari',
     modulLabel: 'Jejak Lestari',
     fase: 'F3',
+    aktif: true,
     deskripsi:
       'Skor gabungan dampak ekologi-sosial-ekonomi — KPI setara GMV untuk pariwisata yang terukur.',
     fiturRencana: [
@@ -210,6 +212,7 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     judul: 'Daya Dukung Spot',
     modulLabel: 'Jejak Lestari',
     fase: 'F3',
+    aktif: true,
     deskripsi:
       'Kapasitas harian per spot vs kunjungan aktual — peringatan over-capacity untuk ekowisata bertanggung jawab.',
     fiturRencana: [
@@ -223,12 +226,27 @@ export const MODUL_PLACEHOLDER: Record<string, ModulPlaceholderConfig> = {
     judul: 'Monitoring Ekologi',
     modulLabel: 'Jejak Lestari',
     fase: 'F3',
+    aktif: true,
     deskripsi:
       'Form lapangan offline-first: survival mangrove, kesehatan karang, sampah terkumpul — diverifikasi warga & perangkat desa.',
     fiturRencana: [
       'Entri data PWA tanpa sinyal',
       'Sinkronisasi tertunda',
       'Validasi klaim dampak (anti greenwashing)',
+    ],
+  },
+  data: {
+    slug: 'data',
+    judul: 'Anjungan Data',
+    modulLabel: 'Anjungan Data',
+    fase: 'F3',
+    aktif: true,
+    deskripsi:
+      'Dashboard kinerja dari agregat gold — pendapatan, kunjungan, kontribusi, dan laporan bulanan PDF.',
+    fiturRencana: [
+      'Grafik ECharts pendapatan & kunjungan',
+      'Kartu UMKM aktif & adopsi lestari',
+      'Laporan bulanan draf → final',
     ],
   },
 }

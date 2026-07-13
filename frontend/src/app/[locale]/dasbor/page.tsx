@@ -1,5 +1,5 @@
-import DasborHub from '@/components/kiluan/dashboard/DasborHub'
+import DasborEntry from '@/components/kiluan/dashboard/DasborEntry'
 
 export default function DasborGlobalPage() {
-  return <DasborHub lintasDesa />
+  return <DasborEntry lintasDesa profilNama="Sigerciv · Lampung" />
 }

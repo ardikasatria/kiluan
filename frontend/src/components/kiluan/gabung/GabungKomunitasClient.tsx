@@ -39,21 +39,22 @@ import {
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
-import { useCallback, useMemo, useState, useTransition } from 'react'
+import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
 
 interface Props {
   peranRef: PeranRef[]
   peranAwal?: string
+  desaAwal?: string
 }
 
 const IKON_PERAN: Record<PeranGabung, typeof GlobeAltIcon> = {
   wisatawan: GlobeAltIcon,
   umkm: BuildingStorefrontIcon,
   agen: MapIcon,
-  pokdarwis: UsersIcon,
+  kontributor: UsersIcon,
 }
 
-export default function GabungKomunitasClient({ peranRef, peranAwal }: Props) {
+export default function GabungKomunitasClient({ peranRef, peranAwal, desaAwal }: Props) {
   const { user, refreshProfil } = useAuth()
   const t = useTranslations('gabung')
   const tPeran = useTranslations('peran')
@@ -102,6 +103,23 @@ export default function GabungKomunitasClient({ peranRef, peranAwal }: Props) {
     const profil = await getProfilDesa(slug)
     setDesaProfil(profil)
   }
+
+  useEffect(() => {
+    const kode = peranGabungValid(peranAwal)
+    if (!kode || kode === 'wisatawan') return
+
+    setPeran(kode)
+    if (desaAwal) {
+      void (async () => {
+        await pilihDesa(desaAwal)
+        setLangkah('konfirmasi')
+      })()
+      return
+    }
+    setLangkah('desa')
+    if (desa.length === 0) muatDesa()
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- inisialisasi dari query URL sekali
+  }, [peranAwal, desaAwal])
 
   const lanjutKeKonfirmasi = () => {
     if (!desaSlug) return

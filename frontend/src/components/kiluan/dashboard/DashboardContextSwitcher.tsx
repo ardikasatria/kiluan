@@ -78,7 +78,7 @@ export default function DashboardContextSwitcher({ desaSlug, desaNama, peranAkti
             )}
             {isAdmin && (
               <Link
-                href="/teluk-kiluan/dasbor/pokdarwis"
+                href="/teluk-kiluan/dasbor/kontributor"
                 onClick={() => setOpen(false)}
                 className="block px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 dark:text-neutral-300 dark:hover:bg-neutral-800"
               >

@@ -42,7 +42,7 @@ async def seed_dermaga_e2e(sesi: AsyncSession) -> SeedE2E:
         E.Pengguna(email="a@e2e.id", nama="Agen", kata_sandi_hash=hash_sandi("x"), status=StatusPengguna.aktif)
     )
     await store.keanggotaan.tambah(E.Keanggotaan(pengguna_id=w.id, peran=KodePeran.wisatawan, desa_id=d.id, status=StatusKeanggotaan.aktif))
-    await store.keanggotaan.tambah(E.Keanggotaan(pengguna_id=b.id, peran=KodePeran.pokdarwis, desa_id=d.id, status=StatusKeanggotaan.aktif))
+    await store.keanggotaan.tambah(E.Keanggotaan(pengguna_id=b.id, peran=KodePeran.kontributor, desa_id=d.id, status=StatusKeanggotaan.aktif))
     await store.keanggotaan.tambah(E.Keanggotaan(pengguna_id=a.id, peran=KodePeran.agen, desa_id=d.id, status=StatusKeanggotaan.aktif))
 
     sesi.add(M.PengaturanDesa(

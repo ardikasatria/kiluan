@@ -1,7 +1,7 @@
 'use client'
 
 import { checkout, cekKupon } from '@/lib/api/dermaga'
-import { ApiError } from '@/lib/api/client'
+import { pesanGalat } from '@/lib/api/galat'
 import { Link, useRouter } from '@/i18n/navigation'
 import {
   bacaKeranjang,
@@ -20,7 +20,7 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 
 interface Props {
@@ -36,6 +36,7 @@ const cardClass =
 
 export default function CheckoutClient({ desaSlug, desaNama }: Props) {
   const t = useTranslations('checkout')
+  const locale = useLocale() as 'id' | 'en'
   const router = useRouter()
   const [item, setItem] = useState<ItemKeranjang[]>([])
   const [nama, setNama] = useState('')
@@ -47,6 +48,7 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
   const [kuponBerlaku, setKuponBerlaku] = useState<boolean | null>(null)
   const [loading, setLoading] = useState(false)
   const [galat, setGalat] = useState<string | null>(null)
+  const [peringatanKapasitas, setPeringatanKapasitas] = useState<string | null>(null)
 
   useEffect(() => {
     setItem(bacaKeranjang(desaSlug))
@@ -89,9 +91,10 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
     }
     setLoading(true)
     setGalat(null)
+    setPeringatanKapasitas(null)
     const idem = kunciIdempotensi(`checkout-${desaSlug}`)
     try {
-      const { pesanan } = await checkout(
+      const res = await checkout(
         desaSlug,
         {
           kontak: { nama: nama.trim(), telepon: telepon || undefined, email: email || undefined },
@@ -107,15 +110,18 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
         },
         idem,
       )
+      const { pesanan, peringatan_kapasitas: pk } = res
+      if (pk?.length) {
+        const merah = pk.some((p) => p.level === 'merah')
+        setPeringatanKapasitas(
+          merah ? t('warnings.kapasitasMerah') : t('warnings.kapasitasKuning'),
+        )
+      }
       hapusKunciIdempotensi(`checkout-${desaSlug}`)
       kosongkanKeranjang(desaSlug)
       router.push(`/${desaSlug}/pesanan/${pesanan.id}`)
     } catch (e) {
-      const msg =
-        e instanceof ApiError && e.body && typeof e.body === 'object' && 'galat' in (e.body as object)
-          ? String((e.body as { galat?: { pesan?: string } }).galat?.pesan)
-          : t('errors.gagal')
-      setGalat(msg)
+      setGalat(pesanGalat(e, locale) || t('errors.gagal'))
     } finally {
       setLoading(false)
     }
@@ -305,6 +311,11 @@ export default function CheckoutClient({ desaSlug, desaNama }: Props) {
               <dd>{formatHarga(total, 'per_paket')}</dd>
             </div>
           </dl>
+          {peringatanKapasitas && (
+            <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:bg-amber-950/40 dark:text-amber-200">
+              {peringatanKapasitas}
+            </p>
+          )}
           {galat && (
             <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-800 dark:bg-red-950/40 dark:text-red-200">
               {galat}

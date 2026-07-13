@@ -1,5 +1,5 @@
 import type { PeranKode } from './peran'
-import { RUTE_WISATAWAN } from './rute-sigerciv'
+import { RUTE_DASBOR_WISATAWAN, RUTE_WISATAWAN } from './rute-sigerciv'
 
 export interface DashboardNavItem {
   id: string
@@ -75,105 +75,6 @@ export function konfigDasborPeran(
   }
   return {
     wisatawan: konfigDasborWisatawan(translators?.wisatawan),
-    pokdarwis: {
-      kode: 'pokdarwis',
-      tagline: tr('pokdarwis', 'tagline', 'Pengelola desa wisata'),
-      deskripsi: tr('pokdarwis', 'deskripsi', 'Kelola destinasi, kurasi konten komunitas, pantau etalase, dan siapkan dana konservasi.'),
-      fase: 'F0–F3',
-      nav: [
-        { id: 'ringkasan', label: tr('pokdarwis', 'nav.ringkasan', 'Ringkasan'), segment: '' },
-        { id: 'destinasi', label: tr('pokdarwis', 'nav.destinasi', 'Destinasi'), segment: '/destinasi' },
-        { id: 'kurasi', label: tr('pokdarwis', 'nav.kurasi', 'Antrian kurasi'), segment: '/kurasi' },
-        { id: 'keanggotaan', label: tr('pokdarwis', 'nav.keanggotaan', 'Keanggotaan'), segment: '/keanggotaan', href: href(d, 'kelola/keanggotaan') },
-        { id: 'dana', label: tr('pokdarwis', 'nav.dana', 'Dana konservasi'), segment: '/dana', segera: true },
-      ],
-      stats: [
-        { id: 'publik', label: tr('pokdarwis', 'stats.publikLabel', 'Destinasi publik'), value: '—' },
-        { id: 'draft', label: tr('pokdarwis', 'stats.draftLabel', 'Draft'), value: '—' },
-        { id: 'layanan', label: tr('pokdarwis', 'stats.layananLabel', 'Layanan'), value: '—' },
-        { id: 'kontrib', label: tr('pokdarwis', 'stats.kontribLabel', 'Kontribusi menunggu'), value: '—', hint: tr('pokdarwis', 'stats.kontribHint', 'Antrian kurasi'), fase: '1' },
-      ],
-      aksiCepat: [
-        { id: 'kelola', label: tr('pokdarwis', 'aksi.kelola', 'Kelola destinasi'), href: href(d, 'kelola/destinasi'), primary: true },
-        { id: 'keanggotaan', label: tr('pokdarwis', 'aksi.keanggotaan', 'Persetujuan keanggotaan'), href: href(d, 'kelola/keanggotaan'), segera: false },
-        { id: 'validasi', label: tr('pokdarwis', 'aksi.validasi', 'Validasi kartu'), href: href(d, 'kelola/validasi-kartu'), segera: false },
-        { id: 'kurasi', label: tr('pokdarwis', 'aksi.kurasi', 'Kurasi konten'), href: href(d, 'kelola/kurasi'), segera: false },
-        { id: 'baru', label: tr('pokdarwis', 'aksi.baru', '+ Spot baru'), href: href(d, 'kelola/destinasi/baru') },
-        { id: 'layanan', label: tr('pokdarwis', 'aksi.layanan', 'Kelola layanan'), href: href(d, 'kelola/layanan') },
-        { id: 'kupon', label: tr('pokdarwis', 'aksi.kupon', 'Buat kupon kampanye'), href: href(d, 'kelola/kupon') },
-        { id: 'bendahara', label: tr('pokdarwis', 'aksi.bendahara', 'Panel bendahara'), href: href(d, 'kelola/bendahara') },
-        { id: 'etalase', label: tr('pokdarwis', 'aksi.etalase', 'Lihat etalase publik'), href: `/${d}` },
-      ],
-      modulTerkait: [
-        { label: tr('pokdarwis', 'modul.crud', 'Kelola desa (CRUD)'), href: href(d, 'kelola') },
-        { label: tr('pokdarwis', 'modul.hadiah', 'Hadiah & kupon'), href: href(d, 'kelola/hadiah') },
-        { label: tr('pokdarwis', 'modul.dermaga', 'Dermaga & escrow'), href: href(d, 'kelola/bendahara') },
-        { label: tr('pokdarwis', 'modul.anjungan', 'Anjungan Data'), href: href(d, 'neraca-lestari') },
-        { label: tr('pokdarwis', 'modul.dayaDukung', 'Daya dukung'), href: href(d, 'daya-dukung') },
-      ],
-      aktivitasContoh: [
-        tr('pokdarwis', 'aktivitas.a1', 'Mempublikasikan spot unggulan desa'),
-        tr('pokdarwis', 'aktivitas.a2', 'Menyetujui kontribusi foto dari wisatawan'),
-      ],
-      widgets: [
-        {
-          id: 'destinasi',
-          title: tr('pokdarwis', 'widgets.destinasiTitle', 'Kelola destinasi'),
-          description: tr('pokdarwis', 'widgets.destinasiDesc', 'Spot, layanan, kalender aktivitas — modul F0 aktif.'),
-          fase: '0',
-          href: href(d, 'kelola/destinasi'),
-        },
-        {
-          id: 'kurasi',
-          title: tr('pokdarwis', 'widgets.kurasiTitle', 'Dapur Konten'),
-          description: tr('pokdarwis', 'widgets.kurasiDesc', 'Antrian kurasi kontribusi wisatawan dan paket agen.'),
-          fase: '1',
-          href: href(d, 'kelola/kurasi'),
-        },
-        {
-          id: 'naik-kelas',
-          title: tr('pokdarwis', 'widgets.naikKelasTitle', 'Validasi Naik Kelas'),
-          description: tr('pokdarwis', 'widgets.naikKelasDesc', 'Setujui kartu aksi dan tingkat sertifikasi UMKM.'),
-          fase: '1',
-          href: href(d, 'kelola/validasi-kartu'),
-        },
-        {
-          id: 'misi',
-          title: tr('pokdarwis', 'widgets.misiTitle', 'Kelola misi lestari'),
-          description: tr('pokdarwis', 'widgets.misiDesc', 'Buat dan edit misi belajar/aksi Penjelajah Lestari.'),
-          fase: '2',
-          href: href(d, 'kelola/misi'),
-        },
-        {
-          id: 'stasiun',
-          title: tr('pokdarwis', 'widgets.stasiunTitle', 'Stasiun QR'),
-          description: tr('pokdarwis', 'widgets.stasiunDesc', 'Titik check-in geofence dan token QR stasiun.'),
-          fase: '2',
-          href: href(d, 'kelola/stasiun'),
-        },
-        {
-          id: 'poin',
-          title: tr('pokdarwis', 'widgets.poinTitle', 'Aturan poin & lencana'),
-          description: tr('pokdarwis', 'widgets.poinDesc', 'Referensi gamifikasi komunitas desa.'),
-          fase: '1',
-          href: href(d, 'kelola/poin'),
-        },
-        {
-          id: 'keanggotaan',
-          title: tr('pokdarwis', 'widgets.keanggotaanTitle', 'Persetujuan keanggotaan'),
-          description: tr('pokdarwis', 'widgets.keanggotaanDesc', 'Aktivasi peran baru di desa.'),
-          fase: '0',
-          href: href(d, 'kelola/keanggotaan'),
-        },
-        {
-          id: 'dana',
-          title: tr('pokdarwis', 'widgets.danaTitle', 'Dana konservasi'),
-          description: tr('pokdarwis', 'widgets.danaDesc', 'Ringkasan kunjungan dan aliran dana lestari.'),
-          fase: '3',
-          placeholder: true,
-        },
-      ],
-    },
     umkm: {
       kode: 'umkm',
       tagline: tr('umkm', 'tagline', 'Pelaku usaha lokal'),
@@ -205,7 +106,7 @@ export function konfigDasborPeran(
       modulTerkait: [
         { label: tr('umkm', 'modul.pasar', 'Pasar Desa'), href: href(d, 'pasar') },
         { label: tr('umkm', 'modul.dermaga', 'Dermaga (booking)'), href: href(d, 'paket') },
-        { label: tr('umkm', 'modul.performa', 'Performa UMKM'), href: href(d, 'neraca-lestari') },
+        { label: tr('umkm', 'modul.performa', 'Performa UMKM'), href: href(d, 'lestari/neraca') },
         { label: tr('umkm', 'modul.promo', 'Kupon promo'), href: href(d, 'saya/kupon-promo') },
       ],
       aktivitasContoh: [
@@ -330,29 +231,41 @@ export function konfigDasborPeran(
     },
     kontributor: {
       kode: 'kontributor',
-      tagline: tr('kontributor', 'tagline', 'Relawan data komunitas'),
-      deskripsi: tr('kontributor', 'deskripsi', 'Sumbang foto, tips, atau koreksi data destinasi — dapat poin dan lencana.'),
-      fase: 'F1',
+      tagline: tr('kontributor', 'tagline', 'Kontributor & pengelola desa'),
+      deskripsi: tr('kontributor', 'deskripsi', 'Sumbang foto, tips, dan koreksi data — plus kelola destinasi, kurasi konten, dan keanggotaan desa.'),
+      fase: 'F0–F3',
       nav: [
         { id: 'ringkasan', label: tr('kontributor', 'nav.ringkasan', 'Ringkasan'), segment: '' },
         { id: 'kontribusi', label: tr('kontributor', 'nav.kontribusi', 'Kontribusi saya'), segment: '/kontribusi' },
         { id: 'lencana', label: tr('kontributor', 'nav.lencana', 'Lencana'), segment: '/lencana' },
         { id: 'leaderboard', label: tr('kontributor', 'nav.leaderboard', 'Leaderboard'), segment: '/leaderboard' },
+        { id: 'destinasi', label: tr('kontributor', 'nav.destinasi', 'Destinasi'), segment: '/destinasi', href: href(d, 'kelola/destinasi') },
+        { id: 'kurasi', label: tr('kontributor', 'nav.kurasi', 'Antrian kurasi'), segment: '/kurasi', href: href(d, 'kelola/kurasi') },
+        { id: 'keanggotaan', label: tr('kontributor', 'nav.keanggotaan', 'Keanggotaan'), segment: '/keanggotaan', href: href(d, 'kelola/keanggotaan') },
+        { id: 'dana', label: tr('kontributor', 'nav.dana', 'Dana konservasi'), segment: '/dana', href: href(d, 'lestari/dana/catat') },
       ],
       stats: [
         { id: 'total', label: tr('kontributor', 'stats.totalLabel', 'Kontribusi'), value: 0 },
         { id: 'diterima', label: tr('kontributor', 'stats.diterimaLabel', 'Diterima'), value: 0 },
-        { id: 'poin', label: tr('kontributor', 'stats.poinLabel', 'Poin'), value: 0 },
-        { id: 'peringkat', label: tr('kontributor', 'stats.peringkatLabel', 'Peringkat desa'), value: '—' },
+        { id: 'publik', label: tr('kontributor', 'stats.publikLabel', 'Destinasi publik'), value: '—' },
+        { id: 'kontrib', label: tr('kontributor', 'stats.kontribLabel', 'Kontribusi menunggu'), value: '—', hint: tr('kontributor', 'stats.kontribHint', 'Antrian kurasi'), fase: '1' },
       ],
       aksiCepat: [
         { id: 'baru', label: tr('kontributor', 'aksi.baru', 'Kontribusi baru'), href: href(d, 'kontribusi'), primary: true, segera: false },
+        { id: 'kelola', label: tr('kontributor', 'aksi.kelola', 'Kelola destinasi'), href: href(d, 'kelola/destinasi') },
+        { id: 'keanggotaan', label: tr('kontributor', 'aksi.keanggotaan', 'Persetujuan keanggotaan'), href: href(d, 'kelola/keanggotaan') },
+        { id: 'validasi', label: tr('kontributor', 'aksi.validasi', 'Validasi kartu'), href: href(d, 'kelola/validasi-kartu') },
+        { id: 'kurasi', label: tr('kontributor', 'aksi.kurasi', 'Kurasi konten'), href: href(d, 'kelola/kurasi') },
+        { id: 'bendahara', label: tr('kontributor', 'aksi.bendahara', 'Panel bendahara'), href: href(d, 'kelola/bendahara') },
         { id: 'lencana', label: tr('kontributor', 'aksi.lencana', 'Lihat lencana'), href: href(d, 'saya/lencana'), segera: false },
         { id: 'board', label: tr('kontributor', 'aksi.board', 'Leaderboard'), href: href(d, 'leaderboard'), segera: false },
       ],
       modulTerkait: [
         { label: tr('kontributor', 'modul.kontribusi', 'Kontribusi'), href: href(d, 'kontribusi') },
         { label: tr('kontributor', 'modul.lencana', 'Lencana Warga'), href: href(d, 'lencana') },
+        { label: tr('kontributor', 'modul.crud', 'Kelola desa (CRUD)'), href: href(d, 'kelola') },
+        { label: tr('kontributor', 'modul.hadiah', 'Hadiah & kupon'), href: href(d, 'kelola/hadiah') },
+        { label: tr('kontributor', 'modul.dermaga', 'Dermaga & escrow'), href: href(d, 'kelola/bendahara') },
       ],
       aktivitasContoh: [
         tr('kontributor', 'aktivitas.a1', 'Mengunggah foto spot Gigi Hiu — menunggu kurasi'),
@@ -381,11 +294,46 @@ export function konfigDasborPeran(
           href: href(d, 'leaderboard'),
         },
         {
-          id: 'misi',
-          title: tr('kontributor', 'widgets.misiTitle', 'Misi kontribusi'),
-          description: tr('kontributor', 'widgets.misiDesc', 'Quest data lapangan untuk relawan.'),
+          id: 'destinasi',
+          title: tr('kontributor', 'widgets.destinasiTitle', 'Kelola destinasi'),
+          description: tr('kontributor', 'widgets.destinasiDesc', 'Spot, layanan, kalender aktivitas — modul F0 aktif.'),
+          fase: '0',
+          href: href(d, 'kelola/destinasi'),
+        },
+        {
+          id: 'kurasi',
+          title: tr('kontributor', 'widgets.kurasiTitle', 'Dapur Konten'),
+          description: tr('kontributor', 'widgets.kurasiDesc', 'Antrian kurasi kontribusi wisatawan dan paket agen.'),
+          fase: '1',
+          href: href(d, 'kelola/kurasi'),
+        },
+        {
+          id: 'naik-kelas',
+          title: tr('kontributor', 'widgets.naikKelasTitle', 'Validasi Naik Kelas'),
+          description: tr('kontributor', 'widgets.naikKelasDesc', 'Setujui kartu aksi dan tingkat sertifikasi UMKM.'),
+          fase: '1',
+          href: href(d, 'kelola/validasi-kartu'),
+        },
+        {
+          id: 'kelola-misi',
+          title: tr('kontributor', 'widgets.misiKelolaTitle', 'Kelola misi lestari'),
+          description: tr('kontributor', 'widgets.misiKelolaDesc', 'Buat dan edit misi belajar/aksi Penjelajah Lestari.'),
           fase: '2',
-          segera: true,
+          href: href(d, 'kelola/misi'),
+        },
+        {
+          id: 'stasiun',
+          title: tr('kontributor', 'widgets.stasiunTitle', 'Stasiun QR'),
+          description: tr('kontributor', 'widgets.stasiunDesc', 'Titik check-in geofence dan token QR stasiun.'),
+          fase: '2',
+          href: href(d, 'kelola/stasiun'),
+        },
+        {
+          id: 'keanggotaan',
+          title: tr('kontributor', 'widgets.keanggotaanTitle', 'Persetujuan keanggotaan'),
+          description: tr('kontributor', 'widgets.keanggotaanDesc', 'Aktivasi peran baru di desa.'),
+          fase: '0',
+          href: href(d, 'kelola/keanggotaan'),
         },
       ],
     },
@@ -407,13 +355,13 @@ export function konfigDasborPeran(
         { id: 'laporan', label: tr('organisasi', 'stats.laporanLabel', 'Laporan'), value: 0 },
       ],
       aksiCepat: [
-        { id: 'monitor', label: tr('organisasi', 'aksi.monitor', 'Monitoring ekologi'), href: href(d, 'monitoring'), primary: true, segera: true },
-        { id: 'dana', label: tr('organisasi', 'aksi.dana', 'Dana konservasi'), href: href(d, 'dana-konservasi'), segera: true },
-        { id: 'neraca', label: tr('organisasi', 'aksi.neraca', 'Neraca lestari'), href: href(d, 'neraca-lestari'), segera: true },
+        { id: 'monitor', label: tr('organisasi', 'aksi.monitor', 'Monitoring ekologi'), href: href(d, 'lestari/monitoring/catat'), primary: true },
+        { id: 'dana', label: tr('organisasi', 'aksi.dana', 'Dana konservasi'), href: href(d, 'lestari/dana') },
+        { id: 'neraca', label: tr('organisasi', 'aksi.neraca', 'Neraca lestari'), href: href(d, 'lestari/neraca') },
       ],
       modulTerkait: [
-        { label: tr('organisasi', 'modul.monitoring', 'Monitoring Ekologi'), href: href(d, 'monitoring') },
-        { label: tr('organisasi', 'modul.jejak', 'Jejak Lestari'), href: href(d, 'neraca-lestari') },
+        { label: tr('organisasi', 'modul.monitoring', 'Monitoring Ekologi'), href: href(d, 'lestari/monitoring') },
+        { label: tr('organisasi', 'modul.jejak', 'Jejak Lestari'), href: href(d, 'lestari/neraca') },
       ],
       aktivitasContoh: [
         tr('organisasi', 'aktivitas.a1', 'Mengunggah data indeks karang Q2'),
@@ -470,14 +418,15 @@ export function konfigDasborPeran(
       ],
       aksiCepat: [
         { id: 'kelola', label: tr('perangkat_desa', 'aksi.kelola', 'Dashboard kelola'), href: href(d, 'kelola'), primary: true },
-        { id: 'dana', label: tr('perangkat_desa', 'aksi.dana', 'Laporan dana'), href: href(d, 'dana-konservasi'), segera: true },
-        { id: 'daya', label: tr('perangkat_desa', 'aksi.daya', 'Daya dukung'), href: href(d, 'daya-dukung'), segera: true },
+        { id: 'dana', label: tr('perangkat_desa', 'aksi.dana', 'Laporan dana'), href: href(d, 'lestari/dana') },
+        { id: 'daya', label: tr('perangkat_desa', 'aksi.daya', 'Daya dukung'), href: href(d, 'lestari/daya-dukung') },
+        { id: 'data', label: tr('perangkat_desa', 'aksi.data', 'Anjungan data'), href: href(d, 'data') },
         { id: 'profil', label: tr('perangkat_desa', 'aksi.profil', 'Profil desa'), href: href(d, 'tentang') },
       ],
       modulTerkait: [
         { label: tr('perangkat_desa', 'modul.kelola', 'Kelola desa'), href: href(d, 'kelola') },
-        { label: tr('perangkat_desa', 'modul.dana', 'Dana konservasi'), href: href(d, 'dana-konservasi') },
-        { label: tr('perangkat_desa', 'modul.neraca', 'Neraca lestari'), href: href(d, 'neraca-lestari') },
+        { label: tr('perangkat_desa', 'modul.dana', 'Dana konservasi'), href: href(d, 'lestari/dana') },
+        { label: tr('perangkat_desa', 'modul.neraca', 'Neraca lestari'), href: href(d, 'lestari/neraca') },
       ],
       aktivitasContoh: [
         tr('perangkat_desa', 'aktivitas.a1', 'Menyetujui keanggotaan UMKM baru'),
@@ -517,14 +466,14 @@ export function konfigDasborPeran(
           title: tr('perangkat_desa', 'widgets.dayaDukungTitle', 'Daya dukung spot'),
           description: tr('perangkat_desa', 'widgets.dayaDukungDesc', 'Lampu hijau/kuning/merah per destinasi.'),
           fase: '3',
-          placeholder: true,
+          href: href(d, 'lestari/daya-dukung'),
         },
         {
           id: 'laporan',
           title: tr('perangkat_desa', 'widgets.laporanTitle', 'Laporan desa'),
           description: tr('perangkat_desa', 'widgets.laporanDesc', 'Ringkasan kinerja wisata.'),
           fase: '3',
-          placeholder: true,
+          href: href(d, 'data/laporan'),
         },
       ],
     },
@@ -549,7 +498,7 @@ export function konfigDasborPeran(
       aksiCepat: [
         { id: 'tenant', label: tr('admin', 'aksi.tenant', 'Provisioning desa'), href: '/admin/dasbor/tenant', primary: true, segera: true },
         { id: 'discovery', label: tr('admin', 'aksi.discovery', 'Discovery global'), href: '/jelajah' },
-        { id: 'flagship', label: tr('admin', 'aksi.flagship', 'Dasbor desa mitra'), href: '/teluk-kiluan/dasbor/pokdarwis' },
+        { id: 'flagship', label: tr('admin', 'aksi.flagship', 'Dasbor desa mitra'), href: '/teluk-kiluan/dasbor/kontributor' },
       ],
       modulTerkait: [
         { label: tr('admin', 'modul.nusantara', 'Nusantara (F4)'), href: '/admin/dasbor/nusantara' },
@@ -599,7 +548,7 @@ export function konfigDasborPeran(
  * Beri `t` (namespace `dasbor.wisatawan`) untuk teks sesuai locale;
  * tanpa `t` jatuh ke teks Bahasa Indonesia.
  */
-export function konfigDasborWisatawan(t?: PenerjemahDasbor): DashboardPeranConfig {
+export function konfigDasborWisatawan(t?: PenerjemahDasbor, desaPilot = 'teluk-kiluan'): DashboardPeranConfig {
   const tr = (key: string, fallback: string) => (t ? t(key) : fallback)
   return {
     kode: 'wisatawan',
@@ -609,27 +558,49 @@ export function konfigDasborWisatawan(t?: PenerjemahDasbor): DashboardPeranConfi
       'Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata.',
     ),
     fase: 'F0–F2',
-    nav: [{ id: 'ringkasan', label: tr('nav.ringkasan', 'Ringkasan'), segment: '' }],
+    nav: [
+      { id: 'ringkasan', label: tr('nav.ringkasan', 'Ringkasan'), segment: '' },
+      { id: 'jelajah', label: tr('nav.jelajah', 'Jelajah desa'), segment: '/jelajah', href: RUTE_WISATAWAN.discovery },
+      { id: 'wishlist', label: tr('nav.wishlist', 'Wishlist'), segment: '/wishlist', href: RUTE_WISATAWAN.wishlist },
+      { id: 'paspor', label: tr('nav.paspor', 'Paspor Lestari'), segment: '/paspor', href: RUTE_WISATAWAN.paspor },
+      { id: 'booking', label: tr('nav.pesanan', 'Pesanan saya'), segment: '/pesanan', href: `/${desaPilot}/pesanan` },
+      { id: 'keanggotaan', label: tr('nav.peran', 'Peran & keanggotaan'), segment: '/peran', href: `${RUTE_DASBOR_WISATAWAN}/peran` },
+      { id: 'akun', label: tr('nav.akun', 'Akun & preferensi'), segment: '/akun', href: RUTE_WISATAWAN.akun },
+    ],
     stats: [
       {
         id: 'wishlist',
         label: tr('stats.wishlistLabel', 'Item tersimpan'),
         value: '—',
         hint: tr('stats.wishlistHint', 'Lintas desa'),
+        href: RUTE_WISATAWAN.wishlist,
       },
-      { id: 'stempel', label: tr('stats.stempelLabel', 'Stempel paspor'), value: 0 },
+      {
+        id: 'stempel',
+        label: tr('stats.stempelLabel', 'Stempel paspor'),
+        value: 0,
+        href: RUTE_WISATAWAN.paspor,
+      },
       {
         id: 'kontrib',
         label: tr('stats.kontribLabel', 'Kontribusi'),
         value: 0,
         hint: tr('stats.kontribHint', 'Fase 1'),
+        href: RUTE_WISATAWAN.discovery,
       },
-      { id: 'poin', label: tr('stats.poinLabel', 'Poin'), value: 0, hint: tr('stats.poinHint', 'Per desa') },
+      {
+        id: 'poin',
+        label: tr('stats.poinLabel', 'Poin'),
+        value: 0,
+        hint: tr('stats.poinHint', 'Per desa'),
+        href: `/${desaPilot}/saya/lencana`,
+      },
     ],
     aksiCepat: [
       { id: 'cari', label: tr('aksi.cari', 'Jelajah desa wisata'), href: RUTE_WISATAWAN.discovery, primary: true },
       { id: 'wishlist', label: tr('aksi.wishlist', 'Wishlist saya'), href: RUTE_WISATAWAN.wishlist },
       { id: 'paspor', label: tr('aksi.paspor', 'Paspor Lestari'), href: RUTE_WISATAWAN.paspor },
+      { id: 'peran', label: tr('aksi.peran', 'Peran & keanggotaan'), href: `${RUTE_DASBOR_WISATAWAN}/peran` },
       { id: 'akun', label: tr('aksi.akun', 'Akun & preferensi'), href: RUTE_WISATAWAN.akun },
     ],
     modulTerkait: [
@@ -662,7 +633,7 @@ export function konfigDasborWisatawan(t?: PenerjemahDasbor): DashboardPeranConfi
         title: tr('widgets.bookingTitle', 'Pesanan & booking'),
         description: tr('widgets.bookingDesc', 'Riwayat pemesanan paket dan layanan.'),
         fase: '2',
-        segera: true,
+        href: `/${desaPilot}/pesanan`,
       },
       {
         id: 'kontrib',
@@ -672,12 +643,18 @@ export function konfigDasborWisatawan(t?: PenerjemahDasbor): DashboardPeranConfi
         href: RUTE_WISATAWAN.discovery,
       },
       {
+        id: 'peran',
+        title: tr('widgets.peranTitle', 'Peran & keanggotaan'),
+        description: tr('widgets.peranDesc', 'Ajukan peran baru atau pantau status pengajuan ke desa wisata.'),
+        fase: '0',
+        href: `${RUTE_DASBOR_WISATAWAN}/peran`,
+      },
+      {
         id: 'poin',
         title: tr('widgets.poinTitle', 'Poin & lencana'),
         description: tr('widgets.poinDesc', 'Saldo poin dan badge per desa wisata.'),
         fase: '1',
-        href: '/saya/lencana',
-        segera: true,
+        href: `/${desaPilot}/saya/lencana`,
       },
     ],
   }

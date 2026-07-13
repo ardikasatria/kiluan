@@ -11,7 +11,7 @@ async def test_keanggotaan_ditolak_bisa_submit_ulang(store, desa, svc_keanggotaa
     pengguna = await buat_pengguna(store, email="umkm-reapply@x.id")
     await beri_peran(store, pengguna.id, KodePeran.wisatawan)
     pengelola = await buat_pengguna(store, email="pok-reapply@x.id")
-    await beri_peran(store, pengelola.id, KodePeran.pokdarwis, desa_id=desa.id)
+    await beri_peran(store, pengelola.id, KodePeran.kontributor, desa_id=desa.id)
 
     k_pengguna = await konteks_untuk(store, pengguna.id)
     k_pengelola = await konteks_untuk(store, pengelola.id)
@@ -30,7 +30,7 @@ async def test_keanggotaan_revisi_bisa_submit_ulang(store, desa, svc_keanggotaan
     pengguna = await buat_pengguna(store, email="agen-revisi@x.id")
     await beri_peran(store, pengguna.id, KodePeran.wisatawan)
     pengelola = await buat_pengguna(store, email="pok-revisi@x.id")
-    await beri_peran(store, pengelola.id, KodePeran.pokdarwis, desa_id=desa.id)
+    await beri_peran(store, pengelola.id, KodePeran.kontributor, desa_id=desa.id)
 
     k_pengguna = await konteks_untuk(store, pengguna.id)
     k_pengelola = await konteks_untuk(store, pengelola.id)

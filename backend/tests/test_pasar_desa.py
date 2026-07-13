@@ -21,7 +21,7 @@ async def _buat_umkm_terverifikasi(pasar_svc, store, desa):
     umkm_user = await buat_pengguna(store, email="umkm@contoh.id")
     await beri_peran(store, umkm_user.id, KodePeran.umkm, desa.id)
     pokdarwis = await buat_pengguna(store, email="pok@contoh.id")
-    await beri_peran(store, pokdarwis.id, KodePeran.pokdarwis, desa.id)
+    await beri_peran(store, pokdarwis.id, KodePeran.kontributor, desa.id)
     agen = await buat_pengguna(store, email="agen@contoh.id")
     await beri_peran(store, agen.id, KodePeran.agen, desa.id)
     agen2 = await buat_pengguna(store, email="agen2@contoh.id")

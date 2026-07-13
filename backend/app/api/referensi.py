@@ -12,7 +12,9 @@ router = APIRouter(prefix="/api/v1", tags=["referensi"])
 async def daftar_peran(store=Depends(get_penyimpanan)):
     baris = await store.referensi.daftar_peran()
     return {"item": [
-        {"kode": p.kode, "nama": p.nama, "scoped_desa": p.scoped_desa} for p in baris
+        {"kode": p.kode, "nama": p.nama, "scoped_desa": p.scoped_desa}
+        for p in baris
+        if p.kode != "pokdarwis"  # arsip — digabung ke kontributor
     ]}
 
 

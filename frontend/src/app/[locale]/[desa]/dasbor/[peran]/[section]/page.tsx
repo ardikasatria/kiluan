@@ -12,13 +12,16 @@ interface Props {
 
 export default async function DasborSectionPage({ params }: Props) {
   const { desa, peran: peranSlug, section } = await params
+  if (peranSlug === 'pokdarwis') {
+    redirect(`/${desa}/dasbor/kontributor/${section}`)
+  }
   const kode = peranDariSlug(peranSlug)
   if (!kode || kode === 'admin') redirect(`/${desa}/dasbor`)
 
   const profil = await getProfilDesa(desa)
   if (!profil) redirect(`/${desa}/dasbor`)
 
-  if (kode === 'pokdarwis' && section === 'operasional') {
+  if (kode === 'kontributor' && section === 'operasional') {
     redirect(`/${desa}/kelola`)
   }
   if (kode === 'wisatawan' && section === 'paspor') {
@@ -42,8 +45,11 @@ export default async function DasborSectionPage({ params }: Props) {
   if (section === 'layanan' && kode === 'agen') {
     redirect(`/${desa}/saya/agen/layanan`)
   }
-  if (section === 'kurasi' && kode === 'pokdarwis') {
+  if (section === 'kurasi' && kode === 'kontributor') {
     redirect(`/${desa}/kelola/kurasi`)
+  }
+  if (section === 'destinasi' && kode === 'kontributor') {
+    redirect(`/${desa}/kelola/destinasi`)
   }
   if (section === 'kontribusi') {
     redirect(`/${desa}/kontribusi`)
@@ -57,11 +63,11 @@ export default async function DasborSectionPage({ params }: Props) {
   if (section === 'verifikasi' && kode === 'perangkat_desa') {
     redirect(`/${desa}/kelola/keanggotaan`)
   }
-  if (section === 'umkm' && (kode === 'pokdarwis' || kode === 'perangkat_desa')) {
+  if (section === 'umkm' && (kode === 'kontributor' || kode === 'perangkat_desa')) {
     redirect(`/${desa}/kelola/umkm`)
   }
 
-  const t = await getTranslations(`dasbor.${kode}` as 'dasbor.pokdarwis')
+  const t = await getTranslations(`dasbor.${kode}`)
   const translators: Partial<Record<PeranKode, PenerjemahDasbor>> = {
     [kode]: t as unknown as PenerjemahDasbor,
   }

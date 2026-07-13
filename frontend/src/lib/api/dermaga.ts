@@ -86,7 +86,7 @@ export async function checkout(
   desaSlug: string,
   body: CheckoutPayload,
   idempotencyKey: string,
-): Promise<{ pesanan: PesananRingkas; pembayaran: { instruksi: string } }> {
+): Promise<{ pesanan: PesananRingkas; pembayaran: { instruksi: string }; peringatan_kapasitas?: import('./types').PeringatanKapasitasDto[] }> {
   return apiFetch(`/api/v1/desa/${desaSlug}/checkout`, {
     method: 'POST',
     headers: hdrIdem(idempotencyKey),

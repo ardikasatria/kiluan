@@ -40,7 +40,7 @@ async def pembeli(store, desa):
 @pytest_asyncio.fixture
 async def bendahara(store, desa):
     p = await buat_pengguna(store, email="bendahara@genta.id")
-    await beri_peran(store, p.id, KodePeran.pokdarwis, desa.id)
+    await beri_peran(store, p.id, KodePeran.kontributor, desa.id)
     return p
 
 

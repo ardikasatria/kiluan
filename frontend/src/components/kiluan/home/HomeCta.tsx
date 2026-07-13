@@ -8,13 +8,13 @@ import {
 import { Link } from '@/i18n/navigation'
 import { getTranslations } from 'next-intl/server'
 
-const ROLE_KEYS = ['wisatawan', 'umkm', 'agen', 'pokdarwis'] as const
+const ROLE_KEYS = ['wisatawan', 'umkm', 'agen', 'kontributor'] as const
 const ROLE_ICONS = [UserGroupIcon, ShoppingBagIcon, BuildingOffice2Icon, UserGroupIcon] as const
 const ROLE_HREFS = [
   '/daftar?peran=wisatawan',
   '/daftar?peran=umkm',
   '/daftar?peran=agen',
-  '/daftar?peran=pokdarwis',
+  '/daftar?peran=kontributor',
 ] as const
 
 export default async function HomeCta() {

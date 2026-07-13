@@ -4,6 +4,7 @@ import VerifikasiKodeForm from '@/components/auth/VerifikasiKodeForm'
 import AuthPageShell from '@/components/layout/AuthPageShell'
 import { useAuth } from '@/contexts/AuthProvider'
 import { usePesanGalat } from '@/hooks/usePesanGalat'
+import { redirectSetelahLogin } from '@/lib/kiluan/peran'
 import { kodeGalat } from '@/lib/api/galat'
 import { Link, useRouter } from '@/i18n/navigation'
 import ButtonPrimary from '@/shared/ButtonPrimary'
@@ -17,7 +18,7 @@ import { FormEvent, useState } from 'react'
 export default function MasukForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirect = searchParams.get('redirect') ?? '/dasbor'
+  const redirectParam = searchParams.get('redirect')
   const { masuk } = useAuth()
   const pesanGalat = usePesanGalat()
   const t = useTranslations('auth.masukPage')
@@ -34,8 +35,8 @@ export default function MasukForm() {
     setPerluVerifikasi(false)
     setMemuat(true)
     try {
-      await masuk({ email: email.trim().toLowerCase(), kata_sandi: sandi })
-      router.push(redirect)
+      const profil = await masuk({ email: email.trim().toLowerCase(), kata_sandi: sandi })
+      router.push(redirectSetelahLogin(profil, redirectParam))
       router.refresh()
     } catch (err) {
       if (kodeGalat(err) === 'belum_diverifikasi') {
@@ -51,8 +52,8 @@ export default function MasukForm() {
 
   const handleVerifikasiBerhasil = async () => {
     try {
-      await masuk({ email: email.trim().toLowerCase(), kata_sandi: sandi })
-      router.push(redirect)
+      const profil = await masuk({ email: email.trim().toLowerCase(), kata_sandi: sandi })
+      router.push(redirectSetelahLogin(profil, redirectParam))
       router.refresh()
     } catch (err) {
       setGalat(pesanGalat(err))

@@ -2,17 +2,17 @@
 nanti; di scaffold ini divalidasi service."""
 from __future__ import annotations
 
-# Peran (aktor)
+# Peran (aktor) F2 — kontributor = pengelola desa.
 WISATAWAN = "wisatawan"
 UMKM = "umkm"
 AGEN = "agen"
-POKDARWIS = "pokdarwis"
+KONTRIBUTOR = "kontributor"
 PERANGKAT = "perangkat_desa"
 ADMIN = "admin"
 
-PENGELOLA = frozenset({POKDARWIS, PERANGKAT, ADMIN})
+PENGELOLA = frozenset({KONTRIBUTOR, PERANGKAT, ADMIN})
 BENDAHARA = PENGELOLA  # yang boleh konfirmasi bayar / payout
-VERIFIKATOR = frozenset({AGEN, POKDARWIS, PERANGKAT, ADMIN})
+VERIFIKATOR = frozenset({AGEN, KONTRIBUTOR, PERANGKAT, ADMIN})
 
 # Enum kolom (subset yang dipakai scaffold)
 PESANAN_STATUS = frozenset(

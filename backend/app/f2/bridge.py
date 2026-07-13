@@ -27,7 +27,7 @@ from app.domain.konteks import Konteks
 from app.domain.enums import KodePeran
 
 from . import errors as f2_errors
-from .enums import ADMIN, AGEN, POKDARWIS, PERANGKAT, UMKM, WISATAWAN
+from .enums import ADMIN, AGEN, KONTRIBUTOR, PERANGKAT, UMKM, WISATAWAN
 from .models import Aktor
 
 if TYPE_CHECKING:
@@ -66,7 +66,7 @@ _PERAN = {
     KodePeran.wisatawan: WISATAWAN,
     KodePeran.umkm: UMKM,
     KodePeran.agen: AGEN,
-    KodePeran.pokdarwis: POKDARWIS,
+    KodePeran.kontributor: KONTRIBUTOR,
     KodePeran.perangkat_desa: PERANGKAT,
     KodePeran.admin: ADMIN,
 }

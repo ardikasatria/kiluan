@@ -25,7 +25,7 @@ from app.inti.idempotensi import toko_idempotensi
 from app.inti.outbox import Outbox
 from app.model import tabel as M
 
-BENDAHARA = frozenset({KodePeran.pokdarwis, KodePeran.perangkat_desa, KodePeran.admin})
+BENDAHARA = frozenset({KodePeran.kontributor, KodePeran.perangkat_desa, KodePeran.admin})
 URUTAN_TINGKAT = {"tunas": 1, "bahari": 2, "lumba_lumba": 3}
 
 

@@ -4,7 +4,6 @@ import { RUTE_DASBOR, RUTE_DASBOR_WISATAWAN } from '@/lib/kiluan/rute-sigerciv'
 /** Kode peran sesuai backend RBAC */
 export type PeranKode =
   | 'wisatawan'
-  | 'pokdarwis'
   | 'umkm'
   | 'agen'
   | 'kontributor'
@@ -14,7 +13,6 @@ export type PeranKode =
 
 export const SEMUA_PERAN: PeranKode[] = [
   'wisatawan',
-  'pokdarwis',
   'umkm',
   'agen',
   'kontributor',
@@ -25,7 +23,6 @@ export const SEMUA_PERAN: PeranKode[] = [
 
 const SLUG_TO_KODE: Record<string, PeranKode> = {
   wisatawan: 'wisatawan',
-  pokdarwis: 'pokdarwis',
   umkm: 'umkm',
   agen: 'agen',
   kontributor: 'kontributor',
@@ -36,13 +33,21 @@ const SLUG_TO_KODE: Record<string, PeranKode> = {
 
 const KODE_TO_SLUG: Record<PeranKode, string> = {
   wisatawan: 'wisatawan',
-  pokdarwis: 'pokdarwis',
   umkm: 'umkm',
   agen: 'agen',
   kontributor: 'kontributor',
   organisasi: 'organisasi',
   perangkat_desa: 'perangkat-desa',
   admin: 'admin',
+}
+
+/** Normalisasi kode peran dari API (slot arsip pokdarwis → kontributor). */
+export function normalisasiPeranKeanggotaan(peran: string): string {
+  return peran === 'pokdarwis' ? 'kontributor' : peran
+}
+
+function cocokPeran(peranKeanggotaan: string, kode: PeranKode): boolean {
+  return normalisasiPeranKeanggotaan(peranKeanggotaan) === kode
 }
 
 export function peranDariSlug(slug: string): PeranKode | null {
@@ -61,7 +66,6 @@ export function labelPeran(kode: PeranKode, t?: (key: PeranKode) => string): str
   if (t) return t(kode)
   const labels: Record<PeranKode, string> = {
     wisatawan: 'Wisatawan',
-    pokdarwis: 'Organisasi',
     umkm: 'UMKM',
     agen: 'Agen Lokal',
     kontributor: 'Kontributor',
@@ -86,7 +90,7 @@ export function punyaPeran(profil: ProfilSaya | null, kode: PeranKode): boolean 
   if (kode === 'wisatawan') {
     return aktif.some((k) => k.peran === 'wisatawan')
   }
-  return aktif.some((k) => k.peran === kode)
+  return aktif.some((k) => cocokPeran(k.peran, kode))
 }
 
 export function daftarPeranPengguna(profil: ProfilSaya | null): PeranKode[] {
@@ -113,13 +117,47 @@ export function dasborUtamaHref(profil: ProfilSaya | null, desaSlug: string): st
   return RUTE_DASBOR
 }
 
+const DEFAULT_DESA_SLUG = 'teluk-kiluan'
+
+/** Path pemilih dasbor (global atau scoped desa). */
+export function pathPemilihDasbor(desaSlug: string = DEFAULT_DESA_SLUG): string {
+  return desaSlug === 'sigerciv' ? RUTE_DASBOR : `/${desaSlug}/dasbor`
+}
+
+function normalisasiPathRedirect(path: string): string {
+  const tanpaLocale = path.replace(/^\/(id|en)(?=\/|$)/, '') || '/'
+  return tanpaLocale.replace(/\/+$/, '') || '/'
+}
+
+/** True bila redirect hanya ke halaman pemilih dasbor (bukan dasbor peran). */
+export function adalahPathPemilihDasbor(path: string, desaSlug: string = DEFAULT_DESA_SLUG): boolean {
+  const p = normalisasiPathRedirect(path)
+  const hub = pathPemilihDasbor(desaSlug)
+  return p === hub || p === RUTE_DASBOR || p.endsWith('/dasbor')
+}
+
+/**
+ * Destinasi setelah login — langsung ke dasbor peran bila tunggal;
+ * ke pemilih hanya bila multi-peran atau redirect eksplisit ke halaman lain.
+ */
+export function redirectSetelahLogin(
+  profil: ProfilSaya | null,
+  redirectEksplisit: string | null | undefined,
+  desaSlug: string = DEFAULT_DESA_SLUG,
+): string {
+  if (redirectEksplisit && !adalahPathPemilihDasbor(redirectEksplisit, desaSlug)) {
+    return redirectEksplisit
+  }
+  return dasborUtamaHref(profil, desaSlug)
+}
+
 /** Status keanggotaan untuk peran (termasuk menunggu/ditolak) */
 export function statusKeanggotaan(
   profil: ProfilSaya | null,
   kode: PeranKode,
 ): 'aktif' | 'menunggu' | 'ditolak' | 'revisi' | null {
   if (!profil) return null
-  const cocok = profil.keanggotaan.filter((k) => k.peran === kode)
+  const cocok = profil.keanggotaan.filter((k) => cocokPeran(k.peran, kode))
   if (cocok.length === 0) return null
   if (cocok.some((k) => k.status === 'aktif')) return 'aktif'
   if (cocok.some((k) => k.status === 'menunggu')) return 'menunggu'
@@ -147,7 +185,7 @@ export function punyaPeranDiDesa(
     return punyaPeran(profil, kode)
   }
   return profil.keanggotaan.some(
-    (k) => k.status === 'aktif' && k.peran === kode && cocokDesaId(k.desa_id, desaId),
+    (k) => k.status === 'aktif' && cocokPeran(k.peran, kode) && cocokDesaId(k.desa_id, desaId),
   )
 }
 
@@ -160,7 +198,7 @@ export function statusKeanggotaanDiDesa(
   if (!profil) return null
   if (kode === 'admin') return statusKeanggotaan(profil, 'admin')
   if (!desaId) return statusKeanggotaan(profil, kode)
-  const cocok = profil.keanggotaan.filter((k) => k.peran === kode && cocokDesaId(k.desa_id, desaId))
+  const cocok = profil.keanggotaan.filter((k) => cocokPeran(k.peran, kode) && cocokDesaId(k.desa_id, desaId))
   if (cocok.length === 0) return null
   if (cocok.some((k) => k.status === 'aktif')) return 'aktif'
   if (cocok.some((k) => k.status === 'menunggu')) return 'menunggu'
@@ -169,7 +207,7 @@ export function statusKeanggotaanDiDesa(
   return null
 }
 
-const PERAN_KELOLA_DESA: PeranKode[] = ['pokdarwis', 'perangkat_desa', 'umkm', 'agen']
+const PERAN_KELOLA_DESA: PeranKode[] = ['kontributor', 'perangkat_desa', 'umkm', 'agen']
 
 /** Keanggotaan kelola yang belum aktif di desa ini (untuk guard pending). */
 export function keanggotaanKelolaTertunda(

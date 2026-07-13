@@ -963,7 +963,9 @@ class Peristiwa(Base):
             "jenis IN ('pembayaran_menunggu_konfirmasi','pembayaran_berhasil',"
             "'pesanan_dibayar','booking_terkonfirmasi','booking_checkin',"
             "'pesanan_selesai','transaksi_dirilis','payout_dibuat','payout_berhasil',"
-            "'refund_diajukan','refund_selesai','tukar_poin_berhasil','stempel_terverifikasi')",
+            "'refund_diajukan','refund_selesai','tukar_poin_berhasil','stempel_terverifikasi',"
+            "'booking_selesai','transaksi_settle','monitoring_terverifikasi',"
+            "'kartu_tervalidasi','kontribusi_disetujui')",
             name="ck_peristiwa_jenis",
         ),
     )
@@ -1021,3 +1023,189 @@ class Simpanan(Base):
     @property
     def urut(self) -> int:
         return int(self.dibuat_pada.timestamp() * 1_000_000) if self.dibuat_pada else 0
+
+
+# --- F3: Jejak Lestari + Anjungan Data ---
+
+
+class IndikatorEkologi(Base):
+    __tablename__ = "indikator_ekologi"
+    id: Mapped[int] = mapped_column(SmallInteger, primary_key=True, autoincrement=True)
+    desa_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("desa.id"))
+    kode: Mapped[str] = mapped_column(String)
+    nama: Mapped[str] = mapped_column(String)
+    satuan: Mapped[str] = mapped_column(String)
+    arah_baik: Mapped[str] = mapped_column(String)
+    deskripsi: Mapped[str] = mapped_column(Text, default="")
+    aktif: Mapped[bool] = mapped_column(Boolean, default=True)
+    __table_args__ = (
+        CheckConstraint("arah_baik IN ('naik','turun')", name="ck_indikator_arah_baik"),
+        UniqueConstraint("desa_id", "kode", name="uq_indikator_desa_kode"),
+    )
+
+
+class MonitoringEkologi(Base):
+    __tablename__ = "monitoring_ekologi"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    indikator_id: Mapped[int] = mapped_column(ForeignKey("indikator_ekologi.id"))
+    destinasi_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("destinasi.id"))
+    nilai: Mapped[Decimal] = mapped_column(Numeric)
+    waktu_ukur: Mapped[date] = mapped_column(Date)
+    pencatat_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    metode: Mapped[str] = mapped_column(String)
+    media_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("media.id"))
+    status: Mapped[str] = mapped_column(String, default="menunggu_verifikasi")
+    catatan: Mapped[str] = mapped_column(Text, default="")
+    lokasi_geom = mapped_column("lokasi", Geography(geometry_type="POINT", srid=4326), nullable=True)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        CheckConstraint(
+            "metode IN ('survei_lapangan','sensor','laporan_warga','pihak_ketiga')",
+            name="ck_monitoring_metode",
+        ),
+        CheckConstraint(
+            "status IN ('menunggu_verifikasi','terverifikasi','ditolak')",
+            name="ck_monitoring_status",
+        ),
+    )
+
+    @property
+    def urut(self) -> int:
+        return int(self.dibuat_pada.timestamp() * 1_000_000) if self.dibuat_pada else 0
+
+
+class DayaDukung(Base):
+    __tablename__ = "daya_dukung"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    destinasi_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("destinasi.id"))
+    kapasitas_harian: Mapped[int] = mapped_column(Integer)
+    ambang_kuning: Mapped[Decimal] = mapped_column(Numeric)
+    ambang_merah: Mapped[Decimal] = mapped_column(Numeric)
+    metode_hitung: Mapped[str] = mapped_column(String, default="booking+checkin")
+    diperbarui_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (UniqueConstraint("destinasi_id", name="uq_daya_dukung_destinasi"),)
+
+
+class PemakaianKapasitas(Base):
+    __tablename__ = "pemakaian_kapasitas"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    destinasi_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("destinasi.id"))
+    tanggal: Mapped[date] = mapped_column(Date)
+    kunjungan: Mapped[int] = mapped_column(Integer)
+    kapasitas_harian: Mapped[int] = mapped_column(Integer)
+    rasio: Mapped[Decimal] = mapped_column(Numeric)
+    level: Mapped[str] = mapped_column(String)
+    dihitung_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        CheckConstraint("level IN ('hijau','kuning','merah')", name="ck_pemakaian_level"),
+        UniqueConstraint("destinasi_id", "tanggal", name="uq_pemakaian_destinasi_tanggal"),
+    )
+
+
+class DanaKonservasi(Base):
+    __tablename__ = "dana_konservasi"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    jenis: Mapped[str] = mapped_column(String)
+    sumber_tipe: Mapped[str | None] = mapped_column(String)
+    sumber_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    kategori: Mapped[str | None] = mapped_column(String)
+    jumlah: Mapped[Decimal] = mapped_column(Numeric)
+    keterangan: Mapped[str] = mapped_column(Text, default="")
+    bukti_media_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("media.id"))
+    tanggal: Mapped[date] = mapped_column(Date)
+    dicatat_oleh: Mapped[uuid.UUID] = mapped_column(ForeignKey("pengguna.id"))
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        CheckConstraint("jenis IN ('masuk','keluar')", name="ck_dana_jenis"),
+        CheckConstraint(
+            "sumber_tipe IS NULL OR sumber_tipe IN ('transaksi','donasi','hibah','lainnya')",
+            name="ck_dana_sumber_tipe",
+        ),
+        CheckConstraint(
+            "kategori IS NULL OR kategori IN ("
+            "'rehabilitasi_karang','penanaman_mangrove','pengelolaan_sampah',"
+            "'edukasi','operasional','lainnya')",
+            name="ck_dana_kategori",
+        ),
+    )
+
+    @property
+    def urut(self) -> int:
+        return int(self.dibuat_pada.timestamp() * 1_000_000) if self.dibuat_pada else 0
+
+
+class NeracaRegeneratif(Base):
+    __tablename__ = "neraca_regeneratif"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    periode: Mapped[str] = mapped_column(String)
+    skor_ekologi: Mapped[Decimal] = mapped_column(Numeric)
+    skor_sosial: Mapped[Decimal] = mapped_column(Numeric)
+    skor_ekonomi: Mapped[Decimal] = mapped_column(Numeric)
+    skor_total: Mapped[Decimal] = mapped_column(Numeric)
+    komponen = mapped_column(JSONB, default=dict)
+    terkunci: Mapped[bool] = mapped_column(Boolean, default=False)
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (UniqueConstraint("desa_id", "periode", name="uq_neraca_desa_periode"),)
+
+
+class JobAnalitik(Base):
+    __tablename__ = "job_analitik"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("desa.id"))
+    lapisan: Mapped[str] = mapped_column(String)
+    nama_job: Mapped[str] = mapped_column(String)
+    status: Mapped[str] = mapped_column(String)
+    baris_masuk: Mapped[int] = mapped_column(sa.BigInteger, default=0)
+    baris_keluar: Mapped[int] = mapped_column(sa.BigInteger, default=0)
+    mulai_pada: Mapped[datetime] = _ts_buat()
+    selesai_pada: Mapped[datetime | None] = mapped_column(TIMESTAMP(timezone=True))
+    galat: Mapped[str | None] = mapped_column(Text)
+    __table_args__ = (
+        CheckConstraint("lapisan IN ('bronze','silver','gold')", name="ck_job_lapisan"),
+        CheckConstraint("status IN ('berjalan','sukses','gagal')", name="ck_job_status"),
+    )
+
+
+class AgregatHarian(Base):
+    __tablename__ = "agregat_harian"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    tanggal: Mapped[date] = mapped_column(Date)
+    kode_metrik: Mapped[str] = mapped_column(String)
+    dimensi = mapped_column(JSONB, default=dict)
+    nilai: Mapped[Decimal] = mapped_column(Numeric)
+    diperbarui_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        CheckConstraint(
+            "kode_metrik IN ("
+            "'kunjungan','pendapatan','booking_selesai','transaksi_langsung',"
+            "'umkm_aktif','kontribusi','adopsi_regeneratif','booking_per_tingkat')",
+            name="ck_agregat_kode_metrik",
+        ),
+        UniqueConstraint("desa_id", "tanggal", "kode_metrik", "dimensi", name="uq_agregat_baris"),
+    )
+
+    @property
+    def urut(self) -> int:
+        ts = self.diperbarui_pada
+        return int(ts.timestamp() * 1_000_000) if ts else 0
+
+
+class LaporanBulanan(Base):
+    __tablename__ = "laporan_bulanan"
+    id: Mapped[uuid.UUID] = _pk()
+    desa_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("desa.id"))
+    periode: Mapped[str] = mapped_column(String)
+    ringkasan = mapped_column(JSONB, default=dict)
+    file_media_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("media.id"))
+    status: Mapped[str] = mapped_column(String, default="draf")
+    dibuat_pada: Mapped[datetime] = _ts_buat()
+    __table_args__ = (
+        CheckConstraint("status IN ('draf','final')", name="ck_laporan_status"),
+        UniqueConstraint("desa_id", "periode", name="uq_laporan_desa_periode"),
+    )

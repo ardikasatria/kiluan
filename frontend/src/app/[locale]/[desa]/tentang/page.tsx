@@ -1,5 +1,6 @@
 import { Link } from '@/i18n/navigation'
 import { getProfilDesa } from '@/lib/api/desa'
+import { getNeracaLestari } from '@/lib/api/lestari'
 import {
   ArrowLeftIcon,
   BuildingOffice2Icon,
@@ -13,6 +14,10 @@ import { notFound } from 'next/navigation'
 
 interface Props {
   params: Promise<{ desa: string }>
+}
+
+function pct(nilai: number) {
+  return `${Math.round(nilai * 100)}%`
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -29,9 +34,12 @@ export default async function TentangDesaPage({ params }: Props) {
 
   const t = await getTranslations('tentang')
   const lokasi = [profil.pekon, profil.kecamatan, profil.kabupaten, profil.provinsi].filter(Boolean)
+  const neraca = await getNeracaLestari(desa, { publik: true })
+    .then((res) => res.item[0] ?? null)
+    .catch(() => null)
 
   const peran = [
-    { icon: UserGroupIcon, key: 'pokdarwis' as const },
+    { icon: UserGroupIcon, key: 'kontributor' as const },
     { icon: BuildingOffice2Icon, key: 'umkm' as const },
     { icon: GlobeAltIcon, key: 'platform' as const },
   ]
@@ -93,6 +101,53 @@ export default async function TentangDesaPage({ params }: Props) {
                 ))}
               </ul>
             </section>
+
+            {neraca && (
+              <section className="rounded-2xl border border-primary-200 bg-primary-50 p-6 dark:border-primary-800 dark:bg-primary-950/30">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-wide text-primary-700 dark:text-primary-300">
+                      {t('neraca.eyebrow')}
+                    </p>
+                    <h2 className="mt-2 text-xl font-semibold text-primary-900 dark:text-primary-100">
+                      {t('neraca.title')}
+                    </h2>
+                    <p className="mt-2 max-w-2xl text-sm leading-relaxed text-primary-900/80 dark:text-primary-100/80">
+                      {t('neraca.body', { periode: neraca.periode })}
+                    </p>
+                  </div>
+                  <div className="rounded-2xl bg-white px-5 py-4 text-center shadow-sm dark:bg-neutral-900/70">
+                    <p className="text-xs font-medium text-neutral-500">{t('neraca.total')}</p>
+                    <p className="mt-1 text-3xl font-bold text-primary-800 dark:text-primary-100">
+                      {pct(neraca.skor_total)}
+                    </p>
+                  </div>
+                </div>
+
+                <dl className="mt-6 grid gap-3 sm:grid-cols-3">
+                  {(['ekologi', 'sosial', 'ekonomi'] as const).map((pilar) => (
+                    <div key={pilar} className="rounded-xl bg-white p-4 dark:bg-neutral-900/70">
+                      <dt className="text-sm text-neutral-500">{t(`neraca.pilar.${pilar}`)}</dt>
+                      <dd className="mt-1 text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
+                        {pct(neraca[`skor_${pilar}`])}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-100">
+                  <span>
+                    {t('neraca.klaim', {
+                      valid: neraca.komponen_ringkas?.klaim_tervalidasi ?? 0,
+                      total: neraca.komponen_ringkas?.klaim_diklaim ?? 0,
+                    })}
+                  </span>
+                  <Link href={`/${desa}/lestari/neraca`} className="font-semibold text-primary-700 hover:text-primary-600 dark:text-primary-300">
+                    {t('neraca.cta')}
+                  </Link>
+                </div>
+              </section>
+            )}
           </div>
 
           <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">

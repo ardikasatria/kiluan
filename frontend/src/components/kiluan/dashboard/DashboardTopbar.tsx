@@ -13,8 +13,7 @@ interface Props {
   desaNama: string
   config: DashboardPeranConfig
   sectionTitle?: string
-  onToggleSidebar?: () => void
-  sidebarOpen?: boolean
+  onOpenNav?: () => void
   lintasDesa?: boolean
 }
 
@@ -23,8 +22,7 @@ export default function DashboardTopbar({
   desaNama,
   config,
   sectionTitle,
-  onToggleSidebar,
-  sidebarOpen,
+  onOpenNav,
   lintasDesa = false,
 }: Props) {
   const t = useTranslations('dasbor.view')
@@ -37,12 +35,11 @@ export default function DashboardTopbar({
     <header className="-mx-4 border-b border-neutral-200/80 bg-neutral-50/80 px-4 py-3 sm:-mx-6 sm:px-6 dark:border-neutral-800/80 dark:bg-neutral-900/50">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex min-w-0 items-center gap-3">
-          {onToggleSidebar && (
+          {onOpenNav && (
             <button
               type="button"
-              onClick={onToggleSidebar}
-              aria-expanded={sidebarOpen}
-              aria-controls="dashboard-sidebar"
+              onClick={onOpenNav}
+              aria-controls="dashboard-mobile-nav"
               className="inline-flex size-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-700 hover:bg-neutral-50 lg:hidden dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
             >
               <Bars3Icon className="size-5" aria-hidden />

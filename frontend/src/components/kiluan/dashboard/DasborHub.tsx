@@ -5,11 +5,9 @@ import {
   daftarPeranPengguna,
   dasborHref,
   labelPeran,
-  statusKeanggotaan,
   type PeranKode,
 } from '@/lib/kiluan/peran'
 import { konfigDasborPeran } from '@/lib/kiluan/dashboard-peran'
-import DashboardPhaseBadge from '@/components/kiluan/dashboard/DashboardPhaseBadge'
 import { Link } from '@/i18n/navigation'
 import {
   BuildingStorefrontIcon,
@@ -26,10 +24,9 @@ import type { ComponentType } from 'react'
 
 const IKON: Record<PeranKode, ComponentType<{ className?: string }>> = {
   wisatawan: MapIcon,
-  pokdarwis: SparklesIcon,
   umkm: BuildingStorefrontIcon,
   agen: GlobeAltIcon,
-  kontributor: UserGroupIcon,
+  kontributor: SparklesIcon,
   organisasi: ShieldCheckIcon,
   perangkat_desa: ShieldCheckIcon,
   admin: UserIcon,
@@ -49,6 +46,9 @@ export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, linta
   const tPeran = useTranslations('peran')
   const peranSaya = daftarPeranPengguna(user?.profil ?? null)
   const configs = konfigDasborPeran(desaSlug)
+  const peranTampil = (Object.keys(configs) as PeranKode[]).filter(
+    (k) => k !== 'admin' && peranSaya.includes(k),
+  )
 
   return (
     <div className="space-y-8">
@@ -64,33 +64,26 @@ export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, linta
         </p>
       </div>
 
+      {peranTampil.length === 0 ? (
+        <p className="rounded-2xl border border-dashed border-neutral-300 px-6 py-10 text-center text-sm text-neutral-600 dark:border-neutral-600 dark:text-neutral-400">
+          {t('belumAdaPeran')}
+        </p>
+      ) : null}
+
       <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {(Object.keys(configs) as PeranKode[])
-          .filter((k) => k !== 'admin')
-          .map((k) => {
+        {peranTampil.map((k) => {
             const cfg = configs[k]
-            const membership = statusKeanggotaan(user?.profil ?? null, k)
-            const punya = membership === 'aktif'
-            const menunggu = membership === 'menunggu'
-            const ditolak = membership === 'ditolak'
-            const revisi = membership === 'revisi'
             const Icon = IKON[k]
             const href = dasborHref(desaSlug, k)
 
             return (
               <li key={k}>
                 <Link
-                  href={membership ? href : '#'}
-                  aria-disabled={!membership}
+                  href={href}
                   className={clsx(
                     'flex h-full flex-col rounded-2xl border p-5 transition',
-                    punya
-                      ? 'border-neutral-200 bg-white hover:border-kiluan-sea/50 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-800/60 dark:hover:border-primary-600'
-                      : menunggu || ditolak || revisi
-                        ? 'border-amber-200 bg-amber-50/50 hover:border-amber-300 dark:border-amber-800/50 dark:bg-amber-950/20'
-                        : 'cursor-not-allowed border-dashed border-neutral-300 bg-neutral-50/50 opacity-60 dark:border-neutral-600 dark:bg-neutral-900/20',
+                    'border-neutral-200 bg-white hover:border-kiluan-sea/50 hover:shadow-md dark:border-neutral-700 dark:bg-neutral-800/60 dark:hover:border-primary-600',
                   )}
-                  onClick={(e) => !membership && e.preventDefault()}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex size-11 items-center justify-center rounded-xl bg-kiluan-mint/25 text-primary-700 dark:bg-primary-900/50 dark:text-kiluan-mint">
@@ -109,22 +102,9 @@ export default function DasborHub({ desaSlug = 'teluk-kiluan', profilNama, linta
                   <p className="mt-2 flex-1 text-sm text-neutral-600 dark:text-neutral-400">
                     {tInfo(`${k}.deskripsi`)}
                   </p>
-                  {punya ? (
-                    <span className="mt-4 text-sm font-semibold text-primary-700 dark:text-primary-300">
-                      {t('bukaDasbor')}
-                    </span>
-                  ) : menunggu ? (
-                    <span className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-amber-800 dark:text-amber-300">
-                      <DashboardPhaseBadge compact />
-                      {t('menunggu')}
-                    </span>
-                  ) : ditolak || revisi ? (
-                    <span className="mt-4 text-xs font-medium text-red-700 dark:text-red-400">
-                      {revisi ? t('revisi') : t('ditolak')}
-                    </span>
-                  ) : (
-                    <span className="mt-4 text-xs text-neutral-500">{t('belumAktif')}</span>
-                  )}
+                  <span className="mt-4 text-sm font-semibold text-primary-700 dark:text-primary-300">
+                    {t('bukaDasbor')}
+                  </span>
                 </Link>
               </li>
             )

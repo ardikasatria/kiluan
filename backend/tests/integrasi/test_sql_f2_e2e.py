@@ -21,7 +21,7 @@ async def test_alur_pesanan_manual_hingga_payout(sesi):
     dermaga = DermagaLayanan(seed.store)
     uang = UangLayanan(seed.store)
 
-    pesanan = await dermaga.checkout(
+    pesanan, _ = await dermaga.checkout(
         seed.wisatawan, seed.desa_id, spec_paket(seed.paket_id, seed.slot_id),
         idempotency_key="e2e-co",
     )
@@ -81,7 +81,7 @@ async def test_webhook_idempoten_tidak_gandakan_transaksi(sesi):
 
     seed = await seed_dermaga_e2e(sesi)
     dermaga = DermagaLayanan(seed.store)
-    pesanan = await dermaga.checkout(
+    pesanan, _ = await dermaga.checkout(
         seed.wisatawan, seed.desa_id, spec_paket(seed.paket_id, seed.slot_id),
         idempotency_key="wh-co",
     )

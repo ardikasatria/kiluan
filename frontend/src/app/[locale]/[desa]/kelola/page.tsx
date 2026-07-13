@@ -53,7 +53,7 @@ export default async function KelolaRingkasanPage({ params }: Props) {
       <KelolaRingkasanStatsClient desaSlug={desa} />
       <div className="flex flex-wrap items-center gap-3">
         <Link
-          href={`/${desa}/dasbor/pokdarwis`}
+          href={`/${desa}/dasbor/kontributor`}
           className="inline-flex rounded-full border border-primary-300 px-5 py-2.5 text-sm font-semibold text-primary-800 hover:bg-primary-50 dark:border-primary-600 dark:text-primary-200 dark:hover:bg-primary-900/30"
         >
           {t('dasborPokdarwis')}

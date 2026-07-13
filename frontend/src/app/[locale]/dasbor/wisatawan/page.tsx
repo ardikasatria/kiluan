@@ -1,4 +1,4 @@
-import RoleDashboardView from '@/components/kiluan/dashboard/RoleDashboardView'
+import WisatawanDashboardView from '@/components/kiluan/dashboard/WisatawanDashboardView'
 import { konfigDasborWisatawan } from '@/lib/kiluan/dashboard-peran'
 import { metadataPrivat } from '@/lib/kiluan/seo'
 import { getTranslations } from 'next-intl/server'
@@ -13,12 +13,5 @@ export default async function DasborWisatawanGlobalPage() {
   const t = await getTranslations('dasbor.wisatawan')
   const config = konfigDasborWisatawan(t as unknown as (key: string) => string)
 
-  return (
-    <RoleDashboardView
-      desaSlug="sigerciv"
-      desaNama="Sigerciv · Lampung"
-      config={config}
-      lintasDesa
-    />
-  )
+  return <WisatawanDashboardView config={config} />
 }

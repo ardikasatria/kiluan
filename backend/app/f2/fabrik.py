@@ -4,7 +4,7 @@ from __future__ import annotations
 from decimal import Decimal
 
 from .clock import Jam, id_baru
-from .enums import ADMIN, AGEN, POKDARWIS, UMKM, WISATAWAN
+from .enums import ADMIN, AGEN, KONTRIBUTOR, UMKM, WISATAWAN
 from .layanan_dermaga import DermagaService
 from .layanan_pemandu import PemanduService
 from .layanan_penjelajah import PenjelajahService
@@ -67,7 +67,7 @@ async def seed(app: App, desa_id="desa-kiluan", **kw):
         "desa_id": desa_id, "produk": produk, "paket": paket, "slot": slot, "rek": rek,
         "umkm_id": umkm_id, "agen_id": agen_id,
         "wisatawan": aktor("w-1", WISATAWAN),
-        "bendahara": aktor("b-1", POKDARWIS),
+        "bendahara": aktor("b-1", KONTRIBUTOR),
         "admin": aktor("a-1", ADMIN),
     }
 

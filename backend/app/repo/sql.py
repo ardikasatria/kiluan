@@ -29,6 +29,18 @@ from ..domain.enums import StatusKonten
 from ..domain.errors import Konflik
 from ..inti.minio import penyimpanan_objek
 from .warta_genta_sql import RepoBeritaSQL, RepoNotifikasiSQL, RepoPeristiwaSQL
+from .f3_sql import (
+    RepoAgregatSQL,
+    RepoDanaKonservasiSQL,
+    RepoDayaDukungSQL,
+    RepoIndikatorSQL,
+    RepoJobAnalitikSQL,
+    RepoKunjunganSQL,
+    RepoLaporanSQL,
+    RepoMonitoringSQL,
+    RepoNeracaRegeneratifSQL,
+    RepoPemakaianKapasitasSQL,
+)
 from ..model import tabel as M
 
 
@@ -1417,4 +1429,17 @@ class Penyimpanan:
         self.peristiwa = RepoPeristiwaSQL(sesi)
         self.notifikasi = RepoNotifikasiSQL(sesi)
         self.simpanan = RepoSimpananSQL(sesi)
+        self.indikator = RepoIndikatorSQL(sesi)
+        self.monitoring = RepoMonitoringSQL(sesi)
+        self.dana_konservasi = RepoDanaKonservasiSQL(sesi)
+        self.daya_dukung = RepoDayaDukungSQL(sesi)
+        self.pemakaian_kapasitas = RepoPemakaianKapasitasSQL(sesi)
+        self.kunjungan = RepoKunjunganSQL(sesi)
+        self.neraca_regeneratif = RepoNeracaRegeneratifSQL(sesi)
+        self.agregat = RepoAgregatSQL(sesi)
+        self.job_analitik = RepoJobAnalitikSQL(sesi)
+        self.laporan_bulanan = RepoLaporanSQL(sesi)
+        self._job_kapasitas: set[str] = set()
+        self._job_neraca: set[str] = set()
+        self._job_analitik: set[str] = set()
         self.objek = penyimpanan_objek()

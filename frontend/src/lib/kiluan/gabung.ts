@@ -1,7 +1,8 @@
 import type { PeranKode } from '@/lib/kiluan/peran'
 
-/** Peran yang ditawarkan di wizard Gabung Komunitas (F-Onboarding). */
-export const PERAN_GABUNG = ['wisatawan', 'umkm', 'agen', 'pokdarwis'] as const
+/** Peran yang ditawarkan di wizard Gabung Komunitas (F-Onboarding).
+ * Pokdarwis dilebur ke kontributor — pengajuan baru memakai kontributor. */
+export const PERAN_GABUNG = ['wisatawan', 'umkm', 'agen', 'kontributor'] as const
 
 export type PeranGabung = (typeof PERAN_GABUNG)[number]
 

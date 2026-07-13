@@ -11,7 +11,9 @@ import {
   ClipboardDocumentListIcon,
   Cog6ToothIcon,
   GlobeAltIcon,
+  HeartIcon,
   HomeIcon,
+  IdentificationIcon,
   MapIcon,
   ShoppingBagIcon,
   TicketIcon,
@@ -26,7 +28,10 @@ const NAV_ICONS: Record<string, ComponentType<{ className?: string }>> = {
   ringkasan: HomeIcon,
   rencana: ClipboardDocumentListIcon,
   booking: TicketIcon,
-  paspor: ClipboardDocumentListIcon,
+  jelajah: MapIcon,
+  wishlist: HeartIcon,
+  akun: Cog6ToothIcon,
+  paspor: IdentificationIcon,
   kontribusi: UserGroupIcon,
   destinasi: MapIcon,
   kurasi: ClipboardDocumentListIcon,
@@ -60,9 +65,10 @@ interface Props {
   nav: DashboardNavItem[]
   tagline: string
   compact?: boolean
+  onNavigate?: () => void
 }
 
-export default function DashboardSidebar({ desaSlug, peran, nav, tagline, compact }: Props) {
+export default function DashboardSidebar({ desaSlug, peran, nav, tagline, compact, onNavigate }: Props) {
   const pathname = usePathname()
   const t = useTranslations('dasbor.view')
   const tPeran = useTranslations('peran')
@@ -98,6 +104,7 @@ export default function DashboardSidebar({ desaSlug, peran, nav, tagline, compac
             <Link
               key={item.id}
               href={href}
+              onClick={onNavigate}
               className={clsx(
                 'flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium transition',
                 aktif

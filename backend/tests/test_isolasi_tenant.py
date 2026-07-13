@@ -9,7 +9,7 @@ from conftest import beri_peran, buat_pengguna, konteks_untuk
 
 
 async def _buat(store, svc, desa_id, pengelola_id, slug):
-    await beri_peran(store, pengelola_id, KodePeran.pokdarwis, desa_id=desa_id)
+    await beri_peran(store, pengelola_id, KodePeran.kontributor, desa_id=desa_id)
     return await svc.buat(
         await konteks_untuk(store, pengelola_id), desa_id,
         DestinasiBuat(nama="X", slug=slug, kategori_id=1,
@@ -22,7 +22,7 @@ async def test_kelola_resource_desa_lain_404(store, desa, desa_lain, svc_destina
     d_b = await _buat(store, svc_destinasi, desa_lain.id, pengelola_b.id, "spot-b")
 
     pokdarwis_a = await buat_pengguna(store, email="a@contoh.id")
-    await beri_peran(store, pokdarwis_a.id, KodePeran.pokdarwis, desa_id=desa.id)
+    await beri_peran(store, pokdarwis_a.id, KodePeran.kontributor, desa_id=desa.id)
     with pytest.raises(TidakDitemukan):
         await svc_destinasi.ubah(await konteks_untuk(store, pokdarwis_a.id), desa.id, d_b.id,
                                  DestinasiUbah(nama="Ubah"))

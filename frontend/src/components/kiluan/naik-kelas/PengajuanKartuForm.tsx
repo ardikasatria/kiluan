@@ -16,7 +16,7 @@ import { useState } from 'react'
 interface Props {
   desaSlug: string
   kartu: KartuAksiItem
-  subjekTipe: 'umkm' | 'agen' | 'pokdarwis'
+  subjekTipe: 'umkm' | 'agen' | 'kontributor'
   subjekId: string
   pengajuanRevisi?: PengajuanKartuItem | null
   onBerhasil?: () => void

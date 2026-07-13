@@ -27,8 +27,8 @@ from app.repo.f2_sql import (
     _qr_token,
 )
 
-VERIFIKATOR = frozenset({KodePeran.agen, KodePeran.pokdarwis, KodePeran.perangkat_desa, KodePeran.admin})
-PENGELOLA = frozenset({KodePeran.pokdarwis, KodePeran.perangkat_desa, KodePeran.admin})
+VERIFIKATOR = frozenset({KodePeran.agen, KodePeran.kontributor, KodePeran.perangkat_desa, KodePeran.admin})
+PENGELOLA = frozenset({KodePeran.kontributor, KodePeran.perangkat_desa, KodePeran.admin})
 
 
 def _now() -> datetime:
@@ -327,6 +327,12 @@ class PenjelajahLayanan:
             raise TransisiIlegalF2("Verifikasi sudah diputus.")
         if hasil not in ("valid", "invalid"):
             raise KesalahanValidasi("hasil harus valid|invalid.")
+        if v.entitas_tipe == "monitoring_ekologi":
+            from app.layanan.monitoring import MonitoringLayanan
+            await MonitoringLayanan(self.store).putuskan_verifikasi(
+                konteks, desa_id, verifikasi_id, hasil, catatan,
+            )
+            return await self.verifikasi.wajib(verifikasi_id, desa_id)
         v.hasil = hasil
         v.verifikator_id = konteks.pengguna_id
         v.diputuskan_pada = _now()

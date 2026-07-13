@@ -1,18 +1,18 @@
 import type { ProfilSaya } from '@/lib/api/auth'
 import { punyaPeran, punyaPeranDiDesa, type PeranKode } from '@/lib/kiluan/peran'
 
-export const PERAN_BENDAHARA: PeranKode[] = ['pokdarwis', 'perangkat_desa', 'admin']
+export const PERAN_BENDAHARA: PeranKode[] = ['kontributor', 'perangkat_desa', 'admin']
 
 /** Pengelola konten desa (CRUD destinasi, kurasi, dll.). */
-export const PERAN_PENGELOLA_KONTEN: PeranKode[] = ['pokdarwis', 'perangkat_desa', 'admin']
+export const PERAN_PENGELOLA_KONTEN: PeranKode[] = ['kontributor', 'perangkat_desa', 'admin']
 
 /** Penyedia Dermaga — pesanan & pendapatan milik sendiri. */
 export const PERAN_PENYEDIA_DERMAGA: PeranKode[] = ['umkm', 'agen']
 
 /** Check-in & slot paket wisata. */
-export const PERAN_VERIFIKATOR_DERMAGA: PeranKode[] = ['agen', 'pokdarwis', 'perangkat_desa', 'admin']
+export const PERAN_VERIFIKATOR_DERMAGA: PeranKode[] = ['agen', 'kontributor', 'perangkat_desa', 'admin']
 
-export const PERAN_KELOLA: PeranKode[] = ['pokdarwis', 'perangkat_desa', 'admin', 'umkm', 'agen']
+export const PERAN_KELOLA: PeranKode[] = ['kontributor', 'perangkat_desa', 'admin', 'umkm', 'agen']
 
 export function punyaSalahSatuPeran(
   profil: ProfilSaya | null,
@@ -82,6 +82,7 @@ export const NAV_Kelola_AKSES: Record<string, readonly PeranKode[]> = {
   stasiun: PERAN_PENGELOLA_KONTEN,
   poin: PERAN_PENGELOLA_KONTEN,
   verifikasi: PERAN_PENGELOLA_KONTEN,
+  'verifikasi-monitoring': PERAN_PENGELOLA_KONTEN,
   hadiah: PERAN_PENGELOLA_KONTEN,
   kupon: PERAN_PENGELOLA_KONTEN,
   slot: PERAN_VERIFIKATOR_DERMAGA,
@@ -111,6 +112,6 @@ export function navKelolaTerlihat(
   navKey: string,
   desaId?: string | null,
 ): boolean {
-  const href = navKey === 'ringkasan' ? '' : navKey === 'validasiKartu' ? 'validasi-kartu' : navKey
+  const href = navKey === 'ringkasan' ? '' : navKey === 'validasiKartu' ? 'validasi-kartu' : navKey === 'verifikasiMonitoring' ? 'verifikasi-monitoring' : navKey
   return bolehAksesSegmenKelola(profil, href, desaId)
 }

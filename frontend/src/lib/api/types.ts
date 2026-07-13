@@ -368,7 +368,7 @@ export interface KontribusiTarget {
 
 // --- F1: Naik Kelas Lestari ---
 
-export type SubjekPengajuan = 'umkm' | 'agen' | 'pokdarwis'
+export type SubjekPengajuan = 'umkm' | 'agen' | 'kontributor'
 export type StatusPengajuanKartu = 'menunggu' | 'tervalidasi' | 'ditolak' | 'revisi'
 export type TingkatSertifikasi = 'tunas' | 'bahari' | 'lumba_lumba'
 
@@ -830,4 +830,160 @@ export interface NotifikasiItem {
 
 export interface NotifikasiHitungResponse {
   belum_dibaca: number
+}
+
+// --- F3 Jejak Lestari ---
+
+export interface IndikatorEkologiDto {
+  id: number
+  kode: string
+  nama: string
+  satuan: string
+  arah_baik: string
+  deskripsi?: string
+  aktif: boolean
+  lingkup: 'template' | 'desa'
+}
+
+export interface MonitoringCatatPayload {
+  id?: string
+  indikator_id: number
+  destinasi_id?: string | null
+  nilai: number
+  waktu_ukur: string
+  metode: string
+  media_id?: string | null
+  lokasi?: Lokasi | null
+  catatan?: string
+}
+
+export interface MonitoringDto {
+  id: string
+  indikator: IndikatorEkologiDto | { id: number }
+  destinasi_id?: string | null
+  nilai: number
+  waktu_ukur: string
+  metode: string
+  status: 'menunggu_verifikasi' | 'terverifikasi' | 'ditolak'
+  catatan?: string
+  pencatat_id?: string
+  media_id?: string
+  dibuat_pada?: string
+}
+
+export interface SaldoKonservasiDto {
+  saldo: number
+  total_masuk: number
+  total_keluar: number
+  per_kategori: Record<string, number>
+  per_sumber: Record<string, number>
+  diperbarui_pada?: string | null
+}
+
+export interface DanaKonservasiDto {
+  id: string
+  jenis: 'masuk' | 'keluar'
+  jumlah: number
+  keterangan?: string
+  tanggal: string
+  sumber_tipe?: string
+  kategori?: string
+  bukti_media_id?: string
+  dicatat_oleh_id?: string
+  dibuat_pada?: string
+}
+
+export interface DanaCatatPayload {
+  jenis: 'masuk' | 'keluar'
+  jumlah: number
+  tanggal: string
+  kategori?: string
+  sumber_tipe?: string
+  keterangan?: string
+  bukti_media_id?: string
+}
+
+export type LevelKapasitas = 'hijau' | 'kuning' | 'merah'
+
+export interface DayaDukungDto {
+  destinasi_id: string
+  kapasitas_harian: number
+  ambang_kuning: number
+  ambang_merah: number
+  metode_hitung?: string
+  diperbarui_pada?: string | null
+}
+
+export interface PemakaianKapasitasDto {
+  destinasi_id: string
+  tanggal: string
+  rasio: number
+  level: LevelKapasitas
+  kunjungan?: number
+  kapasitas_harian?: number
+  dihitung_pada?: string | null
+}
+
+export interface NeracaLestariDto {
+  periode: string
+  skor_ekologi: number
+  skor_sosial: number
+  skor_ekonomi: number
+  skor_total: number
+  dibuat_pada?: string | null
+  komponen?: Record<string, unknown>
+  komponen_ringkas?: {
+    klaim_diklaim: number
+    klaim_tervalidasi: number
+    indikator_terverifikasi: number
+  }
+  terkunci?: boolean
+}
+
+export interface PeringatanKapasitasDto {
+  destinasi_id: string
+  tanggal: string
+  level: LevelKapasitas
+  rasio: number
+}
+
+export interface AgregatSeriDto {
+  tanggal: string
+  kode_metrik: string
+  dimensi: Record<string, string>
+  nilai: number
+  diperbarui_pada?: string | null
+}
+
+export interface AgregatMetrikRingkasDto {
+  total: number
+  series: { tanggal: string; nilai: number; dimensi: Record<string, string> }[]
+}
+
+export interface AgregatRingkasDto {
+  periode: string
+  metrik: Record<string, AgregatMetrikRingkasDto>
+  diperbarui_pada?: string | null
+}
+
+export interface JobAnalitikDto {
+  id: string
+  desa_id?: string | null
+  lapisan: string
+  nama_job: string
+  status: string
+  baris_masuk: number
+  baris_keluar: number
+  mulai_pada?: string | null
+  selesai_pada?: string | null
+  galat?: string | null
+}
+
+export interface LaporanBulananDto {
+  id: string
+  periode: string
+  status: 'draf' | 'final'
+  ringkasan: Record<string, unknown>
+  file_media_id?: string | null
+  dibuat_pada?: string | null
 }

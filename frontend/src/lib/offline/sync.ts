@@ -2,6 +2,7 @@
 
 import { apiFetch } from '@/lib/api/client'
 import { offlineDb } from './db'
+import { sinkronMonitoringAntrean } from './monitoring-sync'
 
 export async function prosesAntreanSinkron() {
   if (!offlineDb || !navigator.onLine) return 0
@@ -21,5 +22,6 @@ export async function prosesAntreanSinkron() {
       break
     }
   }
+  sukses += await sinkronMonitoringAntrean()
   return sukses
 }

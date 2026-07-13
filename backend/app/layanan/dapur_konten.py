@@ -34,7 +34,7 @@ def _pengelola(konteks: Konteks, desa_id: UUID) -> bool:
     from app.domain.enums import KodePeran
 
     return konteks.admin_global() or bool(
-        konteks.peran_di(desa_id) & {KodePeran.pokdarwis, KodePeran.perangkat_desa, KodePeran.admin}
+        konteks.peran_di(desa_id) & {KodePeran.kontributor, KodePeran.perangkat_desa, KodePeran.admin}
     )
 
 

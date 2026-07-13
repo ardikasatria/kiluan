@@ -30,7 +30,7 @@ async def _buat_umkm_terverifikasi(pasar_svc, store, desa):
     umkm_user = await buat_pengguna(store, email="umkm-naik@contoh.id")
     await beri_peran(store, umkm_user.id, KodePeran.umkm, desa.id)
     pokdarwis = await buat_pengguna(store, email="pok-naik@contoh.id")
-    await beri_peran(store, pokdarwis.id, KodePeran.pokdarwis, desa.id)
+    await beri_peran(store, pokdarwis.id, KodePeran.kontributor, desa.id)
     k_umkm = await konteks_untuk(store, umkm_user.id)
     k_pok = await konteks_untuk(store, pokdarwis.id)
     umkm = await pasar_svc.daftar_umkm(k_umkm, desa.id, {"bidang_id": 1, "nama": "UMKM Naik Kelas"})

@@ -39,8 +39,8 @@ from app.repo.f2_sql import (
 )
 
 ITEM_TIPE = frozenset({"produk_jasa", "paket_wisata", "layanan", "tiket_masuk"})
-VERIFIKATOR = frozenset({KodePeran.agen, KodePeran.pokdarwis, KodePeran.perangkat_desa, KodePeran.admin})
-BENDAHARA = frozenset({KodePeran.pokdarwis, KodePeran.perangkat_desa, KodePeran.admin})
+VERIFIKATOR = frozenset({KodePeran.agen, KodePeran.kontributor, KodePeran.perangkat_desa, KodePeran.admin})
+BENDAHARA = frozenset({KodePeran.kontributor, KodePeran.perangkat_desa, KodePeran.admin})
 
 
 def _pengelola(konteks: Konteks, desa_id: UUID) -> bool:
@@ -86,13 +86,29 @@ class DermagaLayanan:
             src = await self.store.paket_wisata.ambil(item_id)
             if src is None or src.desa_id != desa_id:
                 raise TidakDitemukan("Paket tak ada / lintas-desa.")
+            destinasi_id = None
+            tanggal_kunjungan = None
+            slot_jadwal_id = UUID(spec["slot_jadwal_id"]) if spec.get("slot_jadwal_id") else None
+            if slot_jadwal_id:
+                slot = await self.slot.ambil(slot_jadwal_id, desa_id)
+                if slot:
+                    tanggal_kunjungan = slot.tanggal
+                for pi in await self.store.paket_item.daftar_paket(item_id):
+                    if pi.destinasi_id:
+                        destinasi_id = pi.destinasi_id
+                        break
+            meta = spec.get("metadata", {})
+            if meta.get("destinasi_id"):
+                destinasi_id = UUID(meta["destinasi_id"])
             return {
                 "item_tipe": tipe, "item_id": item_id,
                 "penyedia_tipe": "pengguna", "penyedia_id": src.agen_id,
                 "nama": src.nama, "harga": Decimal(str(src.harga)),
                 "jumlah": jumlah, "stok": None,
-                "slot_jadwal_id": UUID(spec["slot_jadwal_id"]) if spec.get("slot_jadwal_id") else None,
-                "metadata": spec.get("metadata", {}),
+                "slot_jadwal_id": slot_jadwal_id,
+                "metadata": meta,
+                "destinasi_id": destinasi_id,
+                "tanggal_kunjungan": tanggal_kunjungan,
             }
         raise KesalahanValidasi(f"item_tipe {tipe} belum didukung.")
 
@@ -245,14 +261,14 @@ class DermagaLayanan:
         desa_id: UUID,
         spec: dict,
         idempotency_key: str | None = None,
-    ) -> M.Pesanan:
+    ) -> tuple[M.Pesanan, list[dict]]:
         if konteks.pengguna_id is None:
             raise TidakBerwenang()
         toko_idempotensi.wajib_key(idempotency_key)
         ep = f"checkout:{desa_id}"
         cache = toko_idempotensi.ambil(idempotency_key, str(konteks.pengguna_id), ep)
         if cache is not None:
-            return cache
+            return cache, []
 
         if not spec.get("item"):
             raise KesalahanValidasi("Item kosong.")
@@ -261,6 +277,14 @@ class DermagaLayanan:
         resolved = [await self._resolve_item(desa_id, it) for it in spec["item"]]
         subtotal = sum(_bulat(r["harga"] * r["jumlah"]) for r in resolved)
         penyedia = {f"{r['penyedia_tipe']}:{r['penyedia_id']}" for r in resolved}
+
+        peringatan_kapasitas: list[dict] = []
+        if getattr(self.store, "pemakaian_kapasitas", None):
+            from app.layanan.kapasitas import KapasitasLayanan
+            kap_svc = KapasitasLayanan(self.store)
+            peringatan_kapasitas = await kap_svc.peringatan_checkout(
+                desa_id, resolved, pengaturan,
+            )
 
         kupon = None
         if spec.get("kupon_id"):
@@ -342,6 +366,7 @@ class DermagaLayanan:
                     desa_id=desa_id,
                     pesanan_item_id=it.id,
                     slot_jadwal_id=r["slot_jadwal_id"],
+                    destinasi_id=r.get("destinasi_id"),
                     jumlah_orang=int(r["metadata"].get("jumlah_orang", 1)),
                     tanggal_kunjungan=slot.tanggal,
                     kode_checkin=_kode_checkin(),
@@ -350,7 +375,8 @@ class DermagaLayanan:
                 )
                 await self.booking.simpan(bk)
 
-        return toko_idempotensi.simpan(idempotency_key, str(konteks.pengguna_id), ep, pesanan)
+        pesanan_final = toko_idempotensi.simpan(idempotency_key, str(konteks.pengguna_id), ep, pesanan)
+        return pesanan_final, peringatan_kapasitas
 
     async def ambil_pesanan(self, desa_id: UUID, id_or_kode: str) -> tuple[M.Pesanan, list[M.PesananItem], dict[UUID, M.Booking]]:
         pesanan = await self.pesanan.wajib(id_or_kode, desa_id)
@@ -578,9 +604,29 @@ class DermagaLayanan:
         if pesanan.status not in ("dibayar", "diproses"):
             raise TransisiIlegalF2("Pesanan belum dibayar.")
         pesanan.status = "selesai"
+        from app.f3.enums import JenisPeristiwaAnalitik
+        from app.layanan.dana_konservasi import DanaKonservasiLayanan
+
+        dana = DanaKonservasiLayanan(self.store)
         for t in await self.transaksi.daftar_pesanan(pesanan_id):
             if t.status == "tertahan_escrow":
                 t.status = "dirilis"
+                if t.porsi_reinvestasi > 0:
+                    await dana.inflow_dari_transaksi(t)
+                    await self.outbox.emit(
+                        desa_id,
+                        JenisPeristiwaAnalitik.transaksi_settle.value,
+                        "transaksi",
+                        t.id,
+                        {
+                            "transaksi_id": str(t.id),
+                            "penyedia_id": str(t.penyedia_id),
+                            "bruto": float(t.bruto),
+                            "porsi_reinvestasi": float(t.porsi_reinvestasi),
+                            "tanggal": (t.dibuat_pada.date().isoformat() if t.dibuat_pada else date.today().isoformat()),
+                            "pesanan_id": str(pesanan_id),
+                        },
+                    )
         items = await self.item.daftar_pesanan(pesanan_id)
         penyedia_ids = list({str(it.penyedia_id) for it in items})
         muatan: dict[str, str | list[str]] = {

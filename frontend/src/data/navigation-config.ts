@@ -206,8 +206,8 @@ export const NAV_MENUS: NavMenuDef[] = [
         nameKey: 'section.cerita-jejak.name',
         children: [
           { id: 'cd-j-3', href: '/#jejak-regeneratif', nameKey: 'item.cd-j-3.name', descriptionKey: 'item.cd-j-3.description', icon: 'cycle' },
-          { id: 'cd-j-1', href: `/${DESA}/dana-konservasi`, nameKey: 'item.cd-j-1.name', descriptionKey: 'item.cd-j-1.description', icon: 'money', soon: true },
-          { id: 'cd-j-2', href: `/${DESA}/neraca-lestari`, nameKey: 'item.cd-j-2.name', descriptionKey: 'item.cd-j-2.description', icon: 'beaker', soon: true },
+          { id: 'cd-j-1', href: `/${DESA}/lestari/dana`, nameKey: 'item.cd-j-1.name', descriptionKey: 'item.cd-j-1.description', icon: 'money' },
+          { id: 'cd-j-2', href: `/${DESA}/lestari/neraca`, nameKey: 'item.cd-j-2.name', descriptionKey: 'item.cd-j-2.description', icon: 'beaker' },
         ],
       },
       {
@@ -218,7 +218,7 @@ export const NAV_MENUS: NavMenuDef[] = [
           { id: 'cd-g-1', href: '/gabung?peran=wisatawan', nameKey: 'item.cd-g-1.name', descriptionKey: 'item.cd-g-1.description', icon: 'user' },
           { id: 'cd-g-2', href: '/gabung?peran=umkm', nameKey: 'item.cd-g-2.name', descriptionKey: 'item.cd-g-2.description', icon: 'shop' },
           { id: 'cd-g-3', href: '/gabung?peran=agen', nameKey: 'item.cd-g-3.name', descriptionKey: 'item.cd-g-3.description', icon: 'map' },
-          { id: 'cd-g-4', href: '/gabung?peran=pokdarwis', nameKey: 'item.cd-g-4.name', descriptionKey: 'item.cd-g-4.description', icon: 'users' },
+          { id: 'cd-g-4', href: '/gabung?peran=kontributor', nameKey: 'item.cd-g-4.name', descriptionKey: 'item.cd-g-4.description', icon: 'users' },
         ],
       },
     ],

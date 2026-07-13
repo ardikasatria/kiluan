@@ -16,15 +16,37 @@ export interface DrafDestinasi {
   diperbaruiPada: number
 }
 
+export type StatusAntreanMonitoring =
+  | 'menunggu_kirim'
+  | 'tersimpan'
+  | 'duplikat'
+  | 'ditolak'
+
+export interface PembacaanMonitoringLokal {
+  id: string
+  desaSlug: string
+  payload: string
+  status: StatusAntreanMonitoring
+  galatKode?: string
+  dibuatPada: number
+  disinkronPada?: number
+}
+
 class KiluanOfflineDB extends Dexie {
   antrean!: Table<AntreanSinkron, number>
   drafDestinasi!: Table<DrafDestinasi, string>
+  pembacaanMonitoring!: Table<PembacaanMonitoringLokal, string>
 
   constructor() {
     super('kiluan-offline')
     this.version(1).stores({
       antrean: '++id, desaSlug, dibuatPada',
       drafDestinasi: 'id, desaSlug',
+    })
+    this.version(2).stores({
+      antrean: '++id, desaSlug, dibuatPada',
+      drafDestinasi: 'id, desaSlug',
+      pembacaanMonitoring: 'id, desaSlug, status, dibuatPada',
     })
   }
 }
@@ -38,8 +60,19 @@ export async function tambahAntrean(item: Omit<AntreanSinkron, 'id' | 'dibuatPad
 
 export async function hitungAntrean(desaSlug?: string) {
   if (!offlineDb) return 0
-  if (desaSlug) return offlineDb.antrean.where('desaSlug').equals(desaSlug).count()
-  return offlineDb.antrean.count()
+  let n = 0
+  if (desaSlug) {
+    n += await offlineDb.antrean.where('desaSlug').equals(desaSlug).count()
+    n += await offlineDb.pembacaanMonitoring
+      .where('desaSlug')
+      .equals(desaSlug)
+      .filter((r) => r.status === 'menunggu_kirim')
+      .count()
+  } else {
+    n += await offlineDb.antrean.count()
+    n += await offlineDb.pembacaanMonitoring.filter((r) => r.status === 'menunggu_kirim').count()
+  }
+  return n
 }
 
 export async function simpanDrafDestinasi(desaSlug: string, id: string, payload: unknown) {

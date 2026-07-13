@@ -30,7 +30,7 @@ interface AuthContextValue {
   isPengelola: boolean
   isLoading: boolean
   user: AuthUser | null
-  masuk: (payload: MasukPayload) => Promise<void>
+  masuk: (payload: MasukPayload) => Promise<ProfilSaya>
   daftar: (payload: DaftarPayload) => Promise<string>
   logout: () => Promise<void>
   refreshProfil: () => Promise<void>
@@ -43,7 +43,7 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 
 function labelPeranProfil(profil: ProfilSaya, tPeran: (key: PeranKode | 'anggota') => string): string {
   const aktif = profil.keanggotaan.filter((k) => k.status === 'aktif')
-  const pengelola = aktif.find((k) => ['pokdarwis', 'perangkat_desa', 'admin'].includes(k.peran))
+  const pengelola = aktif.find((k) => ['kontributor', 'perangkat_desa', 'admin'].includes(k.peran))
   if (pengelola) return labelPeran(pengelola.peran as PeranKode, tPeran)
   const wis = aktif.find((k) => k.peran === 'wisatawan')
   if (wis) return labelPeran('wisatawan', tPeran)
@@ -80,11 +80,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .finally(() => setIsLoading(false))
   }, [applyProfil])
 
-  const masuk = useCallback(async (payload: MasukPayload) => {
+  const masuk = useCallback(async (payload: MasukPayload): Promise<ProfilSaya> => {
     await apiMasuk(payload)
     const loaded = await bootstrapSesi()
     if (!loaded) throw new Error(tAuth('profileLoadFailed'))
     applyProfil(loaded)
+    return loaded
   }, [applyProfil, tAuth])
 
   const daftar = useCallback(async (payload: DaftarPayload) => {

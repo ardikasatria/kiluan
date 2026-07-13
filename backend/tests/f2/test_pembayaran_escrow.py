@@ -4,7 +4,7 @@ import pytest
 
 from app.f2 import errors
 from app.f2.fabrik import aktor, seed
-from app.f2.enums import POKDARWIS, WISATAWAN
+from app.f2.enums import KONTRIBUTOR, WISATAWAN
 
 
 def spec(produk, jumlah=4):
@@ -23,10 +23,10 @@ async def test_manual_hanya_bendahara_dan_bukan_pembeli(app):
     pay = await app.dermaga.buat_pembayaran(d["desa_id"], d["wisatawan"], pes.id,
                                             "transfer_manual", idempotency_key="p")
     assert pay.status == "menunggu"
-    # pembeli yang kebetulan juga pokdarwis tetap tak boleh konfirmasi pesanannya sendiri
-    pembeli_pokdarwis = aktor(d["wisatawan"].pengguna_id, WISATAWAN, POKDARWIS)
+    # pembeli yang kebetulan juga kontributor tetap tak boleh konfirmasi pesanannya sendiri
+    pembeli_kontributor = aktor(d["wisatawan"].pengguna_id, WISATAWAN, KONTRIBUTOR)
     with pytest.raises(errors.GalatDomain) as e:
-        await app.dermaga.konfirmasi_manual(d["desa_id"], pembeli_pokdarwis, pay.id,
+        await app.dermaga.konfirmasi_manual(d["desa_id"], pembeli_kontributor, pay.id,
                                              idempotency_key="x")
     assert e.value.http == 403
 

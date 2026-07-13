@@ -102,3 +102,29 @@ class WebhookSignatureInvalid(KesalahanDomain):
 
 class KebijakanRefund(KesalahanValidasi):
     kode = "kebijakan_refund"
+
+
+# --- F3 (KONTRAK_API_Kiluan_Fase3 §1) ---
+
+class BuktiMediaWajib(KesalahanValidasi):
+    kode = "bukti_media_wajib"
+
+
+class IndikatorTidakAktif(KesalahanValidasi):
+    kode = "indikator_tidak_aktif"
+
+
+class MetrikTidakDikenal(KesalahanValidasi):
+    kode = "metrik_tidak_dikenal"
+
+
+class PeriodeFinal(Konflik):
+    kode = "periode_final"
+
+
+class JobSedangBerjalan(Konflik):
+    kode = "job_sedang_berjalan"
+
+
+class DayaDukungTerlampaui(Konflik):
+    kode = "daya_dukung_terlampaui"

@@ -150,11 +150,12 @@ async def checkout(
     svc: DermagaLayanan = Depends(_svc),
     idempotency_key: str | None = Header(default=None, alias="Idempotency-Key"),
 ):
-    pesanan = await svc.checkout(konteks, desa_id, body.model_dump(), idempotency_key=idempotency_key)
+    pesanan, peringatan = await svc.checkout(konteks, desa_id, body.model_dump(), idempotency_key=idempotency_key)
     items = await svc.item.daftar_pesanan(pesanan.id)
     return {
         "pesanan": pesanan_detail(pesanan, items),
         "pembayaran": {"instruksi": "pilih_metode"},
+        "peringatan_kapasitas": peringatan,
     }
 
 

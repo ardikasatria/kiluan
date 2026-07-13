@@ -26,7 +26,7 @@ async def desa_nonaktif(store) -> E.Desa:
 
 async def _pengelola(store, desa):
     p = await buat_pengguna(store, email=f"{desa.slug}@contoh.id")
-    await beri_peran(store, p.id, KodePeran.pokdarwis, desa_id=desa.id)
+    await beri_peran(store, p.id, KodePeran.kontributor, desa_id=desa.id)
     return await konteks_untuk(store, p.id)
 
 

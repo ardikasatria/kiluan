@@ -27,7 +27,7 @@ async def svc_pasar(store, desa):
 
 async def _destinasi_publik(store, desa, svc_destinasi):
     p = await buat_pengguna(store)
-    await beri_peran(store, p.id, KodePeran.pokdarwis, desa_id=desa.id)
+    await beri_peran(store, p.id, KodePeran.kontributor, desa_id=desa.id)
     k = await konteks_untuk(store, p.id)
     return await svc_destinasi.buat(
         k, desa.id,
@@ -74,7 +74,7 @@ async def test_hapus_lintas_user_404(store, desa, svc_destinasi, svc_simpanan):
 @pytest.mark.asyncio
 async def test_entitas_draft_404(store, desa, svc_destinasi, svc_simpanan):
     p = await buat_pengguna(store)
-    await beri_peran(store, p.id, KodePeran.pokdarwis, desa_id=desa.id)
+    await beri_peran(store, p.id, KodePeran.kontributor, desa_id=desa.id)
     k = await konteks_untuk(store, p.id)
     d = await svc_destinasi.buat(
         k, desa.id,
@@ -107,7 +107,7 @@ async def _produk_publik(store, desa, svc_pasar):
     umkm_user = await buat_pengguna(store, email="umkm-w@x.id")
     await beri_peran(store, umkm_user.id, KodePeran.umkm, desa_id=desa.id)
     pokdarwis = await buat_pengguna(store, email="pok-w@x.id")
-    await beri_peran(store, pokdarwis.id, KodePeran.pokdarwis, desa_id=desa.id)
+    await beri_peran(store, pokdarwis.id, KodePeran.kontributor, desa_id=desa.id)
     k_umkm = await konteks_untuk(store, umkm_user.id)
     k_pok = await konteks_untuk(store, pokdarwis.id)
     umkm = await svc_pasar.daftar_umkm(k_umkm, desa.id, {"bidang_id": 1, "nama": "Toko Test"})

@@ -8,7 +8,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.api import auth, berita, desa, dermaga, destinasi, discovery, kalender, keanggotaan, kontribusi, layanan, lencana, media, naik_kelas, notifikasi, pasar, pemandu, penjelajah, poin_f2, referensi, saya, simpanan, uang, webhook
+from app.api import analitik, auth, berita, desa, dermaga, destinasi, discovery, kalender, keanggotaan, kontribusi, layanan, lencana, lestari, media, naik_kelas, notifikasi, ops_analitik, pasar, pemandu, penjelajah, poin_f2, referensi, saya, simpanan, uang, webhook
 from app.domain.errors import KesalahanDomain
 from app.inti.db import cek_db
 from app.inti.genta_poll import poll_genta_loop
@@ -95,4 +95,7 @@ app.include_router(uang.router)
 app.include_router(poin_f2.router)
 app.include_router(penjelajah.router)
 app.include_router(pemandu.router)
+app.include_router(lestari.router)
+app.include_router(analitik.router)
+app.include_router(ops_analitik.router)
 app.include_router(webhook.router)

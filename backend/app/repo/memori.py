@@ -13,6 +13,7 @@ from ..domain import entitas as E
 from ..domain.enums import StatusDesa
 from ..domain.errors import Konflik
 from .warta_genta_memori import RepoBerita, RepoNotifikasi, RepoPeristiwa
+from .f3_memori import RepoDanaKonservasiMemori, RepoIndikatorMemori, RepoMonitoringMemori, RepoVerifikasiMemori
 
 
 def _now() -> datetime:
@@ -605,4 +606,31 @@ class Penyimpanan:
         self.notifikasi = RepoNotifikasi()
         self.misi = RepoMisi()
         self.simpanan = RepoSimpanan()
+        self.indikator = RepoIndikatorMemori()
+        self.monitoring = RepoMonitoringMemori()
+        self.dana_konservasi = RepoDanaKonservasiMemori()
+        self.verifikasi = RepoVerifikasiMemori()
+        from app.repo.f3_memori import (
+            RepoAgregatMemori,
+            RepoDayaDukungMemori,
+            RepoJobAnalitikMemori,
+            RepoKunjunganMemori,
+            RepoLaporanMemori,
+            RepoNeracaRegeneratifMemori,
+            RepoPemakaianKapasitasMemori,
+            RepoStempelNeracaMemori,
+            RepoTransaksiNeracaMemori,
+        )
+        self.daya_dukung = RepoDayaDukungMemori()
+        self.pemakaian_kapasitas = RepoPemakaianKapasitasMemori()
+        self.kunjungan = RepoKunjunganMemori()
+        self.neraca_regeneratif = RepoNeracaRegeneratifMemori()
+        self.transaksi_neraca = RepoTransaksiNeracaMemori()
+        self.stempel_neraca = RepoStempelNeracaMemori()
+        self.agregat = RepoAgregatMemori()
+        self.job_analitik = RepoJobAnalitikMemori()
+        self.laporan_bulanan = RepoLaporanMemori()
+        self._job_kapasitas: set[str] = set()
+        self._job_neraca: set[str] = set()
+        self._job_analitik: set[str] = set()
         self.objek = ObjectStorePalsu()

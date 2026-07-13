@@ -13,7 +13,7 @@ from conftest import beri_peran, buat_pengguna, konteks_untuk
 
 async def _pengelola(store, desa):
     p = await buat_pengguna(store)
-    await beri_peran(store, p.id, KodePeran.pokdarwis, desa_id=desa.id)
+    await beri_peran(store, p.id, KodePeran.kontributor, desa_id=desa.id)
     return await konteks_untuk(store, p.id)
 
 

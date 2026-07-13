@@ -32,6 +32,7 @@ const ITEMS = [
   { href: '/poin', key: 'poin' },
   { href: '/validasi-kartu', key: 'validasiKartu' },
   { href: '/verifikasi', key: 'verifikasi' },
+  { href: '/verifikasi-monitoring', key: 'verifikasiMonitoring' },
 ] as const
 
 interface Props {

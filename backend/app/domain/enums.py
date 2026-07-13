@@ -21,7 +21,6 @@ class StatusPengguna(str, Enum):
 
 class KodePeran(str, Enum):
     wisatawan = "wisatawan"
-    pokdarwis = "pokdarwis"
     umkm = "umkm"
     agen = "agen"
     kontributor = "kontributor"
@@ -173,7 +172,14 @@ class KanalNotifikasi(str, Enum):
 class SubjekPengajuan(str, Enum):
     umkm = "umkm"
     agen = "agen"
-    pokdarwis = "pokdarwis"
+    kontributor = "kontributor"
+
+
+def normalisasi_kode_peran(kode: str) -> KodePeran:
+    """Slot DB lama peran_id=2 (pokdarwis) → kontributor."""
+    if kode == "pokdarwis":
+        return KodePeran.kontributor
+    return KodePeran(kode)
 
 
 class StatusPengajuanKartu(str, Enum):

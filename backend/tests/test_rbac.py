@@ -19,20 +19,12 @@ async def test_wisatawan_tak_boleh_buat_destinasi(store, desa, svc_destinasi):
         await svc_destinasi.buat(await konteks_untuk(store, p.id), desa.id, _data())
 
 
-async def test_pokdarwis_boleh_buat_dan_publikasi(store, desa, svc_destinasi):
+async def test_kontributor_boleh_buat_dan_publikasi(store, desa, svc_destinasi):
     p = await buat_pengguna(store)
-    await beri_peran(store, p.id, KodePeran.pokdarwis, desa_id=desa.id)
+    await beri_peran(store, p.id, KodePeran.kontributor, desa_id=desa.id)
     d = await svc_destinasi.buat(await konteks_untuk(store, p.id), desa.id,
                                  _data(status=StatusKonten.publikasi))
     assert d.status == StatusKonten.publikasi
-
-
-async def test_kontributor_tak_boleh_publikasi(store, desa, svc_destinasi):
-    p = await buat_pengguna(store)
-    await beri_peran(store, p.id, KodePeran.kontributor, desa_id=desa.id)
-    with pytest.raises(TidakBerwenang):
-        await svc_destinasi.buat(await konteks_untuk(store, p.id), desa.id,
-                                 _data(status=StatusKonten.publikasi))
 
 
 async def test_admin_global_lolos_scope(store, desa, desa_lain, svc_destinasi):

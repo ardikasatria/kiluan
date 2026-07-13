@@ -23,7 +23,8 @@ export default async function GabungPage({ searchParams }: Props) {
   const sp = await searchParams
   const raw = typeof sp.peran === 'string' ? sp.peran : undefined
   const peranAwal = peranGabungValid(raw) ?? undefined
+  const desaAwal = typeof sp.desa === 'string' ? sp.desa : undefined
   const peranRef = await getPeran()
 
-  return <GabungKomunitasClient peranRef={peranRef} peranAwal={peranAwal} />
+  return <GabungKomunitasClient peranRef={peranRef} peranAwal={peranAwal} desaAwal={desaAwal} />
 }

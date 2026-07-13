@@ -9,10 +9,10 @@ export interface PeranRef {
 
 const MOCK_PERAN: PeranRef[] = [
   { kode: 'wisatawan', nama: 'Wisatawan', scoped_desa: false },
-  { kode: 'pokdarwis', nama: 'Organisasi', scoped_desa: true },
   { kode: 'umkm', nama: 'UMKM', scoped_desa: true },
   { kode: 'agen', nama: 'Agen Lokal', scoped_desa: true },
-  { kode: 'kontributor', nama: 'Kontributor Umum', scoped_desa: false },
+  // Peran gabungan (lebur pokdarwis) — kontribusi + pengelolaan, per desa.
+  { kode: 'kontributor', nama: 'Kontributor', scoped_desa: true },
   { kode: 'organisasi', nama: 'Organisasi/Mitra', scoped_desa: true },
   { kode: 'perangkat_desa', nama: 'Perangkat Desa', scoped_desa: true },
   { kode: 'admin', nama: 'Admin/Steward', scoped_desa: false },

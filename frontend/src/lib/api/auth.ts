@@ -1,4 +1,5 @@
 import { clearAccessToken, getAccessToken, setAccessToken } from '@/lib/auth/session'
+import { normalisasiPeranKeanggotaan } from '@/lib/kiluan/peran'
 import { apiFetch } from './client'
 
 export interface MasukPayload {
@@ -44,12 +45,13 @@ export interface PatchProfilPayload {
   avatar_media_id?: string
 }
 
-const PERAN_PENGELOLA = new Set(['pokdarwis', 'perangkat_desa', 'admin'])
+// Kontributor = peran gabungan (kontribusi + pengelola desa).
+const PERAN_PENGELOLA = new Set(['kontributor', 'perangkat_desa', 'admin'])
 
 export function adalahPengelola(profil: ProfilSaya | null): boolean {
   if (!profil) return false
   return profil.keanggotaan.some(
-    (k) => k.status === 'aktif' && PERAN_PENGELOLA.has(k.peran),
+    (k) => k.status === 'aktif' && PERAN_PENGELOLA.has(normalisasiPeranKeanggotaan(k.peran)),
   )
 }
 

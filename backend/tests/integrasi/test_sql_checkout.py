@@ -94,7 +94,8 @@ async def test_race_overbook_sql(sesi):
     spec = _spec_paket(paket_id, slot.id)
 
     async def _checkout(konteks, key):
-        return await svc.checkout(konteks, d.id, spec, idempotency_key=key)
+        pesanan, _ = await svc.checkout(konteks, d.id, spec, idempotency_key=key)
+        return pesanan
 
     hasil = await asyncio.gather(
         _checkout(k1, "k1"),

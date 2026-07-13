@@ -7,7 +7,7 @@ import { peranDariSlug, type PeranKode } from '@/lib/kiluan/peran'
 import { metadataDasbor } from '@/lib/kiluan/seo'
 import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 interface Props {
   params: Promise<{ desa: string; peran: string }>
@@ -15,18 +15,21 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { desa, peran } = await params
-  const kode = peranDariSlug(peran)
+  const kode = peranDariSlug(peran) ?? (peran === 'pokdarwis' ? 'kontributor' : null)
   if (!kode) return metadataDasbor('Dasbor', desa)
-  const t = await getTranslations(`dasbor.${kode}` as 'dasbor.pokdarwis')
-  return metadataDasbor(t('tagline'), desa, `/${peran}`)
+  const t = await getTranslations(`dasbor.${kode}`)
+  return metadataDasbor(t('tagline'), desa, `/${peran === 'pokdarwis' ? 'kontributor' : peran}`)
 }
 
 export default async function DasborPeranPage({ params }: Props) {
   const { desa, peran: peranSlug } = await params
+  if (peranSlug === 'pokdarwis') {
+    redirect(`/${desa}/dasbor/kontributor`)
+  }
   const kode = peranDariSlug(peranSlug)
   if (!kode || kode === 'admin') notFound()
 
-  const t = await getTranslations(`dasbor.${kode}` as 'dasbor.pokdarwis')
+  const t = await getTranslations(`dasbor.${kode}`)
   const translators: Partial<Record<PeranKode, PenerjemahDasbor>> = {
     [kode]: t as unknown as PenerjemahDasbor,
   }

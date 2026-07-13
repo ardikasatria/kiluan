@@ -11,7 +11,7 @@ from typing import Optional
 from uuid import UUID
 
 from . import rbac
-from .enums import KodePeran, StatusKeanggotaan
+from .enums import KodePeran, StatusKeanggotaan, normalisasi_kode_peran
 from .errors import TidakBerwenang, TidakTerautentikasi
 
 
@@ -66,7 +66,10 @@ async def bangun_konteks(store, pengguna_id: Optional[UUID]) -> Konteks:
         return Konteks()
     baris = await store.keanggotaan.daftar_pengguna(pengguna_id)
     aktif = [
-        PeranAktif(desa_id=k.desa_id, peran=k.peran)
+        PeranAktif(
+            desa_id=k.desa_id,
+            peran=normalisasi_kode_peran(k.peran.value if isinstance(k.peran, KodePeran) else str(k.peran)),
+        )
         for k in baris
         if k.status == StatusKeanggotaan.aktif
     ]

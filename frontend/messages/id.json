@@ -361,8 +361,8 @@
         "description": "Kurasi paket"
       },
       "cd-g-4": {
-        "name": "Organisasi",
-        "description": "Kelola desa"
+        "name": "Kontributor",
+        "description": "Kelola desa & data komunitas"
       }
     },
     "userMenu": {
@@ -575,9 +575,9 @@
           "label": "Agen",
           "desc": "Kurasi paket wisata dan layanan bahari bersama komunitas lokal."
         },
-        "pokdarwis": {
-          "label": "Organisasi",
-          "desc": "Kelola data destinasi, kurasi konten, dan awasi dampak wisata desa."
+        "kontributor": {
+          "label": "Kontributor",
+          "desc": "Kelola data destinasi, kurasi konten, dan sumbang foto, tips, atau koreksi data desa."
         }
       }
     },
@@ -778,7 +778,8 @@
       "stasiun": "Stasiun QR",
       "poin": "Aturan poin",
       "validasiKartu": "Validasi Kartu",
-      "verifikasi": "Verifikasi"
+      "verifikasi": "Verifikasi",
+      "verifikasiMonitoring": "Verifikasi monitoring"
     },
     "ringkasan": {
       "intro": "Kelola destinasi, layanan, dan jadwal untuk {desa}. Perubahan dapat disimpan offline dan disinkronkan otomatis.",
@@ -827,7 +828,7 @@
       "penyediaTipe": {
         "umkm": "UMKM",
         "agen": "Agen wisata",
-        "pokdarwis": "Pengelola desa"
+        "kontributor": "Kontributor & pengelola"
       },
       "statusPayout": {
         "draft": "Draf",
@@ -1885,7 +1886,7 @@
       "subjek": {
         "umkm": "UMKM",
         "agen": "Agen",
-        "pokdarwis": "Pengelola desa"
+        "kontributor": "Kontributor & pengelola"
       },
       "sukses": {
         "setuju": "Kartu aksi divalidasi.",
@@ -2365,9 +2366,9 @@
     "communityBody": "{nama} adalah bagian dari jaringan sigerciv — platform desa wisata di mana data destinasi dan layanan dimiliki komunitas lokal (Organisasi & perangkat desa), bukan agregator komersial. Setiap kunjungan idealnya meninggalkan destinasi lebih baik melalui pemantauan daya dukung, reinvestment ke dana konservasi, dan partisipasi warga.",
     "rolesTitle": "Peran di ekosistem",
     "roles": {
-      "pokdarwis": {
-        "title": "Organisasi & warga",
-        "body": "Mengkurasi spot, layanan, dan konten; memverifikasi data lapangan."
+      "kontributor": {
+        "title": "Kontributor & pengelola",
+        "body": "Mengkurasi spot, layanan, dan konten; memverifikasi data lapangan serta berkontribusi foto dan tips."
       },
       "umkm": {
         "title": "UMKM & agen lokal",
@@ -2386,7 +2387,20 @@
       "provinsi": "Provinsi"
     },
     "locationEmpty": "Belum diisi.",
-    "panduanCta": "Baca panduan berkunjung →"
+    "panduanCta": "Baca panduan berkunjung →",
+    "neraca": {
+      "eyebrow": "Jejak Lestari",
+      "title": "Ringkasan Neraca Lestari",
+      "body": "Skor periode {periode} merangkum dampak ekologi, sosial, dan ekonomi dari data terverifikasi.",
+      "total": "Skor total",
+      "pilar": {
+        "ekologi": "Ekologi",
+        "sosial": "Sosial",
+        "ekonomi": "Ekonomi"
+      },
+      "klaim": "{valid} dari {total} klaim dampak tervalidasi monitoring.",
+      "cta": "Lihat detail neraca →"
+    }
   },
   "panduan": {
     "seoTitle": "Panduan Berkunjung",
@@ -2506,6 +2520,10 @@
     "subtotal": "Subtotal",
     "diskon": "Diskon",
     "total": "Total",
+    "warnings": {
+      "kapasitasKuning": "Spot destinasi mendekati kapasitas hari ini. Pertimbangkan tanggal atau waktu lain.",
+      "kapasitasMerah": "Spot destinasi hampir penuh hari ini. Pilih tanggal lain bila memungkinkan."
+    },
     "errors": {
       "kupon": "Kupon tidak berlaku.",
       "nama": "Nama kontak wajib diisi.",
@@ -2897,7 +2915,6 @@
   },
   "peran": {
     "wisatawan": "Wisatawan",
-    "pokdarwis": "Organisasi",
     "umkm": "UMKM",
     "agen": "Agen Lokal",
     "kontributor": "Kontributor",
@@ -3096,6 +3113,12 @@
     "nav": {
       "kembali": "Kembali"
     },
+    "organisasi": {
+      "title": "Gabung sebagai Organisasi",
+      "desc": "Form onboarding mitra konservasi & riset sedang disiapkan di rute global. Sementara ini, pantau status pengajuan di dasbor wisatawan atau hubungi tim Sigerciv.",
+      "ctaStatus": "Lihat status di dasbor",
+      "ctaAkun": "Buka Akun"
+    },
     "peran": {
       "title": "Pilih peran Anda",
       "desc": "Empat pintu masuk utama Sigerciv. Label diambil dari referensi platform.",
@@ -3198,6 +3221,7 @@
       "adminDesc": "Dasbor lintas-tenant untuk moderasi, konfigurasi, dan provisioning desa.",
       "bukaAdmin": "Buka dasbor admin",
       "footerNote": "Perlu peran tambahan? Hubungi Organisasi atau perangkat desa untuk aktivasi keanggotaan.",
+      "belumAdaPeran": "Belum ada peran aktif. Daftar atau hubungi pengelola desa untuk aktivasi keanggotaan.",
       "revisi": "Perlu revisi"
     },
     "switcher": {
@@ -3214,9 +3238,9 @@
         "tagline": "Sigerciv · Lampung",
         "deskripsi": "Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata."
       },
-      "pokdarwis": {
-        "tagline": "Pengelola desa wisata",
-        "deskripsi": "Kelola destinasi, kurasi konten komunitas, pantau etalase, dan siapkan dana konservasi."
+      "kontributor": {
+        "tagline": "Kontributor & pengelola desa",
+        "deskripsi": "Sumbang foto, tips, dan koreksi data — plus kelola destinasi, kurasi konten, dan keanggotaan desa."
       },
       "umkm": {
         "tagline": "Pelaku usaha lokal",
@@ -3225,10 +3249,6 @@
       "agen": {
         "tagline": "Penyusun paket wisata",
         "deskripsi": "Buat itinerary, atur kuota & jadwal, publikasikan paket melalui alur kurasi Organisasi."
-      },
-      "kontributor": {
-        "tagline": "Relawan data komunitas",
-        "deskripsi": "Sumbang foto, tips, atau koreksi data destinasi — dapat poin dan lencana."
       },
       "organisasi": {
         "tagline": "Mitra konservasi & riset",
@@ -3255,6 +3275,7 @@
       "navigasi": "Navigasi",
       "navLabel": "Navigasi {peran}",
       "bukaNav": "Buka navigasi dasbor",
+      "tutupNav": "Tutup navigasi dasbor",
       "dasbor": "Dasbor",
       "segera": "segera",
       "badgeSegera": "Segera",
@@ -3274,7 +3295,13 @@
       "tagline": "Sigerciv · Lampung",
       "deskripsi": "Jelajah desa wisata di seluruh Lampung, kelola wishlist & Paspor Lestari, dan kontribusi untuk pariwisata.",
       "nav": {
-        "ringkasan": "Ringkasan"
+        "ringkasan": "Ringkasan",
+        "jelajah": "Jelajah desa",
+        "wishlist": "Wishlist",
+        "paspor": "Paspor Lestari",
+        "pesanan": "Pesanan saya",
+        "peran": "Peran & keanggotaan",
+        "akun": "Akun & preferensi"
       },
       "stats": {
         "wishlistLabel": "Item tersimpan",
@@ -3289,6 +3316,7 @@
         "cari": "Jelajah desa wisata",
         "wishlist": "Wishlist saya",
         "paspor": "Paspor Lestari",
+        "peran": "Peran & keanggotaan",
         "akun": "Akun & preferensi"
       },
       "modul": {
@@ -3310,64 +3338,55 @@
         "bookingDesc": "Riwayat pemesanan paket dan layanan.",
         "kontribTitle": "Kontribusi saya",
         "kontribDesc": "Foto, tips, dan koreksi data — per desa yang Anda kunjungi.",
+        "peranTitle": "Peran & keanggotaan",
+        "peranDesc": "Ajukan peran baru atau pantau status pengajuan ke desa wisata.",
         "poinTitle": "Poin & lencana",
-        "poinDesc": "Saldo poin dan badge per desa wisata."
-      }
-    },
-    "pokdarwis": {
-      "tagline": "Pengelola desa wisata",
-      "deskripsi": "Kelola destinasi, kurasi konten komunitas, pantau etalase, dan siapkan dana konservasi.",
-      "nav": {
-        "ringkasan": "Ringkasan",
-        "destinasi": "Destinasi",
-        "kurasi": "Antrian kurasi",
-        "keanggotaan": "Keanggotaan",
-        "dana": "Dana konservasi"
+        "poinDesc": "Saldo poin dan badge per desa wisata.",
+        "poinDescSaldo": "Saldo {poin} poin lintas desa yang Anda kunjungi.",
+        "bookingDescKosong": "Belum ada pesanan. Pilih paket dari etalase desa wisata.",
+        "bookingDescTotal": "{total} pesanan — lihat riwayat.",
+        "bookingDescAktif": "{aktif} pesanan aktif dari {total} total — lihat riwayat."
       },
-      "stats": {
-        "publikLabel": "Destinasi publik",
-        "draftLabel": "Draft",
-        "layananLabel": "Layanan",
-        "kontribLabel": "Kontribusi menunggu",
-        "kontribHint": "Antrian kurasi"
+      "aktivitasFeed": {
+        "simpanan": "Menyimpan {nama} ({tipe}) dari {desa}",
+        "kontribusi": "Kontribusi {tipe} — {status}",
+        "stempel": "Stempel misi \"{misi}\" — {status}",
+        "pesanan": "Pesanan {kode} — {status}",
+        "stempelTerverifikasi": "terverifikasi",
+        "stempelMenunggu": "menunggu verifikasi",
+        "kosong": "Belum ada aktivitas. Jelajah desa atau simpan item ke wishlist."
       },
-      "aksi": {
-        "kelola": "Kelola destinasi",
-        "keanggotaan": "Persetujuan keanggotaan",
-        "validasi": "Validasi kartu",
-        "kurasi": "Kurasi konten",
-        "baru": "+ Spot baru",
-        "layanan": "Kelola layanan",
-        "kupon": "Buat kupon kampanye",
-        "etalase": "Lihat etalase publik"
-      },
-      "modul": {
-        "crud": "Kelola desa (CRUD)",
-        "hadiah": "Hadiah & kupon",
-        "anjungan": "Anjungan Data",
-        "dayaDukung": "Daya dukung"
-      },
-      "aktivitas": {
-        "a1": "Mempublikasikan spot unggulan desa",
-        "a2": "Menyetujui kontribusi foto dari wisatawan"
-      },
-      "widgets": {
-        "destinasiTitle": "Kelola destinasi",
-        "destinasiDesc": "Spot, layanan, kalender aktivitas — modul F0 aktif.",
-        "kurasiTitle": "Dapur Konten",
-        "kurasiDesc": "Antrian kurasi kontribusi wisatawan dan paket agen.",
-        "naikKelasTitle": "Validasi Naik Kelas",
-        "naikKelasDesc": "Setujui kartu aksi dan tingkat sertifikasi UMKM.",
-        "misiTitle": "Kelola misi lestari",
-        "misiDesc": "Buat dan edit misi belajar/aksi Penjelajah Lestari.",
-        "stasiunTitle": "Stasiun QR",
-        "stasiunDesc": "Titik check-in geofence dan token QR stasiun.",
-        "poinTitle": "Aturan poin & lencana",
-        "poinDesc": "Referensi gamifikasi komunitas desa.",
-        "keanggotaanTitle": "Persetujuan keanggotaan",
-        "keanggotaanDesc": "Aktivasi peran baru di desa.",
-        "danaTitle": "Dana konservasi",
-        "danaDesc": "Ringkasan kunjungan dan aliran dana lestari."
+      "peran": {
+        "judul": "Peran & keanggotaan",
+        "intro": "Sebagai wisatawan, Anda bisa mengajukan peran tambahan — kontributor, UMKM, agen, atau organisasi mitra. Form pengajuan ada di halaman global; di sini Anda pantau status dan buka dasbor setelah disetujui.",
+        "bannerMenunggu": "Ada pengajuan yang sedang ditinjau pengelola desa.",
+        "peranDefault": "Peran saat ini",
+        "wisatawanDesc": "Peran default saat mendaftar — jelajah, wishlist, paspor, dan kontribusi lintas desa.",
+        "peranLain": "Ajukan peran lain",
+        "peranLainDesc": "Eskalasi ke peran pengelola atau penyedia — ditinjau per desa wisata.",
+        "belumAjukan": "Belum pernah diajukan.",
+        "menungguInfo": "Pengajuan sedang ditinjau. Anda akan mendapat akses dasbor setelah disetujui.",
+        "revisiInfo": "Pengajuan perlu revisi. Submit ulang lewat form Gabung Komunitas.",
+        "desaKeanggotaan": "Desa keanggotaan",
+        "global": "Sigerciv (global)",
+        "memuat": "Memuat data desa…",
+        "footer": "Detail lengkap keanggotaan ada di",
+        "footerAkun": "Akun → Keanggotaan",
+        "status": {
+          "aktif": "Aktif",
+          "menunggu": "Menunggu",
+          "ditolak": "Ditolak",
+          "revisi": "Perlu revisi",
+          "nonaktif": "Nonaktif",
+          "belum": "Belum diajukan"
+        },
+        "cta": {
+          "ajukan": "Ajukan peran",
+          "bukaDasbor": "Buka dasbor",
+          "submitUlang": "Submit ulang",
+          "tambahDesa": "Ajukan di desa lain",
+          "tambahPeran": "Tambah peran baru"
+        }
       }
     },
     "umkm": {
@@ -3471,28 +3490,50 @@
       }
     },
     "kontributor": {
-      "tagline": "Relawan data komunitas",
-      "deskripsi": "Sumbang foto, tips, atau koreksi data destinasi — dapat poin dan lencana.",
+      "tagline": "Kontributor & pengelola desa",
+      "deskripsi": "Sumbang foto, tips, dan koreksi data — plus kelola destinasi, kurasi konten, dan keanggotaan desa.",
       "nav": {
         "ringkasan": "Ringkasan",
         "kontribusi": "Kontribusi saya",
         "lencana": "Lencana",
-        "leaderboard": "Leaderboard"
+        "leaderboard": "Leaderboard",
+        "destinasi": "Destinasi",
+        "kurasi": "Antrian kurasi",
+        "keanggotaan": "Keanggotaan",
+        "dana": "Dana konservasi"
       },
       "stats": {
         "totalLabel": "Kontribusi",
         "diterimaLabel": "Diterima",
         "poinLabel": "Poin",
-        "peringkatLabel": "Peringkat desa"
+        "peringkatLabel": "Peringkat desa",
+        "publikLabel": "Destinasi publik",
+        "draftLabel": "Draft",
+        "layananLabel": "Layanan",
+        "kontribLabel": "Kontribusi menunggu",
+        "kontribHint": "Antrian kurasi"
       },
       "aksi": {
         "baru": "Kontribusi baru",
         "lencana": "Lihat lencana",
-        "board": "Leaderboard"
+        "board": "Leaderboard",
+        "kelola": "Kelola destinasi",
+        "keanggotaan": "Persetujuan keanggotaan",
+        "validasi": "Validasi kartu",
+        "kurasi": "Kurasi konten",
+        "layanan": "Kelola layanan",
+        "kupon": "Buat kupon kampanye",
+        "bendahara": "Panel bendahara",
+        "etalase": "Lihat etalase publik"
       },
       "modul": {
         "kontribusi": "Kontribusi",
-        "lencana": "Lencana Warga"
+        "lencana": "Lencana Warga",
+        "crud": "Kelola desa (CRUD)",
+        "hadiah": "Hadiah & kupon",
+        "dermaga": "Dermaga & escrow",
+        "anjungan": "Anjungan Data",
+        "dayaDukung": "Daya dukung"
       },
       "aktivitas": {
         "a1": "Mengunggah foto spot Gigi Hiu — menunggu kurasi",
@@ -3506,7 +3547,23 @@
         "leaderboardTitle": "Leaderboard",
         "leaderboardDesc": "Peringkat kontributor aktif di desa.",
         "misiTitle": "Misi kontribusi",
-        "misiDesc": "Quest data lapangan untuk relawan."
+        "misiDesc": "Quest data lapangan untuk relawan.",
+        "destinasiTitle": "Kelola destinasi",
+        "destinasiDesc": "Spot, layanan, kalender aktivitas — modul F0 aktif.",
+        "kurasiTitle": "Dapur Konten",
+        "kurasiDesc": "Antrian kurasi kontribusi wisatawan dan paket agen.",
+        "naikKelasTitle": "Validasi Naik Kelas",
+        "naikKelasDesc": "Setujui kartu aksi dan tingkat sertifikasi UMKM.",
+        "misiKelolaTitle": "Kelola misi lestari",
+        "misiKelolaDesc": "Buat dan edit misi belajar/aksi Penjelajah Lestari.",
+        "stasiunTitle": "Stasiun QR",
+        "stasiunDesc": "Titik check-in geofence dan token QR stasiun.",
+        "aturanPoinTitle": "Aturan poin & lencana",
+        "aturanPoinDesc": "Referensi gamifikasi komunitas desa.",
+        "keanggotaanTitle": "Persetujuan keanggotaan",
+        "keanggotaanDesc": "Aktivasi peran baru di desa.",
+        "danaTitle": "Dana konservasi",
+        "danaDesc": "Ringkasan kunjungan dan aliran dana lestari."
       }
     },
     "organisasi": {
@@ -3973,6 +4030,204 @@
       "destinasi": "Destinasi",
       "paket": "Paket wisata",
       "misi": "Misi lestari"
+    }
+  },
+  "lestari": {
+    "monitoring": {
+      "catatTitle": "Catat monitoring",
+      "catatSubtitle": "Entri data ekologi lapangan — tersimpan lokal saat offline, tersinkron saat online.",
+      "listTitle": "Monitoring saya",
+      "myReadings": "Daftar pembacaan saya",
+      "catatBaru": "+ Catat baru",
+      "loading": "Memuat…",
+      "indikator": "Indikator",
+      "nilai": "Nilai",
+      "waktuUkur": "Tanggal ukur",
+      "metode": "Metode",
+      "catatan": "Catatan",
+      "foto": "Foto bukti",
+      "gpsCapture": "Tangkap GPS",
+      "gpsOk": "GPS tersimpan",
+      "submit": "Simpan pembacaan",
+      "saving": "Menyimpan…",
+      "savedOnline": "Pembacaan tersimpan dan menunggu verifikasi.",
+      "savedOffline": "Tersimpan lokal — akan disinkronkan saat online.",
+      "syncNow": "Sinkron sekarang",
+      "syncDone": "Sinkronisasi selesai.",
+      "pendingCount": "{count} pembacaan menunggu kirim",
+      "antreanLokal": "Antrean lokal",
+      "empty": "Belum ada pembacaan.",
+      "metodeOpsi": {
+        "survei_lapangan": "Survei lapangan",
+        "sensor": "Sensor",
+        "laporan_warga": "Laporan warga",
+        "pihak_ketiga": "Pihak ketiga"
+      },
+      "status": {
+        "menunggu_verifikasi": "Menunggu verifikasi",
+        "terverifikasi": "Terverifikasi",
+        "ditolak": "Ditolak",
+        "menunggu_kirim": "Belum terkirim",
+        "tersimpan": "Tersimpan",
+        "duplikat": "Duplikat"
+      },
+      "errors": {
+        "geo": "Tidak dapat mengambil lokasi GPS."
+      }
+    },
+    "dana": {
+      "title": "Dana konservasi",
+      "subtitle": "Transparansi aliran dana lestari — saldo dan riwayat penggunaan untuk komunitas.",
+      "catat": "Catat transaksi",
+      "catatTitle": "Catat dana konservasi",
+      "kembaliTransparansi": "← Kembali ke transparansi",
+      "loading": "Memuat…",
+      "saldoLabel": "Saldo saat ini",
+      "totalMasuk": "Total masuk",
+      "totalKeluar": "Total keluar",
+      "perKategori": "Per kategori",
+      "perSumber": "Per sumber",
+      "timeline": "Riwayat transaksi",
+      "emptyLedger": "Belum ada transaksi tercatat.",
+      "buktiTersedia": "Bukti tersedia",
+      "jumlah": "Jumlah (Rp)",
+      "tanggal": "Tanggal",
+      "kategori": "Kategori",
+      "keterangan": "Keterangan",
+      "fotoBukti": "Foto bukti (wajib untuk pengeluaran)",
+      "submit": "Simpan",
+      "saving": "Menyimpan…",
+      "saved": "Transaksi tercatat.",
+      "jenis": {
+        "masuk": "Pemasukan",
+        "keluar": "Pengeluaran"
+      },
+      "kategoriOpsi": {
+        "operasional": "Operasional",
+        "rehabilitasi": "Rehabilitasi",
+        "penelitian": "Penelitian",
+        "komunitas": "Komunitas",
+        "lainnya": "Lainnya"
+      },
+      "sumber": {
+        "transaksi": "Reinvestment transaksi",
+        "manual": "Donasi / hibah manual",
+        "donasi": "Donasi",
+        "hibah": "Hibah"
+      },
+      "errors": {
+        "buktiWajib": "Foto bukti wajib untuk pengeluaran.",
+        "forbidden": "Hanya bendahara yang dapat mencatat dana."
+      }
+    },
+    "verifikasi": {
+      "seoTitle": "Verifikasi monitoring",
+      "seoTitleDesa": "Verifikasi monitoring — {desa}",
+      "eyebrow": "Jejak Lestari · monitoring ekologi",
+      "title": "Verifikasi monitoring",
+      "subtitleDesa": "Antrean validasi pembacaan ekologi di {desa}.",
+      "desc": "Tinjau nilai, foto, dan metode pencatatan. Setujui jika bukti memadai.",
+      "loading": "Memuat antrean…",
+      "empty": "Tidak ada monitoring menunggu verifikasi.",
+      "antreanLabel": "Antrean monitoring",
+      "monitoring": "Monitoring",
+      "nilai": "Nilai",
+      "waktu": "Waktu ukur",
+      "metode": "Metode",
+      "valid": "Valid",
+      "sukses": {
+        "valid": "Monitoring divalidasi.",
+        "invalid": "Monitoring ditolak."
+      },
+      "errors": {
+        "load": "Gagal memuat antrean.",
+        "putuskan": "Gagal memproses keputusan."
+      }
+    },
+    "dayaDukung": {
+      "title": "Konfigurasi daya dukung",
+      "fgdNote": "Angka kapasitas dan ambang disepakati Pokdarwis — bukan default sistem.",
+      "loading": "Memuat…",
+      "destinasi": "Destinasi",
+      "kapasitas": "Kapasitas harian (kunjungan)",
+      "ambangKuning": "Ambang kuning (rasio 0–1)",
+      "ambangMerah": "Ambang merah (rasio 0–1)",
+      "submit": "Simpan konfigurasi",
+      "saving": "Menyimpan…",
+      "saved": "Konfigurasi daya dukung tersimpan."
+    },
+    "kapasitas": {
+      "title": "Kapasitas spot hari ini",
+      "subtitle": "Lampu hijau, kuning, atau merah per destinasi — indikator daya dukung harian.",
+      "loading": "Memuat…",
+      "empty": "Belum ada snapshot kapasitas hari ini.",
+      "spot": "Spot",
+      "hitungUlang": "Hitung ulang hari ini",
+      "kelolaConfig": "Kelola konfigurasi daya dukung →",
+      "levelLabel": {
+        "hijau": "Ramah — masih dalam batas aman",
+        "kuning": "Ramai — mendekati batas kapasitas",
+        "merah": "Penuh — mendekati atau melebihi batas"
+      }
+    },
+    "neraca": {
+      "title": "Neraca Lestari",
+      "subtitle": "Skor gabungan ekologi, sosial, dan ekonomi — KPI lestari yang terukur dan transparan.",
+      "loading": "Memuat…",
+      "empty": "Belum ada neraca untuk periode ini.",
+      "periode": "Periode",
+      "hitung": "Hitung neraca",
+      "kpiLabel": "Skor total",
+      "periodeLabel": "Periode {periode}",
+      "linkKapasitas": "Kapasitas spot →",
+      "linkDana": "Dana konservasi →",
+      "pilar": {
+        "ekologi": "Ekologi",
+        "sosial": "Sosial",
+        "ekonomi": "Ekonomi"
+      },
+      "kejujuranTitle": "Kejujuran ekologi",
+      "kejujuranDesc": "Klaim dampak dari stempel wisatawan hanya dihitung bila didukung monitoring terverifikasi — mencegah greenwashing.",
+      "klaimDiklaim": "Klaim dampak dilaporkan",
+      "klaimTervalidasi": "Klaim tervalidasi monitoring"
+    }
+  },
+  "anjungan": {
+    "dashboard": {
+      "title": "Anjungan Data",
+      "subtitle": "Dashboard kinerja wisata dari agregat gold — data job-authoritative, bukan input manual.",
+      "periode": "Periode",
+      "loading": "Memuat…",
+      "empty": "Belum ada data agregat untuk periode ini. Jalankan hitung gold setelah ada transaksi.",
+      "kesegaran": "Data per {waktu}",
+      "jalankanGold": "Jalankan gold",
+      "jobOk": "Job gold selesai — data diperbarui.",
+      "linkLaporan": "Laporan bulanan →",
+      "kartu": {
+        "umkm": "UMKM aktif",
+        "adopsi": "Adopsi lestari (Lumba-Lumba)",
+        "kontribusi": "Kontribusi konservasi"
+      },
+      "chart": {
+        "pendapatan": "Pendapatan harian",
+        "kunjungan": "Kunjungan harian"
+      }
+    },
+    "laporan": {
+      "title": "Laporan bulanan",
+      "subtitle": "Generate draf dari agregat gold, finalkan untuk snapshot PDF immutable.",
+      "periode": "Periode",
+      "buatDraf": "Generate draf",
+      "finalkan": "Finalkan & PDF",
+      "loading": "Memuat…",
+      "empty": "Belum ada laporan.",
+      "drafOk": "Draf laporan dibuat.",
+      "finalOk": "Laporan difinalkan — PDF tersimpan.",
+      "pdfTersedia": "PDF tersedia",
+      "status": {
+        "draf": "Draf",
+        "final": "Final"
+      }
     }
   }
 }

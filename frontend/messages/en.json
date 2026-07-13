@@ -361,8 +361,8 @@
         "description": "Curate packages"
       },
       "cd-g-4": {
-        "name": "Organization",
-        "description": "Manage the village"
+        "name": "Contributor",
+        "description": "Manage the village & community data"
       }
     },
     "userMenu": {
@@ -575,9 +575,9 @@
           "label": "Agent",
           "desc": "Curate tour packages and coastal services with the local community."
         },
-        "pokdarwis": {
-          "label": "Organization",
-          "desc": "Manage destination data, curate content, and oversee the village's community impact."
+        "kontributor": {
+          "label": "Contributor",
+          "desc": "Manage destination data, curate content, and contribute photos, tips, or data corrections."
         }
       }
     },
@@ -778,7 +778,8 @@
       "stasiun": "QR Stations",
       "poin": "Point rules",
       "validasiKartu": "Action Card Validation",
-      "verifikasi": "Verification"
+      "verifikasi": "Verification",
+      "verifikasiMonitoring": "Monitoring verification"
     },
     "ringkasan": {
       "intro": "Manage destinations, services, and schedules for {desa}. Changes can be saved offline and synced automatically.",
@@ -827,7 +828,7 @@
       "penyediaTipe": {
         "umkm": "MSME",
         "agen": "Tour agent",
-        "pokdarwis": "Village manager"
+        "kontributor": "Contributor & manager"
       },
       "statusPayout": {
         "draft": "Draft",
@@ -1885,7 +1886,7 @@
       "subjek": {
         "umkm": "MSME",
         "agen": "Agent",
-        "pokdarwis": "Village manager"
+        "kontributor": "Contributor & manager"
       },
       "sukses": {
         "setuju": "Action card validated.",
@@ -2365,9 +2366,9 @@
     "communityBody": "{nama} is part of the sigerciv network — a village tourism platform where destination data and services are owned by the local community (Organizations & village officials), not a commercial aggregator. Every visit should ideally leave destinations better through carrying-capacity monitoring, reinvestment in conservation funds, and community participation.",
     "rolesTitle": "Roles in the ecosystem",
     "roles": {
-      "pokdarwis": {
-        "title": "Organizations & residents",
-        "body": "Curate spots, services, and content; verify field data."
+      "kontributor": {
+        "title": "Contributors & managers",
+        "body": "Curate spots, services, and content; verify field data and contribute photos and tips."
       },
       "umkm": {
         "title": "Local businesses & agents",
@@ -2386,7 +2387,20 @@
       "provinsi": "Province"
     },
     "locationEmpty": "Not filled in yet.",
-    "panduanCta": "Read visiting guide →"
+    "panduanCta": "Read visiting guide →",
+    "neraca": {
+      "eyebrow": "Lestari trace",
+      "title": "Neraca Lestari summary",
+      "body": "The {periode} score summarizes ecological, social, and economic impact from verified data.",
+      "total": "Total score",
+      "pilar": {
+        "ekologi": "Ecology",
+        "sosial": "Social",
+        "ekonomi": "Economy"
+      },
+      "klaim": "{valid} of {total} impact claims validated by monitoring.",
+      "cta": "View balance details →"
+    }
   },
   "panduan": {
     "seoTitle": "Visiting Guide",
@@ -2506,6 +2520,10 @@
     "subtotal": "Subtotal",
     "diskon": "Discount",
     "total": "Total",
+    "warnings": {
+      "kapasitasKuning": "This destination spot is nearing today's capacity. Consider another date or time.",
+      "kapasitasMerah": "This destination spot is nearly full today. Choose another date if possible."
+    },
     "errors": {
       "kupon": "Coupon is not valid.",
       "nama": "Contact name is required.",
@@ -2897,7 +2915,6 @@
   },
   "peran": {
     "wisatawan": "Traveler",
-    "pokdarwis": "Organization",
     "umkm": "Local Business (UMKM)",
     "agen": "Local Agent",
     "kontributor": "Contributor",
@@ -3096,6 +3113,12 @@
     "nav": {
       "kembali": "Back"
     },
+    "organisasi": {
+      "title": "Join as an Organization",
+      "desc": "The onboarding form for conservation & research partners is being prepared on a global route. For now, track application status on the tourist dashboard or contact the Sigerciv team.",
+      "ctaStatus": "View status on dashboard",
+      "ctaAkun": "Open Account"
+    },
     "peran": {
       "title": "Choose your role",
       "desc": "Four main entry points on Sigerciv. Labels come from the platform reference.",
@@ -3198,6 +3221,7 @@
       "adminDesc": "Cross-tenant dashboard for moderation, configuration, and village provisioning.",
       "bukaAdmin": "Open admin dashboard",
       "footerNote": "Need an additional role? Contact an Organization or village officials to activate your membership.",
+      "belumAdaPeran": "No active roles yet. Register or contact village managers to activate your membership.",
       "revisi": "Needs revision"
     },
     "switcher": {
@@ -3214,9 +3238,9 @@
         "tagline": "Sigerciv · Lampung",
         "deskripsi": "Explore tourism villages across Lampung, manage your wishlist & Lestari Passport, and contribute to tourism."
       },
-      "pokdarwis": {
-        "tagline": "Tourism village manager",
-        "deskripsi": "Manage destinations, curate community content, monitor the showcase, and prepare the conservation fund."
+      "kontributor": {
+        "tagline": "Contributor & village manager",
+        "deskripsi": "Contribute photos, tips, and data corrections — plus manage destinations, curate content, and handle village memberships."
       },
       "umkm": {
         "tagline": "Local business owner",
@@ -3225,10 +3249,6 @@
       "agen": {
         "tagline": "Tour package composer",
         "deskripsi": "Build itineraries, set quotas & schedules, and publish packages through the Organization curation flow."
-      },
-      "kontributor": {
-        "tagline": "Community data volunteer",
-        "deskripsi": "Contribute photos, tips, or destination data corrections — earn points and badges."
       },
       "organisasi": {
         "tagline": "Conservation & research partner",
@@ -3255,6 +3275,7 @@
       "navigasi": "Navigation",
       "navLabel": "{peran} navigation",
       "bukaNav": "Open dashboard navigation",
+      "tutupNav": "Close dashboard navigation",
       "dasbor": "Dashboard",
       "segera": "soon",
       "badgeSegera": "Soon",
@@ -3274,7 +3295,13 @@
       "tagline": "Sigerciv · Lampung",
       "deskripsi": "Explore tourism villages across Lampung, manage your wishlist & Lestari Passport, and contribute to tourism.",
       "nav": {
-        "ringkasan": "Overview"
+        "ringkasan": "Overview",
+        "jelajah": "Explore villages",
+        "wishlist": "Wishlist",
+        "paspor": "Lestari Passport",
+        "pesanan": "My orders",
+        "peran": "Roles & membership",
+        "akun": "Account & preferences"
       },
       "stats": {
         "wishlistLabel": "Saved items",
@@ -3289,6 +3316,7 @@
         "cari": "Explore tourism villages",
         "wishlist": "My wishlist",
         "paspor": "Lestari Passport",
+        "peran": "Roles & membership",
         "akun": "Account & preferences"
       },
       "modul": {
@@ -3310,64 +3338,55 @@
         "bookingDesc": "Your package and service booking history.",
         "kontribTitle": "My contributions",
         "kontribDesc": "Photos, tips, and data corrections — per village you visit.",
+        "peranTitle": "Roles & membership",
+        "peranDesc": "Apply for a new role or track your village membership applications.",
         "poinTitle": "Points & badges",
-        "poinDesc": "Point balance and badges per tourism village."
-      }
-    },
-    "pokdarwis": {
-      "tagline": "Tourism village manager",
-      "deskripsi": "Manage destinations, curate community content, monitor the showcase, and prepare the conservation fund.",
-      "nav": {
-        "ringkasan": "Overview",
-        "destinasi": "Destinations",
-        "kurasi": "Curation queue",
-        "keanggotaan": "Membership",
-        "dana": "Conservation fund"
+        "poinDesc": "Point balance and badges per tourism village.",
+        "poinDescSaldo": "{poin} points across villages you've visited.",
+        "bookingDescKosong": "No orders yet. Browse packages from a tourism village.",
+        "bookingDescTotal": "{total} orders — view history.",
+        "bookingDescAktif": "{aktif} active of {total} orders — view history."
       },
-      "stats": {
-        "publikLabel": "Published destinations",
-        "draftLabel": "Drafts",
-        "layananLabel": "Services",
-        "kontribLabel": "Pending contributions",
-        "kontribHint": "Curation queue"
+      "aktivitasFeed": {
+        "simpanan": "Saved {nama} ({tipe}) from {desa}",
+        "kontribusi": "Contribution {tipe} — {status}",
+        "stempel": "Passport stamp \"{misi}\" — {status}",
+        "pesanan": "Order {kode} — {status}",
+        "stempelTerverifikasi": "verified",
+        "stempelMenunggu": "pending verification",
+        "kosong": "No activity yet. Explore villages or save items to your wishlist."
       },
-      "aksi": {
-        "kelola": "Manage destinations",
-        "keanggotaan": "Membership approval",
-        "validasi": "Validate action cards",
-        "kurasi": "Curate content",
-        "baru": "+ New spot",
-        "layanan": "Manage services",
-        "kupon": "Create campaign coupon",
-        "etalase": "View public showcase"
-      },
-      "modul": {
-        "crud": "Village management (CRUD)",
-        "hadiah": "Rewards & coupons",
-        "anjungan": "Data Kiosk",
-        "dayaDukung": "Carrying capacity"
-      },
-      "aktivitas": {
-        "a1": "Published the village's featured spot",
-        "a2": "Approved traveler photo contributions"
-      },
-      "widgets": {
-        "destinasiTitle": "Manage destinations",
-        "destinasiDesc": "Spots, services, activity calendar — Phase 0 module active.",
-        "kurasiTitle": "Content Kitchen",
-        "kurasiDesc": "Curation queue for traveler contributions and agent packages.",
-        "naikKelasTitle": "Level-Up Validation",
-        "naikKelasDesc": "Approve action cards and UMKM certification tiers.",
-        "misiTitle": "Manage lestari missions",
-        "misiDesc": "Create and edit learn/action missions for Penjelajah Lestari.",
-        "stasiunTitle": "QR stations",
-        "stasiunDesc": "Geofence check-in points and station QR tokens.",
-        "poinTitle": "Point rules & badges",
-        "poinDesc": "Village community gamification reference.",
-        "keanggotaanTitle": "Membership approval",
-        "keanggotaanDesc": "Activate new roles in the village.",
-        "danaTitle": "Conservation fund",
-        "danaDesc": "Visit summary and conservation fund flows."
+      "peran": {
+        "judul": "Roles & membership",
+        "intro": "As a tourist, you can apply for additional roles — contributor, MSME, local agent, or partner organization. The application form lives on a global page; here you track status and open role dashboards after approval.",
+        "bannerMenunggu": "You have an application pending village review.",
+        "peranDefault": "Current role",
+        "wisatawanDesc": "Default role on signup — explore, wishlist, passport, and cross-village contributions.",
+        "peranLain": "Apply for another role",
+        "peranLainDesc": "Upgrade to manager or provider roles — reviewed per tourism village.",
+        "belumAjukan": "Not applied yet.",
+        "menungguInfo": "Your application is under review. Dashboard access opens after approval.",
+        "revisiInfo": "Your application needs revision. Resubmit via the Join Community form.",
+        "desaKeanggotaan": "Membership village",
+        "global": "Sigerciv (global)",
+        "memuat": "Loading village data…",
+        "footer": "Full membership details are in",
+        "footerAkun": "Account → Membership",
+        "status": {
+          "aktif": "Active",
+          "menunggu": "Pending",
+          "ditolak": "Rejected",
+          "revisi": "Needs revision",
+          "nonaktif": "Inactive",
+          "belum": "Not applied"
+        },
+        "cta": {
+          "ajukan": "Apply for role",
+          "bukaDasbor": "Open dashboard",
+          "submitUlang": "Resubmit",
+          "tambahDesa": "Apply in another village",
+          "tambahPeran": "Add new role"
+        }
       }
     },
     "umkm": {
@@ -3471,28 +3490,50 @@
       }
     },
     "kontributor": {
-      "tagline": "Community data volunteer",
-      "deskripsi": "Contribute photos, tips, or destination data corrections — earn points and badges.",
+      "tagline": "Contributor & village manager",
+      "deskripsi": "Contribute photos, tips, and data corrections — plus manage destinations, curate content, and handle village memberships.",
       "nav": {
         "ringkasan": "Overview",
         "kontribusi": "My contributions",
         "lencana": "Badges",
-        "leaderboard": "Leaderboard"
+        "leaderboard": "Leaderboard",
+        "destinasi": "Destinations",
+        "kurasi": "Curation queue",
+        "keanggotaan": "Membership",
+        "dana": "Conservation fund"
       },
       "stats": {
         "totalLabel": "Contributions",
         "diterimaLabel": "Accepted",
         "poinLabel": "Points",
-        "peringkatLabel": "Village rank"
+        "peringkatLabel": "Village rank",
+        "publikLabel": "Published destinations",
+        "draftLabel": "Drafts",
+        "layananLabel": "Services",
+        "kontribLabel": "Pending contributions",
+        "kontribHint": "Curation queue"
       },
       "aksi": {
         "baru": "New contribution",
         "lencana": "View badges",
-        "board": "Leaderboard"
+        "board": "Leaderboard",
+        "kelola": "Manage destinations",
+        "keanggotaan": "Membership approval",
+        "validasi": "Validate action cards",
+        "kurasi": "Curate content",
+        "layanan": "Manage services",
+        "kupon": "Create campaign coupon",
+        "bendahara": "Treasurer panel",
+        "etalase": "View public showcase"
       },
       "modul": {
         "kontribusi": "Contributions",
-        "lencana": "Citizen Badges"
+        "lencana": "Citizen Badges",
+        "crud": "Village management (CRUD)",
+        "hadiah": "Rewards & coupons",
+        "dermaga": "Dock & escrow",
+        "anjungan": "Data Kiosk",
+        "dayaDukung": "Carrying capacity"
       },
       "aktivitas": {
         "a1": "Uploaded Shark Tooth spot photo — awaiting curation",
@@ -3506,7 +3547,23 @@
         "leaderboardTitle": "Leaderboard",
         "leaderboardDesc": "Active contributor rankings in the village.",
         "misiTitle": "Contribution missions",
-        "misiDesc": "Field data quests for volunteers."
+        "misiDesc": "Field data quests for volunteers.",
+        "destinasiTitle": "Manage destinations",
+        "destinasiDesc": "Spots, services, activity calendar — Phase 0 module active.",
+        "kurasiTitle": "Content Kitchen",
+        "kurasiDesc": "Curation queue for traveler contributions and agent packages.",
+        "naikKelasTitle": "Level-Up Validation",
+        "naikKelasDesc": "Approve action cards and UMKM certification tiers.",
+        "misiKelolaTitle": "Manage lestari missions",
+        "misiKelolaDesc": "Create and edit learn/action missions for Penjelajah Lestari.",
+        "stasiunTitle": "QR stations",
+        "stasiunDesc": "Geofence check-in points and station QR tokens.",
+        "aturanPoinTitle": "Point rules & badges",
+        "aturanPoinDesc": "Village community gamification reference.",
+        "keanggotaanTitle": "Membership approval",
+        "keanggotaanDesc": "Activate new roles in the village.",
+        "danaTitle": "Conservation fund",
+        "danaDesc": "Visit summary and conservation fund flows."
       }
     },
     "organisasi": {
@@ -3973,6 +4030,204 @@
       "destinasi": "Destination",
       "paket": "Tour package",
       "misi": "Lestari mission"
+    }
+  },
+  "lestari": {
+    "monitoring": {
+      "catatTitle": "Record monitoring",
+      "catatSubtitle": "Field ecological data — saved locally offline, synced when online.",
+      "listTitle": "My monitoring",
+      "myReadings": "My readings",
+      "catatBaru": "+ New reading",
+      "loading": "Loading…",
+      "indikator": "Indicator",
+      "nilai": "Value",
+      "waktuUkur": "Measurement date",
+      "metode": "Method",
+      "catatan": "Notes",
+      "foto": "Photo evidence",
+      "gpsCapture": "Capture GPS",
+      "gpsOk": "GPS saved",
+      "submit": "Save reading",
+      "saving": "Saving…",
+      "savedOnline": "Reading saved and awaiting verification.",
+      "savedOffline": "Saved locally — will sync when online.",
+      "syncNow": "Sync now",
+      "syncDone": "Sync complete.",
+      "pendingCount": "{count} readings pending upload",
+      "antreanLokal": "Local queue",
+      "empty": "No readings yet.",
+      "metodeOpsi": {
+        "survei_lapangan": "Field survey",
+        "sensor": "Sensor",
+        "laporan_warga": "Community report",
+        "pihak_ketiga": "Third party"
+      },
+      "status": {
+        "menunggu_verifikasi": "Awaiting verification",
+        "terverifikasi": "Verified",
+        "ditolak": "Rejected",
+        "menunggu_kirim": "Not yet sent",
+        "tersimpan": "Saved",
+        "duplikat": "Duplicate"
+      },
+      "errors": {
+        "geo": "Could not get GPS location."
+      }
+    },
+    "dana": {
+      "title": "Conservation fund",
+      "subtitle": "Transparent lestari fund flows — balance and usage history for the community.",
+      "catat": "Record transaction",
+      "catatTitle": "Record conservation fund",
+      "kembaliTransparansi": "← Back to transparency",
+      "loading": "Loading…",
+      "saldoLabel": "Current balance",
+      "totalMasuk": "Total inflow",
+      "totalKeluar": "Total outflow",
+      "perKategori": "By category",
+      "perSumber": "By source",
+      "timeline": "Transaction history",
+      "emptyLedger": "No transactions recorded yet.",
+      "buktiTersedia": "Evidence available",
+      "jumlah": "Amount (IDR)",
+      "tanggal": "Date",
+      "kategori": "Category",
+      "keterangan": "Description",
+      "fotoBukti": "Photo evidence (required for outflow)",
+      "submit": "Save",
+      "saving": "Saving…",
+      "saved": "Transaction recorded.",
+      "jenis": {
+        "masuk": "Inflow",
+        "keluar": "Outflow"
+      },
+      "kategoriOpsi": {
+        "operasional": "Operations",
+        "rehabilitasi": "Rehabilitation",
+        "penelitian": "Research",
+        "komunitas": "Community",
+        "lainnya": "Other"
+      },
+      "sumber": {
+        "transaksi": "Transaction reinvestment",
+        "manual": "Manual donation / grant",
+        "donasi": "Donation",
+        "hibah": "Grant"
+      },
+      "errors": {
+        "buktiWajib": "Photo evidence is required for outflow.",
+        "forbidden": "Only treasurers can record fund transactions."
+      }
+    },
+    "verifikasi": {
+      "seoTitle": "Monitoring verification",
+      "seoTitleDesa": "Monitoring verification — {desa}",
+      "eyebrow": "Jejak Lestari · ecological monitoring",
+      "title": "Monitoring verification",
+      "subtitleDesa": "Ecological reading validation queue in {desa}.",
+      "desc": "Review value, photo, and recording method. Approve if evidence is sufficient.",
+      "loading": "Loading queue…",
+      "empty": "No monitoring awaiting verification.",
+      "antreanLabel": "Monitoring queue",
+      "monitoring": "Monitoring",
+      "nilai": "Value",
+      "waktu": "Measurement time",
+      "metode": "Method",
+      "valid": "Valid",
+      "sukses": {
+        "valid": "Monitoring validated.",
+        "invalid": "Monitoring rejected."
+      },
+      "errors": {
+        "load": "Failed to load queue.",
+        "putuskan": "Failed to process decision."
+      }
+    },
+    "dayaDukung": {
+      "title": "Carrying capacity configuration",
+      "fgdNote": "Capacity and threshold values are agreed by Pokdarwis — not system defaults.",
+      "loading": "Loading…",
+      "destinasi": "Destination",
+      "kapasitas": "Daily capacity (visits)",
+      "ambangKuning": "Yellow threshold (ratio 0–1)",
+      "ambangMerah": "Red threshold (ratio 0–1)",
+      "submit": "Save configuration",
+      "saving": "Saving…",
+      "saved": "Carrying capacity configuration saved."
+    },
+    "kapasitas": {
+      "title": "Today's spot capacity",
+      "subtitle": "Green, yellow, or red light per destination — daily carrying capacity signal.",
+      "loading": "Loading…",
+      "empty": "No capacity snapshot for today yet.",
+      "spot": "Spot",
+      "hitungUlang": "Recalculate today",
+      "kelolaConfig": "Manage carrying capacity config →",
+      "levelLabel": {
+        "hijau": "Comfortable — within safe limits",
+        "kuning": "Busy — approaching capacity",
+        "merah": "Full — near or over capacity"
+      }
+    },
+    "neraca": {
+      "title": "Neraca Lestari",
+      "subtitle": "Combined ecological, social, and economic score — a measurable, transparent lestari KPI.",
+      "loading": "Loading…",
+      "empty": "No balance sheet for this period yet.",
+      "periode": "Period",
+      "hitung": "Calculate balance",
+      "kpiLabel": "Total score",
+      "periodeLabel": "Period {periode}",
+      "linkKapasitas": "Spot capacity →",
+      "linkDana": "Conservation fund →",
+      "pilar": {
+        "ekologi": "Ecology",
+        "sosial": "Social",
+        "ekonomi": "Economy"
+      },
+      "kejujuranTitle": "Ecological honesty",
+      "kejujuranDesc": "Impact claims from visitor stamps count only when backed by verified monitoring — preventing greenwashing.",
+      "klaimDiklaim": "Impact claims reported",
+      "klaimTervalidasi": "Claims validated by monitoring"
+    }
+  },
+  "anjungan": {
+    "dashboard": {
+      "title": "Data Hub",
+      "subtitle": "Tourism performance dashboard from gold aggregates — job-authoritative data, not manual input.",
+      "periode": "Period",
+      "loading": "Loading…",
+      "empty": "No aggregate data for this period yet. Run gold after transactions exist.",
+      "kesegaran": "Data as of {waktu}",
+      "jalankanGold": "Run gold",
+      "jobOk": "Gold job complete — data updated.",
+      "linkLaporan": "Monthly reports →",
+      "kartu": {
+        "umkm": "Active MSMEs",
+        "adopsi": "Lestari adoption (Dolphin tier)",
+        "kontribusi": "Conservation contribution"
+      },
+      "chart": {
+        "pendapatan": "Daily revenue",
+        "kunjungan": "Daily visits"
+      }
+    },
+    "laporan": {
+      "title": "Monthly reports",
+      "subtitle": "Generate draft from gold aggregates, finalize for immutable PDF snapshot.",
+      "periode": "Period",
+      "buatDraf": "Generate draft",
+      "finalkan": "Finalize & PDF",
+      "loading": "Loading…",
+      "empty": "No reports yet.",
+      "drafOk": "Report draft created.",
+      "finalOk": "Report finalized — PDF saved.",
+      "pdfTersedia": "PDF available",
+      "status": {
+        "draf": "Draft",
+        "final": "Final"
+      }
     }
   }
 }

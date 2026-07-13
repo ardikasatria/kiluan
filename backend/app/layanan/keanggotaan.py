@@ -9,7 +9,9 @@ from ..domain.entitas import Keanggotaan
 from ..domain.enums import KodePeran, StatusKeanggotaan
 from ..domain.errors import Konflik, KesalahanValidasi, TidakDitemukan
 
-_AUTO_AKTIF = {KodePeran.wisatawan, KodePeran.kontributor}
+# Kontributor kini peran gabungan (lebur pokdarwis) dengan hak kelola —
+# wajib persetujuan pengelola, tidak lagi auto-aktif.
+_AUTO_AKTIF = {KodePeran.wisatawan}
 
 
 class KeanggotaanLayanan:

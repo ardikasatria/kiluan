@@ -81,7 +81,7 @@ class PengirimNotifikasi:
 
     async def _pengelola_desa(self, desa_id: UUID) -> set[UUID]:
         ids: set[UUID] = set()
-        for peran in (KodePeran.pokdarwis, KodePeran.perangkat_desa, KodePeran.admin):
+        for peran in (KodePeran.kontributor, KodePeran.perangkat_desa, KodePeran.admin):
             for k in await self.store.keanggotaan.daftar_desa(
                 desa_id, peran=peran, status=StatusKeanggotaan.aktif,
             ):
