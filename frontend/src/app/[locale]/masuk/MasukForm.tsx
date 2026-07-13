@@ -1,7 +1,9 @@
 'use client'
 
+import DemoAkunPanel from '@/components/auth/DemoAkunPanel'
 import VerifikasiKodeForm from '@/components/auth/VerifikasiKodeForm'
 import AuthPageShell from '@/components/layout/AuthPageShell'
+import { tampilkanPanelDemoAkun } from '@/lib/kiluan/demo-akun'
 import { useAuth } from '@/contexts/AuthProvider'
 import { usePesanGalat } from '@/hooks/usePesanGalat'
 import { redirectSetelahLogin } from '@/lib/kiluan/peran'
@@ -66,6 +68,16 @@ export default function MasukForm() {
         <h1 className="text-2xl font-semibold text-primary-800 dark:text-primary-100">{t('title')}</h1>
         <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-400">{t('subtitle')}</p>
       </div>
+
+      {tampilkanPanelDemoAkun() && !perluVerifikasi && (
+        <DemoAkunPanel
+          onPilih={(e, s) => {
+            setEmail(e)
+            setSandi(s)
+            setGalat(null)
+          }}
+        />
+      )}
 
       {perluVerifikasi ? (
         <VerifikasiKodeForm

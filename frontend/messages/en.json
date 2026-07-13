@@ -50,7 +50,21 @@
       "submitting": "Signing in…",
       "noAccount": "Don't have an account?",
       "registerNow": "Register now",
-      "verifyPending": "Account not yet verified. A new code has been sent to your email."
+      "verifyPending": "Account not yet verified. A new code has been sent to your email.",
+      "demoAkun": {
+        "title": "Demo accounts (dev)",
+        "passwordHint": "Password for all demo accounts: {sandi}",
+        "adminPasswordHint": "password: {sandi}",
+        "roles": {
+          "wisatawan": "Visitor",
+          "kontributor": "Contributor",
+          "perangkatDesa": "Village staff",
+          "umkm": "MSME",
+          "agen": "Local agent",
+          "organisasi": "Organization / partner",
+          "admin": "Platform admin"
+        }
+      }
     },
     "daftarPage": {
       "seo": {
@@ -3210,8 +3224,8 @@
       "halo": "Hello,",
       "pilihPeran": "Choose your dashboard role",
       "pilihKonteks": "Choose a dashboard context in {desa}",
-      "descLintas": "Sigerciv connects tourism villages across Lampung. Travelers get a cross-village dashboard; manager roles are tied to your membership village.",
-      "descDesa": "Each role has different navigation and widgets. Switch roles via the picker in the village role dashboard.",
+      "descLintas": "Sigerciv connects tourism villages across Lampung. Pick a experience family — traveler, village manager, local business, partner, or village governance.",
+      "descDesa": "Five experience families, not technical role codes. Switch context anytime from the role dashboard.",
       "fase": "Phase {fase}",
       "bukaDasbor": "Open dashboard",
       "menunggu": "Awaiting approval",
@@ -3222,7 +3236,35 @@
       "bukaAdmin": "Open admin dashboard",
       "footerNote": "Need an additional role? Contact an Organization or village officials to activate your membership.",
       "belumAdaPeran": "No active roles yet. Register or contact village managers to activate your membership.",
-      "revisi": "Needs revision"
+      "revisi": "Needs revision",
+      "keluarga": {
+        "konsumen": {
+          "judul": "Traveler",
+          "tagline": "Sigerciv · Lampung",
+          "deskripsi": "Explore villages, wishlist, Lestari Passport, orders, and cross-village contributions."
+        },
+        "pengelola_desa": {
+          "judul": "Contributor & manager",
+          "tagline": "Volunteer + village curator",
+          "deskripsi": "Share photos, tips, and corrections — plus manage destinations, curate content, and memberships."
+        },
+        "penyedia_ekonomi": {
+          "judul": "Local business",
+          "tagline": "MSME & tour agents",
+          "deskripsi": "Product catalog, tour packages, orders, revenue, and service slots/schedules.",
+          "peranGanda": "You have two roles: {peran}"
+        },
+        "mitra_dampak": {
+          "judul": "Organization / Partner",
+          "tagline": "Conservation & research",
+          "deskripsi": "Conservation programs, ecological data, sponsorship, and impact reporting."
+        },
+        "tata_kelola": {
+          "judul": "Village officials",
+          "tagline": "Governance & legitimacy",
+          "deskripsi": "Membership verification, card validation, fund transparency, and village data kiosk."
+        }
+      }
     },
     "switcher": {
       "lintasDesa": "Across villages",
@@ -3252,11 +3294,11 @@
       },
       "organisasi": {
         "tagline": "Conservation & research partner",
-        "deskripsi": "Conservation programs, ecological data, and reinvestment sponsorship together with Organizations."
+        "deskripsi": "Cross-program conservation, verified ecological data, and lestari impact trace."
       },
       "perangkat_desa": {
         "tagline": "Governance & legitimacy",
-        "deskripsi": "Verify memberships, legitimize village policies, and ensure fund transparency for the community."
+        "deskripsi": "Village legitimacy: verify memberships, village policies, and conservation fund transparency."
       },
       "admin": {
         "tagline": "Platform steward",
@@ -3282,6 +3324,52 @@
       "placeholderData": "Verified data coming soon — no dummy numbers",
       "lihatRencana": "View plan",
       "buka": "Open"
+    },
+    "pengelola": {
+      "kontributor": {
+        "hybrid": "Hybrid role: contribute as a volunteer, manage the village after approval — pick a zone below."
+      },
+      "perangkat": {
+        "badge": "Village governance",
+        "governance": "Focus on membership legitimacy, card validation, and fund transparency — not contributor gamification.",
+        "pendingKeanggotaan": "{count, plural, =1 {# membership application awaiting approval} other {# membership applications awaiting approval}}",
+        "modulJudul": "Governance modules"
+      },
+      "zona": {
+        "label": "Contributor dashboard zones",
+        "saya": "My zone",
+        "sayaHint": "Contributions, badges, leaderboard — volunteer participation.",
+        "kelola": "Manage zone",
+        "kelolaHint": "Destinations, curation, membership — village manager console.",
+        "ringkasan": "Overview · {zona}",
+        "modul": "Modules · {zona}"
+      }
+    },
+    "penyedia": {
+      "badge": "Economic provider",
+      "intro": "Shared MSME & agent pattern: catalog → orders → escrow revenue → Level-Up certification.",
+      "escrowNote": "Revenue & escrow details activate after Dermaga Phase 2 integration.",
+      "peranLain": "You also have the {peran} role — open dashboard",
+      "zona": {
+        "label": "Provider dashboard zones",
+        "katalog": "Catalog",
+        "katalogHint": "Products, packages, services, and lestari certification.",
+        "operasional": "Operations",
+        "operasionalHint": "Orders, check-in, slots, revenue & escrow.",
+        "ringkasan": "Overview · {zona}",
+        "modul": "Modules · {zona}"
+      },
+      "widgets": {
+        "pesananDescKosong": "No incoming orders yet. Promote your Village Market showcase or tour packages.",
+        "pesananDescTotal": "{total} orders — view queue.",
+        "pesananDescAktif": "{aktif} active of {total} orders — action needed.",
+        "pendapatanDesc": "Transactions, platform fees, and net provider payouts.",
+        "pendapatanDescSelesai": "{selesai} completed orders — view revenue report."
+      },
+      "aktivitasFeed": {
+        "pesanan": "Order {kode} — {status}",
+        "kosong": "No order activity yet. Incoming orders will appear here."
+      }
     },
     "entry": {
       "loading": "Loading dashboard…"
@@ -3397,15 +3485,17 @@
         "produk": "Products & services",
         "layanan": "Tourism services",
         "pesanan": "Orders",
+        "pendapatan": "Revenue",
         "performa": "Performance",
         "sertifikasi": "Lestari Level-Up"
       },
       "stats": {
         "produkLabel": "Active products",
         "produkHint": "Phase 1",
-        "pesananLabel": "Orders this month",
+        "pesananLabel": "Active orders",
         "pesananHint": "Phase 2",
-        "ratingLabel": "Rating",
+        "pendapatanLabel": "Revenue",
+        "pendapatanHint": "Escrow F2",
         "tingkatLabel": "Lestari tier",
         "tingkatHint": "Phase 1",
         "tingkatValue": "Sprout"
@@ -3415,7 +3505,8 @@
         "produk": "Add product",
         "layanan": "Add service",
         "kartu": "Action cards",
-        "naik": "Level up",
+        "pesanan": "Manage orders",
+        "pendapatan": "View revenue",
         "promo": "Create promotion"
       },
       "modul": {
@@ -3440,7 +3531,9 @@
         "verifikasiTitle": "Verification status",
         "verifikasiDesc": "UMKM profile and local provider legitimacy.",
         "performaTitle": "Performance summary",
-        "performaDesc": "Sales metrics and community impact."
+        "performaDesc": "Sales metrics and community impact.",
+        "pendapatanTitle": "Revenue & escrow",
+        "pendapatanDesc": "Transactions, platform fees, and net provider payouts."
       }
     },
     "agen": {
@@ -3450,22 +3543,28 @@
         "ringkasan": "Overview",
         "paket": "My packages",
         "layanan": "Tourism services",
+        "sertifikasi": "Lestari Level-Up",
         "jadwal": "Quotas & schedule",
-        "booking": "Incoming bookings"
+        "booking": "Check-in",
+        "pesanan": "Orders",
+        "pendapatan": "Revenue"
       },
       "stats": {
         "paketLabel": "Published packages",
         "draftLabel": "In review",
-        "kuotaLabel": "Quota filled",
-        "kuotaHint": "Phase 2",
+        "pesananLabel": "Active orders",
+        "pesananHint": "Phase 2",
         "pendapatanLabel": "Revenue",
-        "pendapatanHint": "Phase 2"
+        "pendapatanHint": "Escrow F2"
       },
       "aksi": {
         "buat": "Create new package",
         "layanan": "Add service",
-        "profil": "Agent profile",
-        "kalender": "Activity calendar"
+        "naik": "Level up",
+        "jadwal": "Manage slots",
+        "checkin": "Guest check-in",
+        "pesanan": "Manage orders",
+        "pendapatan": "View revenue"
       },
       "modul": {
         "paket": "Tour packages",
@@ -3483,9 +3582,13 @@
         "layananDesc": "Boats, guides, transport — your agent services on the village showcase.",
         "jadwalTitle": "Quotas & schedule",
         "jadwalDesc": "Set package slots and capacity.",
-        "bookingTitle": "Package orders",
-        "bookingDesc": "Incoming bookings from travelers.",
-        "sertifikasiTitle": "Certification progress",
+        "bookingTitle": "Guest check-in",
+        "bookingDesc": "Validate traveler check-in codes.",
+        "pesananTitle": "Package orders",
+        "pesananDesc": "Incoming bookings from travelers.",
+        "pendapatanTitle": "Revenue & escrow",
+        "pendapatanDesc": "Transactions, platform fees, and net agent payouts.",
+        "sertifikasiTitle": "Lestari Level-Up",
         "sertifikasiDesc": "Local agent Lestari tier."
       }
     },
@@ -3500,7 +3603,7 @@
         "destinasi": "Destinations",
         "kurasi": "Curation queue",
         "keanggotaan": "Membership",
-        "dana": "Conservation fund"
+        "kelola": "Manage console"
       },
       "stats": {
         "totalLabel": "Contributions",
@@ -3510,14 +3613,14 @@
         "publikLabel": "Published destinations",
         "draftLabel": "Drafts",
         "layananLabel": "Services",
-        "kontribLabel": "Pending contributions",
-        "kontribHint": "Curation queue"
+        "kontribLabel": "Curation queue",
+        "kontribHint": "Pending"
       },
       "aksi": {
         "baru": "New contribution",
         "lencana": "View badges",
         "board": "Leaderboard",
-        "kelola": "Manage destinations",
+        "konsol": "Open manage console",
         "keanggotaan": "Membership approval",
         "validasi": "Validate action cards",
         "kurasi": "Curate content",
@@ -3568,66 +3671,107 @@
     },
     "organisasi": {
       "tagline": "Conservation & research partner",
-      "deskripsi": "Conservation programs, ecological data, and reinvestment sponsorship together with Organizations.",
+      "deskripsi": "Cross-program conservation, verified ecological data, and lestari impact trace — not daily village operations.",
+      "badge": "Impact partner",
+      "intro": "Not daily village operations — focus on verified ecological data, lestari trace, and conservation programs.",
+      "programNote": "Cross-village partner program modules coming soon — field & balance modules are active.",
+      "pendingVerifikasi": "{count, plural, =1 {# reading awaiting verification} other {# readings awaiting verification}}",
+      "zona": {
+        "label": "Organization dashboard zones",
+        "lapangan": "Field & data",
+        "lapanganHint": "Ecological monitoring, indicators, reading verification.",
+        "program": "Program & impact",
+        "programHint": "Conservation fund, lestari balance, monthly reports.",
+        "ringkasan": "Overview · {zona}",
+        "modul": "Modules · {zona}"
+      },
       "nav": {
         "ringkasan": "Overview",
-        "program": "Programs",
-        "ekologi": "Ecological data",
-        "sponsor": "Sponsorship"
+        "monitoring": "Monitoring",
+        "ekologi": "Record data",
+        "verifikasi": "Verify data",
+        "dana": "Conservation fund",
+        "neraca": "Lestari balance",
+        "laporan": "Village reports",
+        "program": "Partner programs"
       },
       "stats": {
-        "programLabel": "Active programs",
-        "indikatorLabel": "Monitored indicators",
+        "monitoringLabel": "Readings",
+        "indikatorLabel": "Indicators",
         "indikatorHint": "Phase 3",
-        "sponsorLabel": "Sponsored funds",
+        "verifikasiLabel": "Awaiting verification",
+        "neracaLabel": "Balance periods",
+        "danaLabel": "Fund balance",
         "laporanLabel": "Reports"
       },
       "aksi": {
-        "monitor": "Ecological monitoring",
+        "monitor": "Record monitoring",
+        "verifikasi": "Verify data",
         "dana": "Conservation fund",
-        "neraca": "Lestari balance"
+        "neraca": "Lestari balance",
+        "laporan": "Monthly report",
+        "data": "Data kiosk"
       },
       "modul": {
         "monitoring": "Ecological Monitoring",
-        "jejak": "Lestari Trail"
+        "jejak": "Lestari Trail",
+        "laporan": "Village reports",
+        "dana": "Conservation fund"
       },
       "aktivitas": {
         "a1": "Uploaded Q2 coral index data",
         "a2": "Sponsored mangrove program"
       },
       "widgets": {
-        "programTitle": "Conservation programs",
-        "programDesc": "Research collaboration and field action with Organizations.",
-        "ekologiTitle": "Ecological data",
-        "ekologiDesc": "Coral index, mangrove, and biodiversity monitoring.",
-        "sponsorTitle": "Sponsor & reinvestment",
-        "sponsorDesc": "Partner fund allocation to conservation programs.",
-        "kontakTitle": "Collaboration channel",
-        "kontakDesc": "Partner profile and village cooperation contacts."
+        "monitoringTitle": "Ecological monitoring",
+        "monitoringDesc": "Field readings with village verification flow.",
+        "monitoringDescAda": "{total} readings — view monitoring list.",
+        "indikatorTitle": "Ecological indicators",
+        "indikatorDesc": "Coral index, mangrove, and biodiversity catalog for the village.",
+        "verifikasiTitle": "Verification queue",
+        "verifikasiDesc": "Legitimize field data before it enters the balance sheet.",
+        "verifikasiDescAda": "{total} awaiting village verification.",
+        "neracaTitle": "Lestari balance",
+        "neracaDesc": "Ecology, social, and economy scores per period.",
+        "neracaDescAda": "{total} balance periods recorded.",
+        "danaTitle": "Conservation fund",
+        "danaDesc": "Inflows, outflows, and program fund balance.",
+        "danaDescSaldo": "Conservation fund balance: IDR {saldo}.",
+        "laporanTitle": "Impact reports",
+        "laporanDesc": "Monthly tourism & conservation performance summary.",
+        "programTitle": "Partner programs",
+        "programDesc": "Research collaboration and cross-program sponsorship."
+      },
+      "aktivitasFeed": {
+        "monitoring": "{indikator}: {nilai} — {status}",
+        "kosong": "No monitoring activity yet. Record a field reading to get started."
       }
     },
     "perangkat_desa": {
       "tagline": "Governance & legitimacy",
-      "deskripsi": "Verify memberships, legitimize village policies, and ensure fund transparency for the community.",
+      "deskripsi": "Village legitimacy: verify memberships, village policies, and conservation fund transparency.",
       "nav": {
         "ringkasan": "Overview",
-        "verifikasi": "Verification",
-        "kebijakan": "Policies",
-        "transparansi": "Transparency",
-        "kelola": "Operational management"
+        "verifikasi": "Membership verification",
+        "validasi": "Card validation",
+        "transparansi": "Fund transparency",
+        "data": "Data kiosk",
+        "kelola": "Manage console"
       },
       "stats": {
         "anggotaLabel": "Pending memberships",
+        "kurasiLabel": "Curation queue",
         "verifLabel": "Verifications this month",
         "danaLabel": "Conservation fund",
         "danaHint": "Phase 3",
         "spotLabel": "Active spots"
       },
       "aksi": {
-        "kelola": "Management dashboard",
+        "keanggotaan": "Membership approval",
+        "validasi": "Validate lestari cards",
+        "kelola": "Manage console",
         "dana": "Fund report",
-        "daya": "Carrying capacity",
-        "profil": "Village profile"
+        "data": "Data kiosk"
       },
       "modul": {
         "kelola": "Manage village",
@@ -3641,16 +3785,14 @@
       "widgets": {
         "verifikasiTitle": "Membership approval",
         "verifikasiDesc": "Legitimize UMKM, agent, and contributor roles.",
-        "umkmTitle": "MSME verification",
-        "umkmDesc": "Legitimize MSME profiles before Village Market publication.",
-        "kelolaTitle": "Operational management",
-        "kelolaDesc": "Village management dashboard and policies.",
+        "validasiTitle": "Validate lestari cards",
+        "validasiDesc": "Approve Level-Up action cards and MSME certification tiers.",
+        "kelolaTitle": "Manage console",
+        "kelolaDesc": "Central hub for village operational management.",
         "danaTitle": "Fund transparency",
-        "danaDesc": "Village conservation fund flows.",
-        "dayaDukungTitle": "Spot carrying capacity",
-        "dayaDukungDesc": "Green/yellow/red light per destination.",
-        "laporanTitle": "Village report",
-        "laporanDesc": "Tourism performance summary."
+        "danaDesc": "Conservation fund flows for village accountability.",
+        "laporanTitle": "Data kiosk",
+        "laporanDesc": "Tourism performance summary and village reports."
       }
     },
     "admin": {

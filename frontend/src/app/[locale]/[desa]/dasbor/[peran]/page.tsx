@@ -1,4 +1,7 @@
 import DasborGuard from '@/components/kiluan/dashboard/DasborGuard'
+import OrganisasiDashboardView from '@/components/kiluan/dashboard/OrganisasiDashboardView'
+import PengelolaDesaDashboardView from '@/components/kiluan/dashboard/PengelolaDesaDashboardView'
+import PenyediaDashboardView from '@/components/kiluan/dashboard/PenyediaDashboardView'
 import RoleDashboardView from '@/components/kiluan/dashboard/RoleDashboardView'
 import { getProfilDesa } from '@/lib/api/desa'
 import { ambilStatsDasbor } from '@/lib/kiluan/dashboard-stats'
@@ -42,14 +45,43 @@ export default async function DasborPeranPage({ params }: Props) {
 
   const config = konfigDasborPeran(desa, translators)[kode]
 
+  const pengelolaDesa = kode === 'kontributor' || kode === 'perangkat_desa'
+  const penyedia = kode === 'umkm' || kode === 'agen'
+  const organisasi = kode === 'organisasi'
+
   return (
     <DasborGuard desaSlug={desa} desaNama={profil.nama} peran={kode}>
-      <RoleDashboardView
-        desaSlug={desa}
-        desaNama={profil.nama}
-        config={config}
-        statsOverride={statsOverride}
-      />
+      {pengelolaDesa ? (
+        <PengelolaDesaDashboardView
+          desaSlug={desa}
+          desaNama={profil.nama}
+          config={config}
+          peran={kode}
+          statsOverride={statsOverride}
+        />
+      ) : penyedia ? (
+        <PenyediaDashboardView
+          desaSlug={desa}
+          desaNama={profil.nama}
+          config={config}
+          peran={kode}
+          statsOverride={statsOverride}
+        />
+      ) : organisasi ? (
+        <OrganisasiDashboardView
+          desaSlug={desa}
+          desaNama={profil.nama}
+          config={config}
+          statsOverride={statsOverride}
+        />
+      ) : (
+        <RoleDashboardView
+          desaSlug={desa}
+          desaNama={profil.nama}
+          config={config}
+          statsOverride={statsOverride}
+        />
+      )}
     </DasborGuard>
   )
 }

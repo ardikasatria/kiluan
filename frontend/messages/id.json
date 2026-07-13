@@ -50,7 +50,21 @@
       "submitting": "Memproses…",
       "noAccount": "Belum punya akun?",
       "registerNow": "Daftar sekarang",
-      "verifyPending": "Akun belum diverifikasi. Kode baru telah dikirim ke email Anda."
+      "verifyPending": "Akun belum diverifikasi. Kode baru telah dikirim ke email Anda.",
+      "demoAkun": {
+        "title": "Akun demo (dev)",
+        "passwordHint": "Sandi semua akun demo: {sandi}",
+        "adminPasswordHint": "sandi: {sandi}",
+        "roles": {
+          "wisatawan": "Wisatawan",
+          "kontributor": "Kontributor",
+          "perangkatDesa": "Perangkat desa",
+          "umkm": "UMKM",
+          "agen": "Agen lokal",
+          "organisasi": "Organisasi / mitra",
+          "admin": "Admin platform"
+        }
+      }
     },
     "daftarPage": {
       "seo": {
@@ -3210,8 +3224,8 @@
       "halo": "Halo,",
       "pilihPeran": "Pilih peran dasbor Anda",
       "pilihKonteks": "Pilih konteks dasbor di {desa}",
-      "descLintas": "Sigerciv menghubungkan desa wisata di Lampung. Wisatawan punya dasbor lintas desa; peran pengelola terikat desa keanggotaan Anda.",
-      "descDesa": "Setiap peran memiliki navigasi dan widget berbeda. Ganti peran lewat pemilih di dasbor peran desa.",
+      "descLintas": "Sigerciv menghubungkan desa wisata di Lampung. Pilih keluarga pengalaman — wisatawan, pengelola desa, bisnis lokal, mitra, atau tata kelola pekon.",
+      "descDesa": "Lima keluarga pengalaman, bukan kode peran teknis. Ganti konteks kapan saja dari dasbor peran.",
       "fase": "Fase {fase}",
       "bukaDasbor": "Buka dasbor",
       "menunggu": "Menunggu persetujuan",
@@ -3222,7 +3236,35 @@
       "bukaAdmin": "Buka dasbor admin",
       "footerNote": "Perlu peran tambahan? Hubungi Organisasi atau perangkat desa untuk aktivasi keanggotaan.",
       "belumAdaPeran": "Belum ada peran aktif. Daftar atau hubungi pengelola desa untuk aktivasi keanggotaan.",
-      "revisi": "Perlu revisi"
+      "revisi": "Perlu revisi",
+      "keluarga": {
+        "konsumen": {
+          "judul": "Wisatawan",
+          "tagline": "Sigerciv · Lampung",
+          "deskripsi": "Jelajah desa wisata, wishlist, Paspor Lestari, pesanan, dan kontribusi lintas desa."
+        },
+        "pengelola_desa": {
+          "judul": "Kontributor & pengelola",
+          "tagline": "Relawan + kurator desa",
+          "deskripsi": "Sumbang foto, tips, dan koreksi — plus kelola destinasi, kurasi konten, dan keanggotaan."
+        },
+        "penyedia_ekonomi": {
+          "judul": "Bisnis lokal",
+          "tagline": "UMKM & agen wisata",
+          "deskripsi": "Katalog produk, paket wisata, pesanan, pendapatan, dan slot/jadwal layanan.",
+          "peranGanda": "Anda punya dua peran: {peran}"
+        },
+        "mitra_dampak": {
+          "judul": "Organisasi / Mitra",
+          "tagline": "Konservasi & riset",
+          "deskripsi": "Program konservasi, data ekologi, sponsor, dan laporan dampak lestari."
+        },
+        "tata_kelola": {
+          "judul": "Perangkat desa",
+          "tagline": "Tata kelola & legitimasi",
+          "deskripsi": "Verifikasi keanggotaan, validasi kartu, transparansi dana, dan anjungan data pekon."
+        }
+      }
     },
     "switcher": {
       "lintasDesa": "Lintas desa",
@@ -3252,11 +3294,11 @@
       },
       "organisasi": {
         "tagline": "Mitra konservasi & riset",
-        "deskripsi": "Program konservasi, data ekologi, dan sponsor reinvestment bersama Organisasi."
+        "deskripsi": "Program konservasi lintas program, data ekologi terverifikasi, dan jejak dampak lestari."
       },
       "perangkat_desa": {
         "tagline": "Tata kelola & legitimasi",
-        "deskripsi": "Verifikasi keanggotaan, legitimasi kebijakan desa, dan transparansi dana untuk pekon."
+        "deskripsi": "Legitimasi pekon: verifikasi keanggotaan, kebijakan desa, dan transparansi dana lestari."
       },
       "admin": {
         "tagline": "Steward platform",
@@ -3282,6 +3324,52 @@
       "placeholderData": "Data terverifikasi menyusul — tanpa angka dummy",
       "lihatRencana": "Lihat rencana",
       "buka": "Buka"
+    },
+    "pengelola": {
+      "kontributor": {
+        "hybrid": "Peran hibrida: sumbang data sebagai relawan, kelola desa setelah disetujui — pilih zona di bawah."
+      },
+      "perangkat": {
+        "badge": "Tata kelola pekon",
+        "governance": "Fokus legitimasi keanggotaan, validasi kartu, dan transparansi dana — bukan gamifikasi kontributor.",
+        "pendingKeanggotaan": "{count, plural, =1 {# pengajuan keanggotaan menunggu persetujuan} other {# pengajuan keanggotaan menunggu persetujuan}}",
+        "modulJudul": "Modul tata kelola"
+      },
+      "zona": {
+        "label": "Zona dasbor kontributor",
+        "saya": "Zona Saya",
+        "sayaHint": "Kontribusi, lencana, leaderboard — partisipasi relawan.",
+        "kelola": "Zona Kelola",
+        "kelolaHint": "Destinasi, kurasi, keanggotaan — konsol pengelola desa.",
+        "ringkasan": "Ringkasan · {zona}",
+        "modul": "Modul · {zona}"
+      }
+    },
+    "penyedia": {
+      "badge": "Penyedia ekonomi",
+      "intro": "Pola bersama UMKM & agen: katalog → pesanan → pendapatan escrow → naik kelas lestari.",
+      "escrowNote": "Detail pendapatan & escrow aktif setelah integrasi Dermaga F2.",
+      "peranLain": "Anda juga punya peran {peran} — buka dasbor",
+      "zona": {
+        "label": "Zona dasbor penyedia",
+        "katalog": "Katalog",
+        "katalogHint": "Produk, paket, layanan, dan sertifikasi lestari.",
+        "operasional": "Operasional",
+        "operasionalHint": "Pesanan, check-in, slot, pendapatan & escrow.",
+        "ringkasan": "Ringkasan · {zona}",
+        "modul": "Modul · {zona}"
+      },
+      "widgets": {
+        "pesananDescKosong": "Belum ada pesanan masuk. Promosikan etalase Pasar Desa atau paket wisata.",
+        "pesananDescTotal": "{total} pesanan — lihat antrian.",
+        "pesananDescAktif": "{aktif} aktif dari {total} pesanan — perlu tindakan.",
+        "pendapatanDesc": "Transaksi, fee platform, dan pencairan neto penyedia.",
+        "pendapatanDescSelesai": "{selesai} pesanan selesai — lihat laporan pendapatan."
+      },
+      "aktivitasFeed": {
+        "pesanan": "Pesanan {kode} — {status}",
+        "kosong": "Belum ada aktivitas pesanan. Pesanan masuk akan muncul di sini."
+      }
     },
     "entry": {
       "loading": "Memuat dasbor…"
@@ -3397,15 +3485,17 @@
         "produk": "Produk & jasa",
         "layanan": "Layanan wisata",
         "pesanan": "Pesanan",
+        "pendapatan": "Pendapatan",
         "performa": "Performa",
         "sertifikasi": "Naik Kelas Lestari"
       },
       "stats": {
         "produkLabel": "Produk aktif",
         "produkHint": "Fase 1",
-        "pesananLabel": "Pesanan bulan ini",
+        "pesananLabel": "Pesanan aktif",
         "pesananHint": "Fase 2",
-        "ratingLabel": "Rating",
+        "pendapatanLabel": "Pendapatan",
+        "pendapatanHint": "Escrow F2",
         "tingkatLabel": "Tingkat lestari",
         "tingkatHint": "Fase 1",
         "tingkatValue": "Tunas"
@@ -3415,7 +3505,8 @@
         "produk": "Tambah produk",
         "layanan": "Tambah layanan",
         "kartu": "Kartu aksi",
-        "naik": "Naik kelas",
+        "pesanan": "Kelola pesanan",
+        "pendapatan": "Lihat pendapatan",
         "promo": "Buat promo"
       },
       "modul": {
@@ -3440,7 +3531,9 @@
         "verifikasiTitle": "Status verifikasi",
         "verifikasiDesc": "Profil UMKM dan legitimasi penyedia lokal.",
         "performaTitle": "Performa ringkas",
-        "performaDesc": "Metrik penjualan dan dampak lestari."
+        "performaDesc": "Metrik penjualan dan dampak lestari.",
+        "pendapatanTitle": "Pendapatan & escrow",
+        "pendapatanDesc": "Transaksi, fee platform, dan pencairan neto penyedia."
       }
     },
     "agen": {
@@ -3450,22 +3543,28 @@
         "ringkasan": "Ringkasan",
         "paket": "Paket saya",
         "layanan": "Layanan wisata",
+        "sertifikasi": "Naik Kelas Lestari",
         "jadwal": "Kuota & jadwal",
-        "booking": "Booking masuk"
+        "booking": "Check-in",
+        "pesanan": "Pesanan",
+        "pendapatan": "Pendapatan"
       },
       "stats": {
         "paketLabel": "Paket publik",
         "draftLabel": "Dalam review",
-        "kuotaLabel": "Kuota terisi",
-        "kuotaHint": "Fase 2",
+        "pesananLabel": "Pesanan aktif",
+        "pesananHint": "Fase 2",
         "pendapatanLabel": "Pendapatan",
-        "pendapatanHint": "Fase 2"
+        "pendapatanHint": "Escrow F2"
       },
       "aksi": {
         "buat": "Buat paket baru",
         "layanan": "Tambah layanan",
-        "profil": "Profil agen",
-        "kalender": "Kalender aktivitas"
+        "naik": "Naik kelas",
+        "jadwal": "Atur slot",
+        "checkin": "Check-in tamu",
+        "pesanan": "Kelola pesanan",
+        "pendapatan": "Lihat pendapatan"
       },
       "modul": {
         "paket": "Paket wisata",
@@ -3483,9 +3582,13 @@
         "layananDesc": "Perahu, pemandu, transportasi — milik akun agen Anda di etalase desa.",
         "jadwalTitle": "Kuota & jadwal",
         "jadwalDesc": "Atur slot dan kapasitas paket.",
-        "bookingTitle": "Pesanan paket",
-        "bookingDesc": "Booking masuk dari wisatawan.",
-        "sertifikasiTitle": "Progres sertifikasi",
+        "bookingTitle": "Check-in tamu",
+        "bookingDesc": "Validasi kode check-in dari wisatawan.",
+        "pesananTitle": "Pesanan paket",
+        "pesananDesc": "Booking masuk dari wisatawan.",
+        "pendapatanTitle": "Pendapatan & escrow",
+        "pendapatanDesc": "Transaksi, fee platform, dan pencairan neto agen.",
+        "sertifikasiTitle": "Naik Kelas Lestari",
         "sertifikasiDesc": "Tingkat lestari agen lokal."
       }
     },
@@ -3500,7 +3603,7 @@
         "destinasi": "Destinasi",
         "kurasi": "Antrian kurasi",
         "keanggotaan": "Keanggotaan",
-        "dana": "Dana konservasi"
+        "kelola": "Konsol kelola"
       },
       "stats": {
         "totalLabel": "Kontribusi",
@@ -3510,14 +3613,14 @@
         "publikLabel": "Destinasi publik",
         "draftLabel": "Draft",
         "layananLabel": "Layanan",
-        "kontribLabel": "Kontribusi menunggu",
-        "kontribHint": "Antrian kurasi"
+        "kontribLabel": "Antrian kurasi",
+        "kontribHint": "Menunggu"
       },
       "aksi": {
         "baru": "Kontribusi baru",
         "lencana": "Lihat lencana",
         "board": "Leaderboard",
-        "kelola": "Kelola destinasi",
+        "konsol": "Buka konsol kelola",
         "keanggotaan": "Persetujuan keanggotaan",
         "validasi": "Validasi kartu",
         "kurasi": "Kurasi konten",
@@ -3568,66 +3671,107 @@
     },
     "organisasi": {
       "tagline": "Mitra konservasi & riset",
-      "deskripsi": "Program konservasi, data ekologi, dan sponsor reinvestment bersama Organisasi.",
+      "deskripsi": "Program konservasi lintas program, data ekologi terverifikasi, dan jejak dampak lestari — bukan operasional harian desa.",
+      "badge": "Mitra dampak",
+      "intro": "Bukan pengelola operasional harian desa — fokus data ekologi terverifikasi, jejak lestari, dan program konservasi.",
+      "programNote": "Modul program mitra lintas desa menyusul — modul F3 lapangan & neraca sudah aktif.",
+      "pendingVerifikasi": "{count, plural, =1 {# pembacaan menunggu verifikasi} other {# pembacaan menunggu verifikasi}}",
+      "zona": {
+        "label": "Zona dasbor organisasi",
+        "lapangan": "Lapangan & data",
+        "lapanganHint": "Monitoring ekologi, indikator, verifikasi pembacaan.",
+        "program": "Program & dampak",
+        "programHint": "Dana konservasi, neraca lestari, laporan bulanan.",
+        "ringkasan": "Ringkasan · {zona}",
+        "modul": "Modul · {zona}"
+      },
       "nav": {
         "ringkasan": "Ringkasan",
-        "program": "Program",
-        "ekologi": "Data ekologi",
-        "sponsor": "Sponsor"
+        "monitoring": "Monitoring",
+        "ekologi": "Catat data",
+        "verifikasi": "Verifikasi data",
+        "dana": "Dana konservasi",
+        "neraca": "Neraca lestari",
+        "laporan": "Laporan desa",
+        "program": "Program mitra"
       },
       "stats": {
-        "programLabel": "Program aktif",
-        "indikatorLabel": "Indikator terpantau",
+        "monitoringLabel": "Pembacaan",
+        "indikatorLabel": "Indikator",
         "indikatorHint": "Fase 3",
-        "sponsorLabel": "Dana disponsori",
+        "verifikasiLabel": "Menunggu verifikasi",
+        "neracaLabel": "Periode neraca",
+        "danaLabel": "Saldo dana",
         "laporanLabel": "Laporan"
       },
       "aksi": {
-        "monitor": "Monitoring ekologi",
+        "monitor": "Catat monitoring",
+        "verifikasi": "Verifikasi data",
         "dana": "Dana konservasi",
-        "neraca": "Neraca lestari"
+        "neraca": "Neraca lestari",
+        "laporan": "Laporan bulanan",
+        "data": "Anjungan data"
       },
       "modul": {
         "monitoring": "Monitoring Ekologi",
-        "jejak": "Jejak Lestari"
+        "jejak": "Jejak Lestari",
+        "laporan": "Laporan desa",
+        "dana": "Dana konservasi"
       },
       "aktivitas": {
         "a1": "Mengunggah data indeks karang Q2",
         "a2": "Menyponsori program mangrove"
       },
       "widgets": {
-        "programTitle": "Program konservasi",
-        "programDesc": "Kolaborasi riset dan aksi lapangan bersama Organisasi.",
-        "ekologiTitle": "Data ekologi",
-        "ekologiDesc": "Monitoring indeks karang, mangrove, dan biodiversitas.",
-        "sponsorTitle": "Sponsor & reinvestment",
-        "sponsorDesc": "Alokasi dana mitra ke program lestari.",
-        "kontakTitle": "Kanal kolaborasi",
-        "kontakDesc": "Profil mitra dan kontak kerja sama desa."
+        "monitoringTitle": "Monitoring ekologi",
+        "monitoringDesc": "Pembacaan lapangan dengan alur verifikasi pekon.",
+        "monitoringDescAda": "{total} pembacaan — lihat daftar monitoring.",
+        "indikatorTitle": "Indikator ekologi",
+        "indikatorDesc": "Katalog indeks karang, mangrove, dan biodiversitas desa.",
+        "verifikasiTitle": "Antrian verifikasi",
+        "verifikasiDesc": "Legitimasi data lapangan sebelum masuk neraca.",
+        "verifikasiDescAda": "{total} menunggu verifikasi pekon.",
+        "neracaTitle": "Neraca lestari",
+        "neracaDesc": "Skor ekologi, sosial, ekonomi per periode.",
+        "neracaDescAda": "{total} periode neraca tercatat.",
+        "danaTitle": "Dana konservasi",
+        "danaDesc": "Aliran masuk/keluar dan saldo program lestari.",
+        "danaDescSaldo": "Saldo dana lestari: Rp {saldo}.",
+        "laporanTitle": "Laporan dampak",
+        "laporanDesc": "Ringkasan bulanan kinerja wisata & lestari.",
+        "programTitle": "Program mitra",
+        "programDesc": "Kolaborasi riset dan sponsor lintas program."
+      },
+      "aktivitasFeed": {
+        "monitoring": "{indikator}: {nilai} — {status}",
+        "kosong": "Belum ada aktivitas monitoring. Catat pembacaan lapangan untuk memulai."
       }
     },
     "perangkat_desa": {
       "tagline": "Tata kelola & legitimasi",
-      "deskripsi": "Verifikasi keanggotaan, legitimasi kebijakan desa, dan transparansi dana untuk pekon.",
+      "deskripsi": "Legitimasi pekon: verifikasi keanggotaan, kebijakan desa, dan transparansi dana lestari.",
       "nav": {
         "ringkasan": "Ringkasan",
-        "verifikasi": "Verifikasi",
-        "kebijakan": "Kebijakan",
-        "transparansi": "Transparansi",
-        "kelola": "Kelola operasional"
+        "verifikasi": "Verifikasi keanggotaan",
+        "validasi": "Validasi kartu",
+        "transparansi": "Transparansi dana",
+        "data": "Anjungan data",
+        "kelola": "Konsol kelola"
       },
       "stats": {
         "anggotaLabel": "Keanggotaan pending",
+        "kurasiLabel": "Antrian kurasi",
         "verifLabel": "Verifikasi bulan ini",
         "danaLabel": "Dana konservasi",
         "danaHint": "Fase 3",
         "spotLabel": "Spot aktif"
       },
       "aksi": {
-        "kelola": "Dashboard kelola",
+        "keanggotaan": "Persetujuan keanggotaan",
+        "validasi": "Validasi kartu lestari",
+        "kelola": "Konsol kelola",
         "dana": "Laporan dana",
-        "daya": "Daya dukung",
-        "profil": "Profil desa"
+        "data": "Anjungan data"
       },
       "modul": {
         "kelola": "Kelola desa",
@@ -3641,16 +3785,14 @@
       "widgets": {
         "verifikasiTitle": "Persetujuan keanggotaan",
         "verifikasiDesc": "Legitimasi peran UMKM, agen, dan kontributor.",
-        "umkmTitle": "Verifikasi UMKM",
-        "umkmDesc": "Legitimasi profil UMKM sebelum publikasi di Pasar Desa.",
-        "kelolaTitle": "Kelola operasional",
-        "kelolaDesc": "Dashboard pengelolaan desa dan kebijakan.",
+        "validasiTitle": "Validasi kartu lestari",
+        "validasiDesc": "Setujui kartu aksi Naik Kelas dan sertifikasi UMKM.",
+        "kelolaTitle": "Konsol kelola",
+        "kelolaDesc": "Pusat pengelolaan operasional desa.",
         "danaTitle": "Transparansi dana",
-        "danaDesc": "Aliran dana konservasi desa.",
-        "dayaDukungTitle": "Daya dukung spot",
-        "dayaDukungDesc": "Lampu hijau/kuning/merah per destinasi.",
-        "laporanTitle": "Laporan desa",
-        "laporanDesc": "Ringkasan kinerja wisata."
+        "danaDesc": "Aliran dana konservasi desa untuk akuntabilitas pekon.",
+        "laporanTitle": "Anjungan data",
+        "laporanDesc": "Ringkasan kinerja wisata dan laporan desa."
       }
     },
     "admin": {

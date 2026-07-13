@@ -1,6 +1,14 @@
 import type { PeranKode } from './peran'
 import { RUTE_DASBOR_WISATAWAN, RUTE_WISATAWAN } from './rute-sigerciv'
 
+export type ZonaDasborPengelola = 'saya' | 'kelola'
+
+export type ZonaDasborPenyedia = 'katalog' | 'operasional'
+
+export type ZonaDasborOrganisasi = 'lapangan' | 'program'
+
+export type ZonaDasbor = ZonaDasborPengelola | ZonaDasborPenyedia | ZonaDasborOrganisasi
+
 export interface DashboardNavItem {
   id: string
   label: string
@@ -9,6 +17,8 @@ export interface DashboardNavItem {
   /** Tautan absolut — mengabaikan segment + base dasbor */
   href?: string
   segera?: boolean
+  /** Zona nav — kontributor (saya/kelola) atau penyedia (katalog/operasional) */
+  zona?: ZonaDasbor
 }
 
 export interface DashboardStat {
@@ -29,6 +39,7 @@ export interface DashboardWidget {
   href?: string
   segera?: boolean
   placeholder?: boolean
+  zona?: ZonaDasbor
 }
 
 export interface DashboardQuickAction {
@@ -37,6 +48,7 @@ export interface DashboardQuickAction {
   href: string
   primary?: boolean
   segera?: boolean
+  zona?: ZonaDasbor
 }
 
 export interface DashboardModulLink {
@@ -82,26 +94,27 @@ export function konfigDasborPeran(
       fase: 'F1–F3',
       nav: [
         { id: 'ringkasan', label: tr('umkm', 'nav.ringkasan', 'Ringkasan'), segment: '' },
-        { id: 'produk', label: tr('umkm', 'nav.produk', 'Produk & jasa'), segment: '/produk' },
-        { id: 'layanan', label: tr('umkm', 'nav.layanan', 'Layanan wisata'), segment: '/layanan', segera: false },
-        { id: 'pesanan', label: tr('umkm', 'nav.pesanan', 'Pesanan'), segment: '/pesanan', href: href(d, 'kelola/pesanan') },
-        { id: 'pendapatan', label: tr('umkm', 'nav.pendapatan', 'Pendapatan'), segment: '/pendapatan', href: href(d, 'kelola/pendapatan') },
-        { id: 'performa', label: tr('umkm', 'nav.performa', 'Performa'), segment: '/performa', segera: true },
-        { id: 'sertifikasi', label: tr('umkm', 'nav.sertifikasi', 'Naik Kelas Lestari'), segment: '/sertifikasi', segera: false },
+        { id: 'produk', label: tr('umkm', 'nav.produk', 'Produk & jasa'), segment: '/produk', zona: 'katalog' },
+        { id: 'layanan', label: tr('umkm', 'nav.layanan', 'Layanan wisata'), segment: '/layanan', zona: 'katalog' },
+        { id: 'sertifikasi', label: tr('umkm', 'nav.sertifikasi', 'Naik Kelas Lestari'), segment: '/sertifikasi', href: href(d, 'naik-kelas'), zona: 'katalog' },
+        { id: 'pesanan', label: tr('umkm', 'nav.pesanan', 'Pesanan'), segment: '/pesanan', href: href(d, 'kelola/pesanan'), zona: 'operasional' },
+        { id: 'pendapatan', label: tr('umkm', 'nav.pendapatan', 'Pendapatan'), segment: '/pendapatan', href: href(d, 'kelola/pendapatan'), zona: 'operasional' },
+        { id: 'performa', label: tr('umkm', 'nav.performa', 'Performa'), segment: '/performa', segera: true, zona: 'operasional' },
       ],
       stats: [
-        { id: 'produk', label: tr('umkm', 'stats.produkLabel', 'Produk aktif'), value: 0, hint: tr('umkm', 'stats.produkHint', 'Fase 1') },
-        { id: 'pesanan', label: tr('umkm', 'stats.pesananLabel', 'Pesanan bulan ini'), value: 0, hint: tr('umkm', 'stats.pesananHint', 'Fase 2') },
-        { id: 'rating', label: tr('umkm', 'stats.ratingLabel', 'Rating'), value: '—' },
-        { id: 'tingkat', label: tr('umkm', 'stats.tingkatLabel', 'Tingkat lestari'), value: tr('umkm', 'stats.tingkatValue', 'Tunas'), hint: tr('umkm', 'stats.tingkatHint', 'Fase 1') },
+        { id: 'produk', label: tr('umkm', 'stats.produkLabel', 'Produk aktif'), value: 0, hint: tr('umkm', 'stats.produkHint', 'Fase 1'), href: href(d, 'saya/umkm/produk') },
+        { id: 'tingkat', label: tr('umkm', 'stats.tingkatLabel', 'Tingkat lestari'), value: tr('umkm', 'stats.tingkatValue', 'Tunas'), hint: tr('umkm', 'stats.tingkatHint', 'Fase 1'), href: href(d, 'naik-kelas') },
+        { id: 'pesanan', label: tr('umkm', 'stats.pesananLabel', 'Pesanan aktif'), value: 0, hint: tr('umkm', 'stats.pesananHint', 'Fase 2'), href: href(d, 'kelola/pesanan') },
+        { id: 'pendapatan', label: tr('umkm', 'stats.pendapatanLabel', 'Pendapatan'), value: '—', hint: tr('umkm', 'stats.pendapatanHint', 'Escrow F2'), href: href(d, 'kelola/pendapatan') },
       ],
       aksiCepat: [
-        { id: 'pasar', label: tr('umkm', 'aksi.pasar', 'Buka Pasar Desa'), href: href(d, 'pasar'), primary: true },
-        { id: 'produk', label: tr('umkm', 'aksi.produk', 'Tambah produk'), href: href(d, 'saya/umkm/produk'), segera: false },
-        { id: 'layanan', label: tr('umkm', 'aksi.layanan', 'Tambah layanan'), href: href(d, 'saya/umkm/layanan'), segera: false },
-        { id: 'kartu', label: tr('umkm', 'aksi.kartu', 'Kartu aksi'), href: href(d, 'naik-kelas'), segera: false },
-        { id: 'naik', label: tr('umkm', 'aksi.naik', 'Naik kelas'), href: href(d, 'naik-kelas'), segera: false },
-        { id: 'promo', label: tr('umkm', 'aksi.promo', 'Buat promo'), href: href(d, 'saya/kupon-promo'), segera: false },
+        { id: 'pasar', label: tr('umkm', 'aksi.pasar', 'Buka Pasar Desa'), href: href(d, 'pasar'), primary: true, zona: 'katalog' },
+        { id: 'produk', label: tr('umkm', 'aksi.produk', 'Tambah produk'), href: href(d, 'saya/umkm/produk'), zona: 'katalog' },
+        { id: 'layanan', label: tr('umkm', 'aksi.layanan', 'Tambah layanan'), href: href(d, 'saya/umkm/layanan'), zona: 'katalog' },
+        { id: 'kartu', label: tr('umkm', 'aksi.kartu', 'Kartu aksi'), href: href(d, 'naik-kelas'), zona: 'katalog' },
+        { id: 'pesanan', label: tr('umkm', 'aksi.pesanan', 'Kelola pesanan'), href: href(d, 'kelola/pesanan'), zona: 'operasional' },
+        { id: 'pendapatan', label: tr('umkm', 'aksi.pendapatan', 'Lihat pendapatan'), href: href(d, 'kelola/pendapatan'), zona: 'operasional' },
+        { id: 'promo', label: tr('umkm', 'aksi.promo', 'Buat promo'), href: href(d, 'saya/kupon-promo'), zona: 'katalog' },
       ],
       modulTerkait: [
         { label: tr('umkm', 'modul.pasar', 'Pasar Desa'), href: href(d, 'pasar') },
@@ -120,6 +133,7 @@ export function konfigDasborPeran(
           description: tr('umkm', 'widgets.produkDesc', 'Katalog Pasar Desa milik UMKM Anda.'),
           fase: '1',
           href: href(d, 'saya/umkm/produk'),
+          zona: 'katalog',
         },
         {
           id: 'layanan',
@@ -127,13 +141,7 @@ export function konfigDasborPeran(
           description: tr('umkm', 'widgets.layananDesc', 'Transportasi, pemandu, sewa alat — milik UMKM Anda di etalase desa.'),
           fase: '0',
           href: href(d, 'saya/umkm/layanan'),
-        },
-        {
-          id: 'pesanan',
-          title: tr('umkm', 'widgets.pesananTitle', 'Pesanan masuk'),
-          description: tr('umkm', 'widgets.pesananDesc', 'Booking manual thin-F2 dari wisatawan.'),
-          fase: '2',
-          href: href(d, 'kelola/pesanan'),
+          zona: 'katalog',
         },
         {
           id: 'naik-kelas',
@@ -141,6 +149,7 @@ export function konfigDasborPeran(
           description: tr('umkm', 'widgets.naikKelasDesc', 'Kartu aksi dan progres tingkat Tunas → Lumba-Lumba.'),
           fase: '1',
           href: href(d, 'naik-kelas'),
+          zona: 'katalog',
         },
         {
           id: 'verifikasi',
@@ -148,6 +157,23 @@ export function konfigDasborPeran(
           description: tr('umkm', 'widgets.verifikasiDesc', 'Profil UMKM dan legitimasi penyedia lokal.'),
           fase: '0',
           href: href(d, 'pasar'),
+          zona: 'katalog',
+        },
+        {
+          id: 'pesanan',
+          title: tr('umkm', 'widgets.pesananTitle', 'Pesanan masuk'),
+          description: tr('umkm', 'widgets.pesananDesc', 'Booking manual thin-F2 dari wisatawan.'),
+          fase: '2',
+          href: href(d, 'kelola/pesanan'),
+          zona: 'operasional',
+        },
+        {
+          id: 'pendapatan',
+          title: tr('umkm', 'widgets.pendapatanTitle', 'Pendapatan & escrow'),
+          description: tr('umkm', 'widgets.pendapatanDesc', 'Transaksi, fee platform, dan pencairan neto penyedia.'),
+          fase: '2',
+          href: href(d, 'kelola/pendapatan'),
+          zona: 'operasional',
         },
         {
           id: 'performa',
@@ -155,6 +181,7 @@ export function konfigDasborPeran(
           description: tr('umkm', 'widgets.performaDesc', 'Metrik penjualan dan dampak lestari.'),
           fase: '3',
           placeholder: true,
+          zona: 'operasional',
         },
       ],
     },
@@ -165,22 +192,28 @@ export function konfigDasborPeran(
       fase: 'F1–F2',
       nav: [
         { id: 'ringkasan', label: tr('agen', 'nav.ringkasan', 'Ringkasan'), segment: '' },
-        { id: 'paket', label: tr('agen', 'nav.paket', 'Paket saya'), segment: '/paket' },
-        { id: 'layanan', label: tr('agen', 'nav.layanan', 'Layanan wisata'), segment: '/layanan', segera: false },
-        { id: 'jadwal', label: tr('agen', 'nav.jadwal', 'Kuota & jadwal'), segment: '/jadwal', href: href(d, 'kelola/slot') },
-        { id: 'booking', label: tr('agen', 'nav.booking', 'Booking masuk'), segment: '/booking', href: href(d, 'kelola/checkin') },
+        { id: 'paket', label: tr('agen', 'nav.paket', 'Paket saya'), segment: '/paket', zona: 'katalog' },
+        { id: 'layanan', label: tr('agen', 'nav.layanan', 'Layanan wisata'), segment: '/layanan', zona: 'katalog' },
+        { id: 'sertifikasi', label: tr('agen', 'nav.sertifikasi', 'Naik Kelas Lestari'), segment: '/sertifikasi', href: href(d, 'naik-kelas'), zona: 'katalog' },
+        { id: 'jadwal', label: tr('agen', 'nav.jadwal', 'Kuota & jadwal'), segment: '/jadwal', href: href(d, 'kelola/slot'), zona: 'operasional' },
+        { id: 'booking', label: tr('agen', 'nav.booking', 'Check-in'), segment: '/booking', href: href(d, 'kelola/checkin'), zona: 'operasional' },
+        { id: 'pesanan', label: tr('agen', 'nav.pesanan', 'Pesanan'), segment: '/pesanan', href: href(d, 'kelola/pesanan'), zona: 'operasional' },
+        { id: 'pendapatan', label: tr('agen', 'nav.pendapatan', 'Pendapatan'), segment: '/pendapatan', href: href(d, 'kelola/pendapatan'), zona: 'operasional' },
       ],
       stats: [
-        { id: 'paket', label: tr('agen', 'stats.paketLabel', 'Paket publik'), value: 0 },
-        { id: 'draft', label: tr('agen', 'stats.draftLabel', 'Dalam review'), value: 0 },
-        { id: 'kuota', label: tr('agen', 'stats.kuotaLabel', 'Kuota terisi'), value: '—', hint: tr('agen', 'stats.kuotaHint', 'Fase 2') },
-        { id: 'pendapatan', label: tr('agen', 'stats.pendapatanLabel', 'Pendapatan'), value: '—', hint: tr('agen', 'stats.pendapatanHint', 'Fase 2') },
+        { id: 'paket', label: tr('agen', 'stats.paketLabel', 'Paket publik'), value: 0, href: href(d, 'saya/paket') },
+        { id: 'draft', label: tr('agen', 'stats.draftLabel', 'Dalam review'), value: 0, href: href(d, 'saya/paket') },
+        { id: 'pesanan', label: tr('agen', 'stats.pesananLabel', 'Pesanan aktif'), value: 0, hint: tr('agen', 'stats.pesananHint', 'Fase 2'), href: href(d, 'kelola/pesanan') },
+        { id: 'pendapatan', label: tr('agen', 'stats.pendapatanLabel', 'Pendapatan'), value: '—', hint: tr('agen', 'stats.pendapatanHint', 'Escrow F2'), href: href(d, 'kelola/pendapatan') },
       ],
       aksiCepat: [
-        { id: 'buat', label: tr('agen', 'aksi.buat', 'Buat paket baru'), href: href(d, 'saya/paket'), primary: true, segera: false },
-        { id: 'layanan', label: tr('agen', 'aksi.layanan', 'Tambah layanan'), href: href(d, 'saya/agen/layanan'), segera: false },
-        { id: 'agen', label: tr('agen', 'aksi.profil', 'Profil agen'), href: href(d, 'agen'), segera: true },
-        { id: 'kalender', label: tr('agen', 'aksi.kalender', 'Kalender aktivitas'), href: href(d, 'kalender') },
+        { id: 'buat', label: tr('agen', 'aksi.buat', 'Buat paket baru'), href: href(d, 'saya/paket'), primary: true, zona: 'katalog' },
+        { id: 'layanan', label: tr('agen', 'aksi.layanan', 'Tambah layanan'), href: href(d, 'saya/agen/layanan'), zona: 'katalog' },
+        { id: 'naik', label: tr('agen', 'aksi.naik', 'Naik kelas'), href: href(d, 'naik-kelas'), zona: 'katalog' },
+        { id: 'jadwal', label: tr('agen', 'aksi.jadwal', 'Atur slot'), href: href(d, 'kelola/slot'), zona: 'operasional' },
+        { id: 'checkin', label: tr('agen', 'aksi.checkin', 'Check-in tamu'), href: href(d, 'kelola/checkin'), zona: 'operasional' },
+        { id: 'pesanan', label: tr('agen', 'aksi.pesanan', 'Kelola pesanan'), href: href(d, 'kelola/pesanan'), zona: 'operasional' },
+        { id: 'pendapatan', label: tr('agen', 'aksi.pendapatan', 'Lihat pendapatan'), href: href(d, 'kelola/pendapatan'), zona: 'operasional' },
       ],
       modulTerkait: [
         { label: tr('agen', 'modul.paket', 'Paket wisata'), href: href(d, 'paket') },
@@ -198,6 +231,7 @@ export function konfigDasborPeran(
           description: tr('agen', 'widgets.paketDesc', 'State machine draft → review → publikasi.'),
           fase: '1',
           href: href(d, 'saya/paket'),
+          zona: 'katalog',
         },
         {
           id: 'layanan',
@@ -205,6 +239,15 @@ export function konfigDasborPeran(
           description: tr('agen', 'widgets.layananDesc', 'Transportasi, pemandu, dan layanan pendukung paket — milik akun agen Anda.'),
           fase: '0',
           href: href(d, 'saya/agen/layanan'),
+          zona: 'katalog',
+        },
+        {
+          id: 'sertifikasi',
+          title: tr('agen', 'widgets.sertifikasiTitle', 'Naik Kelas Lestari'),
+          description: tr('agen', 'widgets.sertifikasiDesc', 'Tingkat lestari agen lokal.'),
+          fase: '1',
+          href: href(d, 'naik-kelas'),
+          zona: 'katalog',
         },
         {
           id: 'jadwal',
@@ -212,20 +255,31 @@ export function konfigDasborPeran(
           description: tr('agen', 'widgets.jadwalDesc', 'Atur slot dan kapasitas paket.'),
           fase: '1',
           href: href(d, 'kelola/slot'),
+          zona: 'operasional',
         },
         {
           id: 'booking',
-          title: tr('agen', 'widgets.bookingTitle', 'Pesanan paket'),
-          description: tr('agen', 'widgets.bookingDesc', 'Booking masuk dari wisatawan.'),
+          title: tr('agen', 'widgets.bookingTitle', 'Check-in tamu'),
+          description: tr('agen', 'widgets.bookingDesc', 'Validasi kode check-in dari wisatawan.'),
           fase: '2',
           href: href(d, 'kelola/checkin'),
+          zona: 'operasional',
         },
         {
-          id: 'sertifikasi',
-          title: tr('agen', 'widgets.sertifikasiTitle', 'Progres sertifikasi'),
-          description: tr('agen', 'widgets.sertifikasiDesc', 'Tingkat lestari agen lokal.'),
-          fase: '1',
-          href: href(d, 'naik-kelas'),
+          id: 'pesanan',
+          title: tr('agen', 'widgets.pesananTitle', 'Pesanan paket'),
+          description: tr('agen', 'widgets.pesananDesc', 'Booking masuk dari wisatawan.'),
+          fase: '2',
+          href: href(d, 'kelola/pesanan'),
+          zona: 'operasional',
+        },
+        {
+          id: 'pendapatan',
+          title: tr('agen', 'widgets.pendapatanTitle', 'Pendapatan & escrow'),
+          description: tr('agen', 'widgets.pendapatanDesc', 'Transaksi, fee platform, dan pencairan neto agen.'),
+          fase: '2',
+          href: href(d, 'kelola/pendapatan'),
+          zona: 'operasional',
         },
       ],
     },
@@ -236,29 +290,27 @@ export function konfigDasborPeran(
       fase: 'F0–F3',
       nav: [
         { id: 'ringkasan', label: tr('kontributor', 'nav.ringkasan', 'Ringkasan'), segment: '' },
-        { id: 'kontribusi', label: tr('kontributor', 'nav.kontribusi', 'Kontribusi saya'), segment: '/kontribusi' },
-        { id: 'lencana', label: tr('kontributor', 'nav.lencana', 'Lencana'), segment: '/lencana' },
-        { id: 'leaderboard', label: tr('kontributor', 'nav.leaderboard', 'Leaderboard'), segment: '/leaderboard' },
-        { id: 'destinasi', label: tr('kontributor', 'nav.destinasi', 'Destinasi'), segment: '/destinasi', href: href(d, 'kelola/destinasi') },
-        { id: 'kurasi', label: tr('kontributor', 'nav.kurasi', 'Antrian kurasi'), segment: '/kurasi', href: href(d, 'kelola/kurasi') },
-        { id: 'keanggotaan', label: tr('kontributor', 'nav.keanggotaan', 'Keanggotaan'), segment: '/keanggotaan', href: href(d, 'kelola/keanggotaan') },
-        { id: 'dana', label: tr('kontributor', 'nav.dana', 'Dana konservasi'), segment: '/dana', href: href(d, 'lestari/dana/catat') },
+        { id: 'kontribusi', label: tr('kontributor', 'nav.kontribusi', 'Kontribusi saya'), segment: '/kontribusi', zona: 'saya' },
+        { id: 'lencana', label: tr('kontributor', 'nav.lencana', 'Lencana'), segment: '/lencana', zona: 'saya' },
+        { id: 'leaderboard', label: tr('kontributor', 'nav.leaderboard', 'Leaderboard'), segment: '/leaderboard', zona: 'saya' },
+        { id: 'destinasi', label: tr('kontributor', 'nav.destinasi', 'Destinasi'), segment: '/destinasi', href: href(d, 'kelola/destinasi'), zona: 'kelola' },
+        { id: 'kurasi', label: tr('kontributor', 'nav.kurasi', 'Antrian kurasi'), segment: '/kurasi', href: href(d, 'kelola/kurasi'), zona: 'kelola' },
+        { id: 'keanggotaan', label: tr('kontributor', 'nav.keanggotaan', 'Keanggotaan'), segment: '/keanggotaan', href: href(d, 'kelola/keanggotaan'), zona: 'kelola' },
+        { id: 'kelola', label: tr('kontributor', 'nav.kelola', 'Konsol kelola'), segment: '/operasional', href: href(d, 'kelola'), zona: 'kelola' },
       ],
       stats: [
-        { id: 'total', label: tr('kontributor', 'stats.totalLabel', 'Kontribusi'), value: 0 },
-        { id: 'diterima', label: tr('kontributor', 'stats.diterimaLabel', 'Diterima'), value: 0 },
-        { id: 'publik', label: tr('kontributor', 'stats.publikLabel', 'Destinasi publik'), value: '—' },
-        { id: 'kontrib', label: tr('kontributor', 'stats.kontribLabel', 'Kontribusi menunggu'), value: '—', hint: tr('kontributor', 'stats.kontribHint', 'Antrian kurasi'), fase: '1' },
+        { id: 'total', label: tr('kontributor', 'stats.totalLabel', 'Kontribusi'), value: 0, href: href(d, 'kontribusi') },
+        { id: 'diterima', label: tr('kontributor', 'stats.diterimaLabel', 'Diterima'), value: 0, href: href(d, 'kontribusi') },
+        { id: 'publik', label: tr('kontributor', 'stats.publikLabel', 'Destinasi publik'), value: '—', href: href(d, 'kelola/destinasi') },
+        { id: 'kontrib', label: tr('kontributor', 'stats.kontribLabel', 'Antrian kurasi'), value: '—', hint: tr('kontributor', 'stats.kontribHint', 'Menunggu'), href: href(d, 'kelola/kurasi'), fase: '1' },
       ],
       aksiCepat: [
-        { id: 'baru', label: tr('kontributor', 'aksi.baru', 'Kontribusi baru'), href: href(d, 'kontribusi'), primary: true, segera: false },
-        { id: 'kelola', label: tr('kontributor', 'aksi.kelola', 'Kelola destinasi'), href: href(d, 'kelola/destinasi') },
-        { id: 'keanggotaan', label: tr('kontributor', 'aksi.keanggotaan', 'Persetujuan keanggotaan'), href: href(d, 'kelola/keanggotaan') },
-        { id: 'validasi', label: tr('kontributor', 'aksi.validasi', 'Validasi kartu'), href: href(d, 'kelola/validasi-kartu') },
-        { id: 'kurasi', label: tr('kontributor', 'aksi.kurasi', 'Kurasi konten'), href: href(d, 'kelola/kurasi') },
-        { id: 'bendahara', label: tr('kontributor', 'aksi.bendahara', 'Panel bendahara'), href: href(d, 'kelola/bendahara') },
-        { id: 'lencana', label: tr('kontributor', 'aksi.lencana', 'Lihat lencana'), href: href(d, 'saya/lencana'), segera: false },
-        { id: 'board', label: tr('kontributor', 'aksi.board', 'Leaderboard'), href: href(d, 'leaderboard'), segera: false },
+        { id: 'baru', label: tr('kontributor', 'aksi.baru', 'Kontribusi baru'), href: href(d, 'kontribusi'), primary: true, zona: 'saya' },
+        { id: 'lencana', label: tr('kontributor', 'aksi.lencana', 'Lihat lencana'), href: href(d, 'saya/lencana'), zona: 'saya' },
+        { id: 'board', label: tr('kontributor', 'aksi.board', 'Leaderboard'), href: href(d, 'leaderboard'), zona: 'saya' },
+        { id: 'kurasi', label: tr('kontributor', 'aksi.kurasi', 'Kurasi konten'), href: href(d, 'kelola/kurasi'), zona: 'kelola' },
+        { id: 'keanggotaan', label: tr('kontributor', 'aksi.keanggotaan', 'Persetujuan keanggotaan'), href: href(d, 'kelola/keanggotaan'), zona: 'kelola' },
+        { id: 'kelola', label: tr('kontributor', 'aksi.konsol', 'Buka konsol kelola'), href: href(d, 'kelola'), zona: 'kelola' },
       ],
       modulTerkait: [
         { label: tr('kontributor', 'modul.kontribusi', 'Kontribusi'), href: href(d, 'kontribusi') },
@@ -278,6 +330,7 @@ export function konfigDasborPeran(
           description: tr('kontributor', 'widgets.kontribDesc', 'Foto, tips, koreksi — dengan status kurasi.'),
           fase: '1',
           href: href(d, 'kontribusi'),
+          zona: 'saya',
         },
         {
           id: 'poin',
@@ -285,6 +338,7 @@ export function konfigDasborPeran(
           description: tr('kontributor', 'widgets.poinDesc', 'Gamifikasi kontribusi komunitas.'),
           fase: '1',
           href: href(d, 'saya/lencana'),
+          zona: 'saya',
         },
         {
           id: 'leaderboard',
@@ -292,6 +346,7 @@ export function konfigDasborPeran(
           description: tr('kontributor', 'widgets.leaderboardDesc', 'Peringkat kontributor aktif di desa.'),
           fase: '1',
           href: href(d, 'leaderboard'),
+          zona: 'saya',
         },
         {
           id: 'destinasi',
@@ -299,6 +354,7 @@ export function konfigDasborPeran(
           description: tr('kontributor', 'widgets.destinasiDesc', 'Spot, layanan, kalender aktivitas — modul F0 aktif.'),
           fase: '0',
           href: href(d, 'kelola/destinasi'),
+          zona: 'kelola',
         },
         {
           id: 'kurasi',
@@ -306,27 +362,7 @@ export function konfigDasborPeran(
           description: tr('kontributor', 'widgets.kurasiDesc', 'Antrian kurasi kontribusi wisatawan dan paket agen.'),
           fase: '1',
           href: href(d, 'kelola/kurasi'),
-        },
-        {
-          id: 'naik-kelas',
-          title: tr('kontributor', 'widgets.naikKelasTitle', 'Validasi Naik Kelas'),
-          description: tr('kontributor', 'widgets.naikKelasDesc', 'Setujui kartu aksi dan tingkat sertifikasi UMKM.'),
-          fase: '1',
-          href: href(d, 'kelola/validasi-kartu'),
-        },
-        {
-          id: 'kelola-misi',
-          title: tr('kontributor', 'widgets.misiKelolaTitle', 'Kelola misi lestari'),
-          description: tr('kontributor', 'widgets.misiKelolaDesc', 'Buat dan edit misi belajar/aksi Penjelajah Lestari.'),
-          fase: '2',
-          href: href(d, 'kelola/misi'),
-        },
-        {
-          id: 'stasiun',
-          title: tr('kontributor', 'widgets.stasiunTitle', 'Stasiun QR'),
-          description: tr('kontributor', 'widgets.stasiunDesc', 'Titik check-in geofence dan token QR stasiun.'),
-          fase: '2',
-          href: href(d, 'kelola/stasiun'),
+          zona: 'kelola',
         },
         {
           id: 'keanggotaan',
@@ -334,34 +370,58 @@ export function konfigDasborPeran(
           description: tr('kontributor', 'widgets.keanggotaanDesc', 'Aktivasi peran baru di desa.'),
           fase: '0',
           href: href(d, 'kelola/keanggotaan'),
+          zona: 'kelola',
+        },
+        {
+          id: 'naik-kelas',
+          title: tr('kontributor', 'widgets.naikKelasTitle', 'Validasi Naik Kelas'),
+          description: tr('kontributor', 'widgets.naikKelasDesc', 'Setujui kartu aksi dan tingkat sertifikasi UMKM.'),
+          fase: '1',
+          href: href(d, 'kelola/validasi-kartu'),
+          zona: 'kelola',
         },
       ],
     },
     organisasi: {
       kode: 'organisasi',
       tagline: tr('organisasi', 'tagline', 'Mitra konservasi & riset'),
-      deskripsi: tr('organisasi', 'deskripsi', 'Program konservasi, data ekologi, dan sponsor reinvestment bersama Organisasi.'),
+      deskripsi: tr(
+        'organisasi',
+        'deskripsi',
+        'Program konservasi lintas program, data ekologi terverifikasi, dan jejak dampak lestari — bukan operasional harian desa.',
+      ),
       fase: 'F1–F3',
       nav: [
         { id: 'ringkasan', label: tr('organisasi', 'nav.ringkasan', 'Ringkasan'), segment: '' },
-        { id: 'program', label: tr('organisasi', 'nav.program', 'Program'), segment: '/program', segera: true },
-        { id: 'ekologi', label: tr('organisasi', 'nav.ekologi', 'Data ekologi'), segment: '/ekologi', segera: true },
-        { id: 'sponsor', label: tr('organisasi', 'nav.sponsor', 'Sponsor'), segment: '/sponsor', segera: true },
+        { id: 'monitoring', label: tr('organisasi', 'nav.monitoring', 'Monitoring'), segment: '/monitoring', href: href(d, 'lestari/monitoring'), zona: 'lapangan' },
+        { id: 'ekologi', label: tr('organisasi', 'nav.ekologi', 'Catat data'), segment: '/ekologi', href: href(d, 'lestari/monitoring/catat'), zona: 'lapangan' },
+        { id: 'verifikasi', label: tr('organisasi', 'nav.verifikasi', 'Verifikasi data'), segment: '/verifikasi', href: href(d, 'kelola/verifikasi-monitoring'), zona: 'lapangan' },
+        { id: 'dana', label: tr('organisasi', 'nav.dana', 'Dana konservasi'), segment: '/dana', href: href(d, 'lestari/dana'), zona: 'program' },
+        { id: 'neraca', label: tr('organisasi', 'nav.neraca', 'Neraca lestari'), segment: '/neraca', href: href(d, 'lestari/neraca'), zona: 'program' },
+        { id: 'laporan', label: tr('organisasi', 'nav.laporan', 'Laporan desa'), segment: '/laporan', href: href(d, 'data/laporan'), zona: 'program' },
+        { id: 'program', label: tr('organisasi', 'nav.program', 'Program mitra'), segment: '/program', segera: true, zona: 'program' },
       ],
       stats: [
-        { id: 'program', label: tr('organisasi', 'stats.programLabel', 'Program aktif'), value: 0 },
-        { id: 'indikator', label: tr('organisasi', 'stats.indikatorLabel', 'Indikator terpantau'), value: '—', hint: tr('organisasi', 'stats.indikatorHint', 'Fase 3') },
-        { id: 'sponsor', label: tr('organisasi', 'stats.sponsorLabel', 'Dana disponsori'), value: '—' },
-        { id: 'laporan', label: tr('organisasi', 'stats.laporanLabel', 'Laporan'), value: 0 },
+        { id: 'monitoring', label: tr('organisasi', 'stats.monitoringLabel', 'Pembacaan'), value: 0, href: href(d, 'lestari/monitoring') },
+        { id: 'indikator', label: tr('organisasi', 'stats.indikatorLabel', 'Indikator'), value: 0, hint: tr('organisasi', 'stats.indikatorHint', 'Fase 3'), href: href(d, 'lestari/monitoring') },
+        { id: 'verifikasi', label: tr('organisasi', 'stats.verifikasiLabel', 'Menunggu verifikasi'), value: 0, href: href(d, 'kelola/verifikasi-monitoring') },
+        { id: 'neraca', label: tr('organisasi', 'stats.neracaLabel', 'Periode neraca'), value: 0, href: href(d, 'lestari/neraca') },
+        { id: 'dana', label: tr('organisasi', 'stats.danaLabel', 'Saldo dana'), value: '—', href: href(d, 'lestari/dana') },
+        { id: 'laporan', label: tr('organisasi', 'stats.laporanLabel', 'Laporan'), value: 0, href: href(d, 'data/laporan') },
       ],
       aksiCepat: [
-        { id: 'monitor', label: tr('organisasi', 'aksi.monitor', 'Monitoring ekologi'), href: href(d, 'lestari/monitoring/catat'), primary: true },
-        { id: 'dana', label: tr('organisasi', 'aksi.dana', 'Dana konservasi'), href: href(d, 'lestari/dana') },
-        { id: 'neraca', label: tr('organisasi', 'aksi.neraca', 'Neraca lestari'), href: href(d, 'lestari/neraca') },
+        { id: 'monitor', label: tr('organisasi', 'aksi.monitor', 'Catat monitoring'), href: href(d, 'lestari/monitoring/catat'), primary: true, zona: 'lapangan' },
+        { id: 'verifikasi', label: tr('organisasi', 'aksi.verifikasi', 'Verifikasi data'), href: href(d, 'kelola/verifikasi-monitoring'), zona: 'lapangan' },
+        { id: 'dana', label: tr('organisasi', 'aksi.dana', 'Dana konservasi'), href: href(d, 'lestari/dana'), zona: 'program' },
+        { id: 'neraca', label: tr('organisasi', 'aksi.neraca', 'Neraca lestari'), href: href(d, 'lestari/neraca'), zona: 'program' },
+        { id: 'laporan', label: tr('organisasi', 'aksi.laporan', 'Laporan bulanan'), href: href(d, 'data/laporan'), zona: 'program' },
+        { id: 'data', label: tr('organisasi', 'aksi.data', 'Anjungan data'), href: href(d, 'data'), zona: 'program' },
       ],
       modulTerkait: [
         { label: tr('organisasi', 'modul.monitoring', 'Monitoring Ekologi'), href: href(d, 'lestari/monitoring') },
         { label: tr('organisasi', 'modul.jejak', 'Jejak Lestari'), href: href(d, 'lestari/neraca') },
+        { label: tr('organisasi', 'modul.laporan', 'Laporan desa'), href: href(d, 'data/laporan') },
+        { label: tr('organisasi', 'modul.dana', 'Dana konservasi'), href: href(d, 'lestari/dana') },
       ],
       aktivitasContoh: [
         tr('organisasi', 'aktivitas.a1', 'Mengunggah data indeks karang Q2'),
@@ -369,59 +429,93 @@ export function konfigDasborPeran(
       ],
       widgets: [
         {
+          id: 'monitoring',
+          title: tr('organisasi', 'widgets.monitoringTitle', 'Monitoring ekologi'),
+          description: tr('organisasi', 'widgets.monitoringDesc', 'Pembacaan lapangan dengan alur verifikasi pekon.'),
+          fase: '3',
+          href: href(d, 'lestari/monitoring'),
+          zona: 'lapangan',
+        },
+        {
+          id: 'indikator',
+          title: tr('organisasi', 'widgets.indikatorTitle', 'Indikator ekologi'),
+          description: tr('organisasi', 'widgets.indikatorDesc', 'Katalog indeks karang, mangrove, dan biodiversitas desa.'),
+          fase: '3',
+          href: href(d, 'lestari/monitoring/catat'),
+          zona: 'lapangan',
+        },
+        {
+          id: 'verifikasi',
+          title: tr('organisasi', 'widgets.verifikasiTitle', 'Antrian verifikasi'),
+          description: tr('organisasi', 'widgets.verifikasiDesc', 'Legitimasi data lapangan sebelum masuk neraca.'),
+          fase: '3',
+          href: href(d, 'kelola/verifikasi-monitoring'),
+          zona: 'lapangan',
+        },
+        {
+          id: 'neraca',
+          title: tr('organisasi', 'widgets.neracaTitle', 'Neraca lestari'),
+          description: tr('organisasi', 'widgets.neracaDesc', 'Skor ekologi, sosial, ekonomi per periode.'),
+          fase: '3',
+          href: href(d, 'lestari/neraca'),
+          zona: 'program',
+        },
+        {
+          id: 'dana',
+          title: tr('organisasi', 'widgets.danaTitle', 'Dana konservasi'),
+          description: tr('organisasi', 'widgets.danaDesc', 'Aliran masuk/keluar dan saldo program lestari.'),
+          fase: '3',
+          href: href(d, 'lestari/dana'),
+          zona: 'program',
+        },
+        {
+          id: 'laporan',
+          title: tr('organisasi', 'widgets.laporanTitle', 'Laporan dampak'),
+          description: tr('organisasi', 'widgets.laporanDesc', 'Ringkasan bulanan kinerja wisata & lestari.'),
+          fase: '3',
+          href: href(d, 'data/laporan'),
+          zona: 'program',
+        },
+        {
           id: 'program',
-          title: tr('organisasi', 'widgets.programTitle', 'Program konservasi'),
-          description: tr('organisasi', 'widgets.programDesc', 'Kolaborasi riset dan aksi lapangan bersama Organisasi.'),
+          title: tr('organisasi', 'widgets.programTitle', 'Program mitra'),
+          description: tr('organisasi', 'widgets.programDesc', 'Kolaborasi riset dan sponsor lintas program.'),
           fase: '3',
+          segera: true,
           placeholder: true,
-        },
-        {
-          id: 'ekologi',
-          title: tr('organisasi', 'widgets.ekologiTitle', 'Data ekologi'),
-          description: tr('organisasi', 'widgets.ekologiDesc', 'Monitoring indeks karang, mangrove, dan biodiversitas.'),
-          fase: '3',
-          placeholder: true,
-        },
-        {
-          id: 'sponsor',
-          title: tr('organisasi', 'widgets.sponsorTitle', 'Sponsor & reinvestment'),
-          description: tr('organisasi', 'widgets.sponsorDesc', 'Alokasi dana mitra ke program lestari.'),
-          fase: '3',
-          placeholder: true,
-        },
-        {
-          id: 'kontak',
-          title: tr('organisasi', 'widgets.kontakTitle', 'Kanal kolaborasi'),
-          description: tr('organisasi', 'widgets.kontakDesc', 'Profil mitra dan kontak kerja sama desa.'),
-          fase: '0',
-          href: href(d, 'tentang'),
+          zona: 'program',
         },
       ],
     },
     perangkat_desa: {
       kode: 'perangkat_desa',
       tagline: tr('perangkat_desa', 'tagline', 'Tata kelola & legitimasi'),
-      deskripsi: tr('perangkat_desa', 'deskripsi', 'Verifikasi keanggotaan, legitimasi kebijakan desa, dan transparansi dana untuk pekon.'),
+      deskripsi: tr(
+        'perangkat_desa',
+        'deskripsi',
+        'Legitimasi pekon: verifikasi keanggotaan, kebijakan desa, dan transparansi dana lestari.',
+      ),
       fase: 'F0–F3',
       nav: [
         { id: 'ringkasan', label: tr('perangkat_desa', 'nav.ringkasan', 'Ringkasan'), segment: '' },
-        { id: 'verifikasi', label: tr('perangkat_desa', 'nav.verifikasi', 'Verifikasi'), segment: '/verifikasi', href: href(d, 'kelola/keanggotaan') },
-        { id: 'kebijakan', label: tr('perangkat_desa', 'nav.kebijakan', 'Kebijakan'), segment: '/kebijakan', segera: true },
-        { id: 'transparansi', label: tr('perangkat_desa', 'nav.transparansi', 'Transparansi'), segment: '/transparansi', segera: true },
-        { id: 'kelola', label: tr('perangkat_desa', 'nav.kelola', 'Kelola operasional'), segment: '/operasional' },
+        { id: 'verifikasi', label: tr('perangkat_desa', 'nav.verifikasi', 'Verifikasi keanggotaan'), segment: '/verifikasi', href: href(d, 'kelola/keanggotaan') },
+        { id: 'validasi', label: tr('perangkat_desa', 'nav.validasi', 'Validasi kartu'), segment: '/validasi', href: href(d, 'kelola/validasi-kartu') },
+        { id: 'transparansi', label: tr('perangkat_desa', 'nav.transparansi', 'Transparansi dana'), segment: '/transparansi', href: href(d, 'lestari/dana') },
+        { id: 'data', label: tr('perangkat_desa', 'nav.data', 'Anjungan data'), segment: '/data', href: href(d, 'data') },
+        { id: 'kelola', label: tr('perangkat_desa', 'nav.kelola', 'Konsol kelola'), segment: '/operasional', href: href(d, 'kelola') },
       ],
       stats: [
-        { id: 'anggota', label: tr('perangkat_desa', 'stats.anggotaLabel', 'Keanggotaan pending'), value: '—' },
-        { id: 'verif', label: tr('perangkat_desa', 'stats.verifLabel', 'Verifikasi bulan ini'), value: 0 },
-        { id: 'dana', label: tr('perangkat_desa', 'stats.danaLabel', 'Dana konservasi'), value: '—', hint: tr('perangkat_desa', 'stats.danaHint', 'Fase 3') },
-        { id: 'spot', label: tr('perangkat_desa', 'stats.spotLabel', 'Spot aktif'), value: '—' },
+        { id: 'anggota', label: tr('perangkat_desa', 'stats.anggotaLabel', 'Keanggotaan pending'), value: '—', href: href(d, 'kelola/keanggotaan') },
+        { id: 'kontrib', label: tr('perangkat_desa', 'stats.kurasiLabel', 'Antrian kurasi'), value: '—', href: href(d, 'kelola/kurasi') },
+        { id: 'spot', label: tr('perangkat_desa', 'stats.spotLabel', 'Spot aktif'), value: '—', href: href(d, 'kelola/destinasi') },
+        { id: 'dana', label: tr('perangkat_desa', 'stats.danaLabel', 'Dana konservasi'), value: '—', hint: tr('perangkat_desa', 'stats.danaHint', 'Fase 3'), href: href(d, 'lestari/dana') },
       ],
       aksiCepat: [
-        { id: 'kelola', label: tr('perangkat_desa', 'aksi.kelola', 'Dashboard kelola'), href: href(d, 'kelola'), primary: true },
+        { id: 'keanggotaan', label: tr('perangkat_desa', 'aksi.keanggotaan', 'Persetujuan keanggotaan'), href: href(d, 'kelola/keanggotaan'), primary: true },
+        { id: 'validasi', label: tr('perangkat_desa', 'aksi.validasi', 'Validasi kartu lestari'), href: href(d, 'kelola/validasi-kartu') },
         { id: 'dana', label: tr('perangkat_desa', 'aksi.dana', 'Laporan dana'), href: href(d, 'lestari/dana') },
-        { id: 'daya', label: tr('perangkat_desa', 'aksi.daya', 'Daya dukung'), href: href(d, 'lestari/daya-dukung') },
         { id: 'data', label: tr('perangkat_desa', 'aksi.data', 'Anjungan data'), href: href(d, 'data') },
-        { id: 'profil', label: tr('perangkat_desa', 'aksi.profil', 'Profil desa'), href: href(d, 'tentang') },
+        { id: 'kelola', label: tr('perangkat_desa', 'aksi.kelola', 'Konsol kelola'), href: href(d, 'kelola') },
       ],
       modulTerkait: [
         { label: tr('perangkat_desa', 'modul.kelola', 'Kelola desa'), href: href(d, 'kelola') },
@@ -441,39 +535,32 @@ export function konfigDasborPeran(
           href: href(d, 'kelola/keanggotaan'),
         },
         {
-          id: 'umkm',
-          title: tr('perangkat_desa', 'widgets.umkmTitle', 'Verifikasi UMKM'),
-          description: tr('perangkat_desa', 'widgets.umkmDesc', 'Legitimasi profil UMKM sebelum publikasi di Pasar Desa.'),
+          id: 'validasi',
+          title: tr('perangkat_desa', 'widgets.validasiTitle', 'Validasi kartu lestari'),
+          description: tr('perangkat_desa', 'widgets.validasiDesc', 'Setujui kartu aksi Naik Kelas dan sertifikasi UMKM.'),
           fase: '1',
-          href: href(d, 'kelola/umkm'),
-        },
-        {
-          id: 'kelola',
-          title: tr('perangkat_desa', 'widgets.kelolaTitle', 'Kelola operasional'),
-          description: tr('perangkat_desa', 'widgets.kelolaDesc', 'Dashboard pengelolaan desa dan kebijakan.'),
-          fase: '0',
-          href: href(d, 'kelola'),
+          href: href(d, 'kelola/validasi-kartu'),
         },
         {
           id: 'dana',
           title: tr('perangkat_desa', 'widgets.danaTitle', 'Transparansi dana'),
-          description: tr('perangkat_desa', 'widgets.danaDesc', 'Aliran dana konservasi desa.'),
+          description: tr('perangkat_desa', 'widgets.danaDesc', 'Aliran dana konservasi desa untuk akuntabilitas pekon.'),
           fase: '3',
-          placeholder: true,
+          href: href(d, 'lestari/dana'),
         },
         {
-          id: 'daya-dukung',
-          title: tr('perangkat_desa', 'widgets.dayaDukungTitle', 'Daya dukung spot'),
-          description: tr('perangkat_desa', 'widgets.dayaDukungDesc', 'Lampu hijau/kuning/merah per destinasi.'),
+          id: 'data',
+          title: tr('perangkat_desa', 'widgets.laporanTitle', 'Anjungan data'),
+          description: tr('perangkat_desa', 'widgets.laporanDesc', 'Ringkasan kinerja wisata dan laporan desa.'),
           fase: '3',
-          href: href(d, 'lestari/daya-dukung'),
+          href: href(d, 'data'),
         },
         {
-          id: 'laporan',
-          title: tr('perangkat_desa', 'widgets.laporanTitle', 'Laporan desa'),
-          description: tr('perangkat_desa', 'widgets.laporanDesc', 'Ringkasan kinerja wisata.'),
-          fase: '3',
-          href: href(d, 'data/laporan'),
+          id: 'kelola',
+          title: tr('perangkat_desa', 'widgets.kelolaTitle', 'Konsol kelola'),
+          description: tr('perangkat_desa', 'widgets.kelolaDesc', 'Pusat pengelolaan operasional desa.'),
+          fase: '0',
+          href: href(d, 'kelola'),
         },
       ],
     },

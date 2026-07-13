@@ -57,11 +57,53 @@ export default async function DasborSectionPage({ params }: Props) {
   if (section === 'sertifikasi') {
     redirect(`/${desa}/naik-kelas`)
   }
+  if (section === 'pesanan' && (kode === 'umkm' || kode === 'agen')) {
+    redirect(`/${desa}/kelola/pesanan`)
+  }
+  if (section === 'pendapatan' && (kode === 'umkm' || kode === 'agen')) {
+    redirect(`/${desa}/kelola/pendapatan`)
+  }
+  if (section === 'jadwal' && kode === 'agen') {
+    redirect(`/${desa}/kelola/slot`)
+  }
+  if (section === 'booking' && kode === 'agen') {
+    redirect(`/${desa}/kelola/checkin`)
+  }
+  if (section === 'monitoring' && kode === 'organisasi') {
+    redirect(`/${desa}/lestari/monitoring`)
+  }
+  if (section === 'ekologi' && kode === 'organisasi') {
+    redirect(`/${desa}/lestari/monitoring/catat`)
+  }
+  if (section === 'verifikasi' && kode === 'organisasi') {
+    redirect(`/${desa}/kelola/verifikasi-monitoring`)
+  }
+  if (section === 'dana' && kode === 'organisasi') {
+    redirect(`/${desa}/lestari/dana`)
+  }
+  if (section === 'neraca' && kode === 'organisasi') {
+    redirect(`/${desa}/lestari/neraca`)
+  }
+  if (section === 'laporan' && kode === 'organisasi') {
+    redirect(`/${desa}/data/laporan`)
+  }
   if (section === 'keanggotaan') {
     redirect(`/${desa}/kelola/keanggotaan`)
   }
   if (section === 'verifikasi' && kode === 'perangkat_desa') {
     redirect(`/${desa}/kelola/keanggotaan`)
+  }
+  if (section === 'validasi' && kode === 'perangkat_desa') {
+    redirect(`/${desa}/kelola/validasi-kartu`)
+  }
+  if (section === 'transparansi' && kode === 'perangkat_desa') {
+    redirect(`/${desa}/lestari/dana`)
+  }
+  if (section === 'data' && kode === 'perangkat_desa') {
+    redirect(`/${desa}/data`)
+  }
+  if (section === 'operasional' && kode === 'perangkat_desa') {
+    redirect(`/${desa}/kelola`)
   }
   if (section === 'umkm' && (kode === 'kontributor' || kode === 'perangkat_desa')) {
     redirect(`/${desa}/kelola/umkm`)
